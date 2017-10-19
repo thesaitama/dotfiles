@@ -1,7 +1,12 @@
 # thesaitama@ .bash_profile
 
-source ~/.bashrc
-source ~/.bash_private
+if [ -f ~/.bashrc ] ; then
+. ~/.bashrc
+fi
+
+if [ -f ~/.bash_private ] ; then
+. ~/.bash_private
+fi
 
 test -r /sw/bin/init.sh && . /sw/bin/init.sh
 

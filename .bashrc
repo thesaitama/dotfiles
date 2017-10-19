@@ -8,9 +8,13 @@ export LESSCHARSET=utf-8
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/X11R6/bin:/Developer/Tools:$PATH
 export MANPATH=/opt/local/man:$MANPATH
 
+# Env
+export CLICOLOR=1
+export LSCOLORS=gxfxcxdxbxegedabagacad
+
 # Alias
 alias sgi="sgi64"
-alias ls='ls -Fv'
+alias ls='ls -avlGF'
 
 # /Applications Alias (Mac OSX)
 alias syspref='open -a "System Preferences"'
@@ -47,7 +51,10 @@ export DISPLAY=":0.0"
 export LD_LIBRARY_PATH=/usr/X11R6/lib
 
 # PS
-export PS1="\u@\h$ "
+git_branch() {
+  echo $(git branch --no-color 2>/dev/null | sed -ne "s/^\* \(.*\)$/\1/p")
+}
+export PS1="\u@\h:\[\033[35m\]$(git_branch)\[\033[0m\]$ "
 
 umask 022
 

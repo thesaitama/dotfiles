@@ -7,20 +7,22 @@
 *.swp
 *.swo
 
-# MacOSX
-.DS_Store
-.AppleDouble
-.LSOverride
+# VSCode
+.vscode
 
-# Thumbnails (Windows)
+# Thumbnails
 Thumbs.db
-# Thumbnails (MacOSX)
 ._*
 
 # Binary
 *.obj
 *.so
 *.o
+
+# MacOSX
+.DS_Store
+.AppleDouble
+.LSOverride
 
 # Files that might appear in the root of a volume
 .DocumentRevisions-V100

@@ -1,6 +1,16 @@
 
 ;;/opt/local/share/emacs/site-lisp/
 
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+
+;; package
+(package-initialize)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+
+;; auto-install
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/auto-install/"))
 (require 'auto-install)
 (auto-install-update-emacswiki-package-name t)
@@ -18,10 +28,10 @@
 (set-clipboard-coding-system 'utf-8)
 
 ;; OSX用設定
-;(when (eq system-type 'darwin)
-;  (require 'ucs-normalize)
-;  (set-file-name-coding-system 'utf-8-hfs)
-;  (setq locale-coding-system 'utf-8-hfs))
+(when (eq system-type 'darwin)
+  (require 'ucs-normalize)
+  (set-file-name-coding-system 'utf-8-hfs)
+  (setq locale-coding-system 'utf-8-hfs))
 
 ;; 改行コードを表示する
 (setq eol-mnemonic-dos "(CRLF)")
@@ -161,7 +171,6 @@
 (setq auto-mode-alist (cons '("\\.css$" . css-mode) auto-mode-alist))
 
 ;; php-mode の設定
-(load-library "php-mode")
 (require 'php-mode)
 
 (add-hook 'php-mode-user-hook
@@ -196,6 +205,7 @@
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(menu-bar-mode nil)
+ '(package-selected-packages (quote (##)))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))

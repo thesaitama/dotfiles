@@ -51,10 +51,7 @@ export DISPLAY=":0.0"
 export LD_LIBRARY_PATH=/usr/X11R6/lib
 
 # PS
-git_branch() {
-  echo $(git branch --no-color 2>/dev/null | sed -ne "s/^\* \(.*\)$/\1/p")
-}
-export PS1="\u@\h:\[\033[35m\]$(git_branch)\[\033[0m\]$ "
+export PS1="\[\033[35m\]\u@\h:\[\033[0m\]$ "
 
 umask 022
 

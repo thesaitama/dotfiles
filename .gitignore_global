@@ -10,6 +10,9 @@
 # VSCode
 .vscode
 
+# Choregraphe
+*.csp
+
 # Thumbnails
 Thumbs.db
 ._*
@@ -18,6 +21,7 @@ Thumbs.db
 *.obj
 *.so
 *.o
+*.pyc
 
 # MacOSX
 .DS_Store

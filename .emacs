@@ -5,10 +5,11 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
-
-;; package
 (package-initialize)
+;;list-packages
+;;package-list-packages
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+
 
 ;; auto-install
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/auto-install/"))
@@ -166,18 +167,32 @@
 	  ;(setq c-auto-newline t)
 	  )t)
 
+; mmm-mode (html)
+(require 'mmm-auto)
+(setq mmm-global-mode 'maybe)
+;(set-face-background 'mmm-default-submode-face nil) ;背景色が不要な場合
+(mmm-add-classes
+ '((embedded-css
+    :submode css-mode
+    :front "<style[^>]*>"
+    :back "</style>")))
+(mmm-add-mode-ext-class nil "\\.html\\'" 'embedded-css)
+
 ;; css-mode の設定
 (autoload 'css-mode "css-mode")
 (setq auto-mode-alist (cons '("\\.css$" . css-mode) auto-mode-alist))
 
 ;; php-mode の設定
-(require 'php-mode)
-
-(add-hook 'php-mode-user-hook
-'(lambda ()
-   (setq tab-width 4)
-   (setq indent-tabs-mode nil))
-)
+(autoload 'php-mode "php-mode")
+(setq auto-mode-alist
+      (cons '("\\.php\\'" . php-mode) auto-mode-alist))
+(setq php-mode-force-pear t)
+(add-hook 'php-mode-hook
+  '(lambda ()
+     (setq php-manual-path "/usr/share/doc/php/html") 
+     (setq php-search-url "http://www.phppro.jp/")
+     (setq php-manual-url "http://www.phppro.jp/phpmanual")
+     ))
 
 ;; psgml の設定
 (autoload 'xml-mode "psgml" "Major mode to edit XML files." t)
@@ -205,7 +220,7 @@
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(menu-bar-mode nil)
- '(package-selected-packages (quote (##)))
+ '(package-selected-packages (quote (w3m mmm-mode helm ##)))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
@@ -216,3 +231,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Ricty Diminished" :foundry "outline" :slant normal :weight normal :height 150 :width normal)))))
+
+;; helm
+(require 'helm-config)
+(helm-mode 1)

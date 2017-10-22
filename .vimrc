@@ -1,10 +1,15 @@
 
+
+"sudo port install vim +huge +python3336
+
 set encoding=utf-8
 scriptencoding utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-boms,utf-8,cp932,euc-jp
 set fileformats=unix,dos,mac
 set ambiwidth=double
+
+set helplang=ja,en
 
 source $VIMRUNTIME/delmenu.vim 
 set langmenu=none 

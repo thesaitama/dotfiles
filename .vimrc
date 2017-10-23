@@ -67,7 +67,11 @@ set showmatch matchtime=1
 set nowritebackup
 set nobackup
 
-"plugin
+nnoremap <silent>bp :bprevious<CR>
+nnoremap <silent>bn :bnext<CR>
+nnoremap <silent>bb :b#<CR>
+
+"dein plugin
 
 " プラグインが実際にインストールされるディレクトリ
 let s:dein_dir = expand('~/.vim/dein')

@@ -15,4 +15,10 @@ repo = 'delphinus35/typescript-vim'
 rev  = 'colorize-template-strings'
 
 [[plugins]]
+repo = 'Shougo/unite.vim'
+
+[[plugins]]
+repo = 'Shougo/vimfiler'
+
+[[plugins]]
 repo = 'Shougo/denite.nvim'

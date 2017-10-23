@@ -51,7 +51,7 @@ export DISPLAY=":0.0"
 export LD_LIBRARY_PATH=/usr/X11R6/lib
 
 # PS
-export PS1="\[\033[35m\]\u@\h:\[\033[0m\]$ "
+export PS1="\[\033[35m\]\u@\h:\[\033[0m\]\W$ "
 
 umask 022
 

@@ -108,6 +108,9 @@ if dein#check_install()
 endif
 
 
+call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+
+
 "auto reload .vimrc
 augroup source-vimrc
   autocmd!

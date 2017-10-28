@@ -63,3 +63,14 @@ shopt -s checkwinsize
 # noclobber
 set noblobber
 
+# tmux
+ssh() {
+  if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
+    tmux rename-window ${@: -1} # <---- ここ
+    command ssh "$@"
+    tmux set-window-option automatic-rename "on" 1>/dev/null
+  else
+    command ssh "$@"
+  fi
+}
+

@@ -5,5 +5,11 @@ ln -s ~/dotfiles/.fzfcmd.sh ~/.fzfcmd.sh
 ln -s ~/dotfiles/.emacs ~/.emacs
 ln -s ~/dotfiles/.vimrc ~/.vimrc
 ln -s ~/dotfiles/.vim ~/.vim
+
+# git
 ln -s ~/dotfiles/.gitconfig ~/.gitconfig
 ln -s ~/dotfiles/.gitignore_global ~/.gitignore_global
+
+# tmux
+ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
+ln -s ~/dotfiles/tmux-status-line /usr/local/bin/tmux-status-line

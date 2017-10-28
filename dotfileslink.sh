@@ -1,6 +1,7 @@
 #! /bin/bash
 ln -s ~/dotfiles/.bashrc ~/.bashrc
 ln -s ~/dotfiles/.bash_profile ~/.bash_profile
+ln -s ~/dotfiles/.fzfcmd.sh ~/.fzfcmd.sh
 ln -s ~/dotfiles/.emacs ~/.emacs
 ln -s ~/dotfiles/.vimrc ~/.vimrc
 ln -s ~/dotfiles/.vim ~/.vim

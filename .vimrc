@@ -2,6 +2,8 @@
 
 "sudo port install vim +huge +python3336
 
+set rtp+=~/.fzf
+
 set encoding=utf-8
 scriptencoding utf-8
 set fileencoding=utf-8

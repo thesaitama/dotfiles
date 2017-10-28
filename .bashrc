@@ -51,7 +51,7 @@ export DISPLAY=":0.0"
 export LD_LIBRARY_PATH=/usr/X11R6/lib
 
 # PS
-export PS1="\[\033[35m\]\u@\h:\[\033[0m\]\W$ "
+export PS1="\[\033[35m\]\u@\h:\[\033[0m\]\[\033[36m\]\W\[\033[0m\]$ "
 
 umask 022
 
@@ -62,3 +62,4 @@ shopt -s checkwinsize
 
 # noclobber
 set noblobber
+

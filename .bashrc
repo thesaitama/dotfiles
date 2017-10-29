@@ -22,7 +22,6 @@ alias chrome='open -a google\ chrome'
 alias firefox='open -a firefox'
 alias thunderbird='open -a thunderbird'
 alias vsc='open -a visual\ studio\ code'
-alias basecamp='open -a garmin\ basecamp'
 
 # for Fink
 #test -d /sw && export PATH=/sw/bin:/sw/sbin:$PATH &&

@@ -10,14 +10,33 @@
 ;;package-list-packages
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 
-
 ;; auto-install
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/auto-install/"))
 (require 'auto-install)
 (auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup)
 
-;; 文字コード設定
+;; Auto Complete
+(require 'auto-complete-config)
+(ac-config-default)
+(add-to-list 'ac-modes 'text-mode)         ;; text-modeでも自動的に有効にする
+(add-to-list 'ac-modes 'fundamental-mode)  ;; fundamental-mode
+(add-to-list 'ac-modes 'org-mode)
+(add-to-list 'ac-modes 'yatex-mode)
+(ac-set-trigger-key "TAB")
+(setq ac-use-menu-map t) ;; 補完メニュー表示時にC-n/C-pで補完候補選択
+(setq ac-use-fuzzy t) ;; 曖昧マッチ
+
+;; helm
+(require 'helm-config)
+(helm-mode 1)
+;;(define-key global-map (kbd "C-x b")   'helm-buffers-list)
+(define-key global-map (kbd "C-x b") 'helm-for-files)
+(define-key global-map (kbd "C-x C-f") 'helm-find-files)
+(define-key global-map (kbd "M-x") 'helm-M-x)
+(define-key global-map (kbd "M-y") 'helm-show-kill-ring)
+
+;; Character Code
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -76,7 +95,7 @@
 ;; 文字色の設定
 (global-font-lock-mode t)
 (set-face-foreground 'font-lock-type-face "darkyellow")
-(set-face-foreground 'font-lock-builtin-face "blue") ; 組み込み定数
+(set-face-foreground 'font-lock-builtin-face "blue")
 (set-face-foreground 'font-lock-comment-face "green")
 (set-face-foreground 'font-lock-string-face "darkorange")
 (set-face-foreground 'font-lock-keyword-face "blue")
@@ -121,13 +140,11 @@
 (size-indication-mode t);
 ;(display-battery-mode t);
 
-;; line number
+;; Line Number
 (global-linum-mode 0)
 (set-face-attribute 'linum nil
-	:foreground "aaa"
-	:height 0.9)
-
-;; 行番号フォーマット
+  :foreground "aaa"
+  :height 0.9)
 (setq linum-format "%4d ")
 
 ;; 対の括弧を明示する
@@ -207,8 +224,6 @@
 (autoload 'css-mode "css-mode")
 (setq auto-mode-alist (cons '("\\.css$" . css-mode) auto-mode-alist))
 
-
-
 ;; psgml
 (autoload 'xml-mode "psgml" "Major mode to edit XML files." t)
 
@@ -235,7 +250,7 @@
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(menu-bar-mode nil)
- '(package-selected-packages (quote (w3m mmm-mode helm ##)))
+ '(package-selected-packages (quote (auto-complete w3m mmm-mode helm ##)))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
@@ -247,6 +262,3 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Ricty Diminished" :foundry "outline" :slant normal :weight normal :height 150 :width normal)))))
 
-;; helm
-(require 'helm-config)
-(helm-mode 1)

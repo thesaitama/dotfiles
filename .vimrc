@@ -1,8 +1,8 @@
 
-
-"sudo port install vim +huge +python3336
+"sudo port install vim +huge +python36
 
 set rtp+=~/.fzf
+set clipboard+=unnamed
 
 set encoding=utf-8
 scriptencoding utf-8
@@ -16,14 +16,6 @@ set helplang=ja,en
 source $VIMRUNTIME/delmenu.vim 
 set langmenu=none 
 source $VIMRUNTIME/menu.vim
-
-if has("multi_lang")
-  language C
-endif
-
-if has("syntax")
-  syntax on
-endif
 
 set laststatus=2
 "set statusline=%F%m%r%h%w\ %{&ff}\ %Y\ \%02.2B\ %04l,%04v\ 
@@ -74,8 +66,6 @@ nnoremap <silent>bn :bnext<CR>
 nnoremap <silent>bb :b#<CR>
 
 "dein plugin
-
-" プラグインが実際にインストールされるディレクトリ
 let s:dein_dir = expand('~/.vim/dein')
 " dein.vim 本体
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -88,7 +78,6 @@ if &runtimepath !~# '/dein.vim'
   execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
 endif
 
-" 設定開始
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
@@ -107,9 +96,9 @@ if dein#check_install()
   call dein#install()
 endif
 
-
 call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
 
+syntax on
 
 "auto reload .vimrc
 augroup source-vimrc

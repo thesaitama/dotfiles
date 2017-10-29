@@ -30,9 +30,22 @@
 
 ;; OSX用設定
 (when (eq system-type 'darwin)
+  ;; ucs normalize
   (require 'ucs-normalize)
   (set-file-name-coding-system 'utf-8-hfs)
-  (setq locale-coding-system 'utf-8-hfs))
+  (setq locale-coding-system 'utf-8-hfs)
+
+  ;; clipboard
+  (defun copy-from-osx ()
+    (shell-command-to-string "pbpaste"))
+  (defun paste-to-osx (text &optional push)
+    (let ((process-connection-type nil))
+      (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+        (process-send-string proc text)
+        (process-send-eof proc))))
+  (setq interprogram-cut-function 'paste-to-osx)
+  (setq interprogram-paste-function 'copy-from-osx)
+)
 
 ;; 改行コードを表示する
 (setq eol-mnemonic-dos "(CRLF)")
@@ -52,12 +65,12 @@
 
 ;; フレームの初期化
 (setq initial-frame-alist
-	  (append (list
-			   '(border-color . "black")
-			   '(mouse-color . "black")
-			   '(menu-bar-lines . 1)
-			   )
-			  initial-frame-alist))
+  (append (list
+   '(border-color . "black")
+   '(mouse-color . "black")
+   '(menu-bar-lines . 1)
+   )
+  initial-frame-alist))
 (setq default-frame-alist initial-frame-alist)
 
 ;; 文字色の設定
@@ -91,7 +104,7 @@
 
 ;; タイトルバーに表示する文字列
 (setq frame-title-format
-	  (concat "%b - emacs@" system-name))
+  (concat "%b - emacs@" system-name))
 
 ;; ツールバーを表示しない
 (setq tool-bar-mode 0)
@@ -102,17 +115,17 @@
 ;; C-SPC で色を付ける
 (setq transient-mark-mode t)
 
-;; モードライン
+;; modeline
 (line-number-mode t) ; 行番号
 (column-number-mode t) ; カラム番号
 (size-indication-mode t);
 ;(display-battery-mode t);
 
-;; 行番号表示
+;; line number
 (global-linum-mode 0)
 (set-face-attribute 'linum nil
-					:foreground "#aaa"
-					:height 0.9)
+	:foreground "aaa"
+	:height 0.9)
 
 ;; 行番号フォーマット
 (setq linum-format "%4d ")
@@ -159,30 +172,15 @@
   '(0 4 8 12 16 20 24))
 (setq indent-tabs-mode t)
 
-;; C-mode の設定 好みでセミコロンを外す
+;; C-mode
 (add-hook 'c-mode-hook '(lambda ()
 	  (setq c-basic-offset 4)
 	  (setq tab-width 4)
 	  ;(c-set-style "bsd")
 	  ;(setq c-auto-newline t)
-	  )t)
+)t)
 
-; mmm-mode (html)
-(require 'mmm-auto)
-(setq mmm-global-mode 'maybe)
-;(set-face-background 'mmm-default-submode-face nil) ;背景色が不要な場合
-(mmm-add-classes
- '((embedded-css
-    :submode css-mode
-    :front "<style[^>]*>"
-    :back "</style>")))
-(mmm-add-mode-ext-class nil "\\.html\\'" 'embedded-css)
-
-;; css-mode の設定
-(autoload 'css-mode "css-mode")
-(setq auto-mode-alist (cons '("\\.css$" . css-mode) auto-mode-alist))
-
-;; php-mode の設定
+;; php-mode
 (autoload 'php-mode "php-mode")
 (setq auto-mode-alist
       (cons '("\\.php\\'" . php-mode) auto-mode-alist))
@@ -194,22 +192,39 @@
      (setq php-manual-url "http://www.phppro.jp/phpmanual")
      ))
 
-;; psgml の設定
+;; mmm-mode (html)
+(require 'mmm-auto)
+(setq mmm-global-mode 'maybe)
+;(set-face-background 'mmm-default-submode-face nil) ;背景色が不要な場合
+(mmm-add-classes
+ '((embedded-css
+    :submode css-mode
+    :front "<style[^>]*>"
+    :back "</style>")))
+(mmm-add-mode-ext-class nil "\\.html\\'" 'embedded-css)
+
+;; css-mode
+(autoload 'css-mode "css-mode")
+(setq auto-mode-alist (cons '("\\.css$" . css-mode) auto-mode-alist))
+
+
+
+;; psgml
 (autoload 'xml-mode "psgml" "Major mode to edit XML files." t)
 
-;;; RELAX、RELAX NG、iht はxml-modeで開く
+;; xml-mode (RELAX, RELAX NG, iht)
 (setq auto-mode-alist
       (append
-       '(("\\.\\(xml\\|rlx\\|rng\\|iht\\)$" . xml-mode))
+       '(("\\.\\(xml\\|rlx\\|plm\\|rng\\|iht\\)$" . xml-mode))
        auto-mode-alist))
 
-;;; XHTMLはhoge.xhtml.jaのように.xhtmlの後に拡張子がついてもいい
+;; html-mode (xhtml, html)
 (setq auto-mode-alist
       (append
-       '(("\\.x?html\\([.]?\\w+\\)*$" . xml-mode))
+       '(("\\.x?html\\([.]?\\w+\\)*$" . html-mode))
        auto-mode-alist))
 
-;; python-mode の設定
+;; python-mode
 (setq auto-mode-alist
       (cons '("\\.py$" . python-mode) auto-mode-alist))
 (autoload 'python-mode "python-mode" "Python editing mode." t)

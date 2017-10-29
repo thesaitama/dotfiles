@@ -64,6 +64,8 @@ shopt -s checkwinsize
 set noblobber
 
 # tmux
+# sudo port install tmux-pasteboard
+# tmux ssh
 ssh() {
   if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
     tmux rename-window ${@: -1} # <---- ここ

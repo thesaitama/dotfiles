@@ -23,7 +23,23 @@
 	helper = osxkeychain
 [diff]
 	tool = vimdiff
+	compactionHeuristic = true
 [difftool]
 	prompt = false
 [mergetool]
 	prompt = false
+
+[pager]
+	log = diff-highlight | less
+	show = diff-highlight | less
+	diff = diff-highlight | less
+
+[interactive]
+	diffFilter = diff-highlight
+
+# MacPorts
+# > cd /opt/local/share/git/contrib/diff-highlight/
+# > sudo make
+# > sudo ln -s /opt/local/share/git/contrib/diff-highlight/diff-highlight /usr/local/bin/diff-highlight
+# Brew /usr/local/share/git-core/contrib/diff-highlight
+

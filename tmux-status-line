@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #load-average
-load_avg="#[default]#[fg=blue]$(uptime | awk '{print $(NF-1)}') #[default]"
+load_avg="#[default]#[bg=colour241] $(uptime | awk '{print $(NF)}') #[default]"
 
 #airport
 airport_path="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
@@ -26,7 +26,7 @@ if air_info=($(eval "$airport_path" -I | grep -E "^ *(agrCtlRSSI|state|SSID|last
     "init"    ) airport_="#[fg=yellow] ... " ;;
     *         ) airport_="#[fg=red] ✘ " ;;
   esac  
-  airport="|#[default]${airport_}#[default]"
+  airport="#[default]${airport_}#[default]"
 fi
 
 echo "${load_avg}${airport}"

@@ -16,6 +16,22 @@
 (auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup)
 
+;; Key Bind
+(define-key global-map "\C-h" 'backward-delete-char)
+(define-key global-map "\C-c l" 'toggle-truncate-lines)
+(define-key global-map "\C-t" 'other-window)
+
+;; Character Code
+(set-language-environment "Japanese")
+(prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(setq default-buffer-file-coding-system 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(set-clipboard-coding-system 'utf-8)
+
 ;; Auto Complete
 (require 'auto-complete-config)
 (ac-config-default)
@@ -30,24 +46,18 @@
 ;; helm
 (require 'helm-config)
 (helm-mode 1)
-;;(define-key global-map (kbd "C-x b")   'helm-buffers-list)
-(define-key global-map (kbd "C-x b") 'helm-for-files)
+(define-key global-map (kbd "M-x")     'helm-M-x)
 (define-key global-map (kbd "C-x C-f") 'helm-find-files)
-(define-key global-map (kbd "M-x") 'helm-M-x)
-(define-key global-map (kbd "M-y") 'helm-show-kill-ring)
+(define-key global-map (kbd "C-x C-r") 'helm-recentf)
+(define-key global-map (kbd "M-y")     'helm-show-kill-ring)
+(define-key global-map (kbd "C-c i")   'helm-imenu)
+(define-key global-map (kbd "C-x b")   'helm-buffers-list)
+(define-key helm-map (kbd "C-h") 'delete-backward-char)
+(define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
+(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+(define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
 
-;; Character Code
-(set-language-environment "Japanese")
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-buffer-file-coding-system 'utf-8)
-(setq default-buffer-file-coding-system 'utf-8)
-(set-buffer-file-coding-system 'utf-8)
-(set-clipboard-coding-system 'utf-8)
-
-;; OSX用設定
+;; macOSX
 (when (eq system-type 'darwin)
   ;; ucs normalize
   (require 'ucs-normalize)
@@ -71,16 +81,11 @@
 (setq eol-mnemonic-mac "(CR)")
 (setq eol-mnemonic-unix "(LF)")
 
-;; バックアップファイルを作成しない
+;; Backup file
 (setq backup-inhibited t)
 
-;; オープニングメッセージ表示しない
+;; Startup Message
 (setq inhibit-startup-message t)
-
-;; キーバインドの変更
-(define-key global-map "\C-h" 'backward-delete-char)
-(define-key global-map "\C-c l" 'toggle-truncate-lines)
-(define-key global-map "\C-t" 'other-window)
 
 ;; フレームの初期化
 (setq initial-frame-alist
@@ -92,7 +97,7 @@
   initial-frame-alist))
 (setq default-frame-alist initial-frame-alist)
 
-;; 文字色の設定
+;; Color
 (global-font-lock-mode t)
 (set-face-foreground 'font-lock-type-face "darkyellow")
 (set-face-foreground 'font-lock-builtin-face "blue")
@@ -112,7 +117,13 @@
 (set-face-background 'isearch-lazy-highlight-face "cyan")
 (set-face-foreground 'minibuffer-prompt "blue") ; ミニバッファ
 
-;; 編集行を目立たせる
+(require 'rainbow-mode)
+(add-hook 'css-mode-hook 'rainbow-mode)
+(add-hook 'scss-mode-hook 'rainbow-mode)
+(add-hook 'php-mode-hook 'rainbow-mode)
+(add-hook 'html-mode-hook 'rainbow-mode)
+
+;; Highlight editing line
 ;(defface hlline-face '(
 ;	(((class color) (background dark))  (:background "#aaa"))
 ;    (((class color) (background light)) (:background "#111"))
@@ -121,14 +132,13 @@
 ;(setq hl-line-face 'hlline-face)
 ;(global-hl-line-mode)
 
-;; タイトルバーに表示する文字列
-(setq frame-title-format
-  (concat "%b - emacs@" system-name))
+;; Title bar caracter
+(setq frame-title-format (concat "%b - emacs@" system-name))
 
-;; ツールバーを表示しない
+;; Tool bar
 (setq tool-bar-mode 0)
 
-;; メニューバーを表示しない
+;; Menu bar
 (menu-bar-mode -1)
 
 ;; C-SPC で色を付ける
@@ -138,7 +148,6 @@
 (line-number-mode t) ; 行番号
 (column-number-mode t) ; カラム番号
 (size-indication-mode t);
-;(display-battery-mode t);
 
 ;; Line Number
 (global-linum-mode 0)
@@ -154,16 +163,16 @@
 
 ;; 全角スペースとかに色を付ける
 (defface my-face-b-1 '((t (:background "lightyellow"))) nil)
-(defface my-face-b-2 '((t (:background "lightgray"))) nil)
+(defface my-face-b-2 '((t (:background "darkbray"))) nil)
 (defvar my-face-b-1 'my-face-b-1)
 (defvar my-face-b-2 'my-face-b-2)
 (defvar my-face-u-1 'my-face-u-1)
-(defadvice font-lock-mode (before my-font-lock-mode ())
+(defadvice font-lock-mode(before my-font-lock-mode ())
 (font-lock-add-keywords
  major-mode
  '(
    ("　" 0 my-face-b-1 append)
-   ("\t" 0 my-face-b-2 append)
+   ("	" 0 my-face-b-2 append)
    ("[ ]+$" 0 my-face-u-1 append)
    )))
 (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
@@ -179,23 +188,10 @@
 ;(setq w3m-cookie-accept-bad-cookies t)
 ;(setq w3m-add-referer t)
 
-;; タブの設定
+;; Tabs
+(setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(setq tab-width 4)
-
-;;タブは4文字ごとに
-;;追加　タブの設定は以下のようにしないとだめ
-(setq-default tab-stop-list
-  '(0 4 8 12 16 20 24))
-(setq indent-tabs-mode t)
-
-;; C-mode
-(add-hook 'c-mode-hook '(lambda ()
-	  (setq c-basic-offset 4)
-	  (setq tab-width 4)
-	  ;(c-set-style "bsd")
-	  ;(setq c-auto-newline t)
-)t)
+(setq-default tab-stop-list '(0 4 8 12 16 20 24))
 
 ;; php-mode
 (autoload 'php-mode "php-mode")
@@ -204,12 +200,12 @@
 (setq php-mode-force-pear t)
 (add-hook 'php-mode-hook
   '(lambda ()
-     (setq php-manual-path "/usr/share/doc/php/html") 
+     (setq php-manual-path "/usr/share/doc/php/html")
      (setq php-search-url "http://www.phppro.jp/")
      (setq php-manual-url "http://www.phppro.jp/phpmanual")
      ))
 
-;; mmm-mode (html)
+;; mmm-mode (html, php)
 (require 'mmm-auto)
 (setq mmm-global-mode 'maybe)
 ;(set-face-background 'mmm-default-submode-face nil) ;背景色が不要な場合
@@ -218,7 +214,16 @@
     :submode css-mode
     :front "<style[^>]*>"
     :back "</style>")))
-(mmm-add-mode-ext-class nil "\\.html\\'" 'embedded-css)
+(mmm-add-mode-ext-class nil "\\(\\.x?html?\\|php\\)(\\..+\\)?$" 'embedded-css)
+(mmm-add-classes
+ '((embedded-js
+    :submode javascript-mode
+    :front "<script[^>]*>"
+    :back "</script>")))
+(mmm-add-mode-ext-class nil "\\(\\.x?html?\\|php\\)(\\..+\\)?$" 'embedded-js)
+
+;; javascript-mode
+(autoload 'javascript-mode "javascript" "JavaScript mode" t)
 
 ;; css-mode
 (autoload 'css-mode "css-mode")
@@ -229,14 +234,12 @@
 
 ;; xml-mode (RELAX, RELAX NG, iht)
 (setq auto-mode-alist
-      (append
-       '(("\\.\\(xml\\|rlx\\|plm\\|rng\\|iht\\)$" . xml-mode))
+      (append '(("\\.\\(xml\\|rlx\\|pml\\|rng\\)$" . xml-mode))
        auto-mode-alist))
 
 ;; html-mode (xhtml, html)
 (setq auto-mode-alist
-      (append
-       '(("\\.x?html\\([.]?\\w+\\)*$" . html-mode))
+      (append '(("\\(\\.x?html?\\|iht\\)\\([.]?\\w+\\)*$" . html-mode))
        auto-mode-alist))
 
 ;; python-mode
@@ -250,10 +253,20 @@
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(menu-bar-mode nil)
- '(package-selected-packages (quote (auto-complete w3m mmm-mode helm ##)))
+ '(package-selected-packages
+   (quote
+    (rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
+
+;(add-hook 'python-mode-hook 'jedi:setup)
+;(setq jedi:complete-on-dot t) ; optional
+;M-x jedi:install-server
+
+;; flycheck
+(require 'flycheck)
+(global-flycheck-mode)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -261,4 +274,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Ricty Diminished" :foundry "outline" :slant normal :weight normal :height 150 :width normal)))))
+
+
 

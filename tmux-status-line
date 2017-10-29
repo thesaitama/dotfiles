@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#git
+cd `tmux display-message -p -F "#{pane_current_path}"`
+branch_name=`git branch | grep \*.* | sed -e 's/\*\ //'`
+
 #load-average
 load_avg="#[default]#[bg=colour241] $(uptime | awk '{print $(NF)}') #[default]"
 
@@ -29,5 +33,5 @@ if air_info=($(eval "$airport_path" -I | grep -E "^ *(agrCtlRSSI|state|SSID|last
   airport="#[default]${airport_}#[default]"
 fi
 
-echo "${load_avg}${airport}"
+echo "${branch_name} ${load_avg}${airport}"
 

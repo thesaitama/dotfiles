@@ -2,7 +2,12 @@
 
 #git
 cd `tmux display-message -p -F "#{pane_current_path}"`
-branch_name=`git branch | grep \*.* | sed -e 's/\*\ //'`
+git_name=`git config --get user.name`
+git_email=`git config --get user.email`
+git_branch=`git branch | grep \*.* | sed -e 's/\*\ //'`
+if [ ${git_branch} != "" ] ; then
+  git_info="${git_email:0:8} > ${git_branch}"
+fi
 
 #load-average
 load_avg="#[default]#[bg=colour241] $(uptime | awk '{print $(NF)}') #[default]"
@@ -33,5 +38,5 @@ if air_info=($(eval "$airport_path" -I | grep -E "^ *(agrCtlRSSI|state|SSID|last
   airport="#[default]${airport_}#[default]"
 fi
 
-echo "${branch_name} ${load_avg}${airport}"
+echo "${git_info} ${load_avg}${airport}"
 

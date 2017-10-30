@@ -10,6 +10,7 @@
 ;; * python-mode
 ;; * flycheck
 ;; * helm
+;; * yasnippet
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
@@ -18,12 +19,17 @@
 (package-initialize)
 ;;list-packages
 ;;package-list-packages
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+(setq package-archives
+      '(("gnu" . "http://elpa.gnu.org/packages/")
+        ("melpa" . "http://melpa.org/packages/")
+        ("org" . "http://orgmode.org/elpa/")))
+
 ;; auto-install
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/auto-install/"))
 (require 'auto-install)
+(add-to-list 'load-path auto-install-directory)
 (auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup)
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
 ;; Key Bind
 (define-key global-map "\C-h" 'backward-delete-char)
@@ -54,6 +60,10 @@
 ;; dabbrev
 (global-set-key (kbd "C-<tab>") 'dabbrev-expand)
 (define-key minibuffer-local-map (kbd "C-<tab>") 'dabbrev-expand)
+
+;; yasnippet
+(yas-global-mode 1)
+(setq yas-prompt-functions '(yas-ido-prompt))
 
 ;; helm
 (require 'helm-config)
@@ -194,11 +204,14 @@
 	nil
 	(font-lock-mode t))))
 
-;; emacs-w3m
-(require 'w3m-load)
+;; w3m
+(require 'w3m)
+(eval-after-load "w3m-search"
+  '(add-to-list 'w3m-search-engine-alist
+		'("google" "https://encrypted.google.com/search?num=100&ie=utf-8&oe=utf-8&hl=ja&safe=off&filter=0&pws=0&complete=0&gbv=1&q=%s" utf-8)))
+(setq w3m-search-default-engine "google")
+(setq w3m-home-page "http://www.google.co.jp")
 (setq w3m-use-cookies t)
-(setq w3m-cookie-accept-bad-cookies t)
-(setq w3m-add-referer t)
 
 ;; Tabs
 (setq-default indent-tabs-mode nil)
@@ -267,7 +280,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))

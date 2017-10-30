@@ -1,6 +1,16 @@
 
 ;;/opt/local/share/emacs/site-lisp/
 
+;; Install                                       ;
+;; * auto-complete
+;; * rainbow-mode
+;; * php-mode
+;; * mmm-mode
+;; * javascript-mode
+;; * python-mode
+;; * flycheck
+;; * helm
+
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -9,7 +19,6 @@
 ;;list-packages
 ;;package-list-packages
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-
 ;; auto-install
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/auto-install/"))
 (require 'auto-install)
@@ -35,13 +44,16 @@
 ;; Auto Complete
 (require 'auto-complete-config)
 (ac-config-default)
-(add-to-list 'ac-modes 'text-mode)         ;; text-modeでも自動的に有効にする
-(add-to-list 'ac-modes 'fundamental-mode)  ;; fundamental-mode
-(add-to-list 'ac-modes 'org-mode)
-(add-to-list 'ac-modes 'yatex-mode)
+(global-auto-complete-mode t)
+(add-to-list 'ac-modes 'text-mode) ;; text-modeでも自動的に有効にする
+(add-to-list 'ac-modes 'fundamental-mode) ;; fundamental-mode
 (ac-set-trigger-key "TAB")
 (setq ac-use-menu-map t) ;; 補完メニュー表示時にC-n/C-pで補完候補選択
 (setq ac-use-fuzzy t) ;; 曖昧マッチ
+
+;; dabbrev
+(global-set-key (kbd "C-<tab>") 'dabbrev-expand)
+(define-key minibuffer-local-map (kbd "C-<tab>") 'dabbrev-expand)
 
 ;; helm
 (require 'helm-config)
@@ -111,8 +123,8 @@
 (set-face-foreground 'font-lock-warning-face "pink")
 (set-face-foreground 'tool-bar "cyan")
 (set-face-background 'region "lightblue")
-(set-face-foreground 'isearch "black") ; 検索文字列
-(set-face-background 'isearch "lightpink") ; 検索文字列
+(set-face-foreground 'isearch "black")
+(set-face-background 'isearch "lightpink")
 (set-face-foreground 'isearch-lazy-highlight-face "black")
 (set-face-background 'isearch-lazy-highlight-face "cyan")
 (set-face-foreground 'minibuffer-prompt "blue") ; ミニバッファ
@@ -156,12 +168,12 @@
   :height 0.9)
 (setq linum-format "%4d ")
 
-;; 対の括弧を明示する
+;; Paren match
 (show-paren-mode t)
 (set-face-background 'show-paren-match-face "black")
 (set-face-foreground 'show-paren-match-face "white")
 
-;; 全角スペースとかに色を付ける
+;; Colored white spaces
 (defface my-face-b-1 '((t (:background "lightyellow"))) nil)
 (defface my-face-b-2 '((t (:background "darkbray"))) nil)
 (defvar my-face-b-1 'my-face-b-1)
@@ -182,11 +194,11 @@
 	nil
 	(font-lock-mode t))))
 
-;; emacs-w3m 設定
-;(require 'w3m-load)
-;(setq w3m-use-cookies t)
-;(setq w3m-cookie-accept-bad-cookies t)
-;(setq w3m-add-referer t)
+;; emacs-w3m
+(require 'w3m-load)
+(setq w3m-use-cookies t)
+(setq w3m-cookie-accept-bad-cookies t)
+(setq w3m-add-referer t)
 
 ;; Tabs
 (setq-default indent-tabs-mode nil)

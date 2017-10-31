@@ -10,7 +10,7 @@ if [ ${git_branch} != "" ] ; then
 fi
 
 #load-average
-load_avg="#[default]#[bg=colour241] $(uptime | awk '{print $(NF)}') #[default]"
+load_avg="#[default]#[bg=colour241] $(uptime | awk '{print $(NF-2)}') #[default]"
 
 #airport
 airport_path="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"

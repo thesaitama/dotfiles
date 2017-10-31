@@ -36,6 +36,12 @@
 (define-key global-map "\C-c l" 'toggle-truncate-lines)
 (define-key global-map "\C-t" 'other-window)
 
+;; Mouse
+(xterm-mouse-mode t)
+(mouse-wheel-mode t)
+(global-set-key [mouse-4] '(lambda () (interactive) (scroll-down 3)))
+(global-set-key [mouse-5] '(lambda () (interactive) (scroll-up   3)))
+
 ;; Character Code
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)

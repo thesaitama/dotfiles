@@ -14,7 +14,8 @@
 ;; * flycheck
 ;; * helm
 ;; * yasnippet
-;; e iao fadisla quem Canta Como quem sobe Escutar
+;; * yasnippet-snippets
+;; * helm-c-yasnippet
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
@@ -55,11 +56,22 @@
 ;; Key Bind
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-t") 'other-window)
+(global-set-key (kbd "C-x C-b") 'bs-show) ;; replace list-buffers
 
 ;; Mouse
 (xterm-mouse-mode t)
 (global-set-key [mouse-4] '(lambda () (interactive) (scroll-down 3)))
 (global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 3)))
+
+;; recentf
+(when (require 'recentf nil t)
+  (setq recentf-max-saved-items 2000)
+  (setq recentf-exclude '(".recentf"))
+  (setq recentf-auto-cleanup 10)
+  (setq recentf-auto-save-timer
+        (run-with-idle-timer 30 t 'recentf-save-list))
+  (recentf-mode 1))
+(setq-default find-file-visit-truename t)
 
 ;; Display Image File
 (auto-image-file-mode t)
@@ -79,20 +91,6 @@
 
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
-
-;; helm
-(require 'helm-config)
-(helm-mode 1)
-(define-key global-map (kbd "M-x")     'helm-M-x)
-(define-key global-map (kbd "C-x C-f") 'helm-find-files)
-(define-key global-map (kbd "C-x C-r") 'helm-recentf)
-(define-key global-map (kbd "M-y")     'helm-show-kill-ring)
-(define-key global-map (kbd "C-c i")   'helm-imenu)
-(define-key global-map (kbd "C-x b")   'helm-buffers-list)
-(define-key helm-map (kbd "C-h") 'delete-backward-char)
-(define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
-(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
-(define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
 
 ;; macOSX
 (when (eq system-type 'darwin)
@@ -118,15 +116,15 @@
 (setq eol-mnemonic-mac "(CR)")
 (setq eol-mnemonic-unix "(LF)")
 
+;; Startup Message
+(setq inhibit-startup-message t)
+
 ;; Display function
 (which-function-mode 1)
 
 ;; Backup file
 (setq backup-inhibited t)
 (setq delete-auto-save-files t)
-
-;; Startup Message
-(setq inhibit-startup-message t)
 
 ;; Frame
 (setq initial-frame-alist
@@ -180,13 +178,13 @@
 (add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
 
 ;; Highlight editing line
-;(defface hlline-face '(
-;	(((class color) (background dark))  (:background "#aaa"))
-;    (((class color) (background light)) (:background "#111"))
-;    (tool-bar     ()))
-;  "*Face used by hl-line.")
-;(setq hl-line-face 'hlline-face)
-;(global-hl-line-mode)
+;; (defface hlline-face '(
+;;   (((class color) (background dark))  (:background "#666"))
+;;   (((class color) (background light)) (:background "#eee"))
+;;   (tool-bar     ()))
+;;   "*Face used by hl-line.")
+;; (setq hl-line-face 'hlline-face)
+;; (global-hl-line-mode)
 
 ;; Title bar caracter
 (setq frame-title-format (concat "%b - emacs@" system-name))
@@ -315,22 +313,41 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
 
-;(add-hook 'python-mode-hook 'jedi:setup)
-;(setq jedi:complete-on-dot t) ; optional
 ;M-x jedi:install-server
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t) ; optional
 
 ;; dabbrev
 (global-set-key (kbd "C-<tab>") 'dabbrev-expand)
 (define-key minibuffer-local-map (kbd "C-<tab>") 'dabbrev-expand)
 
+;; helm
+(require 'helm-config)
+(helm-mode 1)
+(define-key global-map (kbd "M-x")     'helm-M-x)
+(define-key global-map (kbd "C-x C-f") 'helm-find-files)
+(define-key global-map (kbd "C-x C-r") 'helm-recentf)
+(define-key global-map (kbd "M-y")     'helm-show-kill-ring)
+(define-key global-map (kbd "C-c i")   'helm-imenu)
+(define-key global-map (kbd "C-x b")   'helm-buffers-list)
+(define-key helm-map (kbd "C-h") 'delete-backward-char)
+(define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
+(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+(define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
+
 ;; yasnippet
 (yas-global-mode 1)
 (setq yas-prompt-functions '(yas-ido-prompt))
+(require 'helm-c-yasnippet)
+(setq helm-yas-space-match-any-greedy t)
+(global-set-key (kbd "C-c y") 'helm-yas-complete)
+(push '("emacs.+/snippets/" . snippet-mode) auto-mode-alist)
+(yas-global-mode 1)
 
 ;; spell check (flyspell)
 (setq-default flyspell-mode t)
@@ -347,6 +364,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Ricty Diminished" :foundry "outline" :slant normal :weight normal :height 150 :width normal)))))
-
 
 

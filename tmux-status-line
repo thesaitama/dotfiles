@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#git
+# git
 cd `tmux display-message -p -F "#{pane_current_path}"`
 git_name=`git config --get user.name`
 git_email=`git config --get user.email`
@@ -9,10 +9,10 @@ if [ ${git_branch} != "" ] ; then
   git_info="${git_email:0:8} > ${git_branch}"
 fi
 
-#load-average
+# load-average
 load_avg="#[default]#[bg=colour241] $(uptime | awk '{print $(NF-2)}') #[default]"
 
-#airport
+# airport (Mac Only)
 airport_path="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
 
 if air_info=($(eval "$airport_path" -I | grep -E "^ *(agrCtlRSSI|state|SSID|lastTxRate):" | awk '{print $2}')) ; then

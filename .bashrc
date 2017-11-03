@@ -1,17 +1,5 @@
 # thesaitama@ .bashrc
 
-# Unicode Support
-export LANG=ja_JP.UTF-8
-export LESSCHARSET=utf-8
-
-# Path
-export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/X11R6/bin:/Developer/Tools:$PATH
-export MANPATH=/opt/local/man:$MANPATH
-
-# Env
-export CLICOLOR=1
-export LSCOLORS=gxfxcxdxbxegedabagacad
-
 # Alias
 alias sgi="sgi64"
 alias ls='ls -avlGF'
@@ -23,38 +11,7 @@ alias firefox='open -a firefox'
 alias thunderbird='open -a thunderbird'
 alias vsc='open -a visual\ studio\ code'
 
-# for Fink
-#test -d /sw && export PATH=/sw/bin:/sw/sbin:$PATH &&
-#               export MANPATH=/sw/share/man:$MANPATH
-#test -r /sw/bin/init.sh && . /sw/bin/init.sh
-
-# for MacPorts
-test -d /opt && export PATH=/opt/local/bin:/opt/local/sbin:$PATH &&
-                export MANPATH=/opt/local/share/man:$MANPATH
-
-# (If you'd like to use Qt3/X11 newer than Apr 24, 2006.)
-#export QTDIR=/opt/local/lib/qt3
-
-# (If you'd like to use Qt4/Mac.)
-#export QTDIR=/usr/local/Trolltech/Qt-4.2.2
-#export PATH=$QTDIR/bin:$PATH
-#export QMAKESPEC=$QTDIR/mkspecs/macx-xcode
-#export QMAKESPEC=$QTDIR/mkspecs/macx-g++
-
-# (If you'd like to use CVS as CMS.)
-export CVS_RSH=ssh
-# export CVSROOT=...
-
-# X-Window System
-export DISPLAY=":0.0"
-export LD_LIBRARY_PATH=/usr/X11R6/lib
-
-# PS
-export PS1="\[\033[35m\]\u@\h:\[\033[0m\]\[\033[36m\]\W\[\033[0m\]$ "
-
 umask 022
-
-set -o posix
 
 # Make bash check it's window size after a process completes
 shopt -s checkwinsize
@@ -67,7 +24,7 @@ set noblobber
 # tmux ssh
 ssh() {
   if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
-    tmux rename-window ${@: -1} # <---- ここ
+    tmux rename-window ${@: -1}
     command ssh "$@"
     tmux set-window-option automatic-rename "on" 1>/dev/null
   else
@@ -75,5 +32,16 @@ ssh() {
   fi
 }
 
-
+# fzf
+# > git clone https://github.com/junegunn/fzf.git ~/.fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if [ -f ~/.fzfcmd.sh ] ; then
+  . ~/.fzfcmd.sh
+fi
+
+# bash-completion
+if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+  . /opt/local/etc/profile.d/bash_completion.sh
+fi
+
+

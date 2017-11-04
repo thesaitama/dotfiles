@@ -1,5 +1,7 @@
 # thesaitama@ .bashrc
 
+umask 022
+
 # Alias
 alias sgi="sgi64"
 alias ls='ls -avlGF'
@@ -10,8 +12,6 @@ alias chrome='open -a google\ chrome'
 alias firefox='open -a firefox'
 alias thunderbird='open -a thunderbird'
 alias vsc='open -a visual\ studio\ code'
-
-umask 022
 
 # Make bash check it's window size after a process completes
 shopt -s checkwinsize
@@ -43,5 +43,3 @@ fi
 if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
   . /opt/local/etc/profile.d/bash_completion.sh
 fi
-
-

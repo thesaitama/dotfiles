@@ -8,7 +8,7 @@ ln -s ~/dotfiles/.fzfcmd.sh ~/.fzfcmd.sh
 # editor
 ln -s ~/dotfiles/.emacs ~/.emacs
 ln -s ~/dotfiles/.vimrc ~/.vimrc
-ln -s ~/dotfiles/.vim ~/.vim
+ln -s ~/dotfiles/.vim/ ~/.vim
 
 # git
 ln -s ~/dotfiles/.gitconfig ~/.gitconfig

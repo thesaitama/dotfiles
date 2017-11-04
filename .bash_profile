@@ -7,8 +7,6 @@ export LESSCHARSET=utf-8
 # Path
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/X11R6/bin:/Developer/Tools:$PATH
 
-export MANPATH=/opt/local/man:$MANPATH
-
 # Path Python
 export PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages:$PATH
 export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-package:$PYTHONPATH
@@ -36,8 +34,7 @@ test -d /opt && export PATH=/opt/local/bin:/opt/local/sbin:$PATH &&
 #export QMAKESPEC=$QTDIR/mkspecs/macx-g++
 
 # (If you'd like to use CVS as CMS.)
-export CVS_RSH=ssh
-# export CVSROOT=...
+#export CVS_RSH=ssh
 
 # X-Window System
 export DISPLAY=":0.0"
@@ -46,12 +43,12 @@ export LD_LIBRARY_PATH=/usr/X11R6/lib
 # PS
 export PS1="\[\033[35m\]\u@\h:\[\033[0m\]\[\033[36m\]\W\[\033[0m\]$ "
 
-# bashrc
+# load .bashrc
 if [ -f ~/.bashrc ] ; then
   . ~/.bashrc
 fi
 
-# private settings
+# load private settings
 if [ -f ~/.bash_private ] ; then
   . ~/.bash_private
 fi
@@ -60,5 +57,3 @@ test -r /sw/bin/init.sh && . /sw/bin/init.sh
 
 # iTerm shell integration
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-
-

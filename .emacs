@@ -4,18 +4,21 @@
 ;; MacPorts install Path
 ;; /opt/local/share/emacs/site-lisp/
 
-;; Install                                       ;
+;; Install
 ;; * auto-complete
 ;; * rainbow-mode
 ;; * rainbow-delimiters
 ;; * php-mode
 ;; * mmm-mode
 ;; * python-mode
+;; * jedi
 ;; * flycheck
 ;; * helm
 ;; * yasnippet
 ;; * yasnippet-snippets
 ;; * helm-c-yasnippet
+;; * magit
+;; * neotree
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
@@ -313,7 +316,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
@@ -357,6 +360,13 @@
 (require 'flycheck)
 (global-flycheck-mode)
 
+;; magit
+(require 'magit)
+
+;; neotree
+(require 'neotree)
+(setq neo-show-hidden-files t)
+
 ;; Font Style
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -364,5 +374,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Ricty Diminished" :foundry "outline" :slant normal :weight normal :height 150 :width normal)))))
+
 
 

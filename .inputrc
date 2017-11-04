@@ -1,0 +1,17 @@
+$if Bash
+
+  set bell-style none
+  set horizontal-scroll-mode off
+  set completion-ignore-case on
+  set editing-mode emacs
+
+  # input method
+  set meta-flag on
+  set input-meta on
+  set output-meta on
+  set convert-meta off
+
+  "\C-n": history-search-forward
+  "\C-p": history-search-backward
+  
+$endif

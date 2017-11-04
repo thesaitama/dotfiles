@@ -1,1 +1,1 @@
-/Users/kazuhiro/dotfiles/.vim/
+/Users/kazuhiro/dotfiles/.vim

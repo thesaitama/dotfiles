@@ -21,8 +21,8 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 # Show the ~/Library folder
 chflags nohidden ~/Library
 
-# Set the icon size of Dock items to 36 pixels
-defaults write com.apple.dock tilesize -int 36
+# Set the icon size of Dock items to blow pixels
+defaults write com.apple.dock tilesize -int 48
 
 # Use plain text mode for new TextEdit documents
 defaults write com.apple.TextEdit RichText -int 0

@@ -9,6 +9,7 @@
 ;; * rainbow-mode
 ;; * rainbow-delimiters
 ;; * php-mode
+;; * js2-mode
 ;; * mmm-mode
 ;; * python-mode
 ;; * jedi
@@ -60,6 +61,10 @@
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-t") 'other-window)
 (global-set-key (kbd "C-x C-b") 'bs-show) ;; replace list-buffers
+
+;; wdired
+(add-hook 'dired-load-hook (lambda ()
+  (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)))
 
 ;; Mouse
 (xterm-mouse-mode t)
@@ -158,6 +163,17 @@
 (set-face-foreground 'isearch-lazy-highlight-face "black")
 (set-face-background 'isearch-lazy-highlight-face "cyan")
 (set-face-foreground 'minibuffer-prompt "blue")
+;; Color markdown-mode
+(custom-set-faces
+ '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
+ '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
+ '(markdown-header-face-2 ((t (:inherit outline-2 :weight bold))))
+ '(markdown-header-face-3 ((t (:inherit outline-3 :weight bold))))
+ '(markdown-header-face-4 ((t (:inherit outline-4 :weight bold))))
+ '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
+ '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
+ '(markdown-pre-face ((t (:inherit org-formula))))
+ )
 
 ;; rainbow-mode
 (require 'rainbow-mode)
@@ -198,13 +214,13 @@
 ;; Menu bar
 (menu-bar-mode -1)
 
-;; C-SPC で色を付ける
+;; Region Display
 (setq transient-mark-mode t)
 
 ;; modeline
-(line-number-mode t) ; 行番号
-(column-number-mode t) ; カラム番号
-(size-indication-mode t);
+(line-number-mode t)
+(column-number-mode t)
+(size-indication-mode t)
 
 ;; Line Number
 (global-linum-mode 0)
@@ -227,10 +243,9 @@
 (defvar my-face-u-1 'my-face-u-1)
 (defadvice font-lock-mode(before my-font-lock-mode ())
 (font-lock-add-keywords
- major-mode
- '(
+ major-mode '(
    ("　" 0 my-face-b-1 append)
-   ("	" 0 my-face-b-2 append)
+   ("\t" 0 my-face-b-2 append)
    ("[ ]+$" 0 my-face-u-1 append)
    )))
 (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
@@ -252,7 +267,7 @@
 ;; Tabs
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(setq-default tab-stop-list '(0 4 8 12 16 20 24))
+(setq-default tab-stop-list '(0 4 8 12 16 20 24 28 32))
 
 ;; php-mode
 (autoload 'php-mode "php-mode")
@@ -316,7 +331,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
@@ -342,6 +357,7 @@
 (define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
+(set-face-attribute 'helm-selection nil :background "lightblue" :foreground "black")[<0;62;18M
 
 ;; yasnippet
 (yas-global-mode 1)
@@ -362,6 +378,11 @@
 
 ;; magit
 (require 'magit)
+(setq-default magit-auto-revert-mode nil)
+(setq vc-handled-backends '())
+(eval-after-load "vc" '(remove-hook 'find-file-hooks 'vc-find-file-hook))
+(global-set-key (kbd "C-x m") 'magit-status)
+(global-set-key (kbd "C-c l") 'magit-blame)
 
 ;; neotree
 (require 'neotree)

@@ -1,10 +1,8 @@
 
 ;; thesaitama .emacs
 
-;; MacPorts install Path
-;; /opt/local/share/emacs/site-lisp/
-
 ;; Install
+;; 
 ;; * auto-complete
 ;; * rainbow-mode
 ;; * rainbow-delimiters
@@ -15,16 +13,21 @@
 ;; * jedi
 ;; * flycheck
 ;; * helm
+;; * helm-c-yasnippet
 ;; * yasnippet
 ;; * yasnippet-snippets
-;; * helm-c-yasnippet
 ;; * magit
 ;; * neotree
+;; * iflibpb
+;; * popwin
+;; * google-translate
 
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
+;; MacPorts site-lisp path
+;; /opt/local/share/emacs/site-lisp/
+
+;; ------------------------------------------------------------------------
+;; backage.el
+
 (package-initialize)
 ;;list-packages
 ;;package-list-packages
@@ -33,17 +36,18 @@
         ("melpa" . "http://melpa.org/packages/")
         ("org" . "http://orgmode.org/elpa/")))
 
+;; ------------------------------------------------------------------------
 ;; auto-install
+
 (require 'auto-install)
 (add-to-list 'load-path auto-install-directory)
 (auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
-;; yes or no to y or n
-(fset 'yes-or-no-p 'y-or-n-p)
-
+;; ------------------------------------------------------------------------
 ;; character code
+
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -54,20 +58,34 @@
 (set-buffer-file-coding-system 'utf-8)
 (set-clipboard-coding-system 'utf-8)
 
+;; ------------------------------------------------------------------------
 ;; auto reload bufffer
+
 (global-auto-revert-mode 1)
 
+;; ------------------------------------------------------------------------
 ;; key bind
+
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-t") 'other-window)
 (global-set-key (kbd "C-x C-b") 'bs-show) ;; replace list-buffers
 
+;; ------------------------------------------------------------------------
+;; iflipb
+
+(global-set-key (kbd "<f8>") 'iflipb-next-buffer)
+(global-set-key (kbd "<f7>") 'iflipb-previous-buffer)
+
+;; ------------------------------------------------------------------------
 ;; mouse
+
 (xterm-mouse-mode t)
 (global-set-key [mouse-4] '(lambda () (interactive) (scroll-down 3)))
 (global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 3)))
 
+;; ------------------------------------------------------------------------
 ;; recentf
+
 (when (require 'recentf nil t)
   (setq recentf-max-saved-items 2000)
   (setq recentf-exclude '(".recentf"))
@@ -77,13 +95,14 @@
   (recentf-mode 1))
 (setq-default find-file-visit-truename t)
 
-;; display image file
-(auto-image-file-mode t)
-
+;; ------------------------------------------------------------------------
 ;; auto-compression
+
 (auto-compression-mode t)
 
+;; ------------------------------------------------------------------------
 ;; auto-complete
+
 (require 'auto-complete-config)
 (ac-config-default)
 (global-auto-complete-mode t)
@@ -96,32 +115,13 @@
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 
-;; end of line code
-(setq eol-mnemonic-dos "(CRLF)")
-(setq eol-mnemonic-mac "(CR)")
-(setq eol-mnemonic-unix "(LF)")
-
-;; startup message
-(setq inhibit-startup-message t)
-
-;; display function
-(which-function-mode 1)
-
 ;; backup file
 (setq backup-inhibited t)
 (setq delete-auto-save-files t)
 
-;; frame
-(setq initial-frame-alist
-  (append (list
-   '(border-color . "black")
-   '(mouse-color . "black")
-   '(menu-bar-lines . 1)
-   )
-  initial-frame-alist))
-(setq default-frame-alist initial-frame-alist)
+;; ------------------------------------------------------------------------
+;; color set-face
 
-;; Color
 (global-font-lock-mode t)
 (set-face-foreground 'font-lock-type-face "darkyellow")
 (set-face-foreground 'font-lock-builtin-face "blue")
@@ -141,30 +141,30 @@
 (set-face-background 'isearch-lazy-highlight-face "cyan")
 (set-face-foreground 'minibuffer-prompt "blue")
 
-;; rainbow-mode
-(require 'rainbow-mode)
-(add-hook 'css-mode-hook 'rainbow-mode)
-(add-hook 'scss-mode-hook 'rainbow-mode)
-(add-hook 'php-mode-hook 'rainbow-mode)
-(add-hook 'html-mode-hook 'rainbow-mode)
+;; ------------------------------------------------------------------------
+;; color (custom set face)
 
-;; rainbow-delimiters
-(require 'rainbow-delimiters)
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-(require 'cl-lib)
-(require 'color)
-(defun rainbow-delimiters-using-stronger-colors ()
-  (interactive)
-  (cl-loop
-   for index from 1 to rainbow-delimiters-max-face-count
-   do
-   (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
-    (cl-callf color-saturate-name (face-foreground face) 30))))
-(add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
+ '(helm-ff-directory ((t (:background "lightgreen" :foreground "black"))))
+ '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
+ '(helm-selection ((t (:background "lightblue" :foreground "black"))))
+ '(linum ((t (:inherit (shadow default) :background "Gray23"))))
+ '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
+ '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
+ '(markdown-header-face-2 ((t (:inherit outline-2 :weight bold))))
+ '(markdown-header-face-3 ((t (:inherit outline-3 :weight bold))))
+ '(markdown-header-face-4 ((t (:inherit outline-4 :weight bold))))
+ '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
+ '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
+ '(markdown-pre-face ((t (:inherit org-formula)))))
 
-;; Highlight editing line
-;(global-hl-line-mode t)
-;(custom-set-faces '(hl-line ((t (:background "color-236")))))
+;; ------------------------------------------------------------------------
+;; UI
 
 ;; title-bar character
 (setq frame-title-format (concat "%b - emacs@" system-name))
@@ -185,17 +185,75 @@
 
 ;; line number
 (global-linum-mode 0)
-(custom-set-faces
- '(linum ((t (:inherit (shadow default) :background "Gray23")))))
 (setq linum-format "%4d ")
+;; Highlight editing line
+;(global-hl-line-mode t)
+;(custom-set-faces '(hl-line ((t (:background "color-236")))))
 
+;; frame
+(setq initial-frame-alist
+  (append (list
+   '(border-color . "black")
+   '(mouse-color . "black")
+   '(menu-bar-lines . 1)
+   )
+  initial-frame-alist))
+(setq default-frame-alist initial-frame-alist)
+
+;; startup message
+(setq inhibit-startup-message t)
+
+;; display function
+(which-function-mode 1)
+
+;; end of line code
+(setq eol-mnemonic-dos "(CRLF)")
+(setq eol-mnemonic-mac "(CR)")
+(setq eol-mnemonic-unix "(LF)")
+
+;; display image file
+(auto-image-file-mode t)
+
+;; yes or no to y or n
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; ------------------------------------------------------------------------
 ;; paren match
+
 (show-paren-mode t)
 (set-face-background 'show-paren-match-face "black")
 (set-face-foreground 'show-paren-match-face "white")
 (setq show-paren-style 'mixed)
 
+;; ------------------------------------------------------------------------
+;; rainbow-mode
+
+(require 'rainbow-mode)
+(add-hook 'css-mode-hook 'rainbow-mode)
+(add-hook 'scss-mode-hook 'rainbow-mode)
+(add-hook 'php-mode-hook 'rainbow-mode)
+(add-hook 'html-mode-hook 'rainbow-mode)
+
+;; ------------------------------------------------------------------------
+;; rainbow-delimiters
+
+(require 'rainbow-delimiters)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+(require 'cl-lib)
+(require 'color)
+(defun rainbow-delimiters-using-stronger-colors ()
+  (interactive)
+  (cl-loop
+   for index from 1 to rainbow-delimiters-max-face-count
+   do
+   (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
+    (cl-callf color-saturate-name (face-foreground face) 30))))
+(add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
+
+
+;; ------------------------------------------------------------------------
 ;; colored white spaces
+
 (defface my-face-b-1 '((t (:background "lightyellow"))) nil)
 (defface my-face-b-2 '((t (:background "darkgray"))) nil)
 (defvar my-face-b-1 'my-face-b-1)
@@ -215,19 +273,26 @@
 	nil
 	(font-lock-mode t))))
 
+;; ------------------------------------------------------------------------
 ;; tabs
+
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq-default tab-stop-list '(0 4 8 12 16 20 24 28 32))
 
+;; ------------------------------------------------------------------------
 ;; dabbrev
+
 (global-set-key (kbd "C-<tab>") 'dabbrev-expand)
 (define-key minibuffer-local-map (kbd "C-<tab>") 'dabbrev-expand)
 
+;; ------------------------------------------------------------------------
 ;; helm
+
 (require 'helm-config)
 (helm-mode 1)
 (define-key global-map (kbd "M-x") 'helm-M-x)
+(define-key global-map (kbd "C-c h") 'helm-mini)
 (define-key global-map (kbd "C-x C-f") 'helm-find-files)
 (define-key global-map (kbd "C-x C-r") 'helm-recentf)
 (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
@@ -237,21 +302,24 @@
 (define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
-(custom-set-faces
- '(helm-selection ((t (:background "lightblue" :foreground "black"))))
- '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
- '(helm-ff-directory ((t (:background "green" :foreground "white"))))
- '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
- )
 
+;; ------------------------------------------------------------------------
 ;; spell check (flyspell)
+
 (setq-default flyspell-mode t)
 (setq ispell-dictionary "american")
 
-;; os switch 
-(cond ((equal window-system nil)
-       (load "~/dotfiles/program.el"))
-      ((equal system-type 'gnu/linux)
+;; ------------------------------------------------------------------------
+;; eaw
+
+(load "~/dotfiles/locale-eaw-emoji.el")
+(eaw-and-emoji-fullwidth)
+
+;; ------------------------------------------------------------------------
+;; os switch
+
+(cond ((equal system-type 'gnu/linux)
+       (load "~/dotfiles/google.el")
        (load "~/dotfiles/browser.el")
        (load "~/dotfiles/program.el"))
       ((equal system-type 'windows-nt)
@@ -259,5 +327,25 @@
       ((equal system-type 'darwin)
        (load "~/dotfiles/osx.el")
        (load "~/dotfiles/program.el")
+       (load "~/dotfiles/google.el")
        (load "~/dotfiles/browser.el"))
 )
+
+;; ------------------------------------------------------------------------
+;; custom-set-variables
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(column-number-mode t)
+ '(google-translate-default-source-language "ja")
+ '(google-translate-default-target-language "en")
+ '(menu-bar-mode nil)
+ '(package-selected-packages
+   (quote
+    (popwin google-translate iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+ '(show-paren-mode t)
+ '(size-indication-mode t)
+ '(tool-bar-mode nil))

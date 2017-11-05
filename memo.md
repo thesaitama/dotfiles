@@ -51,3 +51,18 @@ source /opt/local/bin/virtualenvwrapper.sh-2.7
 sudo port install py27-ipython
 sudo port select --set ipython2 py27-ipython
 ```
+
+## wcwidth-cjk
+```
+git clone https://github.com/fumiyas/wcwidth-cjk.git
+cd wcwidth-cjk
+sudo port install libtool autoconf automake
+glibtoolize
+aclocal
+autoheader
+automake --add-missing
+autoconf -v -f -i
+./configure --prefix=/usr/local
+make
+sudo make install
+```

@@ -3,6 +3,7 @@
 
 ;; Install
 ;; 
+;; * auto-install
 ;; * auto-complete
 ;; * rainbow-mode
 ;; * rainbow-delimiters
@@ -59,11 +60,6 @@
 (set-clipboard-coding-system 'utf-8)
 
 ;; ------------------------------------------------------------------------
-;; auto reload bufffer
-
-(global-auto-revert-mode 1)
-
-;; ------------------------------------------------------------------------
 ;; key bind
 
 (global-set-key (kbd "C-h") 'delete-backward-char)
@@ -77,40 +73,16 @@
 (global-set-key (kbd "<f7>") 'iflipb-previous-buffer)
 
 ;; ------------------------------------------------------------------------
-;; mouse
-
-(xterm-mouse-mode t)
-(global-set-key [mouse-4] '(lambda () (interactive) (scroll-down 3)))
-(global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 3)))
-
-;; ------------------------------------------------------------------------
-;; recentf
-
-(when (require 'recentf nil t)
-  (setq recentf-max-saved-items 2000)
-  (setq recentf-exclude '(".recentf"))
-  (setq recentf-auto-cleanup 10)
-  (setq recentf-auto-save-timer
-        (run-with-idle-timer 30 t 'recentf-save-list))
-  (recentf-mode 1))
-(setq-default find-file-visit-truename t)
-
-;; ------------------------------------------------------------------------
-;; auto-compression
-
-(auto-compression-mode t)
-
-;; ------------------------------------------------------------------------
 ;; auto-complete
 
 (require 'auto-complete-config)
 (ac-config-default)
 (global-auto-complete-mode t)
-(add-to-list 'ac-modes 'text-mode) ;; text-modeでも自動的に有効にする
-(add-to-list 'ac-modes 'fundamental-mode) ;; fundamental-mode
+(add-to-list 'ac-modes 'text-mode)
+(add-to-list 'ac-modes 'fundamental-mode)
 (ac-set-trigger-key "TAB")
 (setq ac-use-menu-map t) ;; 補完メニュー表示時にC-n/C-pで補完候補選択
-(setq ac-use-fuzzy t) ;; 曖昧マッチ
+(setq ac-use-fuzzy t)
 
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
@@ -150,7 +122,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
- '(helm-ff-directory ((t (:background "lightgreen" :foreground "black"))))
+ '(helm-ff-directory ((t (:background "gray" :foreground "black"))))
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
  '(helm-selection ((t (:background "lightblue" :foreground "black"))))
  '(linum ((t (:inherit (shadow default) :background "Gray23"))))
@@ -164,7 +136,7 @@
  '(markdown-pre-face ((t (:inherit org-formula)))))
 
 ;; ------------------------------------------------------------------------
-;; UI
+;; UI / UX
 
 ;; title-bar character
 (setq frame-title-format (concat "%b - emacs@" system-name))
@@ -186,7 +158,8 @@
 ;; line number
 (global-linum-mode 0)
 (setq linum-format "%4d ")
-;; Highlight editing line
+
+;; highlight editing line
 ;(global-hl-line-mode t)
 ;(custom-set-faces '(hl-line ((t (:background "color-236")))))
 
@@ -214,8 +187,33 @@
 ;; display image file
 (auto-image-file-mode t)
 
+;; auto compression
+(auto-compression-mode t)
+
+;; auto reload bufffer
+(global-auto-revert-mode 1)
+
 ;; yes or no to y or n
 (fset 'yes-or-no-p 'y-or-n-p)
+
+;; ------------------------------------------------------------------------
+;; mouse
+
+(xterm-mouse-mode t)
+(global-set-key [mouse-4] '(lambda () (interactive) (scroll-down 3)))
+(global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 3)))
+
+;; ------------------------------------------------------------------------
+;; recentf
+
+(when (require 'recentf nil t)
+  (setq recentf-max-saved-items 2000)
+  (setq recentf-exclude '(".recentf"))
+  (setq recentf-auto-cleanup 10)
+  (setq recentf-auto-save-timer
+        (run-with-idle-timer 30 t 'recentf-save-list))
+  (recentf-mode 1))
+(setq-default find-file-visit-truename t)
 
 ;; ------------------------------------------------------------------------
 ;; paren match
@@ -278,7 +276,8 @@
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(setq-default tab-stop-list '(0 4 8 12 16 20 24 28 32))
+(add-hook 'sh-mode-hook '(lambda () (setq tab-width 2)(setq sh-basic-offset 2)
+        (setq sh-indentation 2)))
 
 ;; ------------------------------------------------------------------------
 ;; dabbrev

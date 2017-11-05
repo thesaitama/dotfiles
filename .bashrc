@@ -2,21 +2,38 @@
 
 umask 022
 
-# Alias
-alias sgi="sgi64"
+# alias
 alias ls='ls -avlGF'
 
 # /Applications Alias (Mac OSX)
-alias syspref='open -a "System Preferences"'
-alias chrome='open -a google\ chrome'
-alias firefox='open -a firefox'
-alias thunderbird='open -a thunderbird'
-alias vsc='open -a visual\ studio\ code'
+if [ "$(uname)" == 'Darwin' ]; then
+  alias syspref='open -a "System Preferences"'
+  alias reminders='open -a reminders'
+  alias chrome='open -a google\ chrome'
+  alias firefox='open -a firefox'
+  alias thunderbird='open -a thunderbird'
+  alias excel='open -a microsoft\ excel'
+  alias msword='open -a microsoft\ word'
+  alias powerpoint='open -a microsoft\ powerpoint'
+fi
+
+# Visual Studio Code
+if [ "$(uname)" == 'Darwin' ]; then
+  vscode() {
+    if [[ $# = 0 ]]
+    then
+      open -a "visual studio code"
+    else
+      [[ $1 = /* ]] && F="$1" || F="$PWD/${1#./}"
+      open -a "visual studio code" --args "$F"
+    fi
+  }
+fi
 
 # Make bash check it's window size after a process completes
 shopt -s checkwinsize
 
-# noclobber
+# noblobber (disable overwirte)
 set noblobber
 
 # tmux
@@ -46,3 +63,5 @@ fi
 
 # .inputrc
 [ -f ~/.inputrc ] && bind -f ~/.inputrc
+
+

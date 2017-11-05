@@ -40,3 +40,24 @@ fbr() {
            fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
+
+# fshow - git commit browser
+fgs() {
+  git log --graph --color=always \
+      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+      --bind "ctrl-m:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                {}
+FZF-EOF"
+}
+
+# Mac OSX Only
+if [ "$(uname)" == 'Darwin' ]; then
+  # app - osx appluncher
+  app() {
+    app_path=$(find /Applications -maxdepth 3 -type d  | grep '\.app$' | sed 's/\/Applications\///' | sed 's/\.app$//' | fzf | sed 's/^.*\///')
+    open -a "$app_path"
+  }
+fi

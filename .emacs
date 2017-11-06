@@ -128,7 +128,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
- '(helm-ff-directory ((t (:background "lightgreen" :foreground "black"))))
+ '(helm-ff-directory ((t (:background "lightgray" :foreground "black"))))
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
  '(helm-selection ((t (:background "lightblue" :foreground "black"))))
  '(linum ((t (:inherit (shadow default) :background "Gray23"))))

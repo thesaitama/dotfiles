@@ -11,6 +11,11 @@ export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/X11R6/bin:/
 export PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages:$PATH
 export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-package:$PYTHONPATH
 
+# NAOqi SDK
+#export PYTHONPATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/python2.7/site-packages:$PYTHONPATH
+#export DYLD_LIBRARY_PATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib:$DYLD_LIBRARY_PATH
+#ln -s /usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/* /usr/local/lib
+
 # Env
 export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad
@@ -22,7 +27,7 @@ export LSCOLORS=gxfxcxdxbxegedabagacad
 
 # for MacPorts
 test -d /opt && export PATH=/opt/local/bin:/opt/local/sbin:$PATH &&
-                export MANPATH=/opt/local/share/man:$MANPATH
+                export MANPATH=/opt/local/share/man:/opt/local/man:$MANPATH
 
 # (If you'd like to use Qt3/X11 newer than Apr 24, 2006.)
 #export QTDIR=/opt/local/lib/qt3

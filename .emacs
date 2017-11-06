@@ -2,26 +2,6 @@
 ;; thesaitama .emacs
 
 ;; Install
-;; 
-;; * auto-install
-;; * auto-complete
-;; * rainbow-mode
-;; * rainbow-delimiters
-;; * php-mode
-;; * js2-mode
-;; * mmm-mode
-;; * python-mode
-;; * jedi
-;; * flycheck
-;; * helm
-;; * helm-c-yasnippet
-;; * yasnippet
-;; * yasnippet-snippets
-;; * magit
-;; * neotree
-;; * iflibpb
-;; * popwin
-;; * google-translate
 
 ;; MacPorts site-lisp path
 ;; /opt/local/share/emacs/site-lisp/
@@ -29,12 +9,39 @@
 ;; ------------------------------------------------------------------------
 ;; backage.el
 
+;; M-x list-packages
+;; M-x package-list-packages
+
+(defvar my-favorite-package-list
+  '(auto-install
+    auto-complete
+    rainbow-mode
+    rainbow-delimiters
+    php-mode
+    js2-mode
+    mmm-mode
+    python-mode
+    jedi
+    flycheck
+    helm
+    helm-c-yasnippet
+    yasnippet
+    yasnippet-snippets
+    magit
+    neotree
+    iflipb
+    popwin
+    google-translate)
+  "packages to be installed")
+
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
 (package-initialize)
-;;list-packages
-;;package-list-packages
-(setq package-archives
-      '(("gnu" . "https://elpa.gnu.org/packages/")
-        ("melpa" . "https://melpa.org/packages/")))
+(unless package-archive-contents (package-refresh-contents))
+(dolist (pkg my-favorite-package-list)
+  (unless (package-installed-p pkg)
+    (package-install pkg)))
 
 ;; ------------------------------------------------------------------------
 ;; auto-install
@@ -121,7 +128,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
- '(helm-ff-directory ((t (:background "gray" :foreground "black"))))
+ '(helm-ff-directory ((t (:background "lightgreen" :foreground "black"))))
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
  '(helm-selection ((t (:background "lightblue" :foreground "black"))))
  '(linum ((t (:inherit (shadow default) :background "Gray23"))))
@@ -343,7 +350,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (popwin google-translate iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))

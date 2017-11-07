@@ -1,5 +1,12 @@
 
 ;; ------------------------------------------------------------------------
+;; projectile
+
+(projectile-global-mode)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
+
+;; ------------------------------------------------------------------------
 ;; php-mode
 
 (autoload 'php-mode "php-mode")
@@ -105,3 +112,20 @@
 (when neo-persist-show
   (add-hook 'popwin:before-popup-hook (lambda () (setq neo-persist-show nil)))
   (add-hook 'popwin:after-popup-hook (lambda () (setq neo-persist-show t))))
+
+;; ------------------------------------------------------------------------
+;; helm-qiita
+
+;;(setq helm-qiita-username "Your Qiita Account")
+;;(setq helm-qiita-organization "Your Organization") ;; optional.
+;;(setq helm-qiita-access-token "Your Access Token") ;; See https://qiita.com/settings/applications
+(setq helm-qiita-username (my-lisp-load "helm-qiita-username"))
+(setq helm-qiita-access-token (my-lisp-load "helm-qiita-access-token"))
+(helm-qiita-initialize)
+
+;; ------------------------------------------------------------------------
+;; yagist
+
+;(setq yagist-github-token "******************************")
+(setq yagist-github-token (my-lisp-load "yagist-github-token"))
+(require 'yagist)

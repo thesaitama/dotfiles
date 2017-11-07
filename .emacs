@@ -24,9 +24,14 @@
     jedi
     flycheck
     helm
-    helm-c-yasnippet
     yasnippet
     yasnippet-snippets
+    helm-c-yasnippet
+    qiita
+    helm-qiita
+    yagist
+    projectile
+    helm-projectile
     magit
     neotree
     iflipb
@@ -42,6 +47,18 @@
 (dolist (pkg my-favorite-package-list)
   (unless (package-installed-p pkg)
     (package-install pkg)))
+
+;; ------------------------------------------------------------------------
+;; my-list-load
+
+(defun my-lisp-load (filename)
+"Load lisp from FILENAME"
+  (let ((fullname (expand-file-name (concat "spec/" filename) user-emacs-directory)) lisp)
+    (when (file-readable-p fullname)
+      (with-temp-buffer
+        (progn (insert-file-contents fullname)
+               (setq lisp
+                     (condition-case nil (read (current-buffer)) (error ())))))) lisp))
 
 ;; ------------------------------------------------------------------------
 ;; auto-install
@@ -288,8 +305,8 @@
 ;; ------------------------------------------------------------------------
 ;; dabbrev
 
-(global-set-key (kbd "C-<tab>") 'dabbrev-expand)
-(define-key minibuffer-local-map (kbd "C-<tab>") 'dabbrev-expand)
+;(global-set-key (kbd "C-<tab>") 'dabbrev-expand)
+;(define-key minibuffer-local-map (kbd "C-<tab>") 'dabbrev-expand)
 
 ;; ------------------------------------------------------------------------
 ;; helm
@@ -315,7 +332,7 @@
 (setq ispell-dictionary "american")
 
 ;; ------------------------------------------------------------------------
-;; eaw
+;; eaw (ambiguous width characters)
 
 (load "~/dotfiles/locale-eaw-emoji.el")
 (eaw-and-emoji-fullwidth)
@@ -350,7 +367,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))

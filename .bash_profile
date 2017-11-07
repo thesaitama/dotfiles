@@ -8,7 +8,6 @@ export LESSCHARSET=utf-8
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/X11R6/bin:/Developer/Tools:$PATH
 
 # Path Python
-export PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages:$PATH
 export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-package:$PYTHONPATH
 
 # NAOqi SDK
@@ -46,7 +45,7 @@ export DISPLAY=":0.0"
 export LD_LIBRARY_PATH=/usr/X11R6/lib
 
 # PS
-export PS1="\[\033[35m\]\u@\h:\[\033[0m\]\[\033[36m\]\W\[\033[0m\]$ "
+export PS1="\[\033[35m\]\u:\[\033[0m\]\[\033[36m\]\W\[\033[0m\]$ "
 
 # load .bashrc
 if [ -f ~/.bashrc ] ; then

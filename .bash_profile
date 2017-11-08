@@ -1,7 +1,7 @@
 # thesaitama@ .bash_profile
 
 # Editor
-export EDITOR=emacsclient
+export EDITOR='emacsclient -nw'
 
 # Unicode Support
 export LANG=ja_JP.UTF-8

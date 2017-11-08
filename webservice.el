@@ -1,11 +1,5 @@
 
 ;; ------------------------------------------------------------------------
-;; helm (google)
-
-(global-set-key (kbd "M-g s") 'helm-google)
-(global-set-key (kbd "M-g a") 'helm-google-suggest)
-
-;; ------------------------------------------------------------------------
 ;; google-translate
 
 (require 'google-translate)
@@ -41,6 +35,29 @@
      (if asciip "ja" "en")
      string)))
 (global-set-key (kbd "M-g t") 'google-translate-enja-or-jaen)
+
+;; ------------------------------------------------------------------------
+;; helm (google)
+
+(global-set-key (kbd "M-g s") 'helm-google)
+(global-set-key (kbd "M-g a") 'helm-google-suggest)
+
+;; ------------------------------------------------------------------------
+;; helm-qiita
+
+;;(setq helm-qiita-username "Your Qiita Account")
+;;(setq helm-qiita-organization "Your Organization") ;; optional.
+;;(setq helm-qiita-access-token "Your Access Token") ;; See https://qiita.com/settings/applications
+(setq helm-qiita-username (my-lisp-load "helm-qiita-username"))
+(setq helm-qiita-access-token (my-lisp-load "helm-qiita-access-token"))
+(helm-qiita-initialize)
+
+;; ------------------------------------------------------------------------
+;; yagist
+
+;(setq yagist-github-token "******************************")
+(setq yagist-github-token (my-lisp-load "yagist-github-token"))
+(require 'yagist)
 
 
 

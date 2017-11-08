@@ -23,6 +23,7 @@
     python-mode
     jedi
     flycheck
+    flycheck-popup-tip
     helm
     yasnippet
     yasnippet-snippets
@@ -295,7 +296,7 @@
 	(font-lock-mode t))))
 
 ;; ------------------------------------------------------------------------
-;; tabs
+;; indent-tabs
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -324,6 +325,15 @@
 (define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
+;; hide directory ..
+(advice-add 'helm-ff-filter-candidate-one-by-one
+        :around (lambda (fcn file)
+                  (unless (string-match "\\(?:/\\|\\`\\)\\.\\{2\\}\\'" file)
+                    (funcall fcn file))))
+;; autoresize
+(setq helm-autoresize-max-height 0)
+(setq helm-autoresize-min-height 40)
+(helm-autoresize-mode 1)
 
 ;; ------------------------------------------------------------------------
 ;; spell check (flyspell)
@@ -341,7 +351,7 @@
 ;; os switch
 
 (cond ((equal system-type 'gnu/linux)
-       (load "~/dotfiles/google.el")
+       (load "~/dotfiles/webservice.el")
        (load "~/dotfiles/browser.el")
        (load "~/dotfiles/program.el"))
       ((equal system-type 'windows-nt)
@@ -349,7 +359,7 @@
       ((equal system-type 'darwin)
        (load "~/dotfiles/osx.el")
        (load "~/dotfiles/program.el")
-       (load "~/dotfiles/google.el")
+       (load "~/dotfiles/webservice.el")
        (load "~/dotfiles/browser.el"))
 )
 
@@ -367,7 +377,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))

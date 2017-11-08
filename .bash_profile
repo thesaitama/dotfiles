@@ -1,5 +1,8 @@
 # thesaitama@ .bash_profile
 
+# Editor
+export EDITOR=emacsclient
+
 # Unicode Support
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8

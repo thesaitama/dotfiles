@@ -3,6 +3,8 @@
 umask 022
 
 # alias
+alias e='emacsclient -nw -a ""'
+alias emacs='emacsclient -nw -a ""'
 alias ls='ls -avlGF'
 
 # /Applications Alias (Mac OSX)

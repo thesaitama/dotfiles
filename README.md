@@ -23,25 +23,6 @@ I will give you updates this repository
  * .emacs
  * .emacs.unuse
 
-#### dependencies
- * auto-complete
- * rainbow-mode
- * rainbow-delimiters
- * php-mode
- * mmm-mode
- * python-mode
- * jedi
- * flycheck
- * helm
- * yasnippet
- * yasnippet-snippets
- * helm-c-yasnippet
- * magit
- * neotree
-
- run on emacs,
- type `M-x list-packages <dependencies>`
-
 ### vim
  * .vimrc
  * .vim/

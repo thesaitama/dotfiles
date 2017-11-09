@@ -37,6 +37,7 @@
     neotree
     iflipb
     popwin
+    shell-pop
     google-translate)
   "packages to be installed")
 
@@ -146,9 +147,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
- '(helm-ff-directory ((t (:background "lightgray" :foreground "black"))))
+ '(helm-ff-directory ((t (:background "SlateGray3" :foreground "white"))))
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
- '(helm-selection ((t (:background "lightblue" :foreground "black"))))
+ '(helm-selection ((t (:background "LightSkyBlue" :foreground "black"))))
  '(linum ((t (:inherit (shadow default) :background "Gray23"))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
@@ -364,6 +365,15 @@
 )
 
 ;; ------------------------------------------------------------------------
+;; shell-pop
+
+(setq shell-pop-shell-type '("eshell" "*eshell*" (lambda () (eshell))))
+;;(setq shell-pop-shell-type '("shell" "*shell*" (lambda () (shell))))
+;;(setq shell-pop-shell-type '("terminal" "*terminal*" (lambda () (term shell-pop-term-shell))))
+;;(setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
+(global-set-key (kbd "C-c s") 'shell-pop)
+
+;; ------------------------------------------------------------------------
 ;; custom-set-variables
 
 (custom-set-variables
@@ -377,7 +387,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))

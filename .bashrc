@@ -6,6 +6,11 @@ umask 022
 alias e='emacsclient -nw -a ""'
 alias emacs='emacsclient -nw -a ""'
 alias ls='ls -avlGF'
+alias g='git'
+
+alias snao='dns-sd -B _naoqi._tcp'
+alias mdlk='dns-sd -q'
+#dns-sd -B _nao._tcp
 
 # /Applications Alias (Mac OSX)
 if [ "$(uname)" == 'Darwin' ]; then
@@ -19,9 +24,32 @@ if [ "$(uname)" == 'Darwin' ]; then
   alias powerpoint='open -a microsoft\ powerpoint'
 fi
 
+# color chars
+c_red="\e[31m"
+c_green="\e[32m"
+c_yellow="\e[33m"
+c_blue="\e[34m"
+c_purple="\e[35m"
+c_cyan="\e[36m"
+c_reset="\e[00m"
+
+# PS1 result
+function _ps1_result() {
+    code=$?
+    if [ ${code} == 0 ]; then
+        echo -e "${c_green}${code}${c_reset}"
+    else
+        echo -e "${c_red}${code}${c_reset}"
+    fi
+}
+
+# PS1
+#export PS1="${c_purple}\u@:${c_reset}${c_cyan}\W:${c_reset}$(_ps1_result)$ "
+export PS1="${c_reset}${c_cyan}\W/${c_reset} $(_ps1_result)$ "
+
 # Visual Studio Code
 if [ "$(uname)" == 'Darwin' ]; then
-  vscode() {
+  vsc() {
     if [[ $# = 0 ]]
     then
       open -a "visual studio code"
@@ -39,7 +67,6 @@ shopt -s checkwinsize
 set noblobber
 
 # tmux
-# sudo port install tmux-pasteboard
 # tmux ssh
 ssh() {
   if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then

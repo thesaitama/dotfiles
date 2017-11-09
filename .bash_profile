@@ -47,9 +47,6 @@ test -d /opt && export PATH=/opt/local/bin:/opt/local/sbin:$PATH &&
 export DISPLAY=":0.0"
 export LD_LIBRARY_PATH=/usr/X11R6/lib
 
-# PS
-export PS1="\[\033[35m\]\u:\[\033[0m\]\[\033[36m\]\W\[\033[0m\]$ "
-
 # load .bashrc
 if [ -f ~/.bashrc ] ; then
   . ~/.bashrc

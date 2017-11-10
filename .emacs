@@ -164,7 +164,7 @@
 ;; UI / UX
 
 ;; title-bar character
-(setq frame-title-format (concat "%b - emacs@" system-name))
+(setq frame-title-format (concat "%b - emacs@" (system-name)))
 
 ;; tool-bar
 (setq tool-bar-mode 0)

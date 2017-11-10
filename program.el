@@ -28,23 +28,22 @@
 )
 
 ;; ------------------------------------------------------------------------
-;; mmm-mode (html, php)
+;; php-mode
 
-(require 'mmm-auto)
-(setq mmm-global-mode 'maybe)
-;(set-face-background 'mmm-default-submode-face nil) ;背景色が不要な場合
-(mmm-add-classes
- '((embedded-css
-    :submode css-mode
-    :front "<style[^>]*>"
-    :back "</style>")))
-(mmm-add-mode-ext-class nil "\\(\\.x?html?\\|php\\)(\\..+\\)?$" 'embedded-css)
-(mmm-add-classes
- '((embedded-js
-    :submode javascript-mode
-    :front "<script[^>]*>"
-    :back "</script>")))
-(mmm-add-mode-ext-class nil "\\(\\.x?html?\\|php\\)(\\..+\\)?$" 'embedded-js)
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.as[cp]x$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\(\\.x?html?\\|iht\\)\\([.]?\\w+\\)*$". web-mode))
+(defun web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-html-offset 2)
+  (setq web-mode-css-offset 2)
+  (setq web-mode-script-offset 2)
+  (setq web-mode-php-offset 2)
+  (setq web-mode-java-offset 2)
+  (setq web-mode-asp-offset 2)
+  (setq indent-tabs-mode t)
+  (setq tab-width 4))
+(add-hook 'web-mode-hook 'web-mode-hook)
 
 ;; ------------------------------------------------------------------------
 ;; js2-mode
@@ -68,13 +67,6 @@
 
 (setq auto-mode-alist
       (append '(("\\.\\(xml\\|rlx\\|pml\\|rng\\)$" . xml-mode))
-       auto-mode-alist))
-
-;; ------------------------------------------------------------------------
-;; html-mode (xhtml, html)
-
-(setq auto-mode-alist
-      (append '(("\\(\\.x?html?\\|iht\\)\\([.]?\\w+\\)*$" . html-mode))
        auto-mode-alist))
 
 ;; ------------------------------------------------------------------------

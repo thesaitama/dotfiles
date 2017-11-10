@@ -17,9 +17,9 @@
     auto-complete
     rainbow-mode
     rainbow-delimiters
+    web-mode
     php-mode
     js2-mode
-    mmm-mode
     python-mode
     jedi
     flycheck

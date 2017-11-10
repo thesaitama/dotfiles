@@ -121,13 +121,13 @@
 
 (global-font-lock-mode t)
 (set-face-foreground 'font-lock-type-face "darkyellow")
-(set-face-foreground 'font-lock-builtin-face "blue")
+(set-face-foreground 'font-lock-builtin-face "magenta")
 (set-face-foreground 'font-lock-comment-face "green")
 (set-face-foreground 'font-lock-string-face "darkorange")
 (set-face-foreground 'font-lock-keyword-face "blue")
-(set-face-foreground 'font-lock-function-name-face "blue") ; lightskyblue
+(set-face-foreground 'font-lock-function-name-face "yellow") ; lightskyblue
 (set-face-foreground 'font-lock-variable-name-face "goldenrod")
-(set-face-foreground 'font-lock-constant-face "darkblue") ; aquamarine
+(set-face-foreground 'font-lock-constant-face "orange")
 (set-face-foreground 'font-lock-preprocessor-face "darkyellow")
 (set-face-foreground 'font-lock-warning-face "pink")
 (set-face-foreground 'tool-bar "cyan")
@@ -146,10 +146,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
- '(helm-ff-directory ((t (:background "SlateGray3" :foreground "white"))))
- '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
  '(helm-selection ((t (:background "LightSkyBlue" :foreground "black"))))
+ '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
+ '(helm-ff-directory ((t (:background "Gray25" :foreground "white"))))
+ '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))
+ '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "orange"))))
+ '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
+ '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
  '(linum ((t (:inherit (shadow default) :background "Gray23"))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
@@ -363,6 +366,20 @@
        (load "~/dotfiles/webservice.el")
        (load "~/dotfiles/browser.el"))
 )
+
+;; ------------------------------------------------------------------------
+;; eshell
+
+(setq eshell-command-aliases-list
+      (append
+       (list
+        (list "ls" "ls -a")
+        (list "o" "xdg-open")
+        (list "emacs" "find-file $1")
+        (list "e" "find-file $1")
+        (list "d" "dired .")
+        )))
+(setq eshell-path-env (getenv "PATH"))
 
 ;; ------------------------------------------------------------------------
 ;; shell-pop

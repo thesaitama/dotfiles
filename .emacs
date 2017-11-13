@@ -15,6 +15,8 @@
 (defvar my-favorite-package-list
   '(auto-install
     auto-complete
+    foreign-regexp
+    undo-tree
     rainbow-mode
     rainbow-delimiters
     web-mode
@@ -146,13 +148,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(helm-selection ((t (:background "LightSkyBlue" :foreground "black"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "white"))))
  '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))
  '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "orange"))))
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
  '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
+ '(helm-selection ((t (:background "LightSkyBlue" :foreground "black"))))
  '(linum ((t (:inherit (shadow default) :background "Gray23"))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
@@ -391,6 +393,24 @@
 (global-set-key (kbd "C-c s") 'shell-pop)
 
 ;; ------------------------------------------------------------------------
+;; undo-tree
+
+(require 'undo-tree)
+(global-undo-tree-mode t)
+(global-set-key (kbd "M-/") 'undo-tree-redo)
+;;(defun undo-tree-split-side-by-side (original-function &rest args)
+;;  "Split undo-tree side-by-side"
+;;  (let ((split-height-threshold nil)
+;;        (split-width-threshold 0))
+;;    (apply original-function args)))
+;;(advice-add 'undo-tree-visualize :around #'undo-tree-split-side-by-side)
+
+;; ------------------------------------------------------------------------
+;; foreign-regexp
+
+(require 'foreign-regexp)
+
+;; ------------------------------------------------------------------------
 ;; custom-set-variables
 
 (custom-set-variables
@@ -399,12 +419,15 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
+ '(foreign-regexp/regexp-type (quote perl))
  '(google-translate-default-source-language "ja")
  '(google-translate-default-target-language "en")
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+ '(reb-re-syntax (quote foreign-regexp))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
+

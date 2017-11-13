@@ -33,19 +33,13 @@ c_purple="\e[35m"
 c_cyan="\e[36m"
 c_reset="\e[00m"
 
-# PS1 result
-function _ps1_result() {
-    code=$?
-    if [ ${code} == 0 ]; then
-        echo -e "${c_green}${code}${c_reset}"
-    else
-        echo -e "${c_red}${code}${c_reset}"
-    fi
-}
-
 # PS1
 #export PS1="${c_purple}\u@:${c_reset}${c_cyan}\W:${c_reset}$(_ps1_result)$ "
-export PS1="${c_reset}${c_cyan}\W/${c_reset} $(_ps1_result)$ "
+export PS1="${c_reset}${c_green}\W/${c_blue} \
+${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
+echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\")${c_yellow} \
+${c_blue}\\\$${c_reset} "
+
 
 # Visual Studio Code
 if [ "$(uname)" == 'Darwin' ]; then

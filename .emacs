@@ -15,6 +15,9 @@
 (defvar my-favorite-package-list
   '(auto-install
     auto-complete
+    ac-html
+    ac-js2
+    ac-php
     foreign-regexp
     undo-tree
     rainbow-mode
@@ -286,7 +289,7 @@
 (defface my-face-b-2 '((t (:background "darkgray"))) nil)
 (defvar my-face-b-1 'my-face-b-1)
 (defvar my-face-b-2 'my-face-b-2)
-(defvar my-face-u-1 'my-face-u-1)
+(defvar my-face-u-1 'my-face-b-2)
 (defadvice font-lock-mode(before my-font-lock-mode ())
 (font-lock-add-keywords
  major-mode '(
@@ -297,9 +300,9 @@
 (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
 (ad-activate 'font-lock-mode)
 (add-hook 'find-file-hooks '(lambda ()
-	(if font-lock-mode
-	nil
-	(font-lock-mode t))))
+    (if font-lock-mode
+        nil
+      (font-lock-mode t))))
 
 ;; ------------------------------------------------------------------------
 ;; indent-tabs
@@ -425,7 +428,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(reb-re-syntax (quote foreign-regexp))
  '(show-paren-mode t)
  '(size-indication-mode t)

@@ -174,7 +174,7 @@
  ;; If there is more than one, they won't work right.
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-source-header ((t (:background "SlateGray4" :foreground "white"))))
- '(helm-ff-directory ((t (:background "Gray5" :foreground "white"))))
+ '(helm-ff-directory ((t (:inherit font-lock-builtin-face :foreground "cyan"))))
  '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))
  '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "orange"))))
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))

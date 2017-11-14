@@ -25,19 +25,19 @@ if [ "$(uname)" == 'Darwin' ]; then
 fi
 
 # color chars
-c_red="\e[31m"
-c_green="\e[32m"
-c_yellow="\e[33m"
-c_blue="\e[34m"
-c_purple="\e[35m"
-c_cyan="\e[36m"
-c_reset="\e[00m"
+c_red="\[\033[31m\]"
+c_green="\[\033[32m\]"
+c_yellow="\[\033[33m\]"
+c_blue="\[\033[34m\]"
+c_purple="\[\033[35m\]"
+c_cyan="\[\033[36m\]"
+c_reset="\[\033[00m\]"
 
 # PS1
 #export PS1="${c_purple}\u@:${c_reset}${c_cyan}\W:${c_reset}$(_ps1_result)$ "
-export PS1="${c_reset}${c_green}\W/${c_blue} \
+export PS1="${c_reset}${c_green}\W \
 ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
-echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\")${c_yellow} \
+echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
 ${c_blue}\\\$${c_reset} "
 
 

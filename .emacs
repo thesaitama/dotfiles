@@ -18,6 +18,8 @@
     ac-html
     ac-js2
     ac-php
+    anzu
+    highlight-symbol
     foreign-regexp
     undo-tree
     rainbow-mode
@@ -97,6 +99,25 @@
 (global-set-key (kbd "C-x C-b") 'bs-show) ;; replace list-buffers
 
 ;; ------------------------------------------------------------------------
+;; highlight-symbol
+
+(require 'highlight-symbol)
+(setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
+(global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
+(global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
+
+;; ------------------------------------------------------------------------
+;; anzu
+
+(require 'anzu)
+(global-anzu-mode +1)
+;(setq anzu-use-migemo t)
+(setq anzu-search-threshold 1000)
+(setq anzu-minimum-input-length 3)
+(global-set-key (kbd "C-c r") 'anzu-query-replace)
+(global-set-key (kbd "C-c R") 'anzu-query-replace-regexp)
+
+;; ------------------------------------------------------------------------
 ;; iflipb
 
 (global-set-key (kbd "<f8>") 'iflipb-next-buffer)
@@ -152,12 +173,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
- '(helm-ff-directory ((t (:background "Gray25" :foreground "white"))))
+ '(helm-source-header ((t (:background "SlateGray4" :foreground "white"))))
+ '(helm-ff-directory ((t (:background "Gray5" :foreground "white"))))
  '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))
  '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "orange"))))
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
  '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
- '(helm-selection ((t (:background "LightSkyBlue" :foreground "black"))))
+ '(helm-selection ((t (:background "lightblue" :foreground "black"))))
  '(linum ((t (:inherit (shadow default) :background "Gray23"))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
@@ -182,11 +204,6 @@
 
 ;; region display
 (setq transient-mark-mode t)
-
-;; modeline
-(line-number-mode t)
-(column-number-mode t)
-(size-indication-mode t)
 
 ;; line number
 (global-linum-mode 0)
@@ -414,6 +431,34 @@
 (require 'foreign-regexp)
 
 ;; ------------------------------------------------------------------------
+;; modeline
+
+(line-number-mode t)
+(column-number-mode t)
+(size-indication-mode t)
+
+;; ------------------------------------------------------------------------
+;; smart-mode-line
+
+(require 'smart-mode-line)
+;; bug hack
+(setq sml/active-background-color "gray60")
+(setq sml/read-only-char "%%")
+(setq sml/modified-char "*")
+;; hide Helm and auto-complete
+(setq sml/hidden-modes '(" Helm" " AC" " Undo-Tree" " yas"))
+;; hack
+(setq sml/extra-filler -10)
+;;; sml/replacer-regexp-listはモードラインでのファイル名表示方法を制御
+(add-to-list 'sml/replacer-regexp-list '("^.+/junk/[0-9]+/" ":J:") t)
+(setq sml/no-confirm-load-theme t)
+(sml/setup)
+(sml/apply-theme 'respectful)
+;; theme
+(sml/apply-theme 'dark)
+;;(sml/apply-theme 'light)
+
+;; ------------------------------------------------------------------------
 ;; custom-set-variables
 
 (custom-set-variables
@@ -428,7 +473,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(reb-re-syntax (quote foreign-regexp))
  '(show-paren-mode t)
  '(size-indication-mode t)

@@ -1,9 +1,8 @@
 
-
 ;; ------------------------------------------------------------------------
 ;; flycheck
 
-(global-flycheck-mode)
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; ------------------------------------------------------------------------
 ;; projectile
@@ -11,6 +10,19 @@
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
 (helm-projectile-on)
+(setq projectile-mode-line
+      '(:eval (if (projectile-project-p)
+                  (format " Pj" (projectile-project-name)) "")))
+
+;; ------------------------------------------------------------------------
+;; helm-projectile
+
+(when (and (require 'helm-projectile))
+  (custom-set-variables
+   '(helm-mini-default-sources '(helm-source-buffers-list
+                                 helm-source-recentf
+                                 helm-source-projectile-files-list))))
+(define-key global-map (kbd "C-c h") 'helm-mini)
 
 ;; ------------------------------------------------------------------------
 ;; php-mode

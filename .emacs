@@ -173,13 +173,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
- '(helm-source-header ((t (:background "SlateGray4" :foreground "white"))))
- '(helm-ff-directory ((t (:inherit font-lock-builtin-face :foreground "cyan"))))
+ '(helm-ff-directory ((t (:background "Gray25" :foreground "white"))))
  '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))
  '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "orange"))))
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
  '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
- '(helm-selection ((t (:background "lightblue" :foreground "black"))))
+ '(helm-selection ((t (:background "LightSkyBlue" :foreground "black"))))
+ '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
  '(linum ((t (:inherit (shadow default) :background "Gray23"))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
@@ -225,9 +225,6 @@
 
 ;; startup message
 (setq inhibit-startup-message t)
-
-;; display function
-(which-function-mode 1)
 
 ;; end of line code
 (setq eol-mnemonic-dos "(CRLF)")
@@ -437,6 +434,41 @@
 (column-number-mode t)
 (size-indication-mode t)
 
+;; display function
+(which-function-mode 1)
+
+;; clean mode line
+(defvar mode-line-cleaner-alist
+  '( ;; For minor-mode, first char is 'space'
+    (paredit-mode . " Pe")
+    (eldoc-mode . "")
+    (abbrev-mode . "")
+    (undo-tree-mode . "")
+    (font-lock-mode . "")
+    (elisp-slime-nav-mode . " EN")
+    (helm-gtags-mode . " HG")
+    (flymake-mode . " Fm")
+    ;; Major modes
+    (lisp-interaction-mode . "Li")
+    (python-mode . "Py")
+    (ruby-mode   . "Rb")
+    (fundamental-mode . "Fund")
+    (lisp-mode . "El")
+    (markdown-mode . "Md")))
+
+(defun clean-mode-line ()
+  (interactive)
+  (loop for (mode . mode-str) in mode-line-cleaner-alist
+        do
+        (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
+          (when old-mode-str
+            (setcar old-mode-str mode-str))
+          ;; major mode
+          (when (eq mode major-mode)
+            (setq mode-name mode-str)))))
+
+(add-hook 'after-change-major-mode-hook 'clean-mode-line)
+
 ;; ------------------------------------------------------------------------
 ;; smart-mode-line
 
@@ -446,17 +478,17 @@
 (setq sml/read-only-char "%%")
 (setq sml/modified-char "*")
 ;; hide Helm and auto-complete
-(setq sml/hidden-modes '(" Helm" " AC" " Undo-Tree" " yas"))
-;; hack
+(setq sml/hidden-modes '(" Helm" " AC" " Yas" " ARev" " Anzu"))
+;; hack (privent overflow)
 (setq sml/extra-filler -10)
-;;; sml/replacer-regexp-listはモードラインでのファイル名表示方法を制御
+;;; sml/replacer-regexp-list
 (add-to-list 'sml/replacer-regexp-list '("^.+/junk/[0-9]+/" ":J:") t)
 (setq sml/no-confirm-load-theme t)
 (sml/setup)
-(sml/apply-theme 'respectful)
 ;; theme
-(sml/apply-theme 'dark)
+;;(sml/apply-theme 'respectful)
 ;;(sml/apply-theme 'light)
+(sml/apply-theme 'dark)
 
 ;; ------------------------------------------------------------------------
 ;; custom-set-variables
@@ -473,7 +505,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(reb-re-syntax (quote foreign-regexp))
  '(show-paren-mode t)
  '(size-indication-mode t)

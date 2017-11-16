@@ -15,6 +15,7 @@
 (defvar my-favorite-package-list
   '(auto-install
     auto-complete
+    sequential-command
     ac-html
     ac-js2
     ac-php
@@ -97,6 +98,7 @@
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-t") 'other-window)
 (global-set-key (kbd "C-x C-b") 'bs-show) ;; replace list-buffers
+(global-set-key (kbd "<f9>") 'other-window)
 
 ;; ------------------------------------------------------------------------
 ;; highlight-symbol
@@ -105,6 +107,19 @@
 (setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
 (global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
+
+;; ------------------------------------------------------------------------
+;; sequential-command
+
+(require 'sequential-command-config)
+(global-set-key "\C-a" 'seq-home)
+(global-set-key "\C-e" 'seq-end)
+(when (require 'org nil t)
+  (define-key org-mode-map "\C-a" 'org-seq-home)
+  (define-key org-mode-map "\C-e" 'org-seq-end))
+(define-key esc-map "u" 'seq-upcase-backward-word)
+(define-key esc-map "c" 'seq-capitalize-backward-word)
+(define-key esc-map "l" 'seq-downcase-backward-word)
 
 ;; ------------------------------------------------------------------------
 ;; anzu
@@ -149,6 +164,7 @@
 (set-face-foreground 'font-lock-type-face "darkyellow")
 (set-face-foreground 'font-lock-builtin-face "magenta")
 (set-face-foreground 'font-lock-comment-face "green")
+(set-face-foreground 'font-lock-comment-delimiter-face "green")
 (set-face-foreground 'font-lock-string-face "darkorange")
 (set-face-foreground 'font-lock-keyword-face "blue")
 (set-face-foreground 'font-lock-function-name-face "yellow") ; lightskyblue
@@ -163,6 +179,8 @@
 (set-face-foreground 'isearch-lazy-highlight-face "black")
 (set-face-background 'isearch-lazy-highlight-face "cyan")
 (set-face-foreground 'minibuffer-prompt "blue")
+(set-face-foreground 'fringe "blue")
+(set-face-background 'fringe "gray12")
 
 ;; ------------------------------------------------------------------------
 ;; color (custom set face)
@@ -192,6 +210,10 @@
 
 ;; ------------------------------------------------------------------------
 ;; UI / UX
+
+;; disable bell
+(setq visible-bell t)
+(setq ring-bell-function 'ignore)
 
 ;; title-bar character
 (setq frame-title-format (concat "%b - emacs@" (system-name)))
@@ -263,12 +285,14 @@
 (setq-default find-file-visit-truename t)
 
 ;; ------------------------------------------------------------------------
-;; paren match
+;; paren
 
 (show-paren-mode t)
 (set-face-background 'show-paren-match-face "black")
 (set-face-foreground 'show-paren-match-face "white")
 (setq show-paren-style 'mixed)
+
+(electric-pair-mode 1)
 
 ;; ------------------------------------------------------------------------
 ;; rainbow-mode
@@ -294,7 +318,6 @@
    (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
     (cl-callf color-saturate-name (face-foreground face) 30))))
 (add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
-
 
 ;; ------------------------------------------------------------------------
 ;; colored white spaces
@@ -354,7 +377,7 @@
         :around (lambda (fcn file)
                   (unless (string-match "\\(?:/\\|\\`\\)\\.\\{2\\}\\'" file)
                     (funcall fcn file))))
-;; autoresize
+;; auto resize
 (setq helm-autoresize-max-height 0)
 (setq helm-autoresize-min-height 40)
 (helm-autoresize-mode 1)
@@ -503,10 +526,13 @@
  '(foreign-regexp/regexp-type (quote perl))
  '(google-translate-default-source-language "ja")
  '(google-translate-default-target-language "en")
+ '(helm-mini-default-sources
+   (quote
+    (helm-source-buffers-list helm-source-recentf helm-source-projectile-files-list)))
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(reb-re-syntax (quote foreign-regexp))
  '(show-paren-mode t)
  '(size-indication-mode t)

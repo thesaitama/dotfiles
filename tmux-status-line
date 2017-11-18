@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# git
+cd `tmux display-message -p -F "#{pane_current_path}"`
+git_name=`git config --get user.name`
+git_email=`git config --get user.email`
+git_branch=`git branch | grep \*.* | sed -e 's/\*\ //'`
+if [ ${git_branch} != "" ] ; then
+  git_info="${git_email:0:8} > ${git_branch}"
+fi
+
+# load-average
+load_avg="#[default]#[bg=colour241] $(uptime | awk '{print $(NF-2)}') #[default]"
+
+# airport (Mac Only)
+airport_path="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
+
+if air_info=($(eval "$airport_path" -I | grep -E "^ *(agrCtlRSSI|state|SSID|lastTxRate):" | awk '{print $2}')) ; then
+
+  rssi=${air_info[0]}
+  state=${air_info[1]}
+  txrate=${air_info[2]}
+  ssid=${air_info[3]}
+
+  case "$state" in
+    "running" )
+      signals=(⠄⠆⠇⠿)
+      signal=""
+      rssi_=$(expr 4 - ${rssi} / -20)
+      for ((i=0; i < $rssi_; i++ )); do
+        signal="${signal}${signals[$i]}"
+      done
+      airport_=" ${ssid} ${txrate}M #[default]${signal} "
+    ;;
+    "init"    ) airport_="#[fg=yellow] ⠒⠒⠒ " ;;
+    *         ) airport_="#[fg=red] ✘ " ;;
+  esac  
+  airport="#[default]${airport_}#[default]"
+fi
+
+echo "${git_info} ${load_avg}${airport}"
+

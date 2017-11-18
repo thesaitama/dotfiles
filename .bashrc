@@ -1,64 +1,90 @@
 # thesaitama@ .bashrc
 
-# Unicode Support
-export LANG=ja_JP.UTF-8
-export LESSCHARSET=utf-8
-
-# Path
-export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/X11R6/bin:/Developer/Tools:$PATH
-export MANPATH=/opt/local/man:$MANPATH
-
-# Env
-export CLICOLOR=1
-export LSCOLORS=gxfxcxdxbxegedabagacad
-
-# Alias
-alias sgi="sgi64"
-alias ls='ls -avlGF'
-
-# /Applications Alias (Mac OSX)
-alias syspref='open -a "System Preferences"'
-alias chrome='open -a google\ chrome'
-alias firefox='open -a firefox'
-alias thunderbird='open -a thunderbird'
-alias vsc='open -a visual\ studio\ code'
-alias basecamp='open -a garmin\ basecamp'
-
-# for Fink
-#test -d /sw && export PATH=/sw/bin:/sw/sbin:$PATH &&
-#               export MANPATH=/sw/share/man:$MANPATH
-#test -r /sw/bin/init.sh && . /sw/bin/init.sh
-
-# for MacPorts
-test -d /opt && export PATH=/opt/local/bin:/opt/local/sbin:$PATH &&
-                export MANPATH=/opt/local/share/man:$MANPATH
-
-# (If you'd like to use Qt3/X11 newer than Apr 24, 2006.)
-#export QTDIR=/opt/local/lib/qt3
-
-# (If you'd like to use Qt4/Mac.)
-#export QTDIR=/usr/local/Trolltech/Qt-4.2.2
-#export PATH=$QTDIR/bin:$PATH
-#export QMAKESPEC=$QTDIR/mkspecs/macx-xcode
-#export QMAKESPEC=$QTDIR/mkspecs/macx-g++
-
-# (If you'd like to use CVS as CMS.)
-export CVS_RSH=ssh
-# export CVSROOT=...
-
-# X-Window System
-export DISPLAY=":0.0"
-export LD_LIBRARY_PATH=/usr/X11R6/lib
-
-# PS
-export PS1="\[\033[35m\]\u@\h:\[\033[0m\]\W$ "
-
 umask 022
 
-set -o posix
+# alias
+alias e='emacsclient -nw -a ""'
+alias emacs='emacsclient -nw -a ""'
+alias ls='ls -avlGF'
+alias g='git'
+
+alias snao='dns-sd -B _naoqi._tcp'
+alias mdlk='dns-sd -q'
+#dns-sd -B _nao._tcp
+
+# /Applications Alias (Mac OSX)
+if [ "$(uname)" == 'Darwin' ]; then
+  alias syspref='open -a "System Preferences"'
+  alias reminders='open -a reminders'
+  alias chrome='open -a google\ chrome'
+  alias firefox='open -a firefox'
+  alias thunderbird='open -a thunderbird'
+  alias excel='open -a microsoft\ excel'
+  alias msword='open -a microsoft\ word'
+  alias powerpoint='open -a microsoft\ powerpoint'
+fi
+
+# color chars
+c_red="\[\033[31m\]"
+c_green="\[\033[32m\]"
+c_yellow="\[\033[33m\]"
+c_blue="\[\033[34m\]"
+c_purple="\[\033[35m\]"
+c_cyan="\[\033[36m\]"
+c_reset="\[\033[00m\]"
+
+# PS1
+#export PS1="${c_purple}\u@:${c_reset}${c_cyan}\W:${c_reset}$(_ps1_result)$ "
+export PS1="${c_reset}${c_green}\W/ \
+${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
+echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
+${c_blue}\\\$${c_reset} "
+
+
+# Visual Studio Code
+if [ "$(uname)" == 'Darwin' ]; then
+  vsc() {
+    if [[ $# = 0 ]]
+    then
+      open -a "visual studio code"
+    else
+      [[ $1 = /* ]] && F="$1" || F="$PWD/${1#./}"
+      open -a "visual studio code" --args "$F"
+    fi
+  }
+fi
 
 # Make bash check it's window size after a process completes
 shopt -s checkwinsize
 
-# noclobber
+# noblobber (disable overwirte)
 set noblobber
+
+# tmux
+# tmux ssh
+ssh() {
+  if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
+    tmux rename-window ${@: -1}
+    command ssh "$@"
+    tmux set-window-option automatic-rename "on" 1>/dev/null
+  else
+    command ssh "$@"
+  fi
+}
+
+# fzf
+# > git clone https://github.com/junegunn/fzf.git ~/.fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if [ -f ~/.fzfcmd.sh ] ; then
+  . ~/.fzfcmd.sh
+fi
+
+# bash-completion
+if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+  . /opt/local/etc/profile.d/bash_completion.sh
+fi
+
+# .inputrc
+[ -f ~/.inputrc ] && bind -f ~/.inputrc
+
+

@@ -1,23 +1,87 @@
 
-;;/opt/local/share/emacs/site-lisp/
+;; thesaitama .emacs
 
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
+;; Install
+
+;; MacPorts site-lisp path
+;; /opt/local/share/emacs/site-lisp/
+
+;; ------------------------------------------------------------------------
+;; backage.el
+
+;; M-x list-packages
+;; M-x package-list-packages
+
+(defvar my-favorite-package-list
+  '(auto-install
+    auto-complete
+    sequential-command
+    ac-html
+    ac-js2
+    ac-php
+    anzu
+    highlight-symbol
+    foreign-regexp
+    undo-tree
+    rainbow-mode
+    rainbow-delimiters
+    web-mode
+    php-mode
+    js2-mode
+    python-mode
+    jedi
+    flycheck
+    flycheck-popup-tip
+    helm
+    yasnippet
+    yasnippet-snippets
+    helm-c-yasnippet
+    qiita
+    helm-qiita
+    yagist
+    projectile
+    helm-projectile
+    magit
+    neotree
+    iflipb
+    popwin
+    shell-pop
+    google-translate)
+  "packages to be installed")
+
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
 (package-initialize)
-;;list-packages
-;;package-list-packages
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+(unless package-archive-contents (package-refresh-contents))
+(dolist (pkg my-favorite-package-list)
+  (unless (package-installed-p pkg)
+    (package-install pkg)))
 
+;; ------------------------------------------------------------------------
+;; my-list-load
 
+(defun my-lisp-load (filename)
+"Load lisp from FILENAME"
+  (let ((fullname (expand-file-name (concat "spec/" filename) user-emacs-directory)) lisp)
+    (when (file-readable-p fullname)
+      (with-temp-buffer
+        (progn (insert-file-contents fullname)
+               (setq lisp
+                     (condition-case nil (read (current-buffer)) (error ())))))) lisp))
+
+;; ------------------------------------------------------------------------
 ;; auto-install
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/auto-install/"))
+
 (require 'auto-install)
+(add-to-list 'load-path auto-install-directory)
 (auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup)
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
-;; 文字コード設定
+;; ------------------------------------------------------------------------
+;; character code
+
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -28,110 +92,244 @@
 (set-buffer-file-coding-system 'utf-8)
 (set-clipboard-coding-system 'utf-8)
 
-;; OSX用設定
-(when (eq system-type 'darwin)
-  (require 'ucs-normalize)
-  (set-file-name-coding-system 'utf-8-hfs)
-  (setq locale-coding-system 'utf-8-hfs))
+;; ------------------------------------------------------------------------
+;; key bind
 
-;; 改行コードを表示する
-(setq eol-mnemonic-dos "(CRLF)")
-(setq eol-mnemonic-mac "(CR)")
-(setq eol-mnemonic-unix "(LF)")
+(global-set-key (kbd "C-h") 'delete-backward-char)
+(global-set-key (kbd "M-t") 'other-window)
+(global-set-key (kbd "C-x C-b") 'bs-show) ;; replace list-buffers
+(global-set-key (kbd "<f9>") 'other-window)
 
-;; バックアップファイルを作成しない
+;; ------------------------------------------------------------------------
+;; highlight-symbol
+
+(require 'highlight-symbol)
+(setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
+(global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
+(global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
+
+;; ------------------------------------------------------------------------
+;; sequential-command
+
+(require 'sequential-command-config)
+(global-set-key "\C-a" 'seq-home)
+(global-set-key "\C-e" 'seq-end)
+(when (require 'org nil t)
+  (define-key org-mode-map "\C-a" 'org-seq-home)
+  (define-key org-mode-map "\C-e" 'org-seq-end))
+(define-key esc-map "u" 'seq-upcase-backward-word)
+(define-key esc-map "c" 'seq-capitalize-backward-word)
+(define-key esc-map "l" 'seq-downcase-backward-word)
+
+;; ------------------------------------------------------------------------
+;; anzu
+
+(require 'anzu)
+(global-anzu-mode +1)
+;(setq anzu-use-migemo t)
+(setq anzu-search-threshold 1000)
+(setq anzu-minimum-input-length 3)
+(global-set-key (kbd "C-c r") 'anzu-query-replace)
+(global-set-key (kbd "C-c R") 'anzu-query-replace-regexp)
+
+;; ------------------------------------------------------------------------
+;; iflipb
+
+(global-set-key (kbd "<f8>") 'iflipb-next-buffer)
+(global-set-key (kbd "<f7>") 'iflipb-previous-buffer)
+
+;; ------------------------------------------------------------------------
+;; auto-complete
+
+(require 'auto-complete-config)
+(ac-config-default)
+(global-auto-complete-mode t)
+(add-to-list 'ac-modes 'text-mode)
+(add-to-list 'ac-modes 'fundamental-mode)
+(ac-set-trigger-key "TAB")
+(setq ac-use-menu-map t) ;; 補完メニュー表示時にC-n/C-pで補完候補選択
+(setq ac-use-fuzzy t)
+
+(setq completion-ignore-case t)
+(setq read-file-name-completion-ignore-case t)
+
+;; backup file
 (setq backup-inhibited t)
+(setq delete-auto-save-files t)
 
-;; オープニングメッセージ表示しない
-(setq inhibit-startup-message t)
+;; ------------------------------------------------------------------------
+;; color set-face
 
-;; キーバインドの変更
-(define-key global-map "\C-h" 'backward-delete-char)
-(define-key global-map "\C-c l" 'toggle-truncate-lines)
-(define-key global-map "\C-t" 'other-window)
-
-;; フレームの初期化
-(setq initial-frame-alist
-	  (append (list
-			   '(border-color . "black")
-			   '(mouse-color . "black")
-			   '(menu-bar-lines . 1)
-			   )
-			  initial-frame-alist))
-(setq default-frame-alist initial-frame-alist)
-
-;; 文字色の設定
 (global-font-lock-mode t)
 (set-face-foreground 'font-lock-type-face "darkyellow")
-(set-face-foreground 'font-lock-builtin-face "blue") ; 組み込み定数
+(set-face-foreground 'font-lock-builtin-face "magenta")
 (set-face-foreground 'font-lock-comment-face "green")
+(set-face-foreground 'font-lock-comment-delimiter-face "green")
 (set-face-foreground 'font-lock-string-face "darkorange")
 (set-face-foreground 'font-lock-keyword-face "blue")
-(set-face-foreground 'font-lock-function-name-face "blue") ; lightskyblue
+(set-face-foreground 'font-lock-function-name-face "yellow") ; lightskyblue
 (set-face-foreground 'font-lock-variable-name-face "goldenrod")
-(set-face-foreground 'font-lock-constant-face "darkblue") ; aquamarine
+(set-face-foreground 'font-lock-constant-face "orange")
 (set-face-foreground 'font-lock-preprocessor-face "darkyellow")
 (set-face-foreground 'font-lock-warning-face "pink")
 (set-face-foreground 'tool-bar "cyan")
 (set-face-background 'region "lightblue")
-(set-face-foreground 'isearch "black") ; 検索文字列
-(set-face-background 'isearch "lightpink") ; 検索文字列
+(set-face-foreground 'isearch "black")
+(set-face-background 'isearch "lightpink")
 (set-face-foreground 'isearch-lazy-highlight-face "black")
 (set-face-background 'isearch-lazy-highlight-face "cyan")
-(set-face-foreground 'minibuffer-prompt "blue") ; ミニバッファ
+(set-face-foreground 'minibuffer-prompt "blue")
+(set-face-foreground 'fringe "blue")
+(set-face-background 'fringe "gray12")
 
-;; 編集行を目立たせる
-;(defface hlline-face '(
-;	(((class color) (background dark))  (:background "#aaa"))
-;    (((class color) (background light)) (:background "#111"))
-;    (tool-bar     ()))
-;  "*Face used by hl-line.")
-;(setq hl-line-face 'hlline-face)
-;(global-hl-line-mode)
+;; ------------------------------------------------------------------------
+;; color (custom set face)
 
-;; タイトルバーに表示する文字列
-(setq frame-title-format
-	  (concat "%b - emacs@" system-name))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
+ '(helm-ff-directory ((t (:background "Gray25" :foreground "white"))))
+ '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))
+ '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "orange"))))
+ '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
+ '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
+ '(helm-selection ((t (:background "LightSkyBlue" :foreground "black"))))
+ '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
+ '(linum ((t (:inherit (shadow default) :background "Gray23"))))
+ '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
+ '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
+ '(markdown-header-face-2 ((t (:inherit outline-2 :weight bold))))
+ '(markdown-header-face-3 ((t (:inherit outline-3 :weight bold))))
+ '(markdown-header-face-4 ((t (:inherit outline-4 :weight bold))))
+ '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
+ '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
+ '(markdown-pre-face ((t (:inherit org-formula)))))
 
-;; ツールバーを表示しない
+;; ------------------------------------------------------------------------
+;; UI / UX
+
+;; disable bell
+(setq visible-bell t)
+(setq ring-bell-function 'ignore)
+
+;; title-bar character
+(setq frame-title-format (concat "%b - emacs@" (system-name)))
+
+;; tool-bar
 (setq tool-bar-mode 0)
 
-;; メニューバーを表示しない
+;; menu-bar
 (menu-bar-mode -1)
 
-;; C-SPC で色を付ける
+;; region display
 (setq transient-mark-mode t)
 
-;; モードライン
-(line-number-mode t) ; 行番号
-(column-number-mode t) ; カラム番号
-(size-indication-mode t);
-;(display-battery-mode t);
-
-;; 行番号表示
+;; line number
 (global-linum-mode 0)
-(set-face-attribute 'linum nil
-					:foreground "#aaa"
-					:height 0.9)
-
-;; 行番号フォーマット
 (setq linum-format "%4d ")
 
-;; 対の括弧を明示する
+;; highlight editing line
+;(global-hl-line-mode t)
+;(custom-set-faces '(hl-line ((t (:background "color-236")))))
+
+;; frame
+(setq initial-frame-alist
+  (append (list
+   '(border-color . "black")
+   '(mouse-color . "black")
+   '(menu-bar-lines . 1)
+   )
+  initial-frame-alist))
+(setq default-frame-alist initial-frame-alist)
+
+;; startup message
+(setq inhibit-startup-message t)
+
+;; end of line code
+(setq eol-mnemonic-dos "(CRLF)")
+(setq eol-mnemonic-mac "(CR)")
+(setq eol-mnemonic-unix "(LF)")
+
+;; display image file
+(auto-image-file-mode t)
+
+;; auto compression
+(auto-compression-mode t)
+
+;; auto reload bufffer
+(global-auto-revert-mode 1)
+
+;; yes or no to y or n
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; ------------------------------------------------------------------------
+;; mouse
+
+(xterm-mouse-mode t)
+(global-set-key [mouse-4] '(lambda () (interactive) (scroll-down 3)))
+(global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 3)))
+
+;; ------------------------------------------------------------------------
+;; recentf
+
+(when (require 'recentf nil t)
+  (setq recentf-max-saved-items 2000)
+  (setq recentf-exclude '(".recentf"))
+  (setq recentf-auto-cleanup 10)
+  (setq recentf-auto-save-timer
+        (run-with-idle-timer 30 t 'recentf-save-list))
+  (recentf-mode 1))
+(setq-default find-file-visit-truename t)
+
+;; ------------------------------------------------------------------------
+;; paren
+
 (show-paren-mode t)
 (set-face-background 'show-paren-match-face "black")
 (set-face-foreground 'show-paren-match-face "white")
+(setq show-paren-style 'mixed)
 
-;; 全角スペースとかに色を付ける
+(electric-pair-mode 1)
+
+;; ------------------------------------------------------------------------
+;; rainbow-mode
+
+(require 'rainbow-mode)
+(add-hook 'css-mode-hook 'rainbow-mode)
+(add-hook 'scss-mode-hook 'rainbow-mode)
+(add-hook 'php-mode-hook 'rainbow-mode)
+(add-hook 'html-mode-hook 'rainbow-mode)
+
+;; ------------------------------------------------------------------------
+;; rainbow-delimiters
+
+(require 'rainbow-delimiters)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+(require 'cl-lib)
+(require 'color)
+(defun rainbow-delimiters-using-stronger-colors ()
+  (interactive)
+  (cl-loop
+   for index from 1 to rainbow-delimiters-max-face-count
+   do
+   (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
+    (cl-callf color-saturate-name (face-foreground face) 30))))
+(add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
+
+;; ------------------------------------------------------------------------
+;; colored white spaces
+
 (defface my-face-b-1 '((t (:background "lightyellow"))) nil)
-(defface my-face-b-2 '((t (:background "lightgray"))) nil)
+(defface my-face-b-2 '((t (:background "darkgray"))) nil)
 (defvar my-face-b-1 'my-face-b-1)
 (defvar my-face-b-2 'my-face-b-2)
-(defvar my-face-u-1 'my-face-u-1)
-(defadvice font-lock-mode (before my-font-lock-mode ())
+(defvar my-face-u-1 'my-face-b-2)
+(defadvice font-lock-mode(before my-font-lock-mode ())
 (font-lock-add-keywords
- major-mode
- '(
+ major-mode '(
    ("　" 0 my-face-b-1 append)
    ("\t" 0 my-face-b-2 append)
    ("[ ]+$" 0 my-face-u-1 append)
@@ -139,99 +337,204 @@
 (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
 (ad-activate 'font-lock-mode)
 (add-hook 'find-file-hooks '(lambda ()
-	(if font-lock-mode
-	nil
-	(font-lock-mode t))))
+    (if font-lock-mode
+        nil
+      (font-lock-mode t))))
 
-;; emacs-w3m 設定
-;(require 'w3m-load)
-;(setq w3m-use-cookies t)
-;(setq w3m-cookie-accept-bad-cookies t)
-;(setq w3m-add-referer t)
+;; ------------------------------------------------------------------------
+;; indent-tabs
 
-;; タブの設定
+(setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(setq tab-width 4)
+(add-hook 'sh-mode-hook '(lambda () (setq tab-width 2)(setq sh-basic-offset 2)
+        (setq sh-indentation 2)))
 
-;;タブは4文字ごとに
-;;追加　タブの設定は以下のようにしないとだめ
-(setq-default tab-stop-list
-  '(0 4 8 12 16 20 24))
-(setq indent-tabs-mode t)
+;; ------------------------------------------------------------------------
+;; dabbrev
 
-;; C-mode の設定 好みでセミコロンを外す
-(add-hook 'c-mode-hook '(lambda ()
-	  (setq c-basic-offset 4)
-	  (setq tab-width 4)
-	  ;(c-set-style "bsd")
-	  ;(setq c-auto-newline t)
-	  )t)
+;(global-set-key (kbd "C-<tab>") 'dabbrev-expand)
+;(define-key minibuffer-local-map (kbd "C-<tab>") 'dabbrev-expand)
 
-; mmm-mode (html)
-(require 'mmm-auto)
-(setq mmm-global-mode 'maybe)
-;(set-face-background 'mmm-default-submode-face nil) ;背景色が不要な場合
-(mmm-add-classes
- '((embedded-css
-    :submode css-mode
-    :front "<style[^>]*>"
-    :back "</style>")))
-(mmm-add-mode-ext-class nil "\\.html\\'" 'embedded-css)
+;; ------------------------------------------------------------------------
+;; helm
 
-;; css-mode の設定
-(autoload 'css-mode "css-mode")
-(setq auto-mode-alist (cons '("\\.css$" . css-mode) auto-mode-alist))
+(require 'helm-config)
+(helm-mode 1)
+(define-key global-map (kbd "M-x") 'helm-M-x)
+(define-key global-map (kbd "C-c h") 'helm-mini)
+(define-key global-map (kbd "C-x C-f") 'helm-find-files)
+(define-key global-map (kbd "C-x C-r") 'helm-recentf)
+(define-key global-map (kbd "M-y") 'helm-show-kill-ring)
+(define-key global-map (kbd "C-c i") 'helm-imenu)
+(define-key global-map (kbd "C-x b") 'helm-buffers-list)
+(define-key helm-map (kbd "C-h") 'delete-backward-char)
+(define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
+(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+(define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
+(define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
+;; hide directory ..
+(advice-add 'helm-ff-filter-candidate-one-by-one
+        :around (lambda (fcn file)
+                  (unless (string-match "\\(?:/\\|\\`\\)\\.\\{2\\}\\'" file)
+                    (funcall fcn file))))
+;; auto resize
+(setq helm-autoresize-max-height 0)
+(setq helm-autoresize-min-height 40)
+(helm-autoresize-mode 1)
 
-;; php-mode の設定
-(autoload 'php-mode "php-mode")
-(setq auto-mode-alist
-      (cons '("\\.php\\'" . php-mode) auto-mode-alist))
-(setq php-mode-force-pear t)
-(add-hook 'php-mode-hook
-  '(lambda ()
-     (setq php-manual-path "/usr/share/doc/php/html") 
-     (setq php-search-url "http://www.phppro.jp/")
-     (setq php-manual-url "http://www.phppro.jp/phpmanual")
-     ))
+;; ------------------------------------------------------------------------
+;; spell check (flyspell)
 
-;; psgml の設定
-(autoload 'xml-mode "psgml" "Major mode to edit XML files." t)
+(setq-default flyspell-mode t)
+(setq ispell-dictionary "american")
 
-;;; RELAX、RELAX NG、iht はxml-modeで開く
-(setq auto-mode-alist
+;; ------------------------------------------------------------------------
+;; eaw (ambiguous width characters)
+
+(load "~/dotfiles/locale-eaw-emoji.el")
+(eaw-and-emoji-fullwidth)
+
+;; ------------------------------------------------------------------------
+;; os switch
+
+(cond ((equal system-type 'gnu/linux)
+       (load "~/dotfiles/webservice.el")
+       (load "~/dotfiles/browser.el")
+       (load "~/dotfiles/program.el"))
+      ((equal system-type 'windows-nt)
+       (load "~/dotfiles/program.el"))
+      ((equal system-type 'darwin)
+       (load "~/dotfiles/osx.el")
+       (load "~/dotfiles/program.el")
+       (load "~/dotfiles/webservice.el")
+       (load "~/dotfiles/browser.el"))
+)
+
+;; ------------------------------------------------------------------------
+;; eshell
+
+(setq eshell-command-aliases-list
       (append
-       '(("\\.\\(xml\\|rlx\\|rng\\|iht\\)$" . xml-mode))
-       auto-mode-alist))
+       (list
+        (list "ls" "ls -a")
+        (list "o" "xdg-open")
+        (list "emacs" "find-file $1")
+        (list "e" "find-file $1")
+        (list "d" "dired .")
+        )))
+(setq eshell-path-env (getenv "PATH"))
 
-;;; XHTMLはhoge.xhtml.jaのように.xhtmlの後に拡張子がついてもいい
-(setq auto-mode-alist
-      (append
-       '(("\\.x?html\\([.]?\\w+\\)*$" . xml-mode))
-       auto-mode-alist))
+;; ------------------------------------------------------------------------
+;; shell-pop
 
-;; python-mode の設定
-(setq auto-mode-alist
-      (cons '("\\.py$" . python-mode) auto-mode-alist))
-(autoload 'python-mode "python-mode" "Python editing mode." t)
+(setq shell-pop-shell-type '("eshell" "*eshell*" (lambda () (eshell))))
+;;(setq shell-pop-shell-type '("shell" "*shell*" (lambda () (shell))))
+;;(setq shell-pop-shell-type '("terminal" "*terminal*" (lambda () (term shell-pop-term-shell))))
+;;(setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
+(global-set-key (kbd "C-c s") 'shell-pop)
+
+;; ------------------------------------------------------------------------
+;; undo-tree
+
+(require 'undo-tree)
+(global-undo-tree-mode t)
+(global-set-key (kbd "M-/") 'undo-tree-redo)
+;;(defun undo-tree-split-side-by-side (original-function &rest args)
+;;  "Split undo-tree side-by-side"
+;;  (let ((split-height-threshold nil)
+;;        (split-width-threshold 0))
+;;    (apply original-function args)))
+;;(advice-add 'undo-tree-visualize :around #'undo-tree-split-side-by-side)
+
+;; ------------------------------------------------------------------------
+;; foreign-regexp
+
+(require 'foreign-regexp)
+
+;; ------------------------------------------------------------------------
+;; modeline
+
+(line-number-mode t)
+(column-number-mode t)
+(size-indication-mode t)
+
+;; display function
+(which-function-mode 1)
+
+;; clean mode line
+(defvar mode-line-cleaner-alist
+  '( ;; For minor-mode, first char is 'space'
+    (paredit-mode . " Pe")
+    (eldoc-mode . "")
+    (abbrev-mode . "")
+    (undo-tree-mode . "")
+    (font-lock-mode . "")
+    (elisp-slime-nav-mode . " EN")
+    (helm-gtags-mode . " HG")
+    (flymake-mode . " Fm")
+    ;; Major modes
+    (lisp-interaction-mode . "Li")
+    (python-mode . "Py")
+    (ruby-mode   . "Rb")
+    (fundamental-mode . "Fund")
+    (lisp-mode . "El")
+    (markdown-mode . "Md")))
+
+(defun clean-mode-line ()
+  (interactive)
+  (loop for (mode . mode-str) in mode-line-cleaner-alist
+        do
+        (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
+          (when old-mode-str
+            (setcar old-mode-str mode-str))
+          ;; major mode
+          (when (eq mode major-mode)
+            (setq mode-name mode-str)))))
+
+(add-hook 'after-change-major-mode-hook 'clean-mode-line)
+
+;; ------------------------------------------------------------------------
+;; smart-mode-line
+
+(require 'smart-mode-line)
+;; bug hack
+(setq sml/active-background-color "gray60")
+(setq sml/read-only-char "%%")
+(setq sml/modified-char "*")
+;; hide Helm and auto-complete
+(setq sml/hidden-modes '(" Helm" " AC" " Yas" " ARev" " Anzu"))
+;; hack (privent overflow)
+(setq sml/extra-filler -10)
+;;; sml/replacer-regexp-list
+(add-to-list 'sml/replacer-regexp-list '("^.+/junk/[0-9]+/" ":J:") t)
+(setq sml/no-confirm-load-theme t)
+(sml/setup)
+;; theme
+;;(sml/apply-theme 'respectful)
+;;(sml/apply-theme 'light)
+(sml/apply-theme 'dark)
+
+;; ------------------------------------------------------------------------
+;; custom-set-variables
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
+ '(foreign-regexp/regexp-type (quote perl))
+ '(google-translate-default-source-language "ja")
+ '(google-translate-default-target-language "en")
+ '(helm-mini-default-sources
+   (quote
+    (helm-source-buffers-list helm-source-recentf helm-source-projectile-files-list)))
  '(menu-bar-mode nil)
- '(package-selected-packages (quote (w3m mmm-mode helm ##)))
+ '(package-selected-packages
+   (quote
+    (sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+ '(reb-re-syntax (quote foreign-regexp))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Ricty Diminished" :foundry "outline" :slant normal :weight normal :height 150 :width normal)))))
-
-;; helm
-(require 'helm-config)
-(helm-mode 1)

@@ -1,0 +1,17 @@
+# .tigrc
+
+set main-view = id date author commit-title:graph=yes,refs=yes
+
+set blob-view-line-number = yes
+set blame-view-line-number = yes
+
+set mouse = true
+set diff-highlight = true
+
+set refresh-mode = auto
+
+
+
+
+
+

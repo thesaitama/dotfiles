@@ -33,6 +33,7 @@
     jedi
     flycheck
     flycheck-popup-tip
+    imenus
     helm
     helm-swoop
     yasnippet
@@ -374,6 +375,16 @@
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
+;; Emulate `kill-line' in helm minibuffer
+(setq helm-delete-minibuffer-contents-from-point t)
+(defadvice helm-delete-minibuffer-contents (before helm-emulate-kill-line activate)
+  "Emulate `kill-line' in helm minibuffer"
+  (kill-new (buffer-substring (point) (field-end))))
+(defadvice helm-ff-kill-or-find-buffer-fname (around execute-only-if-exist activate)
+  "Execute command only if CANDIDATE exists"
+  (when (file-exists-p candidate) ad-do-it))
+(defadvice helm-buffers-sort-transformer (around ignore activate)
+  (setq ad-return-value (ad-get-arg 0)))
 ;; hide directory ..
 (advice-add 'helm-ff-filter-candidate-one-by-one
         :around (lambda (fcn file)
@@ -400,6 +411,16 @@
 ;; 値がtの場合はウィンドウ内に分割、nilなら別のウィンドウを使用
 (setq helm-swoop-split-with-multiple-windows nil)
 (setq helm-swoop-split-direction 'split-window-vertically)
+
+;; ------------------------------------------------------------------------
+;; helm-ag
+
+(require 'helm-files)
+(require 'helm-ag)
+
+(global-set-key (kbd "M-g .") 'helm-ag)
+(global-set-key (kbd "M-g ,") 'helm-ag-pop-stack)
+(global-set-key (kbd "C-M-s") 'helm-ag-this-file)
 
 ;; ------------------------------------------------------------------------
 ;; spell check (flyspell)
@@ -551,7 +572,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(reb-re-syntax (quote foreign-regexp))
  '(show-paren-mode t)
  '(size-indication-mode t)

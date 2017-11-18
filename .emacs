@@ -14,6 +14,7 @@
 
 (defvar my-favorite-package-list
   '(auto-install
+    package-utils
     auto-complete
     sequential-command
     ac-html
@@ -33,6 +34,7 @@
     flycheck
     flycheck-popup-tip
     helm
+    helm-swoop
     yasnippet
     yasnippet-snippets
     helm-c-yasnippet
@@ -383,6 +385,23 @@
 (helm-autoresize-mode 1)
 
 ;; ------------------------------------------------------------------------
+;; helm-swoop
+
+(require 'helm-swoop)
+
+(global-set-key (kbd "M-i") 'helm-swoop)
+(global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
+(global-set-key (kbd "C-c M-i") 'helm-multi-swoop)
+(global-set-key (kbd "C-x M-i") 'helm-multi-swoop-all)
+(define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
+(define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
+;; Save buffer when helm-multi-swoop-edit complete
+(setq helm-multi-swoop-edit-save t)
+;; 値がtの場合はウィンドウ内に分割、nilなら別のウィンドウを使用
+(setq helm-swoop-split-with-multiple-windows nil)
+(setq helm-swoop-split-direction 'split-window-vertically)
+
+;; ------------------------------------------------------------------------
 ;; spell check (flyspell)
 
 (setq-default flyspell-mode t)
@@ -502,7 +521,7 @@
 (setq sml/read-only-char "%%")
 (setq sml/modified-char "*")
 ;; hide Helm and auto-complete
-(setq sml/hidden-modes '(" Helm" " AC" " Yas" " ARev" " Anzu"))
+(setq sml/hidden-modes '(" Helm" " AC" " yas" " ARev" " Anzu"))
 ;; hack (privent overflow)
 (setq sml/extra-filler -10)
 ;;; sml/replacer-regexp-list
@@ -532,7 +551,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(reb-re-syntax (quote foreign-regexp))
  '(show-paren-mode t)
  '(size-indication-mode t)

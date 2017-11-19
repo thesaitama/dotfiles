@@ -209,7 +209,17 @@
  '(markdown-header-face-4 ((t (:inherit outline-4 :weight bold))))
  '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
  '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
- '(markdown-pre-face ((t (:inherit org-formula)))))
+ '(markdown-pre-face ((t (:inherit org-formula))))
+ '(web-mode-doctype-face ((t (:foreground "glay"))))
+ '(web-mode-html-tag-face  ((t (:foreground "cyan"))))
+ '(web-mode-html-attr-name-face    ((t (:foreground "blue"))))
+ '(web-mode-html-attr-value-face ((t (:foreground "darkorange"))))
+ '(web-mode-comment-face ((t (:foreground "green"))))
+ '(web-mode-server-comment-face ((t (:foreground "green"))))
+ '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
+ '(web-mode-css-selector-face ((t (:foreground "blue"))))
+ '(web-mode-css-pseudo-class ((t (:foreground "blue"))))
+ )
 
 ;; ------------------------------------------------------------------------
 ;; UI / UX
@@ -572,7 +582,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(reb-re-syntax (quote foreign-regexp))
  '(show-paren-mode t)
  '(size-indication-mode t)

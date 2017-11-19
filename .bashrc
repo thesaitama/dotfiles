@@ -40,7 +40,6 @@ ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
 echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
 ${c_blue}\\\$${c_reset} "
 
-
 # Visual Studio Code
 if [ "$(uname)" == 'Darwin' ]; then
   vsc() {

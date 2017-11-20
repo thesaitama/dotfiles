@@ -219,7 +219,9 @@
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
  '(web-mode-css-selector-face ((t (:foreground "blue"))))
  '(web-mode-css-pseudo-class ((t (:foreground "blue"))))
- '(magit-section-highlight ((t (:background "Gray23" :foreground "blue"))))
+ '(magit-section-highlight ((t (:background "Gray23"))))
+ '(magit-context-highlight ((t (:background "Gray23"))))
+ '(magit-diff-context-highlight ((t (:background "Gray23"))))
  )
 
 ;; ------------------------------------------------------------------------

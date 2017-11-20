@@ -24,7 +24,20 @@ if [ "$(uname)" == 'Darwin' ]; then
   alias powerpoint='open -a microsoft\ powerpoint'
 fi
 
-# color chars
+man() {
+  env \
+    LESS_TERMCAP_mb=$(printf "\e[1;32m") \
+    LESS_TERMCAP_md=$(printf "\e[1;36m") \
+    LESS_TERMCAP_me=$(printf "\e[0m") \
+    LESS_TERMCAP_se=$(printf "\e[0m") \
+    LESS_TERMCAP_so=$(printf "\e[33m") \
+    LESS_TERMCAP_ue=$(printf "\e[0m") \
+    LESS_TERMCAP_us=$(printf "\e[35m") \
+    man "$@"
+}
+
+
+# color chars for PS1
 c_red="\[\033[31m\]"
 c_green="\[\033[32m\]"
 c_yellow="\[\033[33m\]"

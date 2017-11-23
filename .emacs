@@ -14,6 +14,7 @@
 
 (defvar my-favorite-package-list
   '(auto-install
+    package-utils
     auto-complete
     sequential-command
     ac-html
@@ -32,7 +33,9 @@
     jedi
     flycheck
     flycheck-popup-tip
+    imenus
     helm
+    helm-swoop
     yasnippet
     yasnippet-snippets
     helm-c-yasnippet
@@ -206,7 +209,20 @@
  '(markdown-header-face-4 ((t (:inherit outline-4 :weight bold))))
  '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
  '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
- '(markdown-pre-face ((t (:inherit org-formula)))))
+ '(markdown-pre-face ((t (:inherit org-formula))))
+ '(web-mode-doctype-face ((t (:foreground "glay"))))
+ '(web-mode-html-tag-face  ((t (:foreground "cyan"))))
+ '(web-mode-html-attr-name-face    ((t (:foreground "blue"))))
+ '(web-mode-html-attr-value-face ((t (:foreground "darkorange"))))
+ '(web-mode-comment-face ((t (:foreground "green"))))
+ '(web-mode-server-comment-face ((t (:foreground "green"))))
+ '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
+ '(web-mode-css-selector-face ((t (:foreground "blue"))))
+ '(web-mode-css-pseudo-class ((t (:foreground "blue"))))
+ '(magit-section-highlight ((t (:background "Gray23"))))
+ '(magit-context-highlight ((t (:background "Gray23"))))
+ '(magit-diff-context-highlight ((t (:background "Gray23"))))
+ )
 
 ;; ------------------------------------------------------------------------
 ;; UI / UX
@@ -359,19 +375,29 @@
 ;; helm
 
 (require 'helm-config)
-(helm-mode 1)
+(helm-mode +1)
 (define-key global-map (kbd "M-x") 'helm-M-x)
 (define-key global-map (kbd "C-c h") 'helm-mini)
+(define-key global-map (kbd "C-c i") 'helm-imenu)
 (define-key global-map (kbd "C-x C-f") 'helm-find-files)
 (define-key global-map (kbd "C-x C-r") 'helm-recentf)
 (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
-(define-key global-map (kbd "C-c i") 'helm-imenu)
 (define-key global-map (kbd "C-x b") 'helm-buffers-list)
 (define-key helm-map (kbd "C-h") 'delete-backward-char)
 (define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
+;; Emulate `kill-line' in helm minibuffer
+(setq helm-delete-minibuffer-contents-from-point t)
+(defadvice helm-delete-minibuffer-contents (before helm-emulate-kill-line activate)
+  "Emulate `kill-line' in helm minibuffer"
+  (kill-new (buffer-substring (point) (field-end))))
+(defadvice helm-ff-kill-or-find-buffer-fname (around execute-only-if-exist activate)
+  "Execute command only if CANDIDATE exists"
+  (when (file-exists-p candidate) ad-do-it))
+(defadvice helm-buffers-sort-transformer (around ignore activate)
+  (setq ad-return-value (ad-get-arg 0)))
 ;; hide directory ..
 (advice-add 'helm-ff-filter-candidate-one-by-one
         :around (lambda (fcn file)
@@ -381,6 +407,33 @@
 (setq helm-autoresize-max-height 0)
 (setq helm-autoresize-min-height 40)
 (helm-autoresize-mode 1)
+
+;; ------------------------------------------------------------------------
+;; helm-swoop
+
+(require 'helm-swoop)
+
+(global-set-key (kbd "M-i") 'helm-swoop)
+(global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
+(global-set-key (kbd "C-c M-i") 'helm-multi-swoop)
+(global-set-key (kbd "C-x M-i") 'helm-multi-swoop-all)
+(define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
+(define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
+;; Save buffer when helm-multi-swoop-edit complete
+(setq helm-multi-swoop-edit-save t)
+;; 値がtの場合はウィンドウ内に分割、nilなら別のウィンドウを使用
+(setq helm-swoop-split-with-multiple-windows nil)
+(setq helm-swoop-split-direction 'split-window-vertically)
+
+;; ------------------------------------------------------------------------
+;; helm-ag
+
+(require 'helm-files)
+(require 'helm-ag)
+
+(global-set-key (kbd "M-g .") 'helm-ag)
+(global-set-key (kbd "M-g ,") 'helm-ag-pop-stack)
+(global-set-key (kbd "C-M-s") 'helm-ag-this-file)
 
 ;; ------------------------------------------------------------------------
 ;; spell check (flyspell)
@@ -502,7 +555,7 @@
 (setq sml/read-only-char "%%")
 (setq sml/modified-char "*")
 ;; hide Helm and auto-complete
-(setq sml/hidden-modes '(" Helm" " AC" " Yas" " ARev" " Anzu"))
+(setq sml/hidden-modes '(" Helm" " AC" " yas" " ARev" " Anzu"))
 ;; hack (privent overflow)
 (setq sml/extra-filler -10)
 ;;; sml/replacer-regexp-list
@@ -532,7 +585,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(reb-re-syntax (quote foreign-regexp))
  '(show-paren-mode t)
  '(size-indication-mode t)

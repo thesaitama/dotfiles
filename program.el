@@ -40,11 +40,11 @@
 )
 
 ;; ------------------------------------------------------------------------
-;; php-mode
+;; web-mode
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.as[cp]x$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\(\\.x?html?\\|iht\\)\\([.]?\\w+\\)*$". web-mode))
+(add-to-list 'auto-mode-alist '("\\(\\.x?html?\\|.iht\\|.css\\)\\([.]?\\w+\\)*$". web-mode))
 (defun web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-html-offset 2)
@@ -62,12 +62,6 @@
 
 (require 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-
-;; ------------------------------------------------------------------------
-;; css-mode
-
-(autoload 'css-mode "css-mode")
-(setq auto-mode-alist (cons '("\\.css$" . css-mode) auto-mode-alist))
 
 ;; ------------------------------------------------------------------------
 ;; psgml

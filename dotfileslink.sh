@@ -21,3 +21,6 @@ ln -s ~/dotfiles/.tigrc ~/.tigrc
 # tmux
 ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
 ln -s ~/dotfiles/tmux-status-line /usr/local/bin/tmux-status-line
+
+# python
+ln -s ~/dotfiles/pip.conf ~/pip.conf

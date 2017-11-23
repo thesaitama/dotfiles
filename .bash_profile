@@ -17,8 +17,11 @@ export LESSCHARSET=utf-8
 # Path
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/X11R6/bin:/Developer/Tools:$PATH
 
-# Path Python
+# Python
 export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-package:$PYTHONPATH
+
+# PIP
+export PIP_CONFIG_FILE="${HOME}/pip.conf"
 
 # NAOqi SDK
 #export PYTHONPATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/python2.7/site-packages:$PYTHONPATH

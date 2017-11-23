@@ -24,6 +24,7 @@ if [ "$(uname)" == 'Darwin' ]; then
   alias powerpoint='open -a microsoft\ powerpoint'
 fi
 
+# color man
 man() {
   env \
     LESS_TERMCAP_mb=$(printf "\e[1;32m") \
@@ -35,7 +36,6 @@ man() {
     LESS_TERMCAP_us=$(printf "\e[35m") \
     man "$@"
 }
-
 
 # color chars for PS1
 c_red="\[\033[31m\]"
@@ -73,7 +73,7 @@ shopt -s checkwinsize
 set noblobber
 
 # tmux
-# tmux ssh
+# rename window-name when ssh
 ssh() {
   if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
     tmux rename-window ${@: -1}
@@ -81,6 +81,17 @@ ssh() {
     tmux set-window-option automatic-rename "on" 1>/dev/null
   else
     command ssh "$@"
+  fi
+}
+
+# rename window-name when exit
+exit() {
+  if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
+    tmux rename-window ${@: -1}
+    command exit
+    tmux set-window-option automatic-rename "on" 1>/dev/null
+  else
+    command exit
   fi
 }
 

@@ -57,7 +57,7 @@ FZF-EOF"
 if [ "$(uname)" == 'Darwin' ]; then
   # app - osx appluncher
   app() {
-    app_path=$(find /Applications -maxdepth 3 -type d  | grep '\.app$' | sed 's/\/Applications\///' | sed 's/\.app$//' | fzf)
+    app_path=$(find /Applications -maxdepth 3 -type d  | grep '\.app$' | sed 's/\/Applications\///' | sed 's/\.app$//' | fzf-tmux --query="$1")
     open -a "/Applications/$app_path.app/"
   }
 fi

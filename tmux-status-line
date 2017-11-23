@@ -6,7 +6,7 @@ git_name=`git config --get user.name`
 git_email=`git config --get user.email`
 git_branch=`git branch | grep \*.* | sed -e 's/\*\ //'`
 if [ ${git_branch} != "" ] ; then
-  git_info="${git_email:0:8} > ${git_branch}"
+  git_info="${git_email:0:9}"
 fi
 
 # load-average
@@ -34,7 +34,7 @@ if air_info=($(eval "$airport_path" -I | grep -E "^ *(agrCtlRSSI|state|SSID|last
     ;;
     "init"    ) airport_="#[fg=yellow] ⠒⠒⠒ " ;;
     *         ) airport_="#[fg=red] ✘ " ;;
-  esac  
+  esac
   airport="#[default]${airport_}#[default]"
 fi
 

@@ -36,6 +36,7 @@
     imenus
     helm
     helm-swoop
+    helm-ag
     yasnippet
     yasnippet-snippets
     helm-c-yasnippet
@@ -49,6 +50,8 @@
     iflipb
     popwin
     shell-pop
+    smart-mode-line
+    w3m
     google-translate)
   "packages to be installed")
 

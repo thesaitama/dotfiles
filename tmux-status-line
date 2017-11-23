@@ -30,7 +30,9 @@ if air_info=($(eval "$airport_path" -I | grep -E "^ *(agrCtlRSSI|state|SSID|last
       for ((i=0; i < $rssi_; i++ )); do
         signal="${signal}${signals[$i]}"
       done
-      airport_=" ${ssid} ${txrate}M #[default]${signal} "
+      airport_=" ${ssid} ${txrate}M #[default]"
+      # if you need level metor
+      #airport_=" ${ssid} ${txrate}M #[default]${signal} "
     ;;
     "init"    ) airport_="#[fg=yellow] ⠒⠒⠒ " ;;
     *         ) airport_="#[fg=red] ✘ " ;;

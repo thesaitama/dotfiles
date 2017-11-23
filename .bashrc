@@ -73,6 +73,27 @@ shopt -s checkwinsize
 set noblobber
 
 # tmux
+# lunch tmux
+tm() {
+  tmux ls > /dev/null
+  if [ $? -eq 1 -a -z "$TMUX" ]; then
+    exec tmux
+  elif [ -z "$TMUX" ] ; then
+    exec tmux attach
+  else
+    echo "sessions should be nested with care."
+  fi
+}
+
+# run new pane
+s(){
+    if [ $# -eq 0 ]; then
+        cat > /tmp/tmux.tmp && tmux split-window -v "less /tmp/tmux.tmp"
+    else
+        tmux split-window -v "$*"
+    fi
+}
+
 # rename window-name when ssh
 ssh() {
   if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then

@@ -16,6 +16,7 @@ export LESSCHARSET=utf-8
 
 # Path
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/X11R6/bin:/Developer/Tools:$PATH
+export PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH
 
 # Python
 export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-package:$PYTHONPATH
@@ -41,16 +42,13 @@ export LSCOLORS=gxfxcxdxbxegedabagacad
 test -d /opt && export PATH=/opt/local/bin:/opt/local/sbin:$PATH &&
                 export MANPATH=/opt/local/share/man:/opt/local/man:$MANPATH
 
-# (If you'd like to use Qt3/X11 newer than Apr 24, 2006.)
-#export QTDIR=/opt/local/lib/qt3
-
-# (If you'd like to use Qt4/Mac.)
-#export QTDIR=/usr/local/Trolltech/Qt-4.2.2
+# if you'd like to use Qt4/Mac.
+#export QTDIR=/usr/local/Qt4.8
 #export PATH=$QTDIR/bin:$PATH
 #export QMAKESPEC=$QTDIR/mkspecs/macx-xcode
 #export QMAKESPEC=$QTDIR/mkspecs/macx-g++
 
-# (If you'd like to use CVS as CMS.)
+# if you'd like to use CVS as CMS.
 #export CVS_RSH=ssh
 
 # X-Window System

@@ -37,7 +37,7 @@ if has('mouse')
 endif
 
 "set number
-set title
+set notitle
 set tabstop=4
 set expandtab
 set shiftwidth=4

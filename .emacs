@@ -179,7 +179,7 @@
 (set-face-foreground 'font-lock-comment-delimiter-face "green")
 (set-face-foreground 'font-lock-string-face "darkorange")
 (set-face-foreground 'font-lock-keyword-face "blue")
-(set-face-foreground 'font-lock-function-name-face "yellow") ; lightskyblue
+(set-face-foreground 'font-lock-function-name-face "yellow") ;lightskyblue
 (set-face-foreground 'font-lock-variable-name-face "goldenrod")
 (set-face-foreground 'font-lock-constant-face "orange")
 (set-face-foreground 'font-lock-preprocessor-face "darkyellow")
@@ -208,9 +208,13 @@
  '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "orange"))))
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
  '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
+ '(helm-match ((t (:foreground "blue"))))
  '(helm-selection ((t (:background "LightSkyBlue" :foreground "black"))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
  '(linum ((t (:inherit (shadow default) :background "Gray23"))))
+ '(magit-context-highlight ((t (:background "Gray23"))))
+ '(magit-diff-context-highlight ((t (:background "Gray23"))))
+ '(magit-section-highlight ((t (:background "Gray23"))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
  '(markdown-header-face-2 ((t (:inherit outline-2 :weight bold))))
@@ -219,19 +223,15 @@
  '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
  '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
  '(markdown-pre-face ((t (:inherit org-formula))))
- '(web-mode-doctype-face ((t (:foreground "glay"))))
- '(web-mode-html-tag-face  ((t (:foreground "cyan"))))
- '(web-mode-html-attr-name-face    ((t (:foreground "blue"))))
- '(web-mode-html-attr-value-face ((t (:foreground "darkorange"))))
  '(web-mode-comment-face ((t (:foreground "green"))))
- '(web-mode-server-comment-face ((t (:foreground "green"))))
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
- '(web-mode-css-selector-face ((t (:foreground "blue"))))
  '(web-mode-css-pseudo-class ((t (:foreground "blue"))))
- '(magit-section-highlight ((t (:background "Gray23"))))
- '(magit-context-highlight ((t (:background "Gray23"))))
- '(magit-diff-context-highlight ((t (:background "Gray23"))))
- )
+ '(web-mode-css-selector-face ((t (:foreground "blue"))))
+ '(web-mode-doctype-face ((t (:foreground "glay"))))
+ '(web-mode-html-attr-name-face ((t (:foreground "blue"))))
+ '(web-mode-html-attr-value-face ((t (:foreground "darkorange"))))
+ '(web-mode-html-tag-face ((t (:foreground "cyan"))))
+ '(web-mode-server-comment-face ((t (:foreground "green")))))
 
 ;; ------------------------------------------------------------------------
 ;; UI / UX
@@ -313,16 +313,17 @@
 ;; paren
 
 (show-paren-mode t)
+(setq show-paren-style 'mixed)
 (set-face-background 'show-paren-match-face "black")
 (set-face-foreground 'show-paren-match-face "white")
-(setq show-paren-style 'mixed)
-
+(set-face-background 'show-paren-mismatch "red")
 (electric-pair-mode 1)
 
 ;; ------------------------------------------------------------------------
 ;; rainbow-mode
 
 (require 'rainbow-mode)
+(add-hook 'web-mode-hook 'rainbow-mode)
 (add-hook 'css-mode-hook 'rainbow-mode)
 (add-hook 'scss-mode-hook 'rainbow-mode)
 (add-hook 'php-mode-hook 'rainbow-mode)
@@ -489,10 +490,16 @@
 ;; ------------------------------------------------------------------------
 ;; shell-pop
 
-(setq shell-pop-shell-type '("eshell" "*eshell*" (lambda () (eshell))))
+;;(setq shell-pop-shell-type '("eshell" "*eshell*" (lambda () (eshell))))
 ;;(setq shell-pop-shell-type '("shell" "*shell*" (lambda () (shell))))
 ;;(setq shell-pop-shell-type '("terminal" "*terminal*" (lambda () (term shell-pop-term-shell))))
 ;;(setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
+
+(custom-set-variables
+ '(shell-pop-shell-type '("multi-term" "*terminal<1>*" '(lambda () (multi-term))))
+ '(shell-pop-window-size 30)
+ '(shell-pop-full-span t)
+ '(shell-pop-window-position "bottom"))
 (global-set-key (kbd "C-c s") 'shell-pop)
 
 ;; ------------------------------------------------------------------------
@@ -594,7 +601,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(reb-re-syntax (quote foreign-regexp))
  '(show-paren-mode t)
  '(size-indication-mode t)

@@ -55,6 +55,7 @@
     neotree
     iflipb
     popwin
+    multi-term
     shell-pop
     smart-mode-line
     w3m

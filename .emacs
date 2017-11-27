@@ -72,6 +72,11 @@
     (package-install pkg)))
 
 ;; ------------------------------------------------------------------------
+;; binary path
+
+(add-to-list 'exec-path "/opt/local/bin")
+
+;; ------------------------------------------------------------------------
 ;; my-list-load
 
 (defun my-lisp-load (filename)
@@ -261,16 +266,6 @@
 ;; highlight editing line
 ;(global-hl-line-mode t)
 ;(custom-set-faces '(hl-line ((t (:background "color-236")))))
-
-;; frame
-(setq initial-frame-alist
-  (append (list
-   '(border-color . "black")
-   '(mouse-color . "black")
-   '(menu-bar-lines . 1)
-   )
-  initial-frame-alist))
-(setq default-frame-alist initial-frame-alist)
 
 ;; startup message
 (setq inhibit-startup-message t)
@@ -498,11 +493,6 @@
 ;;(setq shell-pop-shell-type '("terminal" "*terminal*" (lambda () (term shell-pop-term-shell))))
 ;;(setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
 
-(custom-set-variables
- '(shell-pop-shell-type '("multi-term" "*terminal<1>*" '(lambda () (multi-term))))
- '(shell-pop-window-size 30)
- '(shell-pop-full-span t)
- '(shell-pop-window-position "bottom"))
 (global-set-key (kbd "C-c s") 'shell-pop)
 
 ;; ------------------------------------------------------------------------
@@ -605,6 +595,28 @@
 (sml/apply-theme 'dark)
 
 ;; ------------------------------------------------------------------------
+;; GUI
+
+(if window-system (progn
+  (setq initial-frame-alist
+  (append (list
+   '(border-color . "black")
+   '(mouse-color . "black")
+   '(menu-bar-lines . 1)
+   )
+          initial-frame-alist))
+  (setq default-frame-alist
+      (append
+       (list
+        '(background-color . "Gray24")
+        '(foreground-color . "white")
+        '(cursor-color . "glay")
+        )
+       default-frame-alist)
+      )
+))
+
+;; ------------------------------------------------------------------------
 ;; custom-set-variables
 
 (custom-set-variables
@@ -624,7 +636,17 @@
    (quote
     (multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(reb-re-syntax (quote foreign-regexp))
+ '(shell-pop-full-span t)
+ '(shell-pop-shell-type
+   (quote
+    ("multi-term" "*terminal<1>*"
+     (quote
+      (lambda nil
+        (multi-term))))))
+ '(shell-pop-window-position "bottom")
+ '(shell-pop-window-size 30)
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
+
 

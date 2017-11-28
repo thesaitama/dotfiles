@@ -12,6 +12,9 @@
 ;; MacPorts site-lisp path
 ;; /opt/local/share/emacs/site-lisp/
 
+;; enable cl
+(require 'cl)
+
 ;; ------------------------------------------------------------------------
 ;; backage.el
 
@@ -171,9 +174,14 @@
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 
-;; backup file
+;; ------------------------------------------------------------------------
+;; backup and lock file
+
 (setq backup-inhibited t)
+(setq make-backup-files nil)
+(setq auto-save-default nil)
 (setq delete-auto-save-files t)
+(setq create-lockfiles nil)
 
 ;; ------------------------------------------------------------------------
 ;; color set-face
@@ -214,7 +222,7 @@
  '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "orange"))))
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
  '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
- '(helm-match ((t (:foreground "blue"))))
+ '(helm-match ((t (:foreground "cyan"))))
  '(helm-selection ((t (:background "LightSkyBlue" :foreground "black"))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
  '(linum ((t (:inherit (shadow default) :background "Gray23"))))
@@ -228,7 +236,7 @@
  '(markdown-header-face-4 ((t (:inherit outline-4 :weight bold))))
  '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
  '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
- '(markdown-pre-face ((t (:inherit org-formula))))
+ '(markdown-pre-face ((t (:foreground "ivory"))))
  '(package-name ((t (:foreground "blue"))))
  '(web-mode-comment-face ((t (:foreground "green"))))
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
@@ -293,6 +301,12 @@
 (xterm-mouse-mode t)
 (global-set-key [mouse-4] '(lambda () (interactive) (scroll-down 3)))
 (global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 3)))
+
+;; ------------------------------------------------------------------------
+;; dired
+
+(setq delete-by-moving-to-trash t)
+(setq dired-listing-switches "-alh")
 
 ;; ------------------------------------------------------------------------
 ;; recentf
@@ -593,28 +607,6 @@
 ;;(sml/apply-theme 'respectful)
 ;;(sml/apply-theme 'light)
 (sml/apply-theme 'dark)
-
-;; ------------------------------------------------------------------------
-;; GUI
-
-(if window-system (progn
-  (setq initial-frame-alist
-  (append (list
-   '(border-color . "black")
-   '(mouse-color . "black")
-   '(menu-bar-lines . 1)
-   )
-          initial-frame-alist))
-  (setq default-frame-alist
-      (append
-       (list
-        '(background-color . "Gray24")
-        '(foreground-color . "white")
-        '(cursor-color . "glay")
-        )
-       default-frame-alist)
-      )
-))
 
 ;; ------------------------------------------------------------------------
 ;; custom-set-variables

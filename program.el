@@ -112,7 +112,7 @@
 (setq neo-keymap-style 'concise)
 (setq neo-smart-open t)
 ;(setq neo-vc-integration '(face char))
-;; popwin との共存
+;; popwin
 (when neo-persist-show
   (add-hook 'popwin:before-popup-hook (lambda () (setq neo-persist-show nil)))
   (add-hook 'popwin:after-popup-hook (lambda () (setq neo-persist-show t))))

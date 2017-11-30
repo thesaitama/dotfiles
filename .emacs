@@ -231,13 +231,13 @@
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
  '(linum ((t (:inherit (shadow default) :background "Gray23"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
- '(magit-diff-context-highlight ((t (:background "Gray23"))))
- '(magit-section-highlight ((t (:background "Gray23"))))
  '(magit-diff-added ((((type tty)) (:foreground "green"))))
  '(magit-diff-added-highlight ((((type tty)) (:foreground "LimeGreen"))))
+ '(magit-diff-context-highlight ((t (:background "Gray23"))))
  '(magit-diff-file-heading ((((type tty)) nil)))
  '(magit-diff-removed ((((type tty)) (:foreground "red"))))
  '(magit-diff-removed-highlight ((((type tty)) (:foreground "IndianRed"))))
+ '(magit-section-highlight ((t (:background "Gray23"))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
  '(markdown-header-face-2 ((t (:inherit outline-2 :weight bold))))
@@ -624,6 +624,25 @@
 ;;(sml/apply-theme 'light)
 (sml/apply-theme 'dark)
 
+
+;; ------------------------------------------------------------------------
+;; calendar
+
+(with-eval-after-load "calendar"
+  (add-hook 'calendar-today-visible-hook 'calendar-mark-today)
+
+  (when (require 'japanese-holidays nil t)
+    (setq calendar-holidays
+          (append japanese-holidays
+                  holiday-local-holidays holiday-other-holidays))
+    (setq mark-holidays-in-calendar t)
+    (setq japanese-holiday-weekend-marker
+          '(holiday nil nil nil nil nil japanese-holiday-saturday))
+    (setq japanese-holiday-weekend '(0 6))
+    (add-hook 'calendar-today-visible-hook 'japanese-holiday-mark-weekend)
+    (add-hook 'calendar-today-invisible-hook 'japanese-holiday-mark-weekend))
+  )
+
 ;; ------------------------------------------------------------------------
 ;; custom-set-variables
 
@@ -642,7 +661,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)
  '(shell-pop-shell-type

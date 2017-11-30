@@ -15,6 +15,10 @@
 ;; enable cl
 (require 'cl)
 
+;; inhibit warnings
+(setq byte-compile-warnings '(free-vars bytecomp))
+(setq ad-redefinition-action 'accept)
+
 ;; ------------------------------------------------------------------------
 ;; backage.el
 
@@ -300,6 +304,9 @@
 ;; yes or no to y or n
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; open symlinks
+(setq vc-follow-symlinks t)
+
 ;; ------------------------------------------------------------------------
 ;; mouse
 
@@ -517,6 +524,8 @@
 ;; ------------------------------------------------------------------------
 ;; multi-term
 
+(setq multi-term-program shell-file-name)
+
 (add-hook 'term-mode-hook '(lambda ()
   (define-key term-raw-map "\C-y" 'term-paste)
   (define-key term-raw-map "\C-q" 'move-beginning-of-line)
@@ -525,6 +534,8 @@
   (define-key term-raw-map "\C-t" 'set-mark-command)
   (define-key term-raw-map "\C-p" 'term-send-up)
   (define-key term-raw-map "\C-n" 'term-send-down)
+  (define-key term-raw-map [mouse-4] 'term-send-up)
+  (define-key term-raw-map [mouse-5] 'term-send-down)
   (define-key term-raw-map (kbd "ESC") 'term-send-raw)
   (define-key term-raw-map [delete] 'term-send-raw)
   (define-key term-raw-map "\C-z"

@@ -56,12 +56,17 @@
   (setq indent-tabs-mode t)
   (setq tab-width 4))
 (add-hook 'web-mode-hook 'web-mode-hook)
+(setq web-mode-auto-close-style 1)
+(setq web-mode-tag-auto-close-style t)
+(setq web-mode-enable-auto-pairing t)
+(setq web-mode-enable-current-element-highlight t)
 
 ;; ------------------------------------------------------------------------
 ;; js2-mode
 
 (require 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-jsx-mode))
 
 ;; ------------------------------------------------------------------------
 ;; psgml
@@ -100,6 +105,8 @@
 ;; magit
 
 (global-set-key (kbd "C-x g") 'magit-status)
+(setq magit-diff-refine-hunk t)
+(setq smerge-refine-ignore-whitespace nil)
 
 ;; ------------------------------------------------------------------------
 ;; neotree

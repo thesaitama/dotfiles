@@ -52,6 +52,15 @@
              (define-key dired-mode-map "o" 'my-dired-open)))
 
 ;; ------------------------------------------------------------------------
+;; osx-trash
+
+(with-eval-after-load "dired"
+  (setq dired-use-ls-dired nil)
+  (when (require 'osx-trash nil t)
+    (setq delete-by-moving-to-trash t)
+    (osx-trash-setup)))
+
+;; ------------------------------------------------------------------------
 ;; osx-dictionary
 
 ;; Support Chinese word

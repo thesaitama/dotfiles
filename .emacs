@@ -66,7 +66,8 @@
     shell-pop
     smart-mode-line
     w3m
-    google-translate)
+    google-translate
+    osx-trash)
   "packages to be installed")
 
 (require 'package)
@@ -230,6 +231,7 @@
  '(helm-selection ((t (:background "LightSkyBlue" :foreground "black"))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
  '(linum ((t (:inherit (shadow default) :background "Gray23"))))
+ '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
  '(magit-diff-added ((((type tty)) (:foreground "green"))))
  '(magit-diff-added-highlight ((((type tty)) (:foreground "LimeGreen"))))
@@ -252,6 +254,7 @@
  '(web-mode-css-pseudo-class ((t (:foreground "blue"))))
  '(web-mode-css-selector-face ((t (:foreground "blue"))))
  '(web-mode-doctype-face ((t (:foreground "glay"))))
+ '(web-mode-html-attr-equal-face ((t (:foreground "white"))))
  '(web-mode-html-attr-name-face ((t (:foreground "blue"))))
  '(web-mode-html-attr-value-face ((t (:foreground "darkorange"))))
  '(web-mode-html-tag-face ((t (:foreground "cyan"))))
@@ -317,8 +320,10 @@
 ;; ------------------------------------------------------------------------
 ;; dired
 
-(setq delete-by-moving-to-trash t)
 (setq dired-listing-switches "-alh")
+(setq delete-by-moving-to-trash t)
+(setq dired-dwim-target t)
+(setq dired-recursive-copies 'always)
 
 ;; ------------------------------------------------------------------------
 ;; recentf
@@ -661,7 +666,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)
  '(shell-pop-shell-type

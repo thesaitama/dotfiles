@@ -10,9 +10,11 @@
 # Editor
 export EDITOR='emacsclient -nw'
 
-# Unicode Support
-export LANG=ja_JP.UTF-8
+# Language and Unicode Support
 export LESSCHARSET=utf-8
+export LANG=ja_JP.UTF-8
+export LC_ALL=$LANG
+export LC_CTYPE=$LANG
 
 # Path
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/X11R6/bin:/Developer/Tools:$PATH
@@ -28,10 +30,6 @@ export PIP_CONFIG_FILE="${HOME}/pip.conf"
 #export PYTHONPATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/python2.7/site-packages:$PYTHONPATH
 #export DYLD_LIBRARY_PATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib:$DYLD_LIBRARY_PATH
 #ln -s /usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/* /usr/local/lib
-
-# Env
-export CLICOLOR=1
-export LSCOLORS=gxfxcxdxbxegedabagacad
 
 # for Fink
 #test -d /sw && export PATH=/sw/bin:/sw/sbin:$PATH &&

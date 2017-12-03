@@ -34,6 +34,12 @@ if [ "$(uname)" == 'Darwin' ]; then
   alias powerpoint='open -a microsoft\ powerpoint'
 fi
 
+# Env (shell)
+export CLICOLOR=1
+export LSCOLORS=gxfxcxdxbxegedabagacad
+export PROMPT_DIRTRIM=1
+export HISTCONTROL=ignoredups:ignorespace:erasedups
+
 # color man
 man() {
   env \

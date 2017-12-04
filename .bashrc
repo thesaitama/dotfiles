@@ -22,8 +22,11 @@ alias snao='dns-sd -B _naoqi._tcp'
 alias mdlk='dns-sd -q'
 #dns-sd -B _nao._tcp
 
-# /Applications Alias (Mac OSX)
+alias cleanupDS="find . -type f -name '*.DS_Store' -ls -delete"
+
+# macOS Only
 if [ "$(uname)" == 'Darwin' ]; then
+  # /Applications Alias (Mac OSX)
   alias syspref='open -a "System Preferences"'
   alias reminders='open -a reminders'
   alias chrome='open -a google\ chrome'
@@ -32,6 +35,9 @@ if [ "$(uname)" == 'Darwin' ]; then
   alias excel='open -a microsoft\ excel'
   alias msword='open -a microsoft\ word'
   alias powerpoint='open -a microsoft\ powerpoint'
+  # macOS Finder
+  alias finderShowH='defaults write com.apple.finder ShowAllFiles TRUE'
+  alias finderHideH='defaults write com.apple.finder ShowAllFiles FALSE'
 fi
 
 # Env (shell)

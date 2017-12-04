@@ -27,6 +27,7 @@
 
 (defvar my-favorite-package-list
   '(auto-install
+    eldoc-extension
     package-utils
     auto-complete
     sequential-command
@@ -42,6 +43,9 @@
     web-mode
     php-mode
     js2-mode
+    js2-refactor
+    json-mode
+    yaml-mode
     python-mode
     jedi
     flycheck
@@ -66,6 +70,7 @@
     shell-pop
     smart-mode-line
     w3m
+    dired-k
     google-translate
     osx-trash)
   "packages to be installed")
@@ -373,7 +378,7 @@
 
 (defun concat-string-list (list) 
    "Return a string which is a concatenation of all elements of the list separated by spaces" 
-    (mapconcat '(lambda (obj) (format "%s" obj)) list " ")) 
+   (mapconcat '(lambda (obj) (format "%s" obj)) list " "))
 
 ;; ------------------------------------------------------------------------
 ;; recentf
@@ -713,7 +718,8 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+ '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)
  '(shell-pop-shell-type

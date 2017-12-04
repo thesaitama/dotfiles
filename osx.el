@@ -74,7 +74,8 @@
 ;; GUI
 
 (if window-system (progn
-  (setq initial-frame-alist
+   (load-theme 'wombat t)
+   (setq initial-frame-alist
      (append (list
               '(border-color . "#353535")
               '(mouse-color . "#f9f8f0")
@@ -120,9 +121,9 @@
 (when (eq window-system 'ns)
   (set-face-attribute 'default nil
                       :family "Menlo"
-                      :height 130) ;; 13pt
+                      :height 140) ;; 15pt
   (set-fontset-font nil 'japanese-jisx0208
-                    (font-spec :family "Ricty Deminished for Powerline" :size 14))
+                    (font-spec :family "Ricty Deminished for Powerline" :size 15))
   (setq face-font-rescale-alist
         '((".*Ricty Deminished for Powerline.*" . 1.2)))
 

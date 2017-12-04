@@ -30,6 +30,14 @@
 (define-key global-map (kbd "C-c h") 'helm-mini)
 
 ;; ------------------------------------------------------------------------
+;; eldoc-extension)
+
+(add-hook 'emacs-lisp-mode-hook '(lambda ()
+   (require 'eldoc-extension)
+   (eldoc-mode t)
+))
+
+;; ------------------------------------------------------------------------
 ;; php-mode
 
 (autoload 'php-mode "php-mode")
@@ -72,6 +80,7 @@
 (require 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-jsx-mode))
+(add-hook 'js2-mode-hook #'js2-refactor-mode)
 
 ;; ------------------------------------------------------------------------
 ;; psgml

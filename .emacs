@@ -244,7 +244,7 @@
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
  '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
  '(helm-match ((t (:foreground "cyan"))))
- '(helm-selection ((t (:background "green" :foreground "white" :weight bold))))
+ '(helm-selection ((t (:background "Gray23"))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
  '(linum ((t (:inherit (shadow default) :background "Gray23"))))
  '(magit-context-highlight ((t (:background "Gray23"))))

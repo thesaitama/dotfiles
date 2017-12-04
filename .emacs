@@ -148,6 +148,15 @@
 (define-key esc-map "l" 'seq-downcase-backward-word)
 
 ;; ------------------------------------------------------------------------
+;; foreign-regexp
+
+;; avoid ref warnings
+(defvar foreign-regexp/regexp-type "")
+(defvar foreign-regexp/re-builder/targ-buf-state/.orig-pt "")
+
+(require 'foreign-regexp)
+
+;; ------------------------------------------------------------------------
 ;; anzu
 
 (require 'anzu)
@@ -307,7 +316,7 @@
 ;; yes or no to y or n
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; open symlinks
+;; open symlinks no confirmation
 (setq vc-follow-symlinks t)
 
 ;; ------------------------------------------------------------------------
@@ -539,10 +548,10 @@
   (define-key term-raw-map "\C-t" 'set-mark-command)
   (define-key term-raw-map "\C-p" 'term-send-up)
   (define-key term-raw-map "\C-n" 'term-send-down)
-  (define-key term-raw-map [mouse-4] 'term-send-up)
-  (define-key term-raw-map [mouse-5] 'term-send-down)
   (define-key term-raw-map (kbd "ESC") 'term-send-raw)
   (define-key term-raw-map [delete] 'term-send-raw)
+  (define-key term-raw-map [mouse-4] 'term-send-up)
+  (define-key term-raw-map [mouse-5] 'term-send-down)
   (define-key term-raw-map "\C-z"
     (lookup-key (current-global-map) "\C-z"))))
 (global-set-key (kbd "C-c n") 'multi-term-next)
@@ -560,11 +569,6 @@
 ;;        (split-width-threshold 0))
 ;;    (apply original-function args)))
 ;;(advice-add 'undo-tree-visualize :around #'undo-tree-split-side-by-side)
-
-;; ------------------------------------------------------------------------
-;; foreign-regexp
-
-(require 'foreign-regexp)
 
 ;; ------------------------------------------------------------------------
 ;; modeline
@@ -682,3 +686,4 @@
  '(tool-bar-mode nil))
 
 
+(put 'set-goal-column 'disabled nil)

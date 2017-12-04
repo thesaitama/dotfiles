@@ -83,7 +83,7 @@
   initial-frame-alist))
   (setq default-frame-alist
      (append (list
-              '(background-color . "#555555")
+              '(background-color . "#222222")
               '(foreground-color . "#f9f8f0")
               '(cursor-color . "#f9f8f0")
               )
@@ -109,7 +109,7 @@
   (set-face-background 'isearch-lazy-highlight-face "#50a3b1")
   (set-face-foreground 'minibuffer-prompt "#69afde")
   (set-face-foreground 'fringe "#cccccc")
-  (set-face-background 'fringe "#777777")
+  (set-face-background 'fringe "#333333")
   (set-face-foreground 'mode-line "#777777")
   )
 )

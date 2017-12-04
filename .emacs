@@ -127,6 +127,12 @@
 (global-set-key (kbd "<f9>") 'other-window)
 
 ;; ------------------------------------------------------------------------
+;; ediff
+
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(setq ediff-split-window-function 'split-window-horizontally)
+
+;; ------------------------------------------------------------------------
 ;; highlight-symbol
 
 (require 'highlight-symbol)
@@ -230,6 +236,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "white"))))
  '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))
@@ -240,7 +247,6 @@
  '(helm-selection ((t (:background "LightSkyBlue" :foreground "black"))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
  '(linum ((t (:inherit (shadow default) :background "Gray23"))))
- '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
  '(magit-diff-added ((((type tty)) (:foreground "green"))))
  '(magit-diff-added-highlight ((((type tty)) (:foreground "LimeGreen"))))
@@ -271,6 +277,9 @@
 
 ;; ------------------------------------------------------------------------
 ;; UI / UX
+
+;; find file at point
+(ffap-bindings)
 
 ;; disable bell
 (setq visible-bell t)
@@ -329,10 +338,42 @@
 ;; ------------------------------------------------------------------------
 ;; dired
 
-(setq dired-listing-switches "-alh")
+(add-hook 'dired-load-hook (lambda () (load "dired-x")))
+(setq dired-listing-switches (purecopy "-Ahl"))
 (setq delete-by-moving-to-trash t)
 (setq dired-dwim-target t)
 (setq dired-recursive-copies 'always)
+
+;; zip
+(eval-after-load "dired"
+  '(define-key dired-mode-map "z" 'dired-zip-files))
+(defun dired-zip-files (zip-file)
+  "Create an archive containing the marked files."
+  (interactive "sEnter name of zip file: ")
+
+  ;; create the zip file
+  (let ((zip-file (if (string-match ".zip$" zip-file) zip-file (concat zip-file ".zip"))))
+    (shell-command 
+     (concat "zip " 
+             zip-file
+             " "
+             (concat-string-list 
+              (mapcar
+               '(lambda (filename)
+                  (file-name-nondirectory filename))
+               (dired-get-marked-files))))))
+
+  (revert-buffer)
+
+  ;; remove the mark on all the files  "*" to " "
+  ;; (dired-change-marks 42 ?\040)
+  ;; mark zip file
+  ;; (dired-mark-files-regexp (filename-to-regexp zip-file))
+  )
+
+(defun concat-string-list (list) 
+   "Return a string which is a concatenation of all elements of the list separated by spaces" 
+    (mapconcat '(lambda (obj) (format "%s" obj)) list " ")) 
 
 ;; ------------------------------------------------------------------------
 ;; recentf
@@ -633,7 +674,6 @@
 ;;(sml/apply-theme 'light)
 (sml/apply-theme 'dark)
 
-
 ;; ------------------------------------------------------------------------
 ;; calendar
 
@@ -661,6 +701,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
+ '(custom-safe-themes
+   (quote
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(foreign-regexp/regexp-type (quote perl))
  '(google-translate-default-source-language "ja")
  '(google-translate-default-target-language "en")
@@ -670,7 +713,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)
  '(shell-pop-shell-type

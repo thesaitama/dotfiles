@@ -7,17 +7,22 @@
 ;; ------------------------------------------------------------------------
 ;; projectile
 
+(require 'projectile)
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
-(helm-projectile-on)
+(setq projectile-switch-project-action 'helm-projectile)
 (setq projectile-mode-line
       '(:eval (if (projectile-project-p)
                   (format " Pj" (projectile-project-name)) "")))
+(setq projectile-enable-caching t)
+(setq projectile-switch-project-action 'projectile-dired)
+(setq projectile-remember-window-configs t )
 
 ;; ------------------------------------------------------------------------
 ;; helm-projectile
 
 (when (and (require 'helm-projectile))
+  (helm-projectile-on)
   (custom-set-variables
    '(helm-mini-default-sources '(helm-source-buffers-list
                                  helm-source-recentf

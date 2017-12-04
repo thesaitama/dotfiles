@@ -244,7 +244,7 @@
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
  '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
  '(helm-match ((t (:foreground "cyan"))))
- '(helm-selection ((t (:background "LightSkyBlue" :foreground "black"))))
+ '(helm-selection ((t (:background "green" :foreground "white" :weight bold))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
  '(linum ((t (:inherit (shadow default) :background "Gray23"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
@@ -271,7 +271,7 @@
  '(web-mode-doctype-face ((t (:foreground "glay"))))
  '(web-mode-html-attr-equal-face ((t (:foreground "white"))))
  '(web-mode-html-attr-name-face ((t (:foreground "blue"))))
- '(web-mode-html-attr-value-face ((t (:foreground "darkorange"))))
+ '(web-mode-html-attr-value-face ((t (:foreground "DarkOrange"))))
  '(web-mode-html-tag-face ((t (:foreground "cyan"))))
  '(web-mode-server-comment-face ((t (:foreground "green")))))
 

@@ -1,10 +1,23 @@
 
-;; thesaitama .emacs
+;;  _   _                     _ _
+;; | |_| |__   ___  ___  __ _(_) |_ __ _ _ __ ___   __ _
+;; | __| '_ \ / _ \/ __|/ _` | | __/ _` | '_ ` _ \ / _` |
+;; | |_| | | |  __/\__ \ (_| | | || (_| | | | | | | (_| |
+;;  \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
+
+;; thesaitama@ .emacs
 
 ;; Install
 
 ;; MacPorts site-lisp path
 ;; /opt/local/share/emacs/site-lisp/
+
+;; enable cl
+(require 'cl)
+
+;; inhibit warnings
+(setq byte-compile-warnings '(free-vars bytecomp))
+(setq ad-redefinition-action 'accept)
 
 ;; ------------------------------------------------------------------------
 ;; backage.el
@@ -36,6 +49,7 @@
     imenus
     helm
     helm-swoop
+    helm-ag
     yasnippet
     yasnippet-snippets
     helm-c-yasnippet
@@ -48,8 +62,12 @@
     neotree
     iflipb
     popwin
+    multi-term
     shell-pop
-    google-translate)
+    smart-mode-line
+    w3m
+    google-translate
+    osx-trash)
   "packages to be installed")
 
 (require 'package)
@@ -60,6 +78,11 @@
 (dolist (pkg my-favorite-package-list)
   (unless (package-installed-p pkg)
     (package-install pkg)))
+
+;; ------------------------------------------------------------------------
+;; binary path
+
+(add-to-list 'exec-path "/opt/local/bin")
 
 ;; ------------------------------------------------------------------------
 ;; my-list-load
@@ -156,9 +179,14 @@
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 
-;; backup file
+;; ------------------------------------------------------------------------
+;; backup and lock file
+
 (setq backup-inhibited t)
+(setq make-backup-files nil)
+(setq auto-save-default nil)
 (setq delete-auto-save-files t)
+(setq create-lockfiles nil)
 
 ;; ------------------------------------------------------------------------
 ;; color set-face
@@ -170,7 +198,7 @@
 (set-face-foreground 'font-lock-comment-delimiter-face "green")
 (set-face-foreground 'font-lock-string-face "darkorange")
 (set-face-foreground 'font-lock-keyword-face "blue")
-(set-face-foreground 'font-lock-function-name-face "yellow") ; lightskyblue
+(set-face-foreground 'font-lock-function-name-face "yellow") ;lightskyblue
 (set-face-foreground 'font-lock-variable-name-face "goldenrod")
 (set-face-foreground 'font-lock-constant-face "orange")
 (set-face-foreground 'font-lock-preprocessor-face "darkyellow")
@@ -199,9 +227,19 @@
  '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "orange"))))
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
  '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
+ '(helm-match ((t (:foreground "cyan"))))
  '(helm-selection ((t (:background "LightSkyBlue" :foreground "black"))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
  '(linum ((t (:inherit (shadow default) :background "Gray23"))))
+ '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
+ '(magit-context-highlight ((t (:background "Gray23"))))
+ '(magit-diff-added ((((type tty)) (:foreground "green"))))
+ '(magit-diff-added-highlight ((((type tty)) (:foreground "LimeGreen"))))
+ '(magit-diff-context-highlight ((t (:background "Gray23"))))
+ '(magit-diff-file-heading ((((type tty)) nil)))
+ '(magit-diff-removed ((((type tty)) (:foreground "red"))))
+ '(magit-diff-removed-highlight ((((type tty)) (:foreground "IndianRed"))))
+ '(magit-section-highlight ((t (:background "Gray23"))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
  '(markdown-header-face-2 ((t (:inherit outline-2 :weight bold))))
@@ -209,20 +247,18 @@
  '(markdown-header-face-4 ((t (:inherit outline-4 :weight bold))))
  '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
  '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
- '(markdown-pre-face ((t (:inherit org-formula))))
- '(web-mode-doctype-face ((t (:foreground "glay"))))
- '(web-mode-html-tag-face  ((t (:foreground "cyan"))))
- '(web-mode-html-attr-name-face    ((t (:foreground "blue"))))
- '(web-mode-html-attr-value-face ((t (:foreground "darkorange"))))
+ '(markdown-pre-face ((t (:foreground "ivory"))))
+ '(package-name ((t (:foreground "blue"))))
  '(web-mode-comment-face ((t (:foreground "green"))))
- '(web-mode-server-comment-face ((t (:foreground "green"))))
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
- '(web-mode-css-selector-face ((t (:foreground "blue"))))
  '(web-mode-css-pseudo-class ((t (:foreground "blue"))))
- '(magit-section-highlight ((t (:background "Gray23"))))
- '(magit-context-highlight ((t (:background "Gray23"))))
- '(magit-diff-context-highlight ((t (:background "Gray23"))))
- )
+ '(web-mode-css-selector-face ((t (:foreground "blue"))))
+ '(web-mode-doctype-face ((t (:foreground "glay"))))
+ '(web-mode-html-attr-equal-face ((t (:foreground "white"))))
+ '(web-mode-html-attr-name-face ((t (:foreground "blue"))))
+ '(web-mode-html-attr-value-face ((t (:foreground "darkorange"))))
+ '(web-mode-html-tag-face ((t (:foreground "cyan"))))
+ '(web-mode-server-comment-face ((t (:foreground "green")))))
 
 ;; ------------------------------------------------------------------------
 ;; UI / UX
@@ -251,16 +287,6 @@
 ;(global-hl-line-mode t)
 ;(custom-set-faces '(hl-line ((t (:background "color-236")))))
 
-;; frame
-(setq initial-frame-alist
-  (append (list
-   '(border-color . "black")
-   '(mouse-color . "black")
-   '(menu-bar-lines . 1)
-   )
-  initial-frame-alist))
-(setq default-frame-alist initial-frame-alist)
-
 ;; startup message
 (setq inhibit-startup-message t)
 
@@ -281,12 +307,23 @@
 ;; yes or no to y or n
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; open symlinks
+(setq vc-follow-symlinks t)
+
 ;; ------------------------------------------------------------------------
 ;; mouse
 
 (xterm-mouse-mode t)
 (global-set-key [mouse-4] '(lambda () (interactive) (scroll-down 3)))
 (global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 3)))
+
+;; ------------------------------------------------------------------------
+;; dired
+
+(setq dired-listing-switches "-alh")
+(setq delete-by-moving-to-trash t)
+(setq dired-dwim-target t)
+(setq dired-recursive-copies 'always)
 
 ;; ------------------------------------------------------------------------
 ;; recentf
@@ -304,16 +341,17 @@
 ;; paren
 
 (show-paren-mode t)
+(setq show-paren-style 'mixed)
 (set-face-background 'show-paren-match-face "black")
 (set-face-foreground 'show-paren-match-face "white")
-(setq show-paren-style 'mixed)
-
+(set-face-background 'show-paren-mismatch "red")
 (electric-pair-mode 1)
 
 ;; ------------------------------------------------------------------------
 ;; rainbow-mode
 
 (require 'rainbow-mode)
+(add-hook 'web-mode-hook 'rainbow-mode)
 (add-hook 'css-mode-hook 'rainbow-mode)
 (add-hook 'scss-mode-hook 'rainbow-mode)
 (add-hook 'php-mode-hook 'rainbow-mode)
@@ -383,6 +421,7 @@
 (define-key global-map (kbd "C-x C-r") 'helm-recentf)
 (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
 (define-key global-map (kbd "C-x b") 'helm-buffers-list)
+(define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-map (kbd "C-h") 'delete-backward-char)
 (define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
@@ -480,11 +519,34 @@
 ;; ------------------------------------------------------------------------
 ;; shell-pop
 
-(setq shell-pop-shell-type '("eshell" "*eshell*" (lambda () (eshell))))
+;;(setq shell-pop-shell-type '("eshell" "*eshell*" (lambda () (eshell))))
 ;;(setq shell-pop-shell-type '("shell" "*shell*" (lambda () (shell))))
 ;;(setq shell-pop-shell-type '("terminal" "*terminal*" (lambda () (term shell-pop-term-shell))))
 ;;(setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
+
 (global-set-key (kbd "C-c s") 'shell-pop)
+
+;; ------------------------------------------------------------------------
+;; multi-term
+
+(setq multi-term-program shell-file-name)
+
+(add-hook 'term-mode-hook '(lambda ()
+  (define-key term-raw-map "\C-y" 'term-paste)
+  (define-key term-raw-map "\C-q" 'move-beginning-of-line)
+  (define-key term-raw-map "\C-f" 'forward-char)
+  (define-key term-raw-map "\C-b" 'backward-char)
+  (define-key term-raw-map "\C-t" 'set-mark-command)
+  (define-key term-raw-map "\C-p" 'term-send-up)
+  (define-key term-raw-map "\C-n" 'term-send-down)
+  (define-key term-raw-map [mouse-4] 'term-send-up)
+  (define-key term-raw-map [mouse-5] 'term-send-down)
+  (define-key term-raw-map (kbd "ESC") 'term-send-raw)
+  (define-key term-raw-map [delete] 'term-send-raw)
+  (define-key term-raw-map "\C-z"
+    (lookup-key (current-global-map) "\C-z"))))
+(global-set-key (kbd "C-c n") 'multi-term-next)
+(global-set-key (kbd "C-c p") 'multi-term-prev)
 
 ;; ------------------------------------------------------------------------
 ;; undo-tree
@@ -567,6 +629,25 @@
 ;;(sml/apply-theme 'light)
 (sml/apply-theme 'dark)
 
+
+;; ------------------------------------------------------------------------
+;; calendar
+
+(with-eval-after-load "calendar"
+  (add-hook 'calendar-today-visible-hook 'calendar-mark-today)
+
+  (when (require 'japanese-holidays nil t)
+    (setq calendar-holidays
+          (append japanese-holidays
+                  holiday-local-holidays holiday-other-holidays))
+    (setq mark-holidays-in-calendar t)
+    (setq japanese-holiday-weekend-marker
+          '(holiday nil nil nil nil nil japanese-holiday-saturday))
+    (setq japanese-holiday-weekend '(0 6))
+    (add-hook 'calendar-today-visible-hook 'japanese-holiday-mark-weekend)
+    (add-hook 'calendar-today-invisible-hook 'japanese-holiday-mark-weekend))
+  )
+
 ;; ------------------------------------------------------------------------
 ;; custom-set-variables
 
@@ -585,9 +666,19 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(reb-re-syntax (quote foreign-regexp))
+ '(shell-pop-full-span t)
+ '(shell-pop-shell-type
+   (quote
+    ("multi-term" "*terminal<1>*"
+     (quote
+      (lambda nil
+        (multi-term))))))
+ '(shell-pop-window-position "bottom")
+ '(shell-pop-window-size 30)
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
+
 

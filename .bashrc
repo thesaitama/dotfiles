@@ -1,3 +1,10 @@
+
+#  _   _                     _ _
+# | |_| |__   ___  ___  __ _(_) |_ __ _ _ __ ___   __ _
+# | __| '_ \ / _ \/ __|/ _` | | __/ _` | '_ ` _ \ / _` |
+# | |_| | | |  __/\__ \ (_| | | || (_| | | | | | | (_| |
+#  \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
+
 # thesaitama@ .bashrc
 
 umask 022
@@ -7,6 +14,9 @@ alias e='emacsclient -nw -a ""'
 alias emacs='emacsclient -nw -a ""'
 alias ls='ls -avlGF'
 alias g='git'
+alias ..='cd ..'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
 
 alias snao='dns-sd -B _naoqi._tcp'
 alias mdlk='dns-sd -q'
@@ -23,6 +33,12 @@ if [ "$(uname)" == 'Darwin' ]; then
   alias msword='open -a microsoft\ word'
   alias powerpoint='open -a microsoft\ powerpoint'
 fi
+
+# Env (shell)
+export CLICOLOR=1
+export LSCOLORS=gxfxcxdxbxegedabagacad
+export PROMPT_DIRTRIM=1
+export HISTCONTROL=ignoredups:ignorespace:erasedups
 
 # color man
 man() {
@@ -73,6 +89,27 @@ shopt -s checkwinsize
 set noblobber
 
 # tmux
+# lunch tmux
+tm() {
+  tmux ls > /dev/null
+  if [ $? -eq 1 -a -z "$TMUX" ]; then
+    exec tmux
+  elif [ -z "$TMUX" ] ; then
+    exec tmux attach
+  else
+    echo "sessions should be nested with care."
+  fi
+}
+
+# run new pane
+s(){
+    if [ $# -eq 0 ]; then
+        cat > /tmp/tmux.tmp && tmux split-window -v "less /tmp/tmux.tmp"
+    else
+        tmux split-window -v "$*"
+    fi
+}
+
 # rename window-name when ssh
 ssh() {
   if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then

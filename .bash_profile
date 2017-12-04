@@ -1,26 +1,35 @@
+
+#  _   _                     _ _
+# | |_| |__   ___  ___  __ _(_) |_ __ _ _ __ ___   __ _
+# | __| '_ \ / _ \/ __|/ _` | | __/ _` | '_ ` _ \ / _` |
+# | |_| | | |  __/\__ \ (_| | | || (_| | | | | | | (_| |
+#  \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
+
 # thesaitama@ .bash_profile
 
 # Editor
 export EDITOR='emacsclient -nw'
 
-# Unicode Support
-export LANG=ja_JP.UTF-8
+# Language and Unicode Support
 export LESSCHARSET=utf-8
+export LANG=ja_JP.UTF-8
+export LC_ALL=$LANG
+export LC_CTYPE=$LANG
 
 # Path
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/X11R6/bin:/Developer/Tools:$PATH
+export PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH
 
-# Path Python
+# Python
 export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-package:$PYTHONPATH
+
+# PIP
+export PIP_CONFIG_FILE="${HOME}/pip.conf"
 
 # NAOqi SDK
 #export PYTHONPATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/python2.7/site-packages:$PYTHONPATH
 #export DYLD_LIBRARY_PATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib:$DYLD_LIBRARY_PATH
 #ln -s /usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/* /usr/local/lib
-
-# Env
-export CLICOLOR=1
-export LSCOLORS=gxfxcxdxbxegedabagacad
 
 # for Fink
 #test -d /sw && export PATH=/sw/bin:/sw/sbin:$PATH &&
@@ -31,16 +40,13 @@ export LSCOLORS=gxfxcxdxbxegedabagacad
 test -d /opt && export PATH=/opt/local/bin:/opt/local/sbin:$PATH &&
                 export MANPATH=/opt/local/share/man:/opt/local/man:$MANPATH
 
-# (If you'd like to use Qt3/X11 newer than Apr 24, 2006.)
-#export QTDIR=/opt/local/lib/qt3
-
-# (If you'd like to use Qt4/Mac.)
-#export QTDIR=/usr/local/Trolltech/Qt-4.2.2
+# if you'd like to use Qt4/Mac.
+#export QTDIR=/usr/local/Qt4.8
 #export PATH=$QTDIR/bin:$PATH
 #export QMAKESPEC=$QTDIR/mkspecs/macx-xcode
 #export QMAKESPEC=$QTDIR/mkspecs/macx-g++
 
-# (If you'd like to use CVS as CMS.)
+# if you'd like to use CVS as CMS.
 #export CVS_RSH=ssh
 
 # X-Window System

@@ -13,7 +13,7 @@
 ;; /opt/local/share/emacs/site-lisp/
 
 ;; enable cl
-(require 'cl)
+(eval-when-compile (require 'cl))
 
 ;; inhibit warnings
 (setq byte-compile-warnings '(free-vars bytecomp))
@@ -307,8 +307,8 @@
 (setq linum-format "%4d ")
 
 ;; highlight editing line
-;(global-hl-line-mode t)
-;(custom-set-faces '(hl-line ((t (:background "color-236")))))
+(global-hl-line-mode t)
+(custom-set-faces '(hl-line ((t (:background "color-236")))))
 
 ;; startup message
 (setq inhibit-startup-message t)
@@ -556,6 +556,11 @@
        (load "~/dotfiles/webservice.el")
        (load "~/dotfiles/browser.el"))
 )
+
+;; ------------------------------------------------------------------------
+;; pathheader
+
+;(load "~/dotfiles/pathheader.el")
 
 ;; ------------------------------------------------------------------------
 ;; eshell

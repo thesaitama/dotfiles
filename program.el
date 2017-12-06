@@ -99,7 +99,7 @@
 (defun typescript-setup ()
   (setq typescript-indent-level 2)
   (flycheck-mode t)
-  (flycheck-typescript-tslint-setup)
+  ;;(flycheck-typescript-tslint-setup)
   (tss-setup-current-buffer))
 
 (add-hook 'typescript-mode-hook 'typescript-setup)

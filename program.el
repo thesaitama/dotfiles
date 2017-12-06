@@ -83,6 +83,29 @@
 (add-hook 'js2-mode-hook #'js2-refactor-mode)
 
 ;; ------------------------------------------------------------------------
+;; typescript
+
+;$ npm install -g clausreinke/typescript-tools
+
+(require 'typescript)
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
+
+(require 'tss)
+(setq tss-popup-help-key "C-:")
+(setq tss-jump-to-definition-key "C->")
+(setq tss-implement-definition-key "C-c i")
+
+;; dot use tss-config-default
+(defun typescript-setup ()
+  (setq typescript-indent-level 2)
+  (flycheck-mode t)
+  (flycheck-typescript-tslint-setup)
+  (tss-setup-current-buffer))
+
+(add-hook 'typescript-mode-hook 'typescript-setup)
+(add-hook 'kill-buffer-hook 'tss--delete-process t)
+
+;; ------------------------------------------------------------------------
 ;; psgml
 
 (autoload 'xml-mode "psgml" "Major mode to edit XML files." t)

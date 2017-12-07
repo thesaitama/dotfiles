@@ -33,6 +33,7 @@
     fuzzy
     sequential-command
     editorconfig
+    quickrun
     ac-html
     ac-js2
     ac-php
@@ -140,6 +141,13 @@
 
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-split-window-function 'split-window-horizontally)
+
+;; ------------------------------------------------------------------------
+;; uniquify
+
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets
+      uniquify-min-dir-content 1)
 
 ;; ------------------------------------------------------------------------
 ;; highlight-symbol
@@ -594,6 +602,15 @@
 (global-set-key (kbd "C-c s") 'shell-pop)
 
 ;; ------------------------------------------------------------------------
+;; popwin
+
+(require 'popwin)
+(popwin-mode 1)
+(setq special-display-function 'popwin:special-display-popup-window)
+(push '(dired-mode :position top) popwin:special-display-config)
+(push '("*quickrun*" :height 15) popwin:special-display-config)
+
+;; ------------------------------------------------------------------------
 ;; multi-term
 
 (setq multi-term-program shell-file-name)
@@ -730,7 +747,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)

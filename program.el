@@ -7,8 +7,9 @@
 (setq editorconfig-get-properties-function
       'editorconfig-core-get-properties-hash)
 
-; if you need editorconfig excutables
-;$ sudo port install editorconfig-core-c
+;; if you need editorconfig excutables
+;; > sudo port install editorconfig-core-c
+;(setq edconf-exec-path "/opt/local/bin/editorconfig")
 
 ;; ------------------------------------------------------------------------
 ;; flycheck
@@ -96,7 +97,7 @@
 ;; ------------------------------------------------------------------------
 ;; typescript
 
-;$ npm install -g clausreinke/typescript-tools
+;; > npm install -g clausreinke/typescript-tools
 
 (require 'typescript)
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
@@ -171,4 +172,11 @@
 (when neo-persist-show
   (add-hook 'popwin:before-popup-hook (lambda () (setq neo-persist-show nil)))
   (add-hook 'popwin:after-popup-hook (lambda () (setq neo-persist-show t))))
+
+;; ------------------------------------------------------------------------
+;; quickrun
+
+(require 'quickrun)
+(global-set-key (kbd "<f5>") 'quickrun)
+
 

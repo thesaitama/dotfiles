@@ -32,6 +32,7 @@
     auto-complete
     fuzzy
     sequential-command
+    editorconfig
     ac-html
     ac-js2
     ac-php

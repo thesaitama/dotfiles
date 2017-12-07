@@ -1,5 +1,16 @@
 
 ;; ------------------------------------------------------------------------
+;; editorconfig
+
+(require 'editorconfig)
+(editorconfig-mode 1)
+(setq editorconfig-get-properties-function
+      'editorconfig-core-get-properties-hash)
+
+; if you need editorconfig excutables
+;$ sudo port install editorconfig-core-c
+
+;; ------------------------------------------------------------------------
 ;; flycheck
 
 (add-hook 'after-init-hook #'global-flycheck-mode)

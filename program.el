@@ -141,6 +141,36 @@
 (setq jedi:complete-on-dot t) ; optional
 
 ;; ------------------------------------------------------------------------
+;; helm-gtags
+
+(require 'helm-gtags)
+(add-hook 'c-mode-hook 'helm-gtags-mode)
+(add-hook 'c++-mode-hook 'helm-gtags-mode)
+(add-hook 'php-mode-hook 'helm-gtags-mode)
+(add-hook 'python-mode-hook 'helm-gtags-mode)
+(add-hook 'js2-mode 'helm-gtags-mode)
+(add-hook 'typescript-mode 'helm-gtags-mode)
+
+(setq helm-gtags-path-style 'root)
+(setq helm-gtags-ignore-case t)
+(setq helm-gtags-auto-update t)
+
+;; key bindings
+(add-hook 'helm-gtags-mode-hook
+          '(lambda ()
+              (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
+              (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
+              (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
+              ))
+
+;; > sudo port install ctags
+;; > pip-2.7 install pygments
+;; > sudo port -s install global
+;; > cp -p /opt/local/share/gtags/gtags.conf ~/.globalrc
+;; > sed -i -e "s/exuberant-ctags\.la/exuberant-ctags.so/g" ~/.globalrc
+;; > sed -i -e "s/pygments-parser\.la/pygments-parser.so/g" ~/.globalrc
+
+;; ------------------------------------------------------------------------
 ;; yasnippet
 
 (yas-global-mode 1)

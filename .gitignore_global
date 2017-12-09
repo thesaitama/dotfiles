@@ -3,6 +3,11 @@
 *#
 .#*
 
+# gtags
+PATH
+GRTAGS
+GTAGS
+
 # Vim
 *.swp
 *.swo

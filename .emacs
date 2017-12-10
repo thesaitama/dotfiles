@@ -56,6 +56,7 @@
     flycheck
     flycheck-popup-tip
     imenus
+    imenu-anywhere
     helm
     helm-swoop
     helm-ag
@@ -77,6 +78,8 @@
     smart-mode-line
     w3m
     dired-k
+    dired-narrow
+    dired-subtree
     google-translate
     osx-trash)
   "packages to be installed")
@@ -257,6 +260,10 @@
  '(diff-added ((((type tty)) (:foreground "green"))))
  '(diff-removed ((((type tty)) (:foreground "red"))))
  '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
+ '(dired-subtree-depth-1-face ((t (:background "Gray24"))))
+ '(dired-subtree-depth-2-face ((t (:background "Gray25"))))
+ '(dired-subtree-depth-3-face ((t (:background "Gray26"))))
+ '(dired-subtree-depth-4-face ((t (:background "Gray27"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "white"))))
  '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))
@@ -357,9 +364,10 @@
 (global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 3)))
 
 ;; ------------------------------------------------------------------------
-;; dired
+;; dired + dired-x, dired-narrow
 
 (add-hook 'dired-load-hook (lambda () (load "dired-x")))
+
 (setq dired-listing-switches (purecopy "-Ahl"))
 (setq delete-by-moving-to-trash t)
 (setq dired-dwim-target t)
@@ -395,6 +403,25 @@
 (defun concat-string-list (list) 
    "Return a string which is a concatenation of all elements of the list separated by spaces" 
    (mapconcat #'(lambda (obj) (format "%s" obj)) list " "))
+
+;; key-bind
+(define-key dired-mode-map (kbd "M-s") 'dired-narrow-fuzzy)
+
+;; ------------------------------------------------------------------------
+;; dired-subtree
+
+(require 'dired-subtree)
+
+(defun dired-subtree-up-dwim (&optional arg)
+  "traval parent directory"
+  (interactive "p")
+  (or (dired-subtree-up arg)
+      (dired-up-directory)))
+
+;; key-bind
+(define-key dired-mode-map (kbd "i") 'dired-subtree-insert)
+(define-key dired-mode-map (kbd "TAB") 'dired-subtree-remove)
+(define-key dired-mode-map (kbd "^") 'dired-subtree-up-dwim)
 
 ;; ------------------------------------------------------------------------
 ;; recentf
@@ -531,7 +558,6 @@
 (define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
 ;; Save buffer when helm-multi-swoop-edit complete
 (setq helm-multi-swoop-edit-save t)
-;; 値がtの場合はウィンドウ内に分割、nilなら別のウィンドウを使用
 (setq helm-swoop-split-with-multiple-windows nil)
 (setq helm-swoop-split-direction 'split-window-vertically)
 
@@ -666,7 +692,7 @@
     (font-lock-mode . "")
     (elisp-slime-nav-mode . " EN")
     (helm-gtags-mode . " HG")
-    (editorconfig-mode . "")
+    (editorbconfig-mode . "")
     (flymake-mode . " Fm")
     ;; Major modes
     (lisp-interaction-mode . "Li")
@@ -749,7 +775,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)

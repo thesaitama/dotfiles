@@ -12,6 +12,11 @@
 ;(setq edconf-exec-path "/opt/local/bin/editorconfig")
 
 ;; ------------------------------------------------------------------------
+;; imenu-list
+
+(setq imenu-list-position "below")
+
+;; ------------------------------------------------------------------------
 ;; flycheck
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -205,6 +210,9 @@
 (when neo-persist-show
   (add-hook 'popwin:before-popup-hook (lambda () (setq neo-persist-show nil)))
   (add-hook 'popwin:after-popup-hook (lambda () (setq neo-persist-show t))))
+;; helm project
+(defadvice helm-projectile-find-file (after helm-projectile-find-file activate)
+  (neotree-dir default-directory))
 
 ;; ------------------------------------------------------------------------
 ;; quickrun

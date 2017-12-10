@@ -57,6 +57,7 @@
     flycheck-popup-tip
     imenus
     imenu-anywhere
+    imenu-list
     helm
     helm-swoop
     helm-ag
@@ -291,6 +292,10 @@
  '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
  '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
  '(markdown-pre-face ((t (:foreground "ivory"))))
+ '(neo-file-link-face ((t (:foreground "ivory"))))
+ '(neo-dir-link-face ((t (:background "Gray25" :foreground "white"))))
+ '(neo-vc-default-face ((t (:foreground "ivory"))))
+ '(neo-vc-up-to-date-face ((t (:foreground "ivory"))))
  '(package-name ((t (:foreground "blue"))))
  '(web-mode-comment-face ((t (:foreground "green"))))
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
@@ -540,6 +545,8 @@
         :around (lambda (fcn file)
                   (unless (string-match "\\(?:/\\|\\`\\)\\.\\{2\\}\\'" file)
                     (funcall fcn file))))
+
+(setq helm-split-window-in-side-p t)
 ;; auto resize
 (setq helm-autoresize-max-height 0)
 (setq helm-autoresize-min-height 40)
@@ -636,6 +643,9 @@
 (setq special-display-function 'popwin:special-display-popup-window)
 (push '(dired-mode :position top) popwin:special-display-config)
 (push '("*quickrun*" :height 15) popwin:special-display-config)
+(push '("*Ilist*" :height 15) popwin:special-display-config)
+
+;; / from helm-popwin
 
 ;; ------------------------------------------------------------------------
 ;; multi-term
@@ -775,7 +785,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)
@@ -790,6 +800,5 @@
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
-
 
 (put 'set-goal-column 'disabled nil)

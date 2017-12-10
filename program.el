@@ -161,11 +161,14 @@
               (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
               (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
               (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
+              (local-set-key (kbd "C-c <") 'helm-gtags-previous-history)
+              (local-set-key (kbd "C-c >") 'helm-gtags-next-history)
+              (local-set-key (kbd "C-x c g") 'helm-gtags-select)
               ))
 
 ;; > sudo port install ctags
 ;; > pip-2.7 install pygments
-;; > sudo port -s install global
+;; > sudo port install global
 ;; > cp -p /opt/local/share/gtags/gtags.conf ~/.globalrc
 ;; > sed -i -e "s/exuberant-ctags\.la/exuberant-ctags.so/g" ~/.globalrc
 ;; > sed -i -e "s/pygments-parser\.la/pygments-parser.so/g" ~/.globalrc

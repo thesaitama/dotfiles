@@ -380,7 +380,7 @@
              " "
              (concat-string-list 
               (mapcar
-               '(lambda (filename)
+               #'(lambda (filename)
                   (file-name-nondirectory filename))
                (dired-get-marked-files))))))
 
@@ -394,7 +394,7 @@
 
 (defun concat-string-list (list) 
    "Return a string which is a concatenation of all elements of the list separated by spaces" 
-   (mapconcat '(lambda (obj) (format "%s" obj)) list " "))
+   (mapconcat #'(lambda (obj) (format "%s" obj)) list " "))
 
 ;; ------------------------------------------------------------------------
 ;; recentf

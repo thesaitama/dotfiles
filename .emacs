@@ -275,7 +275,7 @@
  '(helm-selection ((t (:background "Gray23"))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
  '(hl-line ((t (:background "color-236"))))
- '(linum ((t (:inherit (shadow default) :background "Gray23"))))
+ '(linum ((t (:inherit (shadow default) :background "Gray22"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
  '(magit-diff-added ((((type tty)) (:foreground "green"))))
  '(magit-diff-added-highlight ((((type tty)) (:foreground "LimeGreen"))))
@@ -513,6 +513,16 @@
 ;(define-key minibuffer-local-map (kbd "C-<tab>") 'dabbrev-expand)
 
 ;; ------------------------------------------------------------------------
+;; imenu
+
+(setq imenu-auto-rescan t)
+
+;; ------------------------------------------------------------------------
+;; imenu-list
+
+(setq imenu-list-position "below")
+
+;; ------------------------------------------------------------------------
 ;; helm
 
 (require 'helm-config)
@@ -546,7 +556,7 @@
                   (unless (string-match "\\(?:/\\|\\`\\)\\.\\{2\\}\\'" file)
                     (funcall fcn file))))
 
-(setq helm-split-window-in-side-p t)
+(setq helm-split-window-inside-p t)
 ;; auto resize
 (setq helm-autoresize-max-height 0)
 (setq helm-autoresize-min-height 40)
@@ -644,8 +654,6 @@
 (push '(dired-mode :position top) popwin:special-display-config)
 (push '("*quickrun*" :height 15) popwin:special-display-config)
 (push '("*Ilist*" :height 15) popwin:special-display-config)
-
-;; / from helm-popwin
 
 ;; ------------------------------------------------------------------------
 ;; multi-term

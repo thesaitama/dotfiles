@@ -12,6 +12,14 @@
 ;(setq edconf-exec-path "/opt/local/bin/editorconfig")
 
 ;; ------------------------------------------------------------------------
+;; debugger
+
+(setq gdb-many-windows t)
+(add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
+(setq gdb-use-separate-io-buffer t)
+(setq gud-tooltip-echo-area nil)
+
+;; ------------------------------------------------------------------------
 ;; imenu-list
 
 (setq imenu-list-position "below")
@@ -68,6 +76,12 @@
      (setq php-manual-url "http://www.phppro.jp/phpmanual")
    )
 )
+
+;; ------------------------------------------------------------------------
+;; yaml-mode
+
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.y[a]?ml$" . yaml-mode))
 
 ;; ------------------------------------------------------------------------
 ;; web-mode

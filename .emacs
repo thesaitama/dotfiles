@@ -276,6 +276,8 @@
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
  '(hl-line ((t (:background "color-236"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
+ '(magit-branch-local ((t (:foreground "magenta"))))
+ '(magit-branch-remote ((t (:foreground "blue"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
  '(magit-diff-added ((((type tty)) (:foreground "green"))))
  '(magit-diff-added-highlight ((((type tty)) (:foreground "LimeGreen"))))
@@ -292,8 +294,8 @@
  '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
  '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
  '(markdown-pre-face ((t (:foreground "ivory"))))
- '(neo-file-link-face ((t (:foreground "ivory"))))
  '(neo-dir-link-face ((t (:background "Gray25" :foreground "white"))))
+ '(neo-file-link-face ((t (:foreground "ivory"))))
  '(neo-vc-default-face ((t (:foreground "ivory"))))
  '(neo-vc-up-to-date-face ((t (:foreground "ivory"))))
  '(package-name ((t (:foreground "blue"))))
@@ -303,8 +305,8 @@
  '(web-mode-css-selector-face ((t (:foreground "blue"))))
  '(web-mode-doctype-face ((t (:foreground "glay"))))
  '(web-mode-html-attr-equal-face ((t (:foreground "white"))))
- '(web-mode-html-attr-name-face ((t (:foreground "blue"))))
- '(web-mode-html-attr-value-face ((t (:foreground "DarkOrange"))))
+ '(web-mode-html-attr-name-face ((t (:foreground "LightBlue"))))
+ '(web-mode-html-attr-value-face ((t (:foreground "yellow"))))
  '(web-mode-html-tag-face ((t (:foreground "cyan"))))
  '(web-mode-server-comment-face ((t (:foreground "green")))))
 
@@ -793,7 +795,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)

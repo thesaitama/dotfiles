@@ -12,24 +12,6 @@
 ;(setq edconf-exec-path "/opt/local/bin/editorconfig")
 
 ;; ------------------------------------------------------------------------
-;; debugger
-
-(setq gdb-many-windows t)
-(add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
-(setq gdb-use-separate-io-buffer t)
-(setq gud-tooltip-echo-area nil)
-
-;; ------------------------------------------------------------------------
-;; imenu-list
-
-(setq imenu-list-position "below")
-
-;; ------------------------------------------------------------------------
-;; flycheck
-
-(add-hook 'after-init-hook #'global-flycheck-mode)
-
-;; ------------------------------------------------------------------------
 ;; projectile
 
 (require 'projectile)
@@ -53,6 +35,24 @@
                                  helm-source-recentf
                                  helm-source-projectile-files-list))))
 (define-key global-map (kbd "C-c h") 'helm-mini)
+
+;; ------------------------------------------------------------------------
+;; debugger
+
+(setq gdb-many-windows t)
+(add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
+(setq gdb-use-separate-io-buffer t)
+(setq gud-tooltip-echo-area nil)
+
+;; ------------------------------------------------------------------------
+;; imenu-list
+
+(setq imenu-list-position "below")
+
+;; ------------------------------------------------------------------------
+;; flycheck
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; ------------------------------------------------------------------------
 ;; eldoc-extension)
@@ -88,7 +88,8 @@
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.as[cp]x$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\(\\.x?html?\\|.iht\\|.css\\)\\([.]?\\w+\\)*$". web-mode))
+(add-to-list 'auto-mode-alist '("\\(\\.x?html?\\|\\.iht\\)\\([.]?\\w+\\)*$". web-mode))
+(add-to-list 'auto-mode-alist '("\\(\\.sass\\|\\.s?css\\)\\([.]?\\w+\\)*$". web-mode))
 (defun web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-html-offset 2)
@@ -102,8 +103,20 @@
 (add-hook 'web-mode-hook 'web-mode-hook)
 (setq web-mode-auto-close-style 1)
 (setq web-mode-tag-auto-close-style t)
+;;(setq web-mode-enable-css-colorization t)
 (setq web-mode-enable-auto-pairing t)
 (setq web-mode-enable-current-element-highlight t)
+(setq web-mode-enable-current-column-highlight t)
+
+(setq web-mode-ac-sources-alist
+  '(("css" . (ac-source-css-property))
+    ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+
+;; ------------------------------------------------------------------------
+;; json-mode
+
+(require 'json-mode)
+(add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
 
 ;; ------------------------------------------------------------------------
 ;; js2-mode
@@ -137,16 +150,16 @@
 (add-hook 'kill-buffer-hook 'tss--delete-process t)
 
 ;; ------------------------------------------------------------------------
-;; psgml
+;; nxml-mode
 
-(autoload 'xml-mode "psgml" "Major mode to edit XML files." t)
-
-;; ------------------------------------------------------------------------
-;; xml-mode (RELAX, RELAX NG, iht)
-
-(setq auto-mode-alist
-      (append '(("\\.\\(xml\\|rlx\\|pml\\|rng\\)$" . xml-mode))
-       auto-mode-alist))
+(add-hook 'nxml-mode-hook
+  (lambda ()
+    (setq nxml-slash-auto-complete-flag t)
+    (setq nxml-child-indent 1)
+    (setq indent-tabs-mode nil)
+    (setq tab-width 2)
+  )
+)
 
 ;; ------------------------------------------------------------------------
 ;; python-mode
@@ -208,6 +221,11 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 (setq magit-diff-refine-hunk t)
 (setq smerge-refine-ignore-whitespace nil)
+
+;; ------------------------------------------------------------------------
+;; magit-find-file
+
+(require 'magit-find-file)
 
 ;; ------------------------------------------------------------------------
 ;; neotree

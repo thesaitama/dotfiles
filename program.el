@@ -129,7 +129,9 @@
 ;; ------------------------------------------------------------------------
 ;; typescript
 
-;; > npm install -g clausreinke/typescript-tools
+;; > sudo npm install tslint
+;; > sudo npm install typescript
+;; > sudo npm install -g clausreinke/typescript-tools
 
 (require 'typescript)
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
@@ -210,6 +212,7 @@
 
 (yas-global-mode 1)
 (setq yas-prompt-functions '(yas-ido-prompt))
+
 (require 'helm-c-yasnippet)
 (setq helm-yas-space-match-any-greedy t)
 (global-set-key (kbd "C-c y") 'helm-yas-complete)
@@ -236,8 +239,10 @@
 (setq neo-create-file-auto-open t)
 (setq neo-persist-show t)
 (setq neo-keymap-style 'concise)
-(setq neo-smart-open t)
-;(setq neo-vc-integration '(face char))
+(setq neo-dont-be-alone t)
+(setq neo-window-fixed-size nil)
+;(setq neo-smart-open t)
+(setq neo-vc-integration '(face char))
 ;; popwin
 (when neo-persist-show
   (add-hook 'popwin:before-popup-hook (lambda () (setq neo-persist-show nil)))

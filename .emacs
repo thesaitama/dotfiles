@@ -71,6 +71,7 @@
     projectile
     helm-projectile
     magit
+    magit-find-file
     neotree
     iflipb
     popwin
@@ -261,10 +262,10 @@
  '(diff-added ((((type tty)) (:foreground "green"))))
  '(diff-removed ((((type tty)) (:foreground "red"))))
  '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
- '(dired-subtree-depth-1-face ((t (:background "Gray24"))))
- '(dired-subtree-depth-2-face ((t (:background "Gray25"))))
- '(dired-subtree-depth-3-face ((t (:background "Gray26"))))
- '(dired-subtree-depth-4-face ((t (:background "Gray27"))))
+ '(dired-subtree-depth-1-face ((t (:background "Gray19"))))
+ '(dired-subtree-depth-2-face ((t (:background "Gray20"))))
+ '(dired-subtree-depth-3-face ((t (:background "Gray21"))))
+ '(dired-subtree-depth-4-face ((t (:background "Gray22"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "white"))))
  '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))
@@ -457,10 +458,7 @@
 
 (require 'rainbow-mode)
 (add-hook 'web-mode-hook 'rainbow-mode)
-(add-hook 'css-mode-hook 'rainbow-mode)
-(add-hook 'scss-mode-hook 'rainbow-mode)
 (add-hook 'php-mode-hook 'rainbow-mode)
-(add-hook 'html-mode-hook 'rainbow-mode)
 
 ;; ------------------------------------------------------------------------
 ;; rainbow-delimiters

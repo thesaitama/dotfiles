@@ -652,8 +652,39 @@
 (popwin-mode 1)
 (setq special-display-function 'popwin:special-display-popup-window)
 (push '(dired-mode :position top) popwin:special-display-config)
+(push '(compilation-mode :noselect t) popwin:special-display-config)
 (push '("*quickrun*" :height 15) popwin:special-display-config)
 (push '("*Ilist*" :height 15) popwin:special-display-config)
+(push '(" *undo-tree*" :width 0.2 :position right) popwin:special-display-config)
+
+;; ------------------------------------------------------------------------
+;; scratch-pop
+
+; http://emacs.rubikitch.com/scratch-pop/
+
+(require 'scratch-pop)
+(global-set-key (kbd "C-c c") 'scratch-pop)
+
+(define-minor-mode scratch-ext-minor-mode
+  "minor mode for *scratch* buffer"
+  nil ""
+  '(("\C-c\C-c" . scratch-pop-kill-ring-save-exit)
+    ("\C-c\C-e" . erase-buffer)))
+
+(with-current-buffer (get-buffer-create "*scratch*")
+  (ignore-errors
+    (insert-file-contents auto-save-buffers-enhanced-file-related-with-scratch-buffer))
+  (setq header-line-format "scratch!!")
+  (scratch-ext-minor-mode 1))
+
+(defun scratch-pop-kill-ring-save-exit ()
+  "when close *scratch* buffer save to kill-ring"
+  (interactive)
+  (kill-new (buffer-string))
+  (erase-buffer)
+  (funcall (if (fboundp 'popwin:close-popup-window)
+               'popwin:close-popup-window
+             'quit-window)))
 
 ;; ------------------------------------------------------------------------
 ;; multi-term
@@ -793,7 +824,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (scratch-pop magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)

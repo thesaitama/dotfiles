@@ -77,6 +77,7 @@
     popwin
     multi-term
     shell-pop
+    scratch-pop
     smart-mode-line
     w3m
     dired-k

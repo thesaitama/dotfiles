@@ -34,6 +34,10 @@ export GTAGSLABEL="pygments"
 #export DYLD_LIBRARY_PATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib:$DYLD_LIBRARY_PATH
 #ln -s /usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/* /usr/local/lib
 
+# GO
+export GOPATH="${HOME}/go"
+export PATH="${HOME}/go/bin:${PATH}"
+
 # for Fink
 #test -d /sw && export PATH=/sw/bin:/sw/sbin:$PATH &&
 #               export MANPATH=/sw/share/man:$MANPATH

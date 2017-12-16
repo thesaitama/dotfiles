@@ -27,6 +27,7 @@
 
 (defvar my-favorite-package-list
   '(auto-install
+    0xc
     eldoc-extension
     package-utils
     auto-complete
@@ -84,6 +85,7 @@
     dired-narrow
     dired-subtree
     google-translate
+    japanese-holidays
     osx-trash)
   "packages to be installed")
 
@@ -142,6 +144,11 @@
 (global-set-key (kbd "M-t") 'other-window)
 (global-set-key (kbd "C-x C-b") 'bs-show) ;; replace list-buffers
 (global-set-key (kbd "<f9>") 'other-window)
+
+;; ------------------------------------------------------------------------
+;; generic-x
+
+(require 'generic-x)
 
 ;; ------------------------------------------------------------------------
 ;; ediff
@@ -296,6 +303,8 @@
  '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
  '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
  '(markdown-pre-face ((t (:foreground "ivory"))))
+ '(holiday ((t (:background "pink"))))
+ '(japanese-holiday-saturday ((t (:background "cyan"))))
  '(neo-dir-link-face ((t (:background "Gray25" :foreground "white"))))
  '(neo-file-link-face ((t (:foreground "ivory"))))
  '(neo-vc-default-face ((t (:foreground "ivory"))))
@@ -590,6 +599,13 @@
 (global-set-key (kbd "C-M-s") 'helm-ag-this-file)
 
 ;; ------------------------------------------------------------------------
+;; id-manager
+
+(autoload 'id-manager "id-manager" nil t)
+(global-set-key (kbd "M-7") 'id-manager)
+(setenv "GPG_AGENT_INFO" nil)
+
+;; ------------------------------------------------------------------------
 ;; spell check (flyspell)
 
 (setq-default flyspell-mode t)
@@ -796,13 +812,16 @@
     (setq calendar-holidays
           (append japanese-holidays
                   holiday-local-holidays holiday-other-holidays))
+    (setq calendar-mark-holidays-flag t)
     (setq mark-holidays-in-calendar t)
     (setq japanese-holiday-weekend-marker
           '(holiday nil nil nil nil nil japanese-holiday-saturday))
     (setq japanese-holiday-weekend '(0 6))
     (add-hook 'calendar-today-visible-hook 'japanese-holiday-mark-weekend)
-    (add-hook 'calendar-today-invisible-hook 'japanese-holiday-mark-weekend))
+    (add-hook 'calendar-today-visible-hook 'calendar-mark-today)
+    (add-hook 'calendar-today-invisible-hook 'japanese-holiday-mark-weekend)
   )
+)
 
 ;; ------------------------------------------------------------------------
 ;; custom-set-variables
@@ -825,7 +844,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (scratch-pop magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (japanese-holidays id-manager 0xc scratch-pop magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)

@@ -1,0 +1,16 @@
+# configurations by customizer
+
+# shell variables definition
+ANSICOLOR=1
+TMPDIR=/var/folders/j0/g7991jwd04d3j30kwqlg32pr0000gn/T/
+PS1="\[\033[00m\]\[\033[32m\]\W/ \[\033[33m\]\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && echo -en \"\[\033[00m\]\${res}\" || echo -en \"\${res}\") \[\033[34m\]\\\$\[\033[00m\] "
+SORTTYPE=1
+LANGUAGE=utf8-mac
+DEFKCODE=utf8-mac
+INPUTKCODE=utf8-mac
+PTYINKCODE=utf8-mac
+PTYOUTKCODE=utf8-mac
+FNAMEKCODE=utf8-mac
+URLKCODE=utf8-mac
+EDITOR="emacsclient -nw"
+SHELL=/bin/bash

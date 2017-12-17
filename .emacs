@@ -106,6 +106,8 @@
 ;; ------------------------------------------------------------------------
 ;; my-list-load
 
+;; https://masutaka.net/chalow/2016-05-06-2.html
+
 (defun my-lisp-load (filename)
 "Load lisp from FILENAME"
   (let ((fullname (expand-file-name (concat "spec/" filename) user-emacs-directory)) lisp)
@@ -168,6 +170,8 @@
 
 (require 'highlight-symbol)
 (setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
+(setq highlight-symbol-idle-delay 1.0)
+(add-hook 'prog-mode-hook 'highlight-symbol-mode)
 (global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
 
@@ -295,6 +299,7 @@
  '(magit-diff-removed ((((type tty)) (:foreground "red"))))
  '(magit-diff-removed-highlight ((((type tty)) (:foreground "IndianRed"))))
  '(magit-section-highlight ((t (:background "Gray23"))))
+ '(highlight-symbol-face ((t (:background "Gray25"))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
  '(markdown-header-face-2 ((t (:inherit outline-2 :weight bold))))

@@ -27,3 +27,6 @@ ln -s ~/dotfiles/pip.conf ~/pip.conf
 
 # tags
 ln -s ~/dotfiles/.globalrc ~/.globalrc
+
+# etc
+ln -s ~/dotfiles/.fd2rc ~/.fd2rc

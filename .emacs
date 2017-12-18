@@ -74,6 +74,7 @@
     magit
     magit-find-file
     neotree
+    emamux
     iflipb
     popwin
     multi-term
@@ -172,6 +173,7 @@
 (setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
 (setq highlight-symbol-idle-delay 1.0)
 (add-hook 'prog-mode-hook 'highlight-symbol-mode)
+(add-hook 'prog-mode-hook 'highlight-symbol-nav-mode)
 (global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
 
@@ -287,7 +289,10 @@
  '(helm-match ((t (:foreground "cyan"))))
  '(helm-selection ((t (:background "Gray23"))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
+ '(highlight-symbol-face ((t (:background "Gray25"))))
  '(hl-line ((t (:background "color-236"))))
+ '(holiday ((t (:background "pink"))))
+ '(japanese-holiday-saturday ((t (:background "cyan"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
  '(magit-branch-remote ((t (:foreground "blue"))))
@@ -299,7 +304,6 @@
  '(magit-diff-removed ((((type tty)) (:foreground "red"))))
  '(magit-diff-removed-highlight ((((type tty)) (:foreground "IndianRed"))))
  '(magit-section-highlight ((t (:background "Gray23"))))
- '(highlight-symbol-face ((t (:background "Gray25"))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
  '(markdown-header-face-2 ((t (:inherit outline-2 :weight bold))))
@@ -308,8 +312,6 @@
  '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
  '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
  '(markdown-pre-face ((t (:foreground "ivory"))))
- '(holiday ((t (:background "pink"))))
- '(japanese-holiday-saturday ((t (:background "cyan"))))
  '(neo-dir-link-face ((t (:background "Gray25" :foreground "white"))))
  '(neo-file-link-face ((t (:foreground "ivory"))))
  '(neo-vc-default-face ((t (:foreground "ivory"))))
@@ -849,7 +851,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (japanese-holidays id-manager 0xc scratch-pop magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (emamux japanese-holidays id-manager 0xc scratch-pop magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)
@@ -859,6 +861,7 @@
      (quote
       (lambda nil
         (multi-term))))))
+ '(emamux:completing-read-type 'helm)
  '(shell-pop-window-position "bottom")
  '(shell-pop-window-size 30)
  '(show-paren-mode t)

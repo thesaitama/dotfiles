@@ -170,6 +170,17 @@
       (cons '("\\.py$" . python-mode) auto-mode-alist))
 (autoload 'python-mode "python-mode" "Python editing mode." t)
 
+;; elpy
+
+(add-hook 'python-mode-hook
+          '(lambda ()
+             (package-initialize)
+             (elpy-enable)
+             (elpy-mode)
+             ))
+
+(setq elpy-rpc-backend "jedi")
+
 ;M-x jedi:install-server
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t) ; optional

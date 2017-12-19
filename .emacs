@@ -31,6 +31,7 @@
     eldoc-extension
     package-utils
     auto-complete
+    avy
     fuzzy
     sequential-command
     editorconfig
@@ -39,6 +40,7 @@
     ac-js2
     ac-php
     anzu
+    expand-region
     highlight-symbol
     foreign-regexp
     undo-tree
@@ -167,10 +169,16 @@
       uniquify-min-dir-content 1)
 
 ;; ------------------------------------------------------------------------
+;; expand-region
+
+(require 'expand-region)
+(global-set-key (kbd "M-,") 'er/expand-region)
+
+;; ------------------------------------------------------------------------
 ;; highlight-symbol
 
 (require 'highlight-symbol)
-(setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
+(setq highlight-symbol-colors '("LightSeaGreen" "HotPink" "SlateBlue1" "SpringGreen1" "tan" "DarkOrange" "DodgerBlue1" "DeepPink1"))
 (setq highlight-symbol-idle-delay 1.0)
 (add-hook 'prog-mode-hook 'highlight-symbol-mode)
 (add-hook 'prog-mode-hook 'highlight-symbol-nav-mode)
@@ -198,6 +206,11 @@
 (defvar foreign-regexp/re-builder/targ-buf-state/.orig-pt "")
 
 (require 'foreign-regexp)
+
+;; ------------------------------------------------------------------------
+;; avy
+
+(global-set-key (kbd "M-s") 'avy-goto-char)
 
 ;; ------------------------------------------------------------------------
 ;; anzu
@@ -256,7 +269,7 @@
 (set-face-foreground 'font-lock-preprocessor-face "darkyellow")
 (set-face-foreground 'font-lock-warning-face "pink")
 (set-face-foreground 'tool-bar "cyan")
-(set-face-background 'region "lightblue")
+(set-face-background 'region "Gray40") ;lightblue
 (set-face-foreground 'isearch "black")
 (set-face-background 'isearch "lightpink")
 (set-face-foreground 'isearch-lazy-highlight-face "black")
@@ -356,7 +369,6 @@
 
 ;; highlight editing line
 (global-hl-line-mode t)
-
 
 ;; startup message
 (setq inhibit-startup-message t)
@@ -621,8 +633,20 @@
 ;; ------------------------------------------------------------------------
 ;; eaw (ambiguous width characters)
 
+;; https://github.com/uwabami/locale-eaw-emoji
+
 (load "~/dotfiles/locale-eaw-emoji.el")
 (eaw-and-emoji-fullwidth)
+
+;; ------------------------------------------------------------------------
+;; volatile-highlights
+
+;; https://github.com/k-talo/volatile-highlights.el
+
+(load "~/dotfiles/volatile-highlights.el")
+(volatile-highlights-mode t)
+(vhl/define-extension 'undo-tree 'undo-tree-yank 'undo-tree-move)
+(vhl/install-extension 'undo-tree)
 
 ;; ------------------------------------------------------------------------
 ;; os switch
@@ -842,6 +866,7 @@
  '(custom-safe-themes
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+ '(emamux:completing-read-type (quote helm))
  '(foreign-regexp/regexp-type (quote perl))
  '(google-translate-default-source-language "ja")
  '(google-translate-default-target-language "en")
@@ -851,7 +876,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (emamux japanese-holidays id-manager 0xc scratch-pop magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (expand-region avy emamux japanese-holidays id-manager 0xc scratch-pop magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)
@@ -861,7 +886,6 @@
      (quote
       (lambda nil
         (multi-term))))))
- '(emamux:completing-read-type 'helm)
  '(shell-pop-window-position "bottom")
  '(shell-pop-window-size 30)
  '(show-paren-mode t)

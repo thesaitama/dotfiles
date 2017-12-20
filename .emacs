@@ -78,6 +78,7 @@
     magit-find-file
     neotree
     emamux
+    elscreen
     iflipb
     popwin
     multi-term
@@ -168,6 +169,35 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets
       uniquify-min-dir-content 1)
+
+;; ------------------------------------------------------------------------
+;; elscreen
+
+(require 'elscreen)
+(elscreen-start)
+(setq elscreen-prefix-key (kbd "M-z"))
+(setq elscreen-tab-display-kill-screen nil)
+(setq elscreen-tab-display-control nil)
+(setq elscreen-buffer-to-nickname-alist
+      '(("^dired-mode$" .
+         (lambda ()
+           (format "Dired(%s)" dired-directory)))
+        ("^Info-mode$" .
+         (lambda ()
+           (format "Info(%s)" (file-name-nondirectory Info-current-file))))
+        ("^mew-draft-mode$" .
+         (lambda ()
+           (format "Mew(%s)" (buffer-name (current-buffer)))))
+        ("^mew-" . "Mew")
+        ("^irchat-" . "IRChat")
+        ("^liece-" . "Liece")
+        ("^lookup-" . "Lookup")))
+(setq elscreen-mode-to-nickname-alist
+      '(("[Ss]hell" . "shell")
+        ("compilation" . "compile")
+        ("-telnet" . "telnet")
+        ("dict" . "OnlineDict")
+        ("*WL:Message*" . "Wanderlust")))
 
 ;; ------------------------------------------------------------------------
 ;; expand-region
@@ -308,6 +338,10 @@
  '(holiday ((t (:background "pink"))))
  '(japanese-holiday-saturday ((t (:background "cyan"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
+ '(elscreen-tab-background-face ((t ( :background "Gray10" :foreground "Gray90"))))
+ '(elscreen-tab-control-face ((t ( :background "Gray20" :foreground "Gray90"))))
+ '(elscreen-tab-current-screen-face ((t ( :background "white" :foreground "Gray20"))))
+ '(elscreen-tab-other-screen-face ((t ( :background "Gray25" :foreground "Gray80"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
  '(magit-branch-remote ((t (:foreground "blue"))))
  '(magit-context-highlight ((t (:background "Gray23"))))

@@ -331,6 +331,8 @@
  '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
  '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
+ '(bm-face ((t (:background "Gray25"))))
+ '(bm-fringe-face ((t (:background "Gray25"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "white"))))
  '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))

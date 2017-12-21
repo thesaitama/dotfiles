@@ -66,6 +66,8 @@
     helm-swoop
     helm-ag
     helm-gtags
+    bm
+    helm-bm
     yasnippet
     yasnippet-snippets
     helm-c-yasnippet
@@ -325,6 +327,10 @@
  '(dired-subtree-depth-2-face ((t (:background "Gray20"))))
  '(dired-subtree-depth-3-face ((t (:background "Gray21"))))
  '(dired-subtree-depth-4-face ((t (:background "Gray22"))))
+ '(elscreen-tab-background-face ((t (:background "Gray10" :foreground "Gray90"))))
+ '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
+ '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
+ '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "white"))))
  '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))
@@ -339,10 +345,6 @@
  '(holiday ((t (:background "pink"))))
  '(japanese-holiday-saturday ((t (:background "cyan"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
- '(elscreen-tab-background-face ((t ( :background "Gray40" :foreground "Gray90"))))
- '(elscreen-tab-control-face ((t ( :background "Gray20" :foreground "Gray90"))))
- '(elscreen-tab-current-screen-face ((t ( :background "Gray80" :foreground "Gray20"))))
- '(elscreen-tab-other-screen-face ((t ( :background "Gray40" :foreground "Gray90"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
  '(magit-branch-remote ((t (:foreground "blue"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
@@ -654,6 +656,37 @@
 (global-set-key (kbd "C-M-s") 'helm-ag-this-file)
 
 ;; ------------------------------------------------------------------------
+;; bm, helm-bm
+
+(setq-default bm-buffer-persistence nil)
+(setq bm-restore-repository-on-load t)
+(require 'bm)
+(add-hook 'find-file-hook 'bm-buffer-restore)
+(add-hook 'kill-buffer-hook 'bm-buffer-save)
+(add-hook 'after-save-hook 'bm-buffer-save)
+(add-hook 'after-revert-hook 'bm-buffer-restore)
+(add-hook 'vc-before-checkin-hook 'bm-buffer-save)
+(add-hook 'kill-emacs-hook '(lambda nil
+                              (bm-buffer-save-all)
+                              (bm-repository-save)))
+(global-set-key (kbd "M-[") 'bm-previous)
+(global-set-key (kbd "M-]") 'bm-next)
+
+(require 'helm-bm)
+(setq helm-source-bm (delete '(multiline) helm-source-bm))
+
+(defun bm-toggle-or-helm ()
+  "when 2 times load run helm-bm"
+  (interactive)
+  (bm-toggle)
+  (when (eq last-command 'bm-toggle-or-helm)
+    (helm-bm)))
+(global-set-key (kbd "M-SPC") 'bm-toggle-or-helm)
+
+;;; bug ?
+(require 'compile)
+
+;; ------------------------------------------------------------------------
 ;; id-manager
 
 (autoload 'id-manager "id-manager" nil t)
@@ -899,9 +932,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(custom-safe-themes
-   (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(emamux:completing-read-type (quote helm))
  '(foreign-regexp/regexp-type (quote perl))
  '(google-translate-default-source-language "ja")
@@ -912,7 +942,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (elpy expand-region avy emamux japanese-holidays id-manager 0xc scratch-pop magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (helm-bm helm-elscreen elpy expand-region avy emamux japanese-holidays id-manager 0xc scratch-pop magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)

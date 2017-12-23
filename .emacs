@@ -178,7 +178,7 @@
 (require 'elscreen)
 (elscreen-start)
 (setq elscreen-prefix-key (kbd "M-z"))
-(setq elscreen-display-tab 20)
+(setq elscreen-display-tab 25)
 (setq elscreen-tab-display-kill-screen nil)
 (setq elscreen-tab-display-control nil)
 (setq elscreen-buffer-to-nickname-alist
@@ -320,6 +320,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(bm-face ((t (:background "color-36"))))
+ '(bm-fringe-face ((t (:background "color-36"))))
  '(diff-added ((((type tty)) (:foreground "green"))))
  '(diff-removed ((((type tty)) (:foreground "red"))))
  '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
@@ -331,8 +333,6 @@
  '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
  '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
- '(bm-face ((t (:background "Gray25"))))
- '(bm-fringe-face ((t (:background "Gray25"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "white"))))
  '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))
@@ -436,7 +436,11 @@
 ;; ------------------------------------------------------------------------
 ;; mouse
 
+(require 'mouse)
 (xterm-mouse-mode t)
+
+(require 'mwheel)
+(mouse-wheel-mode t)
 (global-set-key [mouse-4] '(lambda () (interactive) (scroll-down 3)))
 (global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 3)))
 

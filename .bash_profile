@@ -7,9 +7,6 @@
 
 # thesaitama@ .bash_profile
 
-# Editor
-export EDITOR='emacsclient -nw'
-
 # Language and Unicode Support
 export LESSCHARSET=utf-8
 export LANG=ja_JP.UTF-8
@@ -26,10 +23,20 @@ export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/li
 # PIP
 export PIP_CONFIG_FILE="${HOME}/pip.conf"
 
+# Editor
+export EDITOR='emacsclient -nw'
+
+# GTags
+export GTAGSLABEL="pygments" 
+
 # NAOqi SDK
 #export PYTHONPATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/python2.7/site-packages:$PYTHONPATH
 #export DYLD_LIBRARY_PATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib:$DYLD_LIBRARY_PATH
 #ln -s /usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/* /usr/local/lib
+
+# GO
+export GOPATH="${HOME}/go"
+export PATH="${HOME}/go/bin:${PATH}"
 
 # for Fink
 #test -d /sw && export PATH=/sw/bin:/sw/sbin:$PATH &&

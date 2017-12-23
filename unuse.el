@@ -99,3 +99,15 @@
         ("-telnet" . "telnet")
         ("dict" . "OnlineDict")
         ("*WL:Message*" . "Wanderlust")))
+
+;; ------------------------------------------------------------------------
+;; psgml
+
+(autoload 'xml-mode "psgml" "Major mode to edit XML files." t)
+
+;; ------------------------------------------------------------------------
+;; xml-mode (RELAX, RELAX NG, iht)
+
+(setq auto-mode-alist
+      (append '(("\\.\\(xml\\|rlx\\|pml\\|rng\\)$" . xml-mode))
+       auto-mode-alist))

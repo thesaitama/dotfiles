@@ -13,7 +13,7 @@
 ;; /opt/local/share/emacs/site-lisp/
 
 ;; enable cl
-(require 'cl)
+(eval-when-compile (require 'cl))
 
 ;; inhibit warnings
 (setq byte-compile-warnings '(free-vars bytecomp))
@@ -27,13 +27,20 @@
 
 (defvar my-favorite-package-list
   '(auto-install
+    0xc
+    eldoc-extension
     package-utils
     auto-complete
+    avy
+    fuzzy
     sequential-command
+    editorconfig
+    quickrun
     ac-html
     ac-js2
     ac-php
     anzu
+    expand-region
     highlight-symbol
     foreign-regexp
     undo-tree
@@ -42,14 +49,25 @@
     web-mode
     php-mode
     js2-mode
+    js2-refactor
+    json-mode
+    typescript-mode
+    tss
+    yaml-mode
     python-mode
     jedi
+    elpy
     flycheck
     flycheck-popup-tip
     imenus
+    imenu-anywhere
+    imenu-list
     helm
     helm-swoop
     helm-ag
+    helm-gtags
+    bm
+    helm-bm
     yasnippet
     yasnippet-snippets
     helm-c-yasnippet
@@ -59,14 +77,22 @@
     projectile
     helm-projectile
     magit
+    magit-find-file
     neotree
+    emamux
+    elscreen
     iflipb
     popwin
     multi-term
     shell-pop
+    scratch-pop
     smart-mode-line
     w3m
+    dired-k
+    dired-narrow
+    dired-subtree
     google-translate
+    japanese-holidays
     osx-trash)
   "packages to be installed")
 
@@ -86,6 +112,8 @@
 
 ;; ------------------------------------------------------------------------
 ;; my-list-load
+
+;; https://masutaka.net/chalow/2016-05-06-2.html
 
 (defun my-lisp-load (filename)
 "Load lisp from FILENAME"
@@ -127,16 +155,67 @@
 (global-set-key (kbd "<f9>") 'other-window)
 
 ;; ------------------------------------------------------------------------
+;; generic-x
+
+(require 'generic-x)
+
+;; ------------------------------------------------------------------------
 ;; ediff
 
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-split-window-function 'split-window-horizontally)
 
 ;; ------------------------------------------------------------------------
+;; uniquify
+
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets
+      uniquify-min-dir-content 1)
+
+;; ------------------------------------------------------------------------
+;; elscreen
+
+(require 'elscreen)
+(elscreen-start)
+(setq elscreen-prefix-key (kbd "M-z"))
+(setq elscreen-display-tab 20)
+(setq elscreen-tab-display-kill-screen nil)
+(setq elscreen-tab-display-control nil)
+(setq elscreen-buffer-to-nickname-alist
+      '(("^dired-mode$" .
+         (lambda ()
+           (format "Dired(%s)" dired-directory)))
+        ("^Info-mode$" .
+         (lambda ()
+           (format "Info(%s)" (file-name-nondirectory Info-current-file))))
+        ("^mew-draft-mode$" .
+         (lambda ()
+           (format "Mew(%s)" (buffer-name (current-buffer)))))
+        ("^mew-" . "Mew")
+        ("^irchat-" . "IRChat")
+        ("^liece-" . "Liece")
+        ("^lookup-" . "Lookup")))
+(setq elscreen-mode-to-nickname-alist
+      '(("[Ss]hell" . "shell")
+        ("compilation" . "compile")
+        ("-telnet" . "telnet")
+        ("dict" . "OnlineDict")
+        ("*WL:Message*" . "Wanderlust")))
+
+;; ------------------------------------------------------------------------
+;; expand-region
+
+(require 'expand-region)
+(global-set-key (kbd "M-,") 'er/expand-region)
+
+;; ------------------------------------------------------------------------
 ;; highlight-symbol
 
 (require 'highlight-symbol)
-(setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
+(setq highlight-symbol-colors '("LightSeaGreen" "HotPink" "SlateBlue1" "SpringGreen1" "tan" "DarkOrange" "DodgerBlue1" "DeepPink1"))
+(setq highlight-symbol-idle-delay 1.0)
+(add-hook 'prog-mode-hook 'highlight-symbol-mode)
+(add-hook 'prog-mode-hook 'highlight-symbol-nav-mode)
 (global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
 
@@ -161,6 +240,11 @@
 (defvar foreign-regexp/re-builder/targ-buf-state/.orig-pt "")
 
 (require 'foreign-regexp)
+
+;; ------------------------------------------------------------------------
+;; avy
+
+(global-set-key (kbd "M-s") 'avy-goto-char)
 
 ;; ------------------------------------------------------------------------
 ;; anzu
@@ -219,7 +303,7 @@
 (set-face-foreground 'font-lock-preprocessor-face "darkyellow")
 (set-face-foreground 'font-lock-warning-face "pink")
 (set-face-foreground 'tool-bar "cyan")
-(set-face-background 'region "lightblue")
+(set-face-background 'region "Gray40") ;lightblue
 (set-face-foreground 'isearch "black")
 (set-face-background 'isearch "lightpink")
 (set-face-foreground 'isearch-lazy-highlight-face "black")
@@ -236,7 +320,19 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(diff-added ((((type tty)) (:foreground "green"))))
+ '(diff-removed ((((type tty)) (:foreground "red"))))
  '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
+ '(dired-subtree-depth-1-face ((t (:background "Gray19"))))
+ '(dired-subtree-depth-2-face ((t (:background "Gray20"))))
+ '(dired-subtree-depth-3-face ((t (:background "Gray21"))))
+ '(dired-subtree-depth-4-face ((t (:background "Gray22"))))
+ '(elscreen-tab-background-face ((t (:background "Gray10" :foreground "Gray90"))))
+ '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
+ '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
+ '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
+ '(bm-face ((t (:background "Gray25"))))
+ '(bm-fringe-face ((t (:background "Gray25"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "white"))))
  '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))
@@ -246,7 +342,13 @@
  '(helm-match ((t (:foreground "cyan"))))
  '(helm-selection ((t (:background "Gray23"))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
- '(linum ((t (:inherit (shadow default) :background "Gray23"))))
+ '(highlight-symbol-face ((t (:background "Gray25"))))
+ '(hl-line ((t (:background "color-236"))))
+ '(holiday ((t (:background "pink"))))
+ '(japanese-holiday-saturday ((t (:background "cyan"))))
+ '(linum ((t (:inherit (shadow default) :background "Gray22"))))
+ '(magit-branch-local ((t (:foreground "magenta"))))
+ '(magit-branch-remote ((t (:foreground "blue"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
  '(magit-diff-added ((((type tty)) (:foreground "green"))))
  '(magit-diff-added-highlight ((((type tty)) (:foreground "LimeGreen"))))
@@ -263,6 +365,10 @@
  '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
  '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
  '(markdown-pre-face ((t (:foreground "ivory"))))
+ '(neo-dir-link-face ((t (:background "Gray25" :foreground "white"))))
+ '(neo-file-link-face ((t (:foreground "ivory"))))
+ '(neo-vc-default-face ((t (:foreground "ivory"))))
+ '(neo-vc-up-to-date-face ((t (:foreground "ivory"))))
  '(package-name ((t (:foreground "blue"))))
  '(web-mode-comment-face ((t (:foreground "green"))))
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
@@ -270,8 +376,8 @@
  '(web-mode-css-selector-face ((t (:foreground "blue"))))
  '(web-mode-doctype-face ((t (:foreground "glay"))))
  '(web-mode-html-attr-equal-face ((t (:foreground "white"))))
- '(web-mode-html-attr-name-face ((t (:foreground "blue"))))
- '(web-mode-html-attr-value-face ((t (:foreground "DarkOrange"))))
+ '(web-mode-html-attr-name-face ((t (:foreground "LightBlue"))))
+ '(web-mode-html-attr-value-face ((t (:foreground "yellow"))))
  '(web-mode-html-tag-face ((t (:foreground "cyan"))))
  '(web-mode-server-comment-face ((t (:foreground "green")))))
 
@@ -302,8 +408,7 @@
 (setq linum-format "%4d ")
 
 ;; highlight editing line
-;(global-hl-line-mode t)
-;(custom-set-faces '(hl-line ((t (:background "color-236")))))
+(global-hl-line-mode t)
 
 ;; startup message
 (setq inhibit-startup-message t)
@@ -336,9 +441,10 @@
 (global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 3)))
 
 ;; ------------------------------------------------------------------------
-;; dired
+;; dired + dired-x, dired-narrow
 
 (add-hook 'dired-load-hook (lambda () (load "dired-x")))
+
 (setq dired-listing-switches (purecopy "-Ahl"))
 (setq delete-by-moving-to-trash t)
 (setq dired-dwim-target t)
@@ -359,7 +465,7 @@
              " "
              (concat-string-list 
               (mapcar
-               '(lambda (filename)
+               #'(lambda (filename)
                   (file-name-nondirectory filename))
                (dired-get-marked-files))))))
 
@@ -373,7 +479,26 @@
 
 (defun concat-string-list (list) 
    "Return a string which is a concatenation of all elements of the list separated by spaces" 
-    (mapconcat '(lambda (obj) (format "%s" obj)) list " ")) 
+   (mapconcat #'(lambda (obj) (format "%s" obj)) list " "))
+
+;; key-bind
+(define-key dired-mode-map (kbd "M-s") 'dired-narrow-fuzzy)
+
+;; ------------------------------------------------------------------------
+;; dired-subtree
+
+(require 'dired-subtree)
+
+(defun dired-subtree-up-dwim (&optional arg)
+  "traval parent directory"
+  (interactive "p")
+  (or (dired-subtree-up arg)
+      (dired-up-directory)))
+
+;; key-bind
+(define-key dired-mode-map (kbd "i") 'dired-subtree-insert)
+(define-key dired-mode-map (kbd "TAB") 'dired-subtree-remove)
+(define-key dired-mode-map (kbd "^") 'dired-subtree-up-dwim)
 
 ;; ------------------------------------------------------------------------
 ;; recentf
@@ -402,10 +527,7 @@
 
 (require 'rainbow-mode)
 (add-hook 'web-mode-hook 'rainbow-mode)
-(add-hook 'css-mode-hook 'rainbow-mode)
-(add-hook 'scss-mode-hook 'rainbow-mode)
 (add-hook 'php-mode-hook 'rainbow-mode)
-(add-hook 'html-mode-hook 'rainbow-mode)
 
 ;; ------------------------------------------------------------------------
 ;; rainbow-delimiters
@@ -460,6 +582,16 @@
 ;(define-key minibuffer-local-map (kbd "C-<tab>") 'dabbrev-expand)
 
 ;; ------------------------------------------------------------------------
+;; imenu
+
+(setq imenu-auto-rescan t)
+
+;; ------------------------------------------------------------------------
+;; imenu-list
+
+(setq imenu-list-position "below")
+
+;; ------------------------------------------------------------------------
 ;; helm
 
 (require 'helm-config)
@@ -492,6 +624,8 @@
         :around (lambda (fcn file)
                   (unless (string-match "\\(?:/\\|\\`\\)\\.\\{2\\}\\'" file)
                     (funcall fcn file))))
+
+(setq helm-split-window-inside-p t)
 ;; auto resize
 (setq helm-autoresize-max-height 0)
 (setq helm-autoresize-min-height 40)
@@ -510,7 +644,6 @@
 (define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
 ;; Save buffer when helm-multi-swoop-edit complete
 (setq helm-multi-swoop-edit-save t)
-;; 値がtの場合はウィンドウ内に分割、nilなら別のウィンドウを使用
 (setq helm-swoop-split-with-multiple-windows nil)
 (setq helm-swoop-split-direction 'split-window-vertically)
 
@@ -525,6 +658,42 @@
 (global-set-key (kbd "C-M-s") 'helm-ag-this-file)
 
 ;; ------------------------------------------------------------------------
+;; bm, helm-bm
+
+(setq-default bm-buffer-persistence nil)
+(setq bm-restore-repository-on-load t)
+(require 'bm)
+(add-hook 'find-file-hook 'bm-buffer-restore)
+(add-hook 'kill-buffer-hook 'bm-buffer-save)
+(add-hook 'after-save-hook 'bm-buffer-save)
+(add-hook 'after-revert-hook 'bm-buffer-restore)
+(add-hook 'vc-before-checkin-hook 'bm-buffer-save)
+(add-hook 'kill-emacs-hook '(lambda nil
+                              (bm-buffer-save-all)
+                              (bm-repository-save)))
+
+(require 'helm-bm)
+(setq helm-source-bm (delete '(multiline) helm-source-bm))
+
+(defun bm-toggle-or-helm ()
+  "when 2 times load run helm-bm"
+  (interactive)
+  (bm-toggle)
+  (when (eq last-command 'bm-toggle-or-helm)
+    (helm-bm)))
+(global-set-key (kbd "M-SPC") 'bm-toggle-or-helm)
+
+;;; bug ?
+(require 'compile)
+
+;; ------------------------------------------------------------------------
+;; id-manager
+
+(autoload 'id-manager "id-manager" nil t)
+(global-set-key (kbd "M-7") 'id-manager)
+(setenv "GPG_AGENT_INFO" nil)
+
+;; ------------------------------------------------------------------------
 ;; spell check (flyspell)
 
 (setq-default flyspell-mode t)
@@ -533,8 +702,20 @@
 ;; ------------------------------------------------------------------------
 ;; eaw (ambiguous width characters)
 
+;; https://github.com/uwabami/locale-eaw-emoji
+
 (load "~/dotfiles/locale-eaw-emoji.el")
 (eaw-and-emoji-fullwidth)
+
+;; ------------------------------------------------------------------------
+;; volatile-highlights
+
+;; https://github.com/k-talo/volatile-highlights.el
+
+(load "~/dotfiles/volatile-highlights.el")
+(volatile-highlights-mode t)
+(vhl/define-extension 'undo-tree 'undo-tree-yank 'undo-tree-move)
+(vhl/install-extension 'undo-tree)
 
 ;; ------------------------------------------------------------------------
 ;; os switch
@@ -551,6 +732,11 @@
        (load "~/dotfiles/webservice.el")
        (load "~/dotfiles/browser.el"))
 )
+
+;; ------------------------------------------------------------------------
+;; pathheader
+
+;(load "~/dotfiles/pathheader.el")
 
 ;; ------------------------------------------------------------------------
 ;; eshell
@@ -575,6 +761,47 @@
 ;;(setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
 
 (global-set-key (kbd "C-c s") 'shell-pop)
+
+;; ------------------------------------------------------------------------
+;; popwin
+
+(require 'popwin)
+(popwin-mode 1)
+(setq special-display-function 'popwin:special-display-popup-window)
+(push '(dired-mode :position top) popwin:special-display-config)
+(push '(compilation-mode :noselect t) popwin:special-display-config)
+(push '("*quickrun*" :height 15) popwin:special-display-config)
+(push '("*Ilist*" :height 15) popwin:special-display-config)
+(push '(" *undo-tree*" :width 0.2 :position right) popwin:special-display-config)
+
+;; ------------------------------------------------------------------------
+;; scratch-pop
+
+; http://emacs.rubikitch.com/scratch-pop/
+
+(require 'scratch-pop)
+(global-set-key (kbd "C-c c") 'scratch-pop)
+
+(define-minor-mode scratch-ext-minor-mode
+  "minor mode for *scratch* buffer"
+  nil ""
+  '(("\C-c\C-c" . scratch-pop-kill-ring-save-exit)
+    ("\C-c\C-e" . erase-buffer)))
+
+(with-current-buffer (get-buffer-create "*scratch*")
+  (ignore-errors
+    (insert-file-contents auto-save-buffers-enhanced-file-related-with-scratch-buffer))
+  (setq header-line-format "scratch!!")
+  (scratch-ext-minor-mode 1))
+
+(defun scratch-pop-kill-ring-save-exit ()
+  "when close *scratch* buffer save to kill-ring"
+  (interactive)
+  (kill-new (buffer-string))
+  (erase-buffer)
+  (funcall (if (fboundp 'popwin:close-popup-window)
+               'popwin:close-popup-window
+             'quit-window)))
 
 ;; ------------------------------------------------------------------------
 ;; multi-term
@@ -631,6 +858,7 @@
     (font-lock-mode . "")
     (elisp-slime-nav-mode . " EN")
     (helm-gtags-mode . " HG")
+    (editorbconfig-mode . "")
     (flymake-mode . " Fm")
     ;; Major modes
     (lisp-interaction-mode . "Li")
@@ -684,13 +912,16 @@
     (setq calendar-holidays
           (append japanese-holidays
                   holiday-local-holidays holiday-other-holidays))
+    (setq calendar-mark-holidays-flag t)
     (setq mark-holidays-in-calendar t)
     (setq japanese-holiday-weekend-marker
           '(holiday nil nil nil nil nil japanese-holiday-saturday))
     (setq japanese-holiday-weekend '(0 6))
     (add-hook 'calendar-today-visible-hook 'japanese-holiday-mark-weekend)
-    (add-hook 'calendar-today-invisible-hook 'japanese-holiday-mark-weekend))
+    (add-hook 'calendar-today-visible-hook 'calendar-mark-today)
+    (add-hook 'calendar-today-invisible-hook 'japanese-holiday-mark-weekend)
   )
+)
 
 ;; ------------------------------------------------------------------------
 ;; custom-set-variables
@@ -701,9 +932,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(custom-safe-themes
-   (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+ '(emamux:completing-read-type (quote helm))
  '(foreign-regexp/regexp-type (quote perl))
  '(google-translate-default-source-language "ja")
  '(google-translate-default-target-language "en")
@@ -713,7 +942,8 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (helm-bm helm-elscreen elpy expand-region avy emamux japanese-holidays id-manager 0xc scratch-pop magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+ '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)
  '(shell-pop-shell-type
@@ -727,6 +957,5 @@
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
-
 
 (put 'set-goal-column 'disabled nil)

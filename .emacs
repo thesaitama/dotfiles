@@ -320,8 +320,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(bm-face ((t (:background "color-36"))))
- '(bm-fringe-face ((t (:background "color-36"))))
+ '(bm-face ((t (:background "color-28"))))
+ '(bm-fringe-face ((t (:background "color-28"))))
  '(diff-added ((((type tty)) (:foreground "green"))))
  '(diff-removed ((((type tty)) (:foreground "red"))))
  '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
@@ -340,7 +340,7 @@
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
  '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
  '(helm-match ((t (:foreground "cyan"))))
- '(helm-selection ((t (:background "Gray23"))))
+ '(helm-selection ((t (:background "Gray30"))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
  '(highlight-symbol-face ((t (:background "Gray25"))))
  '(hl-line ((t (:background "color-236"))))
@@ -860,16 +860,17 @@
     (abbrev-mode . "")
     (undo-tree-mode . "")
     (font-lock-mode . "")
+    (editorconfig-mode . " ECnf")
     (elisp-slime-nav-mode . " EN")
     (helm-gtags-mode . " HG")
-    (editorbconfig-mode . "")
     (flymake-mode . " Fm")
     ;; Major modes
     (lisp-interaction-mode . "Li")
+    (shell-script-mode . "SS")
     (python-mode . "Py")
     (ruby-mode   . "Rb")
     (fundamental-mode . "Fund")
-    (lisp-mode . "El")
+    (emacs-lisp-mode . "El")
     (markdown-mode . "Md")))
 
 (defun clean-mode-line ()

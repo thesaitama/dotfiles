@@ -10,8 +10,8 @@
 # Language and Unicode Support
 export LESSCHARSET=utf-8
 export LANG=ja_JP.UTF-8
-export LC_ALL=$LANG
-export LC_CTYPE=$LANG
+#export LC_ALL=$LANG
+#export LC_CTYPE=$LANG
 
 # Path
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/X11R6/bin:/Developer/Tools:$PATH

@@ -12,6 +12,33 @@
 ;(setq edconf-exec-path "/opt/local/bin/editorconfig")
 
 ;; ------------------------------------------------------------------------
+;; comment-tags
+
+(require 'comment-tags)
+(setq comment-tags-keymap-prefix (kbd "C-c t"))
+(with-eval-after-load "comment-tags"
+  (setq comment-tags-keyword-faces
+        `(("TODO" . ,(list :weight 'bold :foreground "#28ABE3"))
+          ("FIXME" . ,(list :weight 'bold :foreground "#DB3340"))
+          ("BUG" . ,(list :weight 'bold :foreground "#DB3340"))
+          ("HACK" . ,(list :weight 'bold :foreground "#E8B71A"))
+          ("KLUDGE" . ,(list :weight 'bold :foreground "#E8B71A"))
+          ("XXX" . ,(list :weight 'bold :foreground "#F7EAC8"))
+          ("INFO" . ,(list :weight 'bold :foreground "#F7EAC8"))
+          ("DONE" . ,(list :weight 'bold :foreground "#1FDA9A"))))
+  (setq comment-tags-comment-start-only t
+        comment-tags-require-colon t
+        comment-tags-case-sensitive t
+        comment-tags-show-faces t
+        comment-tags-lighter nil))
+
+(add-hook 'python-mode-hook 'comment-tags-mode)
+(add-hook 'php-mode-hook 'comment-tags-mode)
+(add-hook 'web-mode-hook 'comment-tags-mode)
+(add-hook 'js2-mode-hook 'comment-tags-mode)
+(add-hook 'typescript-mode-hook-hook 'comment-tags-mode)
+
+;; ------------------------------------------------------------------------
 ;; projectile
 
 (require 'projectile)
@@ -78,12 +105,6 @@
 )
 
 ;; ------------------------------------------------------------------------
-;; yaml-mode
-
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.y[a]?ml$" . yaml-mode))
-
-;; ------------------------------------------------------------------------
 ;; web-mode
 
 (require 'web-mode)
@@ -92,13 +113,14 @@
 (add-to-list 'auto-mode-alist '("\\(\\.sass\\|\\.s?css\\)\\([.]?\\w+\\)*$". web-mode))
 (defun web-mode-hook ()
   "Hooks for Web mode."
+  (setq web-mode-markup-indent-offset 2)
   (setq web-mode-html-offset 2)
   (setq web-mode-css-offset 2)
   (setq web-mode-script-offset 2)
   (setq web-mode-php-offset 2)
   (setq web-mode-java-offset 2)
   (setq web-mode-asp-offset 2)
-  (setq indent-tabs-mode t)
+  (setq indent-tabs-mode nil)
   (setq tab-width 4))
 (add-hook 'web-mode-hook 'web-mode-hook)
 (setq web-mode-auto-close-style 1)
@@ -113,18 +135,24 @@
     ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
 
 ;; ------------------------------------------------------------------------
-;; json-mode
-
-(require 'json-mode)
-(add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
-
-;; ------------------------------------------------------------------------
 ;; js2-mode
 
 (require 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-jsx-mode))
 (add-hook 'js2-mode-hook #'js2-refactor-mode)
+
+;; ------------------------------------------------------------------------
+;; json-mode
+
+(require 'json-mode)
+(add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
+
+;; ------------------------------------------------------------------------
+;; yaml-mode
+
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.y[a]?ml$" . yaml-mode))
 
 ;; ------------------------------------------------------------------------
 ;; typescript

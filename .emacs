@@ -44,6 +44,8 @@
     highlight-symbol
     foreign-regexp
     undo-tree
+    editorconfig
+    comment-tags
     rainbow-mode
     rainbow-delimiters
     web-mode
@@ -334,10 +336,10 @@
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
  '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
- '(helm-ff-directory ((t (:background "Gray25" :foreground "white"))))
+ '(helm-ff-directory ((t (:background "Gray25" :foreground "orange"))))
  '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))
- '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "orange"))))
- '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "ivory"))))
+ '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "cyan"))))
+ '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
  '(helm-match ((t (:foreground "cyan"))))
  '(helm-selection ((t (:background "Gray30"))))
@@ -947,7 +949,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (helm-ls-git helm-bm helm-elscreen elpy expand-region avy emamux japanese-holidays id-manager 0xc scratch-pop magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (comment-tags helm-ls-git helm-bm helm-elscreen elpy expand-region avy emamux japanese-holidays id-manager 0xc scratch-pop magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)

@@ -779,6 +779,7 @@
 (push '("*quickrun*" :height 15) popwin:special-display-config)
 (push '("*Ilist*" :height 15) popwin:special-display-config)
 (push '(" *undo-tree*" :width 0.2 :position right) popwin:special-display-config)
+(push '("*comment-tags*" :height 15) popwin:special-display-config) ;; not work
 
 ;; ------------------------------------------------------------------------
 ;; scratch-pop

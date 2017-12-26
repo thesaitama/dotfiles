@@ -27,6 +27,7 @@
 
 (defvar my-favorite-package-list
   '(auto-install
+    exec-path-from-shell
     0xc
     eldoc-extension
     package-utils
@@ -108,9 +109,12 @@
     (package-install pkg)))
 
 ;; ------------------------------------------------------------------------
-;; binary path
+;; binary path (exec-path-from-shell)
 
-(add-to-list 'exec-path "/opt/local/bin")
+;;(add-to-list 'exec-path "/opt/local/bin")
+;;(add-to-list 'exec-path "/usr/bin")
+
+(exec-path-from-shell-initialize)
 
 ;; ------------------------------------------------------------------------
 ;; my-list-load
@@ -130,10 +134,11 @@
 ;; auto-install
 
 (require 'auto-install)
-(add-to-list 'load-path auto-install-directory)
+
+(setq auto-install-use-wget t)
+(setq auto-install-directory "~/.emacs.d/auto-install/")
 (auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup)
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
 ;; ------------------------------------------------------------------------
 ;; character code

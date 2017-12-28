@@ -135,6 +135,15 @@
     ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
 
 ;; ------------------------------------------------------------------------
+;; web-beautify
+
+(setq-default web-beautify-args
+       '("-f"
+        "-"
+        "--indent-size 2"
+        "--end-with-newline"))
+
+;; ------------------------------------------------------------------------
 ;; js2-mode
 
 (require 'js2-mode)

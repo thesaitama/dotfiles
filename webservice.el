@@ -3,14 +3,18 @@
 ;; google-translate
 
 (require 'google-translate)
-(custom-set-variables
-  '(google-translate-default-source-language "ja")
-  '(google-translate-default-target-language "en"))
+
+;;(custom-set-variables
+;;  '(google-translate-default-source-language "ja")
+;;  '(google-translate-default-target-language "en"))
+
+(setq google-translate-default-source-language "ja")
+(setq google-translate-default-target-language "en")
 
 (defvar google-translate-english-chars "[:ascii:]’“”–"
-  "これらの文字が含まれているときは英語とみなす")
+  "English characters list.")
 (defun google-translate-enja-or-jaen (&optional string)
-  "regionか、現在のセンテンスを言語自動判別でGoogle翻訳する。"
+  "Auto detection translate language by region or current sentence."
   (interactive)
   (setq string
         (cond ((stringp string) string)
@@ -45,9 +49,6 @@
 ;; ------------------------------------------------------------------------
 ;; helm-qiita
 
-;;(setq helm-qiita-username "Your Qiita Account")
-;;(setq helm-qiita-organization "Your Organization") ;; optional.
-;;(setq helm-qiita-access-token "Your Access Token") ;; See https://qiita.com/settings/applications
 (setq helm-qiita-username (my-lisp-load "helm-qiita-username"))
 (setq helm-qiita-access-token (my-lisp-load "helm-qiita-access-token"))
 (helm-qiita-initialize)
@@ -55,7 +56,6 @@
 ;; ------------------------------------------------------------------------
 ;; yagist
 
-;(setq yagist-github-token "******************************")
 (setq yagist-github-token (my-lisp-load "yagist-github-token"))
 (require 'yagist)
 

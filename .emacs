@@ -40,6 +40,7 @@
     ac-html
     ac-js2
     ac-php
+    ac-helm
     anzu
     expand-region
     highlight-symbol
@@ -51,6 +52,7 @@
     rainbow-delimiters
     web-mode
     php-mode
+    php-eldoc
     js2-mode
     js2-refactor
     json-mode
@@ -102,6 +104,7 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
+;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (package-initialize)
 (unless package-archive-contents (package-refresh-contents))
 (dolist (pkg my-favorite-package-list)
@@ -246,7 +249,7 @@
 (defvar foreign-regexp/regexp-type "")
 (defvar foreign-regexp/re-builder/targ-buf-state/.orig-pt "")
 
-(require 'foreign-regexp)
+;;(require 'foreign-regexp)
 
 ;; ------------------------------------------------------------------------
 ;; avy
@@ -340,6 +343,7 @@
  '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
  '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
+ '(font-lock-doc-face ((t (:foreground "green"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "orange"))))
  '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))
@@ -364,6 +368,7 @@
  '(magit-diff-removed ((((type tty)) (:foreground "red"))))
  '(magit-diff-removed-highlight ((((type tty)) (:foreground "IndianRed"))))
  '(magit-section-highlight ((t (:background "Gray23"))))
+ '(outline-1 ((t (:background "BrightBlue" :foreground "white" :weight bold))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
  '(markdown-header-face-2 ((t (:inherit outline-2 :weight bold))))
@@ -372,9 +377,13 @@
  '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
  '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
  '(markdown-pre-face ((t (:foreground "ivory"))))
- '(neo-dir-link-face ((t (:background "Gray25" :foreground "white"))))
+ '(neo-header-face ((t ( :foreground "white"))))
+ '(neo-root-dir-face ((t (:background "BrightBlue" :foreground "white"))))
+ '(neo-dir-link-face ((t (:background "Gray25" :foreground "orange"))))
  '(neo-file-link-face ((t (:foreground "ivory"))))
  '(neo-vc-default-face ((t (:foreground "ivory"))))
+ '(neo-vc-edited-face ((t (:foreground "green"))))
+ '(neo-vc-removed-face ((t (:foreground "red"))))
  '(neo-vc-up-to-date-face ((t (:foreground "ivory"))))
  '(package-name ((t (:foreground "blue"))))
  '(web-mode-comment-face ((t (:foreground "green"))))
@@ -946,7 +955,7 @@
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(emamux:completing-read-type (quote helm))
- '(foreign-regexp/regexp-type (quote perl))
+ '(foreign-regexp/regexp-type (quote perl) t)
  '(google-translate-default-source-language "ja")
  '(google-translate-default-target-language "en")
  '(helm-mini-default-sources
@@ -955,7 +964,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (php-eldoc comment-tags helm-ls-git helm-bm helm-elscreen elpy expand-region avy emamux japanese-holidays id-manager 0xc scratch-pop magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (ac-helm php-completion php-eldoc comment-tags helm-ls-git helm-bm helm-elscreen elpy expand-region avy emamux japanese-holidays id-manager 0xc scratch-pop magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)

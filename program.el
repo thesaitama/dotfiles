@@ -105,6 +105,21 @@
   )
 
 ;; ------------------------------------------------------------------------
+;; ac-php
+
+;; M-x install-elisp-from-emacswiki php-completion.el
+
+(add-hook 'php-mode-hook
+            '(lambda ()
+               (auto-complete-mode t)
+               (require 'ac-php)
+               (setq ac-sources  '(ac-source-php
+                                   ac-source-php-completion
+                                   ac-source-filename))
+               )
+            )
+
+;; ------------------------------------------------------------------------
 ;; php-eldoc
 
 (defun php-mode-options ()
@@ -133,18 +148,20 @@
   (setq web-mode-java-offset 2)
   (setq web-mode-asp-offset 2)
   (setq indent-tabs-mode nil)
-  (setq tab-width 4))
+  (setq tab-width 4)
+  (auto-complete-mode t))
 (add-hook 'web-mode-hook 'web-mode-hook)
-(setq web-mode-auto-close-style 1)
-(setq web-mode-tag-auto-close-style t)
-;;(setq web-mode-enable-css-colorization t)
+(setq web-mode-auto-close-style 2)
+(setq web-mode-tag-auto-close-style 2)
 (setq web-mode-enable-auto-pairing t)
+;;(setq web-mode-enable-css-colorization t)
 (setq web-mode-enable-current-element-highlight t)
 (setq web-mode-enable-current-column-highlight t)
 
 (setq web-mode-ac-sources-alist
-  '(("css" . (ac-source-css-property))
-    ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+      '(("php" . (ac-source-yasnippet ac-source-php-auto-yasnippets))
+        ("css" . (ac-source-css-property))
+        ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
 
 ;; ------------------------------------------------------------------------
 ;; web-beautify

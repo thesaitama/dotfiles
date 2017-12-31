@@ -282,11 +282,18 @@
 (add-to-list 'ac-modes 'text-mode)
 (add-to-list 'ac-modes 'fundamental-mode)
 (ac-set-trigger-key "TAB")
+(setq ac-dwim t)
 (setq ac-use-menu-map t) ;; 補完メニュー表示時にC-n/C-pで補完候補選択
 (setq ac-use-fuzzy t)
-
+(setq ac-menu-height 15)
+(setq ac-ignore-case t)
+(setq ac-delay 0.1)
+(setq ac-auto-show-menu 0.2)
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
+
+(setq-default ac-sources 'ac-source-words-in-same-mode-buffers)
+(setq-default ac-sources (push 'ac-source-yasnippet ac-sources))
 
 ;; ------------------------------------------------------------------------
 ;; backup and lock file
@@ -368,7 +375,6 @@
  '(magit-diff-removed ((((type tty)) (:foreground "red"))))
  '(magit-diff-removed-highlight ((((type tty)) (:foreground "IndianRed"))))
  '(magit-section-highlight ((t (:background "Gray23"))))
- '(outline-1 ((t (:background "BrightBlue" :foreground "white" :weight bold))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
  '(markdown-header-face-2 ((t (:inherit outline-2 :weight bold))))
@@ -377,14 +383,15 @@
  '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
  '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
  '(markdown-pre-face ((t (:foreground "ivory"))))
- '(neo-header-face ((t ( :foreground "white"))))
- '(neo-root-dir-face ((t (:background "BrightBlue" :foreground "white"))))
  '(neo-dir-link-face ((t (:background "Gray25" :foreground "orange"))))
  '(neo-file-link-face ((t (:foreground "ivory"))))
+ '(neo-header-face ((t (:foreground "white"))))
+ '(neo-root-dir-face ((t (:background "BrightBlue" :foreground "white"))))
  '(neo-vc-default-face ((t (:foreground "ivory"))))
  '(neo-vc-edited-face ((t (:foreground "green"))))
  '(neo-vc-removed-face ((t (:foreground "red"))))
  '(neo-vc-up-to-date-face ((t (:foreground "ivory"))))
+ '(outline-1 ((t (:background "BrightBlue" :foreground "white" :weight bold))))
  '(package-name ((t (:foreground "blue"))))
  '(web-mode-comment-face ((t (:foreground "green"))))
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
@@ -964,7 +971,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (ac-helm php-completion php-eldoc comment-tags helm-ls-git helm-bm helm-elscreen elpy expand-region avy emamux japanese-holidays id-manager 0xc scratch-pop magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (mozc ac-helm php-completion php-eldoc comment-tags helm-ls-git helm-bm helm-elscreen elpy expand-region avy emamux japanese-holidays id-manager 0xc scratch-pop magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)

@@ -47,13 +47,6 @@
 (global-set-key (kbd "M-g a") 'helm-google-suggest)
 
 ;; ------------------------------------------------------------------------
-;; helm-qiita
-
-(setq helm-qiita-username (my-lisp-load "helm-qiita-username"))
-(setq helm-qiita-access-token (my-lisp-load "helm-qiita-access-token"))
-(helm-qiita-initialize)
-
-;; ------------------------------------------------------------------------
 ;; yagist
 
 (setq yagist-github-token (my-lisp-load "yagist-github-token"))

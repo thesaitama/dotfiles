@@ -17,7 +17,7 @@
 
 (require 'mmm-auto)
 (setq mmm-global-mode 'maybe)
-;(set-face-background 'mmm-default-submode-face nil) ;背景色が不要な場合
+;(set-face-background 'mmm-default-submode-face nil)
 (mmm-add-classes
  '((embedded-css
     :submode css-mode
@@ -110,4 +110,11 @@
 
 (setq auto-mode-alist
       (append '(("\\.\\(xml\\|rlx\\|pml\\|rng\\)$" . xml-mode))
-       auto-mode-alist))
+              auto-mode-alist))
+
+;; ------------------------------------------------------------------------
+;; helm-qiita
+
+(setq helm-qiita-username (my-lisp-load "helm-qiita-username"))
+(setq helm-qiita-access-token (my-lisp-load "helm-qiita-access-token"))
+(helm-qiita-initialize)

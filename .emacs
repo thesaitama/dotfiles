@@ -337,6 +337,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(link ((t (:foreground "blue"))))
  '(bm-face ((t (:background "color-28"))))
  '(bm-fringe-face ((t (:background "color-28"))))
  '(diff-added ((((type tty)) (:foreground "green"))))
@@ -654,9 +655,9 @@
 
 (setq helm-split-window-inside-p t)
 ;; auto resize
-(setq helm-autoresize-max-height 0)
-(setq helm-autoresize-min-height 40)
-(helm-autoresize-mode 1)
+;;(setq helm-autoresize-max-height 0)
+;;(setq helm-autoresize-min-height 40)
+;;(helm-autoresize-mode 1)
 
 ;; ------------------------------------------------------------------------
 ;; helm-swoop
@@ -732,7 +733,6 @@
 ;; https://github.com/uwabami/locale-eaw-emoji
 
 (load "~/dotfiles/locale-eaw-emoji.el")
-(eaw-and-emoji-fullwidth)
 
 ;; ------------------------------------------------------------------------
 ;; volatile-highlights
@@ -988,3 +988,6 @@
  '(tool-bar-mode nil))
 
 (put 'set-goal-column 'disabled nil)
+
+(provide '.emacs)
+;;; .emacs ends here

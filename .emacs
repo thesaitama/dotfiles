@@ -71,13 +71,13 @@
     helm-swoop
     helm-ag
     helm-gtags
+    helm-descbinds
     bm
     helm-bm
     yasnippet
     yasnippet-snippets
     helm-c-yasnippet
     qiita
-    helm-qiita
     yagist
     projectile
     helm-projectile
@@ -91,6 +91,7 @@
     multi-term
     shell-pop
     scratch-pop
+    which-key
     smart-mode-line
     w3m
     dired-k
@@ -283,7 +284,7 @@
 (add-to-list 'ac-modes 'fundamental-mode)
 (ac-set-trigger-key "TAB")
 (setq ac-dwim t)
-(setq ac-use-menu-map t) ;; 補完メニュー表示時にC-n/C-pで補完候補選択
+(setq ac-use-menu-map t)
 (setq ac-use-fuzzy t)
 (setq ac-menu-height 15)
 (setq ac-ignore-case t)
@@ -337,7 +338,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(link ((t (:foreground "blue"))))
  '(bm-face ((t (:background "color-28"))))
  '(bm-fringe-face ((t (:background "color-28"))))
  '(diff-added ((((type tty)) (:foreground "green"))))
@@ -347,6 +347,8 @@
  '(dired-subtree-depth-2-face ((t (:background "Gray20"))))
  '(dired-subtree-depth-3-face ((t (:background "Gray21"))))
  '(dired-subtree-depth-4-face ((t (:background "Gray22"))))
+ '(dired-subtree-depth-5-face ((t (:background "Gray23"))))
+ '(dired-subtree-depth-6-face ((t (:background "Gray24"))))
  '(elscreen-tab-background-face ((t (:background "Gray10" :foreground "Gray90"))))
  '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
@@ -365,6 +367,7 @@
  '(hl-line ((t (:background "color-236"))))
  '(holiday ((t (:background "pink"))))
  '(japanese-holiday-saturday ((t (:background "cyan"))))
+ '(link ((t (:foreground "blue"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
  '(magit-branch-remote ((t (:foreground "blue"))))
@@ -403,7 +406,9 @@
  '(web-mode-html-attr-name-face ((t (:foreground "LightBlue"))))
  '(web-mode-html-attr-value-face ((t (:foreground "yellow"))))
  '(web-mode-html-tag-face ((t (:foreground "cyan"))))
- '(web-mode-server-comment-face ((t (:foreground "green")))))
+ '(web-mode-server-comment-face ((t (:foreground "green"))))
+ '(which-func ((t (:foreground "ivory"))))
+ '(which-key-command-description-face ((t (:foreground "white")))))
 
 ;; ------------------------------------------------------------------------
 ;; UI / UX
@@ -553,14 +558,14 @@
 ;; ------------------------------------------------------------------------
 ;; rainbow-mode
 
-(require 'rainbow-mode)
+;;(require 'rainbow-mode)
 (add-hook 'web-mode-hook 'rainbow-mode)
 (add-hook 'php-mode-hook 'rainbow-mode)
 
 ;; ------------------------------------------------------------------------
 ;; rainbow-delimiters
 
-(require 'rainbow-delimiters)
+;;(require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (require 'cl-lib)
 (require 'color)
@@ -832,6 +837,15 @@
              'quit-window)))
 
 ;; ------------------------------------------------------------------------
+;; which-key
+
+(which-key-setup-side-window-bottom) ; mini buffer
+;; (which-key-setup-side-window-right)
+;; (which-key-setup-side-window-right-bottom)
+
+(which-key-mode 1)
+
+;; ------------------------------------------------------------------------
 ;; multi-term
 
 (setq multi-term-program shell-file-name)
@@ -971,7 +985,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (mozc ac-helm php-completion php-eldoc comment-tags helm-ls-git helm-bm helm-elscreen elpy expand-region avy emamux japanese-holidays id-manager 0xc scratch-pop magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
+    (helm-descbinds mozc ac-helm php-completion php-eldoc comment-tags helm-ls-git helm-bm helm-elscreen elpy expand-region avy emamux japanese-holidays id-manager 0xc scratch-pop magit-find-file e2wm imenu-list imenu-anywhere dired-subtree dired-narrow dired-filter helm-gtags quickrun fuzzy typescript-mode js2-refactor eldoc-extension yaml-mode dired-k osx-trash web-beautify stock-ticker multi-term multishell osx-dictionary helm-dash helm-ag imenus helm-swoop package-utils sequential-command helm-etags-plus smart-mode-line anzu highlight-symbol ac-html ac-js2 ac-php undo-tree shell-pop flycheck-popup-tip helm-qiita qiita helm-projectile iflibpb php-mode popwin iflipb markdown-mode elscreen tabbar neotree magit python-info jedi-direx company-jedi navi2ch json-mode js2-mode helm-google sudo-edit helm-c-yasnippet yasnippet-snippets rainbow-delimiters yasnippet rainbow-mode flycheck python-mode jedi auto-complete w3m mmm-mode helm ##)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)

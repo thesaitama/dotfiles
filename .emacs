@@ -68,6 +68,7 @@
     imenu-anywhere
     imenu-list
     helm
+    helm-smex
     helm-swoop
     helm-ag
     helm-gtags
@@ -354,6 +355,7 @@
  '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
  '(font-lock-doc-face ((t (:foreground "green"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
+ '(helm-buffer-process ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "orange"))))
  '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))
  '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "cyan"))))
@@ -377,6 +379,7 @@
  '(magit-diff-file-heading ((((type tty)) nil)))
  '(magit-diff-removed ((((type tty)) (:foreground "red"))))
  '(magit-diff-removed-highlight ((((type tty)) (:foreground "IndianRed"))))
+ '(magit-log-author ((t (:foreground "magenta"))))
  '(magit-section-highlight ((t (:background "Gray23"))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
@@ -662,6 +665,13 @@
 ;;(setq helm-autoresize-max-height 0)
 ;;(setq helm-autoresize-min-height 40)
 ;;(helm-autoresize-mode 1)
+
+;; ------------------------------------------------------------------------
+;; helm-smex
+
+(require 'helm-smex)
+(global-set-key [remap execute-extended-command] #'helm-smex)
+(global-set-key (kbd "M-X") #'helm-smex-major-mode-commands)
 
 ;; ------------------------------------------------------------------------
 ;; helm-swoop

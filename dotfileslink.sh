@@ -9,7 +9,7 @@ ln -s ~/dotfiles/.inputrc ~/.inputrc
 ln -s ~/dotfiles/.fzfcmd.sh ~/.fzfcmd.sh
 
 # editor
-ln -s ~/dotfiles/.emacs ~/.emacs
+ln -s ~/dotfiles/.emacs.el ~/.emacs.el
 ln -s ~/dotfiles/.vimrc ~/.vimrc
 ln -s ~/dotfiles/.vim ~/.vim
 

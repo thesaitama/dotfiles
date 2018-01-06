@@ -36,7 +36,7 @@
 (add-hook 'php-mode-hook 'comment-tags-mode)
 (add-hook 'web-mode-hook 'comment-tags-mode)
 (add-hook 'js2-mode-hook 'comment-tags-mode)
-(add-hook 'typescript-mode-hook-hook 'comment-tags-mode)
+(add-hook 'typescript-mode-hook 'comment-tags-mode)
 
 ;; ------------------------------------------------------------------------
 ;; projectile

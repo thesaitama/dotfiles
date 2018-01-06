@@ -762,16 +762,16 @@
 ;; os switch
 
 (cond ((equal system-type 'gnu/linux)
-       (load "~/dotfiles/webservice.el")
-       (load "~/dotfiles/browser.el")
-       (load "~/dotfiles/program.el"))
+       (load "~/dotfiles/cnf-webservice.el")
+       (load "~/dotfiles/cnf-browser.el")
+       (load "~/dotfiles/cnf-program.el"))
       ((equal system-type 'windows-nt)
-       (load "~/dotfiles/program.el"))
+       (load "~/dotfiles/cnf-program.el"))
       ((equal system-type 'darwin)
-       (load "~/dotfiles/osx.el")
-       (load "~/dotfiles/program.el")
-       (load "~/dotfiles/webservice.el")
-       (load "~/dotfiles/browser.el"))
+       (load "~/dotfiles/cnf-osx.el")
+       (load "~/dotfiles/cnf-program.el")
+       (load "~/dotfiles/cnf-webservice.el")
+       (load "~/dotfiles/cnf-browser.el"))
 )
 
 ;; ------------------------------------------------------------------------

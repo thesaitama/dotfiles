@@ -329,7 +329,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(region ((t (:foreground "Gray40"))))
+ '(region ((t (:background "Gray40"))))
  '(tool-bar ((t (:foreground "cyan"))))
  '(minibuffer-prompt ((t (:foreground "blue"))))
  '(fringe ((t (:background "Gray12" :foreground "blue"))))
@@ -906,9 +906,11 @@
     (shell-script-mode . "SS")
     (python-mode . "Py")
     (ruby-mode   . "Rb")
-    (fundamental-mode . "Fund")
+    (typescript-mode   . "TS")
     (emacs-lisp-mode . "El")
-    (markdown-mode . "Md")))
+    (markdown-mode . "Md")
+    (fundamental-mode . "Fund")
+    ))
 
 (defun clean-mode-line ()
   (interactive)

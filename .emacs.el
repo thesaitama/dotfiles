@@ -101,7 +101,7 @@
     google-translate
     japanese-holidays
     osx-trash)
-  "packages to be installed")
+  "Packages to be installed.")
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -140,7 +140,7 @@
 ;; https://masutaka.net/chalow/2016-05-06-2.html
 
 (defun my-lisp-load (filename)
-"Load lisp from FILENAME"
+"Load Lisp from filename."
   (let ((fullname (expand-file-name (concat "spec/" filename) user-emacs-directory)) lisp)
     (when (file-readable-p fullname)
       (with-temp-buffer
@@ -506,15 +506,15 @@
   '(define-key dired-mode-map "z" 'dired-zip-files))
 (defun dired-zip-files (zip-file)
   "Create an archive containing the marked files."
-  (interactive "sEnter name of zip file: ")
+  (interactive "Enter name of zip file: ")
 
   ;; create the zip file
   (let ((zip-file (if (string-match ".zip$" zip-file) zip-file (concat zip-file ".zip"))))
-    (shell-command 
-     (concat "zip " 
+    (shell-command
+     (concat "zip "
              zip-file
              " "
-             (concat-string-list 
+             (concat-string-list
               (mapcar
                #'(lambda (filename)
                   (file-name-nondirectory filename))
@@ -528,8 +528,8 @@
   ;; (dired-mark-files-regexp (filename-to-regexp zip-file))
   )
 
-(defun concat-string-list (list) 
-   "Return a string which is a concatenation of all elements of the list separated by spaces" 
+(defun concat-string-list (list)
+   "Return a string which is a concatenation of all elements of the LIST separated by spaces."
    (mapconcat #'(lambda (obj) (format "%s" obj)) list " "))
 
 ;; key-bind
@@ -541,7 +541,7 @@
 (require 'dired-subtree)
 
 (defun dired-subtree-up-dwim (&optional arg)
-  "traval parent directory"
+  "Traval parent directory."
   (interactive "p")
   (or (dired-subtree-up arg)
       (dired-up-directory)))
@@ -853,7 +853,7 @@
   (scratch-ext-minor-mode 1))
 
 (defun scratch-pop-kill-ring-save-exit ()
-  "when close *scratch* buffer save to kill-ring"
+  "When close *scratch* buffer save to `kill-ring`."
   (interactive)
   (kill-new (buffer-string))
   (erase-buffer)

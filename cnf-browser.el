@@ -19,6 +19,8 @@
 (setq w3m-home-page "http://www.google.co.jp")
 (setq w3m-use-cookies t)
 
+;; ------------------------------------------------------------------------
+
 (provide 'cnf-browser.el)
 ;;; cnf-browser.el ends here
 

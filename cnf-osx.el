@@ -136,5 +136,7 @@
   (setq ns-alternate-modifier (quote meta))
   )
 
+;; ------------------------------------------------------------------------
+
 (provide 'cnf-osx.el)
 ;;; cnf-osx.el ends here

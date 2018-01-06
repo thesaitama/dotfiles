@@ -19,6 +19,7 @@
 
 ;; enable cl
 (eval-when-compile (require 'cl))
+(require 'cl-lib)
 
 ;; inhibit warnings
 (setq byte-compile-warnings '(free-vars bytecomp))
@@ -92,7 +93,6 @@
     neotree
     emamux
     elscreen
-    iflipb
     popwin
     multi-term
     shell-pop
@@ -119,17 +119,16 @@
     (package-install pkg)))
 
 ;; ------------------------------------------------------------------------
-;; add load-path
+;; load basic settings
 
-(setq load-path
-      (append '("~/dotfiles/elisp")
-              load-path))
+(load "~/dotfiles/cnf-basics.el")
 
 ;; ------------------------------------------------------------------------
-;; load-prefer-newer .elc or .el
+;; eaw (ambiguous width characters)
 
-(when (boundp 'load-prefer-newer)
-  (setq load-prefer-newer t))
+;; https://github.com/uwabami/locale-eaw-emoji
+
+(require 'locale-eaw-emoji)
 
 ;; ------------------------------------------------------------------------
 ;; binary path (exec-path-from-shell)
@@ -145,7 +144,7 @@
 ;; https://masutaka.net/chalow/2016-05-06-2.html
 
 (defun my-lisp-load (filename)
-"Load Lisp from filename."
+"Load Lisp from FILENAME."
   (let ((fullname (expand-file-name (concat "spec/" filename) user-emacs-directory)) lisp)
     (when (file-readable-p fullname)
       (with-temp-buffer
@@ -157,47 +156,10 @@
 ;; auto-install
 
 (require 'auto-install)
-
 (setq auto-install-use-wget t)
 (setq auto-install-directory "~/.emacs.d/auto-install/")
 (auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup)
-
-;; ------------------------------------------------------------------------
-;; character code
-
-(set-language-environment "Japanese")
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-buffer-file-coding-system 'utf-8)
-(set-clipboard-coding-system 'utf-8)
-
-;; ------------------------------------------------------------------------
-;; key bind
-
-(global-set-key (kbd "C-h") 'delete-backward-char)
-(global-set-key (kbd "M-t") 'other-window)
-(global-set-key (kbd "C-x C-b") 'bs-show) ;; replace list-buffers
-
-;; ------------------------------------------------------------------------
-;; generic-x
-
-(require 'generic-x)
-
-;; ------------------------------------------------------------------------
-;; ediff
-
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
-(setq ediff-split-window-function 'split-window-horizontally)
-
-;; ------------------------------------------------------------------------
-;; uniquify
-
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets
-      uniquify-min-dir-content 1)
 
 ;; ------------------------------------------------------------------------
 ;; elscreen
@@ -260,15 +222,6 @@
 (define-key esc-map "l" 'seq-downcase-backward-word)
 
 ;; ------------------------------------------------------------------------
-;; foreign-regexp
-
-;; avoid ref warnings
-(defvar foreign-regexp/regexp-type "")
-(defvar foreign-regexp/re-builder/targ-buf-state/.orig-pt "")
-
-(require 'foreign-regexp)
-
-;; ------------------------------------------------------------------------
 ;; avy
 
 (global-set-key (kbd "M-s") 'avy-goto-char)
@@ -285,10 +238,13 @@
 (global-set-key (kbd "C-c R") 'anzu-query-replace-regexp)
 
 ;; ------------------------------------------------------------------------
-;; iflipb
+;; foreign-regexp
 
-(global-set-key (kbd "<f8>") 'iflipb-next-buffer)
-(global-set-key (kbd "<f7>") 'iflipb-previous-buffer)
+;; avoid ref warnings
+(defvar foreign-regexp/regexp-type "")
+(defvar foreign-regexp/re-builder/targ-buf-state/.orig-pt "")
+
+(require 'foreign-regexp)
 
 ;; ------------------------------------------------------------------------
 ;; auto-complete
@@ -313,187 +269,6 @@
 (setq-default ac-sources (push 'ac-source-yasnippet ac-sources))
 
 ;; ------------------------------------------------------------------------
-;; backup and lock file
-
-(setq backup-inhibited t)
-(setq make-backup-files nil)
-(setq auto-save-default nil)
-(setq delete-auto-save-files t)
-(setq create-lockfiles nil)
-
-;; ------------------------------------------------------------------------
-;; color set-face
-
-(global-font-lock-mode t)
-(set-face-foreground 'font-lock-type-face "darkyellow")
-(set-face-foreground 'font-lock-builtin-face "magenta")
-(set-face-foreground 'font-lock-comment-face "green")
-(set-face-foreground 'font-lock-comment-delimiter-face "green")
-(set-face-foreground 'font-lock-string-face "darkorange")
-(set-face-foreground 'font-lock-keyword-face "blue")
-(set-face-foreground 'font-lock-function-name-face "yellow")
-(set-face-foreground 'font-lock-variable-name-face "goldenrod")
-(set-face-foreground 'font-lock-constant-face "orange")
-(set-face-foreground 'font-lock-preprocessor-face "darkyellow")
-(set-face-foreground 'font-lock-warning-face "pink")
-
-;; ------------------------------------------------------------------------
-;; color (custom set face)
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(region ((t (:background "Gray40"))))
- '(tool-bar ((t (:foreground "cyan"))))
- '(minibuffer-prompt ((t (:foreground "blue"))))
- '(fringe ((t (:background "Gray12" :foreground "blue"))))
- '(isearch ((t (:background "LightPink" :foreground "black"))))
- '(isearch-lazy-highlight-face ((t (:background "LightCyan" :foreground "black"))))
- '(bm-face ((t (:background "color-28"))))
- '(bm-fringe-face ((t (:background "color-28"))))
- '(diff-added ((((type tty)) (:foreground "green"))))
- '(diff-removed ((((type tty)) (:foreground "red"))))
- '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
- '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
- '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
- '(dired-subtree-depth-1-face ((t (:background "Gray19"))))
- '(dired-subtree-depth-2-face ((t (:background "Gray20"))))
- '(dired-subtree-depth-3-face ((t (:background "Gray21"))))
- '(dired-subtree-depth-4-face ((t (:background "Gray22"))))
- '(dired-subtree-depth-5-face ((t (:background "Gray23"))))
- '(dired-subtree-depth-6-face ((t (:background "Gray24"))))
- '(elscreen-tab-background-face ((t (:background "Gray10" :foreground "Gray90"))))
- '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
- '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
- '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
- '(font-lock-doc-face ((t (:foreground "green"))))
- '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
- '(helm-buffer-process ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
- '(helm-ff-directory ((t (:background "Gray25" :foreground "orange"))))
- '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))
- '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "cyan"))))
- '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
- '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
- '(helm-match ((t (:foreground "cyan"))))
- '(helm-selection ((t (:background "Gray30"))))
- '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
- '(highlight-symbol-face ((t (:background "Gray25"))))
- '(hl-line ((t (:background "color-236"))))
- '(holiday ((t (:background "pink"))))
- '(japanese-holiday-saturday ((t (:background "cyan"))))
- '(link ((t (:foreground "blue"))))
- '(linum ((t (:inherit (shadow default) :background "Gray22"))))
- '(magit-branch-local ((t (:foreground "magenta"))))
- '(magit-branch-remote ((t (:foreground "blue"))))
- '(magit-context-highlight ((t (:background "Gray23"))))
- '(magit-diff-added ((((type tty)) (:foreground "green"))))
- '(magit-diff-added-highlight ((((type tty)) (:foreground "LimeGreen"))))
- '(magit-diff-context-highlight ((t (:background "Gray23"))))
- '(magit-diff-file-heading ((((type tty)) nil)))
- '(magit-diff-removed ((((type tty)) (:foreground "red"))))
- '(magit-diff-removed-highlight ((((type tty)) (:foreground "IndianRed"))))
- '(magit-log-author ((t (:foreground "magenta"))))
- '(magit-section-highlight ((t (:background "Gray23"))))
- '(outline-1 ((t (:background "BrightBlue" :foreground "white"))))
- '(outline-2 ((t (:foreground "cyan"))))
- '(outline-3 ((t (:foreground "blue"))))
- '(outline-4 ((t (:foreground "goldenrod"))))
- '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
- '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
- '(markdown-header-face-2 ((t (:inherit outline-2 :weight bold))))
- '(markdown-header-face-3 ((t (:inherit outline-3 :weight bold))))
- '(markdown-header-face-4 ((t (:inherit outline-4 :weight bold))))
- '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
- '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
- '(markdown-pre-face ((t (:foreground "ivory"))))
- '(neo-dir-link-face ((t (:background "Gray25" :foreground "orange"))))
- '(neo-file-link-face ((t (:foreground "ivory"))))
- '(neo-header-face ((t (:foreground "white"))))
- '(neo-root-dir-face ((t (:background "BrightBlue" :foreground "white"))))
- '(neo-vc-default-face ((t (:foreground "ivory"))))
- '(neo-vc-edited-face ((t (:foreground "green"))))
- '(neo-vc-removed-face ((t (:foreground "red"))))
- '(neo-vc-up-to-date-face ((t (:foreground "ivory"))))
- '(package-name ((t (:foreground "blue"))))
- '(web-mode-comment-face ((t (:foreground "green"))))
- '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
- '(web-mode-css-pseudo-class ((t (:foreground "blue"))))
- '(web-mode-css-selector-face ((t (:foreground "blue"))))
- '(web-mode-doctype-face ((t (:foreground "glay"))))
- '(web-mode-html-attr-equal-face ((t (:foreground "white"))))
- '(web-mode-html-attr-name-face ((t (:foreground "LightBlue"))))
- '(web-mode-html-attr-value-face ((t (:foreground "yellow"))))
- '(web-mode-html-tag-face ((t (:foreground "cyan"))))
- '(web-mode-server-comment-face ((t (:foreground "green"))))
- '(which-func ((t (:foreground "ivory"))))
- '(which-key-command-description-face ((t (:foreground "white")))))
-
-;; ------------------------------------------------------------------------
-;; UI / UX
-
-;; find file at point
-(ffap-bindings)
-
-;; disable bell
-(setq visible-bell t)
-(setq ring-bell-function 'ignore)
-
-;; title-bar character
-(setq frame-title-format (concat "%b - emacs@" (system-name)))
-
-;; tool-bar
-(setq tool-bar-mode 0)
-
-;; menu-bar
-(menu-bar-mode -1)
-
-;; region display
-(setq transient-mark-mode t)
-
-;; line number
-(global-linum-mode 0)
-(setq linum-format "%4d ")
-
-;; highlight editing line
-(global-hl-line-mode t)
-
-;; startup message
-(setq inhibit-startup-message t)
-
-;; end of line code
-(setq eol-mnemonic-dos "(CRLF)")
-(setq eol-mnemonic-mac "(CR)")
-(setq eol-mnemonic-unix "(LF)")
-
-;; display image file
-(auto-image-file-mode t)
-
-;; auto compression
-(auto-compression-mode t)
-
-;; auto reload bufffer
-(global-auto-revert-mode 1)
-
-;; yes or no to y or n
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;; open symlinks no confirmation
-(setq vc-follow-symlinks t)
-
-;; ------------------------------------------------------------------------
-;; mouse
-
-(require 'mouse)
-(xterm-mouse-mode t)
-
-(require 'mwheel)
-(mouse-wheel-mode t)
-(global-set-key [mouse-4] '(lambda () (interactive) (scroll-down 3)))
-(global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 3)))
-
-;; ------------------------------------------------------------------------
 ;; dired + dired-x, dired-narrow
 
 (add-hook 'dired-load-hook (lambda () (load "dired-x")))
@@ -507,8 +282,8 @@
 (eval-after-load "dired"
   '(define-key dired-mode-map "z" 'dired-zip-files))
 (defun dired-zip-files (zip-file)
-  "Create an archive containing the marked files."
-  (interactive "Enter name of zip file: ")
+  "Create an archive containing the marked ZIP-FILEs."
+  (interactive "Enter name of ZIP-FILE: ")
 
   ;; create the zip file
   (let ((zip-file (if (string-match ".zip$" zip-file) zip-file (concat zip-file ".zip"))))
@@ -554,28 +329,6 @@
 (define-key dired-mode-map (kbd "^") 'dired-subtree-up-dwim)
 
 ;; ------------------------------------------------------------------------
-;; recentf
-
-(when (require 'recentf nil t)
-  (setq recentf-max-saved-items 2000)
-  (setq recentf-exclude '(".recentf"))
-  (setq recentf-auto-cleanup 10)
-  (setq recentf-auto-save-timer
-        (run-with-idle-timer 30 t 'recentf-save-list))
-  (recentf-mode 1))
-(setq-default find-file-visit-truename t)
-
-;; ------------------------------------------------------------------------
-;; paren
-
-(show-paren-mode t)
-(setq show-paren-style 'mixed)
-(set-face-background 'show-paren-match-face "black")
-(set-face-foreground 'show-paren-match-face "white")
-(set-face-background 'show-paren-mismatch "red")
-(electric-pair-mode 1)
-
-;; ------------------------------------------------------------------------
 ;; rainbow-mode
 
 ;;(require 'rainbow-mode)
@@ -587,7 +340,6 @@
 
 ;;(require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-(require 'cl-lib)
 (require 'color)
 (defun rainbow-delimiters-using-stronger-colors ()
   (interactive)
@@ -597,42 +349,6 @@
    (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
     (cl-callf color-saturate-name (face-foreground face) 50))))
 (add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
-
-;; ------------------------------------------------------------------------
-;; colored white spaces
-
-(defface my-face-b-1 '((t (:background "lightyellow"))) nil)
-(defface my-face-b-2 '((t (:background "darkgray"))) nil)
-(defvar my-face-b-1 'my-face-b-1)
-(defvar my-face-b-2 'my-face-b-2)
-(defvar my-face-u-1 'my-face-b-2)
-(defadvice font-lock-mode(before my-font-lock-mode ())
-(font-lock-add-keywords
- major-mode '(
-   ("　" 0 my-face-b-1 append)
-   ("\t" 0 my-face-b-2 append)
-   ("[ 　\t]+$" 0 my-face-u-1 append)
-   )))
-(ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
-(ad-activate 'font-lock-mode)
-(add-hook 'find-file-hooks '(lambda ()
-    (if font-lock-mode
-        nil
-      (font-lock-mode t))))
-
-;; ------------------------------------------------------------------------
-;; indent-tabs
-
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
-(add-hook 'sh-mode-hook '(lambda () (setq tab-width 2)(setq sh-basic-offset 2)
-        (setq sh-indentation 2)))
-
-;; ------------------------------------------------------------------------
-;; dabbrev
-
-;(global-set-key (kbd "C-<tab>") 'dabbrev-expand)
-;(define-key minibuffer-local-map (kbd "C-<tab>") 'dabbrev-expand)
 
 ;; ------------------------------------------------------------------------
 ;; imenu
@@ -645,126 +361,15 @@
 (setq imenu-list-position "below")
 
 ;; ------------------------------------------------------------------------
-;; helm
+;; load helm settings
 
-(require 'helm-config)
-(helm-mode +1)
-(define-key global-map (kbd "M-x") 'helm-M-x)
-(define-key global-map (kbd "C-c h") 'helm-mini)
-(define-key global-map (kbd "C-c i") 'helm-imenu)
-(define-key global-map (kbd "C-x C-f") 'helm-find-files)
-(define-key global-map (kbd "C-x C-r") 'helm-recentf)
-(define-key global-map (kbd "M-y") 'helm-show-kill-ring)
-(define-key global-map (kbd "C-x b") 'helm-buffers-list)
-(define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
-(define-key helm-map (kbd "C-h") 'delete-backward-char)
-(define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
-(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
-(define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
-(define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
-;; Emulate `kill-line' in helm minibuffer
-(setq helm-delete-minibuffer-contents-from-point t)
-(defadvice helm-delete-minibuffer-contents (before helm-emulate-kill-line activate)
-  "Emulate `kill-line' in helm minibuffer"
-  (kill-new (buffer-substring (point) (field-end))))
-(defadvice helm-ff-kill-or-find-buffer-fname (around execute-only-if-exist activate)
-  "Execute command only if CANDIDATE exists"
-  (when (file-exists-p candidate) ad-do-it))
-(defadvice helm-buffers-sort-transformer (around ignore activate)
-  (setq ad-return-value (ad-get-arg 0)))
-;; hide directory ..
-(advice-add 'helm-ff-filter-candidate-one-by-one
-        :around (lambda (fcn file)
-                  (unless (string-match "\\(?:/\\|\\`\\)\\.\\{2\\}\\'" file)
-                    (funcall fcn file))))
-
-(setq helm-split-window-inside-p t)
-;; auto resize
-;;(setq helm-autoresize-max-height 0)
-;;(setq helm-autoresize-min-height 40)
-;;(helm-autoresize-mode 1)
-
-;; ------------------------------------------------------------------------
-;; helm-smex
-
-(require 'helm-smex)
-(global-set-key [remap execute-extended-command] #'helm-smex)
-(global-set-key (kbd "M-X") #'helm-smex-major-mode-commands)
-
-;; ------------------------------------------------------------------------
-;; helm-swoop
-
-(require 'helm-swoop)
-
-(global-set-key (kbd "M-i") 'helm-swoop)
-(global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
-(global-set-key (kbd "C-c M-i") 'helm-multi-swoop)
-(global-set-key (kbd "C-x M-i") 'helm-multi-swoop-all)
-(define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
-(define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
-;; Save buffer when helm-multi-swoop-edit complete
-(setq helm-multi-swoop-edit-save t)
-(setq helm-swoop-split-with-multiple-windows nil)
-(setq helm-swoop-split-direction 'split-window-vertically)
-
-;; ------------------------------------------------------------------------
-;; helm-ag
-
-(require 'helm-files)
-(require 'helm-ag)
-
-(global-set-key (kbd "M-g .") 'helm-ag)
-(global-set-key (kbd "M-g ,") 'helm-ag-pop-stack)
-(global-set-key (kbd "C-M-s") 'helm-ag-this-file)
-
-;; ------------------------------------------------------------------------
-;; bm, helm-bm
-
-(setq-default bm-buffer-persistence nil)
-(setq bm-restore-repository-on-load t)
-(require 'bm)
-(add-hook 'find-file-hook 'bm-buffer-restore)
-(add-hook 'kill-buffer-hook 'bm-buffer-save)
-(add-hook 'after-save-hook 'bm-buffer-save)
-(add-hook 'after-revert-hook 'bm-buffer-restore)
-(add-hook 'vc-before-checkin-hook 'bm-buffer-save)
-(add-hook 'kill-emacs-hook '(lambda nil
-                              (bm-buffer-save-all)
-                              (bm-repository-save)))
-
-(require 'helm-bm)
-(setq helm-source-bm (delete '(multiline) helm-source-bm))
-
-(defun bm-toggle-or-helm ()
-  "when 2 times load run helm-bm"
-  (interactive)
-  (bm-toggle)
-  (when (eq last-command 'bm-toggle-or-helm)
-    (helm-bm)))
-(global-set-key (kbd "M-SPC") 'bm-toggle-or-helm)
-
-;;; bug ?
-(require 'compile)
-
-;; ------------------------------------------------------------------------
-;; id-manager
-
-(autoload 'id-manager "id-manager" nil t)
-(global-set-key (kbd "M-7") 'id-manager)
-(setenv "GPG_AGENT_INFO" nil)
+(load "~/dotfiles/cnf-helm.el")
 
 ;; ------------------------------------------------------------------------
 ;; spell check (flyspell)
 
 (setq-default flyspell-mode t)
 (setq ispell-dictionary "american")
-
-;; ------------------------------------------------------------------------
-;; eaw (ambiguous width characters)
-
-;; https://github.com/uwabami/locale-eaw-emoji
-
-(require 'locale-eaw-emoji)
 
 ;; ------------------------------------------------------------------------
 ;; volatile-highlights
@@ -793,11 +398,6 @@
 )
 
 ;; ------------------------------------------------------------------------
-;; pathheader
-
-;(load "~/dotfiles/pathheader.el")
-
-;; ------------------------------------------------------------------------
 ;; eshell
 
 (setq eshell-command-aliases-list
@@ -820,6 +420,28 @@
 ;;(setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
 
 (global-set-key (kbd "C-c s") 'shell-pop)
+
+;; ------------------------------------------------------------------------
+;; multi-term
+
+(setq multi-term-program shell-file-name)
+
+(add-hook 'term-mode-hook '(lambda ()
+  (define-key term-raw-map "\C-y" 'term-paste)
+  (define-key term-raw-map "\C-q" 'move-beginning-of-line)
+  (define-key term-raw-map "\C-f" 'forward-char)
+  (define-key term-raw-map "\C-b" 'backward-char)
+  (define-key term-raw-map "\C-t" 'set-mark-command)
+  (define-key term-raw-map "\C-p" 'term-send-up)
+  (define-key term-raw-map "\C-n" 'term-send-down)
+  (define-key term-raw-map (kbd "ESC") 'term-send-raw)
+  (define-key term-raw-map [delete] 'term-send-raw)
+  (define-key term-raw-map [mouse-4] 'term-send-up)
+  (define-key term-raw-map [mouse-5] 'term-send-down)
+  (define-key term-raw-map "\C-z"
+    (lookup-key (current-global-map) "\C-z"))))
+(global-set-key (kbd "C-c n") 'multi-term-next)
+(global-set-key (kbd "C-c p") 'multi-term-prev)
 
 ;; ------------------------------------------------------------------------
 ;; popwin
@@ -873,28 +495,6 @@
 (which-key-mode 1)
 
 ;; ------------------------------------------------------------------------
-;; multi-term
-
-(setq multi-term-program shell-file-name)
-
-(add-hook 'term-mode-hook '(lambda ()
-  (define-key term-raw-map "\C-y" 'term-paste)
-  (define-key term-raw-map "\C-q" 'move-beginning-of-line)
-  (define-key term-raw-map "\C-f" 'forward-char)
-  (define-key term-raw-map "\C-b" 'backward-char)
-  (define-key term-raw-map "\C-t" 'set-mark-command)
-  (define-key term-raw-map "\C-p" 'term-send-up)
-  (define-key term-raw-map "\C-n" 'term-send-down)
-  (define-key term-raw-map (kbd "ESC") 'term-send-raw)
-  (define-key term-raw-map [delete] 'term-send-raw)
-  (define-key term-raw-map [mouse-4] 'term-send-up)
-  (define-key term-raw-map [mouse-5] 'term-send-down)
-  (define-key term-raw-map "\C-z"
-    (lookup-key (current-global-map) "\C-z"))))
-(global-set-key (kbd "C-c n") 'multi-term-next)
-(global-set-key (kbd "C-c p") 'multi-term-prev)
-
-;; ------------------------------------------------------------------------
 ;; undo-tree
 
 (require 'undo-tree)
@@ -925,17 +525,17 @@
     (abbrev-mode . "")
     (undo-tree-mode . "")
     (font-lock-mode . "")
-    (editorconfig-mode . " ECnf")
+    (editorconfig-mode . " EC")
     (elisp-slime-nav-mode . " EN")
     (helm-gtags-mode . " HG")
     (flymake-mode . " Fm")
     ;; Major modes
+    (emacs-lisp-mode . "El")
     (lisp-interaction-mode . "Li")
     (shell-script-mode . "SS")
     (python-mode . "Py")
-    (ruby-mode   . "Rb")
-    (typescript-mode   . "TS")
-    (emacs-lisp-mode . "El")
+    (ruby-mode . "Rb")
+    (typescript-mode . "TS")
     (markdown-mode . "Md")
     (fundamental-mode . "Fund")
     ))
@@ -975,25 +575,14 @@
 (sml/apply-theme 'dark)
 
 ;; ------------------------------------------------------------------------
-;; calendar
+;; load calendar settings
 
-(with-eval-after-load "calendar"
-  (add-hook 'calendar-today-visible-hook 'calendar-mark-today)
+(load "~/dotfiles/cnf-calendar.el")
 
-  (when (require 'japanese-holidays nil t)
-    (setq calendar-holidays
-          (append japanese-holidays
-                  holiday-local-holidays holiday-other-holidays))
-    (setq calendar-mark-holidays-flag t)
-    (setq mark-holidays-in-calendar t)
-    (setq japanese-holiday-weekend-marker
-          '(holiday nil nil nil nil nil japanese-holiday-saturday))
-    (setq japanese-holiday-weekend '(0 6))
-    (add-hook 'calendar-today-visible-hook 'japanese-holiday-mark-weekend)
-    (add-hook 'calendar-today-visible-hook 'calendar-mark-today)
-    (add-hook 'calendar-today-invisible-hook 'japanese-holiday-mark-weekend)
-  )
-)
+;; ------------------------------------------------------------------------
+;; load color settings
+
+(load "~/dotfiles/cnf-colors.el")
 
 ;; ------------------------------------------------------------------------
 ;; custom-set-variables
@@ -1031,6 +620,8 @@
  '(tool-bar-mode nil))
 
 (put 'set-goal-column 'disabled nil)
+
+;; ------------------------------------------------------------------------
 
 (provide '.emacs.el)
 ;;; .emacs.el ends here

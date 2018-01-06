@@ -1,5 +1,11 @@
 
 ;; ------------------------------------------------------------------------
+;; iflipb
+
+(global-set-key (kbd "<f8>") 'iflipb-next-buffer)
+(global-set-key (kbd "<f7>") 'iflipb-previous-buffer)
+
+;; ------------------------------------------------------------------------
 ;; html-mode (xhtml, html)
 
 (setq auto-mode-alist
@@ -118,6 +124,8 @@
 (setq helm-qiita-username (my-lisp-load "helm-qiita-username"))
 (setq helm-qiita-access-token (my-lisp-load "helm-qiita-access-token"))
 (helm-qiita-initialize)
+
+;; ------------------------------------------------------------------------
 
 (provide 'cnf-unuse.el)
 ;;; cnf-unuse.el ends here

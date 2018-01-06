@@ -315,20 +315,11 @@
 (set-face-foreground 'font-lock-comment-delimiter-face "green")
 (set-face-foreground 'font-lock-string-face "darkorange")
 (set-face-foreground 'font-lock-keyword-face "blue")
-(set-face-foreground 'font-lock-function-name-face "yellow") ;lightskyblue
+(set-face-foreground 'font-lock-function-name-face "yellow")
 (set-face-foreground 'font-lock-variable-name-face "goldenrod")
 (set-face-foreground 'font-lock-constant-face "orange")
 (set-face-foreground 'font-lock-preprocessor-face "darkyellow")
 (set-face-foreground 'font-lock-warning-face "pink")
-(set-face-foreground 'tool-bar "cyan")
-(set-face-background 'region "Gray40") ;lightblue
-(set-face-foreground 'isearch "black")
-(set-face-background 'isearch "lightpink")
-(set-face-foreground 'isearch-lazy-highlight-face "black")
-(set-face-background 'isearch-lazy-highlight-face "cyan")
-(set-face-foreground 'minibuffer-prompt "blue")
-(set-face-foreground 'fringe "blue")
-(set-face-background 'fringe "gray12")
 
 ;; ------------------------------------------------------------------------
 ;; color (custom set face)
@@ -338,11 +329,19 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(region ((t (:foreground "Gray40"))))
+ '(tool-bar ((t (:foreground "cyan"))))
+ '(minibuffer-prompt ((t (:foreground "blue"))))
+ '(fringe ((t (:background "Gray12" :foreground "blue"))))
+ '(isearch ((t (:background "LightPink" :foreground "black"))))
+ '(isearch-lazy-highlight-face ((t (:background "LightCyan" :foreground "black"))))
  '(bm-face ((t (:background "color-28"))))
  '(bm-fringe-face ((t (:background "color-28"))))
  '(diff-added ((((type tty)) (:foreground "green"))))
  '(diff-removed ((((type tty)) (:foreground "red"))))
  '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
+ '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
+ '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
  '(dired-subtree-depth-1-face ((t (:background "Gray19"))))
  '(dired-subtree-depth-2-face ((t (:background "Gray20"))))
  '(dired-subtree-depth-3-face ((t (:background "Gray21"))))
@@ -575,7 +574,7 @@
    for index from 1 to rainbow-delimiters-max-face-count
    do
    (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
-    (cl-callf color-saturate-name (face-foreground face) 30))))
+    (cl-callf color-saturate-name (face-foreground face) 50))))
 (add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
 
 ;; ------------------------------------------------------------------------
@@ -591,7 +590,7 @@
  major-mode '(
    ("　" 0 my-face-b-1 append)
    ("\t" 0 my-face-b-2 append)
-   ("[ ]+$" 0 my-face-u-1 append)
+   ("[ 　\t]+$" 0 my-face-u-1 append)
    )))
 (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
 (ad-activate 'font-lock-mode)

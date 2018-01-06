@@ -20,8 +20,8 @@ I will give you updates this repository
  * .bashrc
 
 ### emacs
- * .emacs
- * .emacs.unuse
+ * .emacs.el
+ * elisp/
 
 ### vim
  * .vimrc

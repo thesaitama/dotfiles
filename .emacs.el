@@ -121,6 +121,12 @@
               load-path))
 
 ;; ------------------------------------------------------------------------
+;; load-prefer-newer .elc .el
+
+(when (boundp 'load-prefer-newer)
+  (setq load-prefer-newer t))
+
+;; ------------------------------------------------------------------------
 ;; binary path (exec-path-from-shell)
 
 ;;(add-to-list 'exec-path "/opt/local/bin")
@@ -258,7 +264,7 @@
 (defvar foreign-regexp/regexp-type "")
 (defvar foreign-regexp/re-builder/targ-buf-state/.orig-pt "")
 
-;;(require 'foreign-regexp)
+(require 'foreign-regexp)
 
 ;; ------------------------------------------------------------------------
 ;; avy
@@ -388,6 +394,10 @@
  '(magit-diff-removed-highlight ((((type tty)) (:foreground "IndianRed"))))
  '(magit-log-author ((t (:foreground "magenta"))))
  '(magit-section-highlight ((t (:background "Gray23"))))
+ '(outline-1 ((t (:background "BrightBlue" :foreground "white"))))
+ '(outline-2 ((t (:foreground "cyan"))))
+ '(outline-3 ((t (:foreground "blue"))))
+ '(outline-4 ((t (:foreground "goldenrod"))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
  '(markdown-header-face-2 ((t (:inherit outline-2 :weight bold))))
@@ -404,7 +414,6 @@
  '(neo-vc-edited-face ((t (:foreground "green"))))
  '(neo-vc-removed-face ((t (:foreground "red"))))
  '(neo-vc-up-to-date-face ((t (:foreground "ivory"))))
- '(outline-1 ((t (:background "BrightBlue" :foreground "white" :weight bold))))
  '(package-name ((t (:foreground "blue"))))
  '(web-mode-comment-face ((t (:foreground "green"))))
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
@@ -1021,5 +1030,5 @@
 
 (put 'set-goal-column 'disabled nil)
 
-(provide '.emacs)
-;;; .emacs ends here
+(provide '.emacs.el)
+;;; .emacs.el ends here

@@ -52,5 +52,5 @@
 (setq yagist-github-token (my-lisp-load "yagist-github-token"))
 (require 'yagist)
 
-
-
+(provide 'cnf-webservice.el)
+;;; cnf-webservice.el ends here

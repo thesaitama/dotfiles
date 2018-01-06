@@ -118,3 +118,6 @@
 (setq helm-qiita-username (my-lisp-load "helm-qiita-username"))
 (setq helm-qiita-access-token (my-lisp-load "helm-qiita-access-token"))
 (helm-qiita-initialize)
+
+(provide 'cnf-unuse.el)
+;;; cnf-unuse.el ends here

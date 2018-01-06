@@ -1,5 +1,10 @@
+;;; cnf-osx.el --- thesaitama Emacs configuration
 
-;; macOSX
+;;; Commentary:
+;;
+;; This file is part of thesaitam Emacs configuration (for macOS)
+
+;;; Code:
 
 ;; ------------------------------------------------------------------------
 ;; ucs normalize

@@ -1,3 +1,10 @@
+;;; cnf-program.el --- thesaitama Emacs configuration
+
+;;; Commentary:
+;;
+;; This file is part of thesaitam Emacs configuration
+
+;;; Code:
 
 ;; ------------------------------------------------------------------------
 ;; editorconfig

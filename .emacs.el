@@ -1,3 +1,4 @@
+;;; .emacs.el --- thesaitama Emacs configuration
 
 ;;  _   _                     _ _
 ;; | |_| |__   ___  ___  __ _(_) |_ __ _ _ __ ___   __ _
@@ -5,12 +6,16 @@
 ;; | |_| | | |  __/\__ \ (_| | | || (_| | | | | | | (_| |
 ;;  \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
 
-;; thesaitama@ .emacs
-
+;;; Commentary:
+;;
+;; thesaitama@ .emacs.el
+;;
 ;; Install
-
+;;
 ;; MacPorts site-lisp path
 ;; /opt/local/share/emacs/site-lisp/
+
+;;; Code:
 
 ;; enable cl
 (eval-when-compile (require 'cl))
@@ -121,7 +126,7 @@
               load-path))
 
 ;; ------------------------------------------------------------------------
-;; load-prefer-newer .elc .el
+;; load-prefer-newer .elc or .el
 
 (when (boundp 'load-prefer-newer)
   (setq load-prefer-newer t))
@@ -167,8 +172,6 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-buffer-file-coding-system 'utf-8)
-(setq default-buffer-file-coding-system 'utf-8)
-(set-buffer-file-coding-system 'utf-8)
 (set-clipboard-coding-system 'utf-8)
 
 ;; ------------------------------------------------------------------------
@@ -177,7 +180,6 @@
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-t") 'other-window)
 (global-set-key (kbd "C-x C-b") 'bs-show) ;; replace list-buffers
-(global-set-key (kbd "<f9>") 'other-window)
 
 ;; ------------------------------------------------------------------------
 ;; generic-x

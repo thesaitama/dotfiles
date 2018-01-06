@@ -114,6 +114,13 @@
     (package-install pkg)))
 
 ;; ------------------------------------------------------------------------
+;; add load-path
+
+(setq load-path
+      (append '("~/dotfiles/elisp")
+              load-path))
+
+;; ------------------------------------------------------------------------
 ;; binary path (exec-path-from-shell)
 
 ;;(add-to-list 'exec-path "/opt/local/bin")
@@ -746,14 +753,14 @@
 
 ;; https://github.com/uwabami/locale-eaw-emoji
 
-(load "~/dotfiles/locale-eaw-emoji.el")
+(require 'locale-eaw-emoji)
 
 ;; ------------------------------------------------------------------------
 ;; volatile-highlights
 
 ;; https://github.com/k-talo/volatile-highlights.el
 
-(load "~/dotfiles/volatile-highlights.el")
+(require 'volatile-highlights)
 (volatile-highlights-mode t)
 (vhl/define-extension 'undo-tree 'undo-tree-yank 'undo-tree-move)
 (vhl/install-extension 'undo-tree)

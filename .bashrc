@@ -12,7 +12,7 @@ umask 022
 # alias
 alias e='emacsclient -nw -a ""'
 alias emacs='emacsclient -nw -a ""'
-alias ls='ls -avlGF'
+alias ls='ls -avhplGF'
 alias g='git'
 alias ..='cd ..'
 alias grep='grep --color=auto'

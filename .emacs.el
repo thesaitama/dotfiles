@@ -100,7 +100,6 @@
     which-key
     smart-mode-line
     w3m
-    dired-k
     dired-narrow
     dired-subtree
     google-translate
@@ -269,11 +268,9 @@
 (setq-default ac-sources (push 'ac-source-yasnippet ac-sources))
 
 ;; ------------------------------------------------------------------------
-;; dired + dired-x, dired-narrow
+;; dired + wdired + dired-x
 
-(add-hook 'dired-load-hook (lambda () (load "dired-x")))
-
-(setq dired-listing-switches (purecopy "-Ahl"))
+(setq dired-listing-switches (purecopy "-avhplGF"))
 (setq delete-by-moving-to-trash t)
 (setq dired-dwim-target t)
 (setq dired-recursive-copies 'always)
@@ -308,6 +305,14 @@
 (defun concat-string-list (list)
    "Return a string which is a concatenation of all elements of the LIST separated by spaces."
    (mapconcat #'(lambda (obj) (format "%s" obj)) list " "))
+
+(require 'wdired)
+(define-key dired-mode-map "e" 'wdired-change-to-wdired-mode)
+
+(add-hook 'dired-load-hook (lambda () (load "dired-x")))
+
+;; ------------------------------------------------------------------------
+;; dired-narrow
 
 ;; key-bind
 (define-key dired-mode-map (kbd "M-s") 'dired-narrow-fuzzy)
@@ -459,7 +464,7 @@
 ;; ------------------------------------------------------------------------
 ;; scratch-pop
 
-; http://emacs.rubikitch.com/scratch-pop/
+;; http://emacs.rubikitch.com/scratch-pop/
 
 (require 'scratch-pop)
 (global-set-key (kbd "C-c c") 'scratch-pop)
@@ -508,53 +513,8 @@
 ;;(advice-add 'undo-tree-visualize :around #'undo-tree-split-side-by-side)
 
 ;; ------------------------------------------------------------------------
-;; modeline
-
-(line-number-mode t)
-(column-number-mode t)
-(size-indication-mode t)
-
-;; display function
-(which-function-mode 1)
-
-;; clean mode line
-(defvar mode-line-cleaner-alist
-  '( ;; For minor-mode, first char is 'space'
-    (paredit-mode . " Pe")
-    (eldoc-mode . "")
-    (abbrev-mode . "")
-    (undo-tree-mode . "")
-    (font-lock-mode . "")
-    (editorconfig-mode . " EC")
-    (elisp-slime-nav-mode . " EN")
-    (helm-gtags-mode . " HG")
-    (flymake-mode . " Fm")
-    ;; Major modes
-    (emacs-lisp-mode . "El")
-    (lisp-interaction-mode . "Li")
-    (shell-script-mode . "SS")
-    (python-mode . "Py")
-    (ruby-mode . "Rb")
-    (typescript-mode . "TS")
-    (markdown-mode . "Md")
-    (fundamental-mode . "Fund")
-    ))
-
-(defun clean-mode-line ()
-  (interactive)
-  (loop for (mode . mode-str) in mode-line-cleaner-alist
-        do
-        (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
-          (when old-mode-str
-            (setcar old-mode-str mode-str))
-          ;; major mode
-          (when (eq mode major-mode)
-            (setq mode-name mode-str)))))
-
-(add-hook 'after-change-major-mode-hook 'clean-mode-line)
-
-;; ------------------------------------------------------------------------
 ;; smart-mode-line
+;; basic modeline setting in cnf-basics.el
 
 (require 'smart-mode-line)
 ;; bug hack
@@ -580,9 +540,97 @@
 (load "~/dotfiles/cnf-calendar.el")
 
 ;; ------------------------------------------------------------------------
-;; load color settings
+;; custom-set-faces
 
-(load "~/dotfiles/cnf-colors.el")
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(region ((t (:background "Gray40"))))
+ '(tool-bar ((t (:foreground "cyan"))))
+ '(minibuffer-prompt ((t (:foreground "blue"))))
+ '(fringe ((t (:background "Gray12" :foreground "blue"))))
+ '(isearch ((t (:background "LightPink" :foreground "black"))))
+ '(isearch-lazy-highlight-face ((t (:background "LightCyan" :foreground "black"))))
+ '(bm-face ((t (:background "color-28"))))
+ '(bm-fringe-face ((t (:background "color-28"))))
+ '(diff-added ((((type tty)) (:foreground "green"))))
+ '(diff-removed ((((type tty)) (:foreground "red"))))
+ '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
+ '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
+ '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
+ '(dired-subtree-depth-1-face ((t (:background "Gray19"))))
+ '(dired-subtree-depth-2-face ((t (:background "Gray20"))))
+ '(dired-subtree-depth-3-face ((t (:background "Gray21"))))
+ '(dired-subtree-depth-4-face ((t (:background "Gray22"))))
+ '(dired-subtree-depth-5-face ((t (:background "Gray23"))))
+ '(dired-subtree-depth-6-face ((t (:background "Gray24"))))
+ '(elscreen-tab-background-face ((t (:background "Gray10" :foreground "Gray90"))))
+ '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
+ '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
+ '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
+ '(font-lock-doc-face ((t (:foreground "green"))))
+ '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
+ '(helm-buffer-process ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
+ '(helm-ff-directory ((t (:background "Gray25" :foreground "orange"))))
+ '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))
+ '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "cyan"))))
+ '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
+ '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
+ '(helm-match ((t (:foreground "cyan"))))
+ '(helm-selection ((t (:background "Gray30"))))
+ '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
+ '(highlight-symbol-face ((t (:background "Gray25"))))
+ '(hl-line ((t (:background "color-236"))))
+ '(holiday ((t (:background "pink"))))
+ '(japanese-holiday-saturday ((t (:background "cyan"))))
+ '(link ((t (:foreground "blue"))))
+ '(linum ((t (:inherit (shadow default) :background "Gray22"))))
+ '(magit-branch-local ((t (:foreground "magenta"))))
+ '(magit-branch-remote ((t (:foreground "blue"))))
+ '(magit-context-highlight ((t (:background "Gray23"))))
+ '(magit-diff-added ((((type tty)) (:foreground "green"))))
+ '(magit-diff-added-highlight ((((type tty)) (:foreground "LimeGreen"))))
+ '(magit-diff-context-highlight ((t (:background "Gray23"))))
+ '(magit-diff-file-heading ((((type tty)) nil)))
+ '(magit-diff-removed ((((type tty)) (:foreground "red"))))
+ '(magit-diff-removed-highlight ((((type tty)) (:foreground "IndianRed"))))
+ '(magit-log-author ((t (:foreground "magenta"))))
+ '(magit-section-highlight ((t (:background "Gray23"))))
+ '(outline-1 ((t (:background "BrightBlue" :foreground "white"))))
+ '(outline-2 ((t (:foreground "cyan"))))
+ '(outline-3 ((t (:foreground "blue"))))
+ '(outline-4 ((t (:foreground "goldenrod"))))
+ '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
+ '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
+ '(markdown-header-face-2 ((t (:inherit outline-2 :weight bold))))
+ '(markdown-header-face-3 ((t (:inherit outline-3 :weight bold))))
+ '(markdown-header-face-4 ((t (:inherit outline-4 :weight bold))))
+ '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
+ '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
+ '(markdown-pre-face ((t (:foreground "ivory"))))
+ '(neo-dir-link-face ((t (:background "Gray25" :foreground "orange"))))
+ '(neo-file-link-face ((t (:foreground "ivory"))))
+ '(neo-header-face ((t (:foreground "white"))))
+ '(neo-root-dir-face ((t (:background "BrightBlue" :foreground "white"))))
+ '(neo-vc-default-face ((t (:foreground "ivory"))))
+ '(neo-vc-edited-face ((t (:foreground "green"))))
+ '(neo-vc-removed-face ((t (:foreground "red"))))
+ '(neo-vc-up-to-date-face ((t (:foreground "ivory"))))
+ '(package-name ((t (:foreground "blue"))))
+ '(web-mode-comment-face ((t (:foreground "green"))))
+ '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
+ '(web-mode-css-pseudo-class ((t (:foreground "blue"))))
+ '(web-mode-css-selector-face ((t (:foreground "blue"))))
+ '(web-mode-doctype-face ((t (:foreground "glay"))))
+ '(web-mode-html-attr-equal-face ((t (:foreground "white"))))
+ '(web-mode-html-attr-name-face ((t (:foreground "LightBlue"))))
+ '(web-mode-html-attr-value-face ((t (:foreground "yellow"))))
+ '(web-mode-html-tag-face ((t (:foreground "cyan"))))
+ '(web-mode-server-comment-face ((t (:foreground "green"))))
+ '(which-func ((t (:foreground "ivory"))))
+ '(which-key-command-description-face ((t (:foreground "white")))))
 
 ;; ------------------------------------------------------------------------
 ;; custom-set-variables

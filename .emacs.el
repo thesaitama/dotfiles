@@ -574,7 +574,7 @@
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-buffer-process ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "orange"))))
- '(helm-ff-dotted-directory ((t (:background "glay" :foreground "white"))))
+ '(helm-ff-dotted-directory ((t (:background "Gray25" :foreground "white"))))
  '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "cyan"))))
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))

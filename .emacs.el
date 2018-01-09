@@ -81,6 +81,8 @@
     helm-descbinds
     bm
     helm-bm
+    restclient
+    restclient-helm
     yasnippet
     yasnippet-snippets
     helm-c-yasnippet
@@ -460,6 +462,8 @@
 (push '("*Ilist*" :height 15) popwin:special-display-config)
 (push '(" *undo-tree*" :width 0.2 :position right) popwin:special-display-config)
 (push '("*comment-tags*" :height 15) popwin:special-display-config) ;; not work
+(push '("*HTTP Response*" :height 15) popwin:special-display-config)
+(push '("COMMIT_EDITMSG" :height 15) popwin:special-display-config)
 
 ;; ------------------------------------------------------------------------
 ;; scratch-pop
@@ -547,19 +551,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(region ((t (:background "Gray40"))))
- '(tool-bar ((t (:foreground "cyan"))))
- '(minibuffer-prompt ((t (:foreground "blue"))))
- '(fringe ((t (:background "Gray12" :foreground "blue"))))
- '(isearch ((t (:background "LightPink" :foreground "black"))))
- '(isearch-lazy-highlight-face ((t (:background "LightCyan" :foreground "black"))))
  '(bm-face ((t (:background "color-28"))))
  '(bm-fringe-face ((t (:background "color-28"))))
  '(diff-added ((((type tty)) (:foreground "green"))))
  '(diff-removed ((((type tty)) (:foreground "red"))))
  '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
- '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
- '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
  '(dired-subtree-depth-1-face ((t (:background "Gray19"))))
  '(dired-subtree-depth-2-face ((t (:background "Gray20"))))
  '(dired-subtree-depth-3-face ((t (:background "Gray21"))))
@@ -571,6 +567,7 @@
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
  '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
  '(font-lock-doc-face ((t (:foreground "green"))))
+ '(fringe ((t (:background "Gray12" :foreground "blue"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-buffer-process ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "orange"))))
@@ -584,7 +581,9 @@
  '(highlight-symbol-face ((t (:background "Gray25"))))
  '(hl-line ((t (:background "color-236"))))
  '(holiday ((t (:background "pink"))))
+ '(isearch ((t (:background "LightPink" :foreground "black"))))
  '(japanese-holiday-saturday ((t (:background "cyan"))))
+ '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))
  '(link ((t (:foreground "blue"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
@@ -598,10 +597,6 @@
  '(magit-diff-removed-highlight ((((type tty)) (:foreground "IndianRed"))))
  '(magit-log-author ((t (:foreground "magenta"))))
  '(magit-section-highlight ((t (:background "Gray23"))))
- '(outline-1 ((t (:background "BrightBlue" :foreground "white"))))
- '(outline-2 ((t (:foreground "cyan"))))
- '(outline-3 ((t (:foreground "blue"))))
- '(outline-4 ((t (:foreground "goldenrod"))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
  '(markdown-header-face-2 ((t (:inherit outline-2 :weight bold))))
@@ -610,6 +605,7 @@
  '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
  '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
  '(markdown-pre-face ((t (:foreground "ivory"))))
+ '(minibuffer-prompt ((t (:foreground "blue"))))
  '(neo-dir-link-face ((t (:background "Gray25" :foreground "orange"))))
  '(neo-file-link-face ((t (:foreground "ivory"))))
  '(neo-header-face ((t (:foreground "white"))))
@@ -618,7 +614,15 @@
  '(neo-vc-edited-face ((t (:foreground "green"))))
  '(neo-vc-removed-face ((t (:foreground "red"))))
  '(neo-vc-up-to-date-face ((t (:foreground "ivory"))))
+ '(outline-1 ((t (:background "BrightBlue" :foreground "white"))))
+ '(outline-2 ((t (:foreground "cyan"))))
+ '(outline-3 ((t (:foreground "blue"))))
+ '(outline-4 ((t (:foreground "goldenrod"))))
  '(package-name ((t (:foreground "blue"))))
+ '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
+ '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
+ '(region ((t (:background "Gray40"))))
+ '(tool-bar ((t (:foreground "cyan"))))
  '(web-mode-comment-face ((t (:foreground "green"))))
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
  '(web-mode-css-pseudo-class ((t (:foreground "blue"))))
@@ -642,7 +646,7 @@
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(emamux:completing-read-type (quote helm))
- '(foreign-regexp/regexp-type (quote perl) t)
+ '(foreign-regexp/regexp-type (quote perl))
  '(google-translate-default-source-language "ja")
  '(google-translate-default-target-language "en")
  '(helm-mini-default-sources

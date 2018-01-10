@@ -38,6 +38,7 @@
     eldoc-extension
     package-utils
     auto-complete
+    pos-tip
     avy
     fuzzy
     sequential-command
@@ -263,6 +264,7 @@
 (setq ac-ignore-case t)
 (setq ac-delay 0.1)
 (setq ac-auto-show-menu 0.2)
+(setq ac-quick-help-prefer-x t)
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 

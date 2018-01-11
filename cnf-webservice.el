@@ -54,6 +54,17 @@
 (global-set-key (kbd "M-g a") 'helm-google-suggest)
 
 ;; ------------------------------------------------------------------------
+;; howdoi
+
+(require 'howdoi)
+(setq howdoi-display-question t)
+(defun howdoi-show-url (&rest ignore)
+  (interactive)
+  (message "%s" howdoi-current-stackoverflow-url))
+(advice-add 'howdoi-pop-answer-to-buffer-callback :after 'howdoi-show-url)
+(define-key howdoi-mode-map (kbd "c") 'howdoi-show-url)
+
+;; ------------------------------------------------------------------------
 ;; yagist
 
 (setq yagist-github-token (my-lisp-load "yagist-github-token"))

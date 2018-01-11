@@ -106,6 +106,7 @@
     dired-narrow
     dired-subtree
     google-translate
+    howdoi
     japanese-holidays
     osx-trash)
   "Packages to be installed.")
@@ -375,10 +376,15 @@
 (load "~/dotfiles/cnf-helm.el")
 
 ;; ------------------------------------------------------------------------
-;; spell check (flyspell)
+;; flyspell (spell check)
 
 (setq-default flyspell-mode t)
 (setq ispell-dictionary "american")
+
+;(add-hook 'find-file-hook 'flyspell-mode)
+;(add-hook 'find-file-hook 'flyspell-buffer)
+
+;; > sudo port install ispell
 
 ;; ------------------------------------------------------------------------
 ;; volatile-highlights

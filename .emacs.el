@@ -105,10 +105,12 @@
     w3m
     dired-narrow
     dired-subtree
+    japanese-holidays
+    osx-trash
+    xah-lookup
     google-translate
     howdoi
-    japanese-holidays
-    osx-trash)
+    )
   "Packages to be installed.")
 
 (require 'package)

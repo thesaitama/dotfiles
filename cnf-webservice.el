@@ -7,6 +7,11 @@
 ;;; Code:
 
 ;; ------------------------------------------------------------------------
+;; xah-lookup
+
+(setq xah-lookup-browser-function 'eww)
+
+;; ------------------------------------------------------------------------
 ;; google-translate
 
 (require 'google-translate)

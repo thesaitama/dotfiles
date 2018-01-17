@@ -315,27 +315,6 @@
 (require 'magit-find-file)
 
 ;; ------------------------------------------------------------------------
-;; neotree
-
-(require 'neotree)
-(global-set-key (kbd "<f10>") 'neotree-toggle)
-(setq neo-show-hidden-files t)
-(setq neo-create-file-auto-open t)
-(setq neo-persist-show t)
-(setq neo-keymap-style 'concise)
-(setq neo-dont-be-alone t)
-(setq neo-window-fixed-size nil)
-;(setq neo-smart-open t)
-(setq neo-vc-integration '(face char))
-;; popwin
-(when neo-persist-show
-  (add-hook 'popwin:before-popup-hook (lambda () (setq neo-persist-show nil)))
-  (add-hook 'popwin:after-popup-hook (lambda () (setq neo-persist-show t))))
-;; helm project
-(defadvice helm-projectile-find-file (after helm-projectile-find-file activate)
-  (neotree-dir default-directory))
-
-;; ------------------------------------------------------------------------
 ;; quickrun
 
 (require 'quickrun)

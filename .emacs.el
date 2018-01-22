@@ -408,8 +408,8 @@
        (load "~/dotfiles/cnf-program.el"))
       ((equal system-type 'darwin)
        (load "~/dotfiles/cnf-osx.el")
-       (load "~/dotfiles/cnf-program.el")
        (load "~/dotfiles/cnf-webservice.el")
+       (load "~/dotfiles/cnf-program.el")
        (load "~/dotfiles/cnf-browser.el"))
 )
 
@@ -646,6 +646,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
+ '(custom-safe-themes
+   (quote
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(emamux:completing-read-type (quote helm))
  '(foreign-regexp/regexp-type (quote perl))
  '(google-translate-default-source-language "ja")

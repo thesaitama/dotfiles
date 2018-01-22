@@ -209,14 +209,26 @@
 (global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 3)))
 
 ;; ------------------------------------------------------------------------
-;; paren
+;; show-paren
 
 (show-paren-mode t)
 (setq show-paren-style 'mixed)
 (set-face-background 'show-paren-match-face "black")
 (set-face-foreground 'show-paren-match-face "white")
 (set-face-background 'show-paren-mismatch "red")
+
+;; ------------------------------------------------------------------------
+;; electric-pair
+
 (electric-pair-mode 1)
+
+;; https://abicky.net/2013/12/21/195058/
+
+(defadvice electric-pair-post-self-insert-function
+  (around electric-pair-post-self-insert-function-around activate)
+  "Don't insert the closing pair in comments or strings."
+  (unless (nth 8 (save-excursion (syntax-ppss (1- (point)))))
+    ad-do-it))
 
 ;; ------------------------------------------------------------------------
 ;; indent-tabs

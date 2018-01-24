@@ -24,3 +24,8 @@ repo = 'Shougo/denite.nvim'
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 
+[[plugins]]
+repo = 'tomasr/molokai'
+
+[[plugins]]
+repo = 'altercation/vim-colors-solarized'

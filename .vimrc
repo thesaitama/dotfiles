@@ -7,6 +7,9 @@
 
 "sudo port install vim +huge +python36
 
+set langmenu=en_US
+let $LANG = 'en_US'
+
 set rtp+=~/.fzf
 set clipboard+=unnamed
 
@@ -70,6 +73,8 @@ set nobackup
 nnoremap <silent>bp :bprevious<CR>
 nnoremap <silent>bn :bnext<CR>
 nnoremap <silent>bb :b#<CR>
+nnoremap <leader>ev :e ~/dotfiles/.vimrc
+nnoremap <leader>cv :e ~/dotfiles/vim.txt
 
 "dein plugin
 let s:dein_dir = expand('~/.vim/dein')
@@ -104,6 +109,13 @@ endif
 
 call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
 
+"color scheme
+autocmd ColorScheme * highlight Comment ctermfg=22 guifg=#008800
+autocmd ColorScheme * highlight Normal ctermbg=none
+autocmd ColorScheme * highlight LineNr ctermbg=none
+set background=dark
+colorscheme solarized
+set termguicolors
 syntax on
 
 "auto reload .vimrc

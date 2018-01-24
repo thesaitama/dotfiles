@@ -10,6 +10,9 @@
 set langmenu=en_US
 let $LANG = 'en_US'
 
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
 set rtp+=~/.fzf
 set clipboard+=unnamed
 
@@ -21,10 +24,6 @@ set fileformats=unix,dos,mac
 set ambiwidth=double
 
 set helplang=ja,en
-
-source $VIMRUNTIME/delmenu.vim 
-set langmenu=none 
-source $VIMRUNTIME/menu.vim
 
 set laststatus=2
 "set statusline=%F%m%r%h%w\ %{&ff}\ %Y\ \%02.2B\ %04l,%04v\ 

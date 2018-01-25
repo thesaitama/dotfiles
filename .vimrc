@@ -74,7 +74,6 @@ let maplocalleader = 'm'
 nnoremap <silent>bp :bprevious<CR>
 nnoremap <silent>bn :bnext<CR>
 nnoremap <silent>bb :b#<CR>
-
 nnoremap <leader>ev :e ~/dotfiles/.vimrc
 nnoremap <leader>cv :e ~/dotfiles/vim.txt
 
@@ -133,6 +132,7 @@ command! FZFMru call fzf#run({
 \  'down':    '40%'})
 nnoremap <Leader>r :FZFMru<CR>
 
+inoremap <silent> jj <ESC>
 
 "auto reload .vimrc
 augroup source-vimrc

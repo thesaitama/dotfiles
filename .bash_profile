@@ -13,6 +13,8 @@ export LANG=ja_JP.UTF-8
 #export LC_ALL=$LANG
 #export LC_CTYPE=$LANG
 
+export XDG_CONFIG_HOME="${HOME}/.config"
+
 # Path
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/X11R6/bin:/Developer/Tools:$PATH
 export PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH

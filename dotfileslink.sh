@@ -13,6 +13,10 @@ ln -s ~/dotfiles/.emacs.el ~/.emacs.el
 ln -s ~/dotfiles/.vimrc ~/.vimrc
 ln -s ~/dotfiles/.vim ~/.vim
 
+# neovim
+ln -s ~/dotfiles/.vim ~/.config/nvim
+ln -s ~/dotfiles/.vimrc ~/.config/nvim/init.vim
+
 # git
 ln -s ~/dotfiles/.gitconfig ~/.gitconfig
 ln -s ~/dotfiles/.gitignore_global ~/.gitignore_global

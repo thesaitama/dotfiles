@@ -68,6 +68,9 @@ set showmatch matchtime=1
 set nowritebackup
 set nobackup
 
+set nocursorline
+autocmd InsertEnter,InsertLeave * set cursorline!
+
 let mapleader = ","
 let maplocalleader = 'm'
 
@@ -76,6 +79,9 @@ nnoremap <silent>bn :bnext<CR>
 nnoremap <silent>bb :b#<CR>
 nnoremap <leader>ev :e ~/dotfiles/.vimrc
 nnoremap <leader>cv :e ~/dotfiles/vim.txt
+
+nnoremap <ESC><ESC> :nohl<CR>
+
 
 "dein plugin
 let s:dein_dir = expand('~/.vim/dein')
@@ -111,13 +117,15 @@ endif
 call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
 
 "color scheme
-autocmd ColorScheme * highlight Comment ctermfg=22 guifg=#008800
+autocmd ColorScheme * highlight Comment ctermfg=2
 autocmd ColorScheme * highlight Normal ctermbg=none
 autocmd ColorScheme * highlight LineNr ctermbg=none
-"colorscheme desert
-"set background=dark
-set termguicolors
+
+"let g:solarized_termcolors=256
+let g:solarized_termtrans=1
 syntax enable
+set background=dark
+colorscheme solarized
 
 "fzf
 nnoremap <Leader>b :Buffers<CR>

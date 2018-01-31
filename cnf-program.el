@@ -89,14 +89,6 @@
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; ------------------------------------------------------------------------
-;; eldoc-extension)
-
-(add-hook 'emacs-lisp-mode-hook '(lambda ()
-   (require 'eldoc-extension)
-   (eldoc-mode t)
-))
-
-;; ------------------------------------------------------------------------
 ;; php-mode
 
 (autoload 'php-mode "php-mode")

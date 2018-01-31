@@ -1,5 +1,13 @@
 
 ;; ------------------------------------------------------------------------
+;; eldoc-extension)
+
+(add-hook 'emacs-lisp-mode-hook '(lambda ()
+   (require 'eldoc-extension)
+   (eldoc-mode t)
+))
+
+;; ------------------------------------------------------------------------
 ;; iflipb
 
 (global-set-key (kbd "<f8>") 'iflipb-next-buffer)

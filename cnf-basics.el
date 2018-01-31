@@ -142,53 +142,53 @@
 ;; open symlinks no confirmation
 (setq vc-follow-symlinks t)
 
-;; ------------------------------------------------------------------------
-;; modeline
+;; ;; ------------------------------------------------------------------------
+;; ;; modeline
 
-(line-number-mode t)
-(column-number-mode t)
-(size-indication-mode t)
+;; (line-number-mode t)
+;; (column-number-mode t)
+;; (size-indication-mode t)
 
-;; display function
-(which-function-mode 1)
+;; ;; display function
+;; (which-function-mode 1)
 
-;; clean mode line
-(defvar mode-line-cleaner-alist
-  '( ;; For minor-mode, first char is 'space'
-    (paredit-mode . " Pe")
-    (eldoc-mode . "")
-    (abbrev-mode . "")
-    (undo-tree-mode . "")
-    (font-lock-mode . "")
-    (editorconfig-mode . " EC")
-    (elisp-slime-nav-mode . " EN")
-    (helm-gtags-mode . " HG")
-    (flymake-mode . " Fm")
-    ;; Major modes
-    (emacs-lisp-mode . "El")
-    (default-generic-mode . "DGen")
-    (generic-mode . "Gen")
-    (lisp-interaction-mode . "Li")
-    (shell-script-mode . "SS")
-    (python-mode . "Py")
-    (ruby-mode . "Rb")
-    (typescript-mode . "TS")
-    (markdown-mode . "Md")
-    (fundamental-mode . "Fund")
-    ))
+;; ;; clean mode line
+;; (defvar mode-line-cleaner-alist
+;;   '( ;; For minor-mode, first char is 'space'
+;;     (paredit-mode . " Pe")
+;;     (eldoc-mode . "")
+;;     (abbrev-mode . "")
+;;     (undo-tree-mode . "")
+;;     (font-lock-mode . "")
+;;     (editorconfig-mode . " EC")
+;;     (elisp-slime-nav-mode . " EN")
+;;     (helm-gtags-mode . " HG")
+;;     (flymake-mode . " Fm")
+;;     ;; Major modes
+;;     (emacs-lisp-mode . "El")
+;;     (default-generic-mode . "DGen")
+;;     (generic-mode . "Gen")
+;;     (lisp-interaction-mode . "Li")
+;;     (shell-script-mode . "SS")
+;;     (python-mode . "Py")
+;;     (ruby-mode . "Rb")
+;;     (typescript-mode . "TS")
+;;     (markdown-mode . "Md")
+;;     (fundamental-mode . "Fund")
+;;     ))
 
-(defun clean-mode-line ()
-  (interactive)
-  (loop for (mode . mode-str) in mode-line-cleaner-alist
-        do
-        (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
-          (when old-mode-str
-            (setcar old-mode-str mode-str))
-          ;; major mode
-          (when (eq mode major-mode)
-            (setq mode-name mode-str)))))
+;; (defun clean-mode-line ()
+;;   (interactive)
+;;   (loop for (mode . mode-str) in mode-line-cleaner-alist
+;;         do
+;;         (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
+;;           (when old-mode-str
+;;             (setcar old-mode-str mode-str))
+;;           ;; major mode
+;;           (when (eq mode major-mode)
+;;             (setq mode-name mode-str)))))
 
-(add-hook 'after-change-major-mode-hook 'clean-mode-line)
+;; (add-hook 'after-change-major-mode-hook 'clean-mode-line)
 
 ;; ------------------------------------------------------------------------
 ;; uniquify
@@ -260,6 +260,50 @@
         (run-with-idle-timer 30 t 'recentf-save-list))
   (recentf-mode 1))
 (setq-default find-file-visit-truename t)
+
+;; ------------------------------------------------------------------------
+;; dired + wdired + dired-x
+
+(setq dired-listing-switches (purecopy "-avhplGF"))
+(setq dired-dwim-target t)
+(setq dired-recursive-copies 'always)
+(setq delete-by-moving-to-trash t)
+
+;; zip
+(eval-after-load "dired"
+  '(define-key dired-mode-map "z" 'dired-zip-files))
+(defun dired-zip-files (zip-file)
+  "Create an archive containing the marked ZIP-FILEs."
+  (interactive "Enter name of ZIP-FILE: ")
+
+  ;; create the zip file
+  (let ((zip-file (if (string-match ".zip$" zip-file) zip-file (concat zip-file ".zip"))))
+    (shell-command
+     (concat "zip "
+             zip-file
+             " "
+             (concat-string-list
+              (mapcar
+               #'(lambda (filename)
+                  (file-name-nondirectory filename))
+               (dired-get-marked-files))))))
+
+  (revert-buffer)
+
+  ;; remove the mark on all the files  "*" to " "
+  ;; (dired-change-marks 42 ?\040)
+  ;; mark zip file
+  ;; (dired-mark-files-regexp (filename-to-regexp zip-file))
+  )
+
+(defun concat-string-list (list)
+   "Return a string which is a concatenation of all elements of the LIST separated by spaces."
+   (mapconcat #'(lambda (obj) (format "%s" obj)) list " "))
+
+(require 'wdired)
+(define-key dired-mode-map "e" 'wdired-change-to-wdired-mode)
+
+(add-hook 'dired-load-hook (lambda () (load "dired-x")))
 
 ;; ------------------------------------------------------------------------
 

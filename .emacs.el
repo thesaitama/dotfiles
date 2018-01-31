@@ -126,6 +126,46 @@
 (load "~/dotfiles/cnf-basics.el")
 
 ;; ------------------------------------------------------------------------
+;; clenad modeline
+
+(defvar mode-line-cleaner-alist
+  '( ;; For minor-mode, first char is 'space'
+    (paredit-mode . " Pe")
+    (eldoc-mode . "")
+    (abbrev-mode . "")
+    (undo-tree-mode . "")
+    (font-lock-mode . "")
+    (editorconfig-mode . " EC")
+    (elisp-slime-nav-mode . " EN")
+    (helm-gtags-mode . " HG")
+    (flymake-mode . " Fm")
+    ;; Major modes
+    (emacs-lisp-mode . "El")
+    (default-generic-mode . "DGen")
+    (generic-mode . "Gen")
+    (lisp-interaction-mode . "Li")
+    (shell-script-mode . "SS")
+    (python-mode . "Py")
+    (ruby-mode . "Rb")
+    (typescript-mode . "TS")
+    (markdown-mode . "Md")
+    (fundamental-mode . "Fund")
+    ))
+
+(defun clean-mode-line ()
+  (interactive)
+  (loop for (mode . mode-str) in mode-line-cleaner-alist
+        do
+        (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
+          (when old-mode-str
+            (setcar old-mode-str mode-str))
+          ;; major mode
+          (when (eq mode major-mode)
+            (setq mode-name mode-str)))))
+
+(add-hook 'after-change-major-mode-hook 'clean-mode-line)
+
+;; ------------------------------------------------------------------------
 ;; eaw (ambiguous width characters)
 
 ;; https://github.com/uwabami/locale-eaw-emoji
@@ -275,9 +315,9 @@
 ;; dired + wdired + dired-x
 
 (setq dired-listing-switches (purecopy "-avhplGF"))
-(setq delete-by-moving-to-trash t)
 (setq dired-dwim-target t)
 (setq dired-recursive-copies 'always)
+(setq delete-by-moving-to-trash t)
 
 ;; zip
 (eval-after-load "dired"

@@ -58,6 +58,10 @@
     web-mode
     php-mode
     php-eldoc
+    rbenv
+    ruby-electric
+    inf-ruby
+    robe
     js2-mode
     js2-refactor
     json-mode
@@ -506,7 +510,7 @@
 (push '(compilation-mode :noselect t) popwin:special-display-config)
 (push '("*quickrun*" :height 15) popwin:special-display-config)
 (push '("*Ilist*" :height 15) popwin:special-display-config)
-(push '(" *undo-tree*" :width 0.2 :position right) popwin:special-display-config)
+(push '(" *undo-tree*" :width 0.2 :position right) popwin:sgpecial-display-config)
 (push '("*comment-tags*" :height 15) popwin:special-display-config) ;; not work
 (push '("*HTTP Response*" :height 15) popwin:special-display-config)
 (push '("COMMIT_EDITMSG" :height 15) popwin:special-display-config)

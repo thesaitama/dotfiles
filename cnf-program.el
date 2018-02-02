@@ -229,6 +229,41 @@
 )
 
 ;; ------------------------------------------------------------------------
+;; ruby-mode
+
+(autoload 'ruby-mode "ruby-mode"
+  "Mode for editing ruby source files" t)
+(setq auto-mode-alist
+      (append '(("\\.rb$" . ruby-mode)) auto-mode-alist))
+(setq interpreter-mode-alist (append '(("ruby" . ruby-mode))
+                                     interpreter-mode-alist))
+
+;; ------------------------------------------------------------------------
+;; inf-ruby, ruby-electric-mode
+
+(autoload 'inf-ruby-minor-mode "inf-ruby")
+(setenv "PAGER" (executable-find "cat"))
+
+(add-hook 'ruby-mode-hook
+  (lambda ()
+    (ruby-electric-mode t)
+    (inf-ruby-minor-mode)
+    (inf-ruby-switch-setup)
+    (inf-ruby-keys)
+  )
+  )
+
+;; ------------------------------------------------------------------------
+;; robe
+
+(add-hook 'ruby-mode-hook 'robe-mode)
+(autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
+(autoload 'ac-robe-setup "ac-robe" "auto-complete robe" nil nil)
+(add-hook 'robe-mode-hook 'ac-robe-setup)
+
+;; > gem install pry pry-doc method_source
+
+;; ------------------------------------------------------------------------
 ;; python-mode
 
 (setq auto-mode-alist

@@ -97,6 +97,10 @@ shopt -s checkwinsize
 # noblobber (disable overwirte)
 set noblobber
 
+set completion-ignore-case on
+set bell-style none
+set visible-stats on
+
 # tmux
 # lunch tmux
 tm() {

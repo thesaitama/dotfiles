@@ -1,8 +1,11 @@
+
+set completion-ignore-case on
+set bell-style none
+set visible-stats on
+
 $if Bash
 
-  set bell-style none
   set horizontal-scroll-mode off
-  set completion-ignore-case on
   set editing-mode emacs
 
   # input method

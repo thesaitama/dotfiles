@@ -97,6 +97,7 @@
     emamux
     elscreen
     popwin
+    import-popwin
     multi-term
     shell-pop
     scratch-pop
@@ -514,6 +515,11 @@
 (push '("*comment-tags*" :height 15) popwin:special-display-config) ;; not work
 (push '("*HTTP Response*" :height 15) popwin:special-display-config)
 (push '("COMMIT_EDITMSG" :height 15) popwin:special-display-config)
+
+;; ------------------------------------------------------------------------
+;; import-popwin
+
+(global-set-key (kbd "M-g i") 'import-popwin)
 
 ;; ------------------------------------------------------------------------
 ;; scratch-pop

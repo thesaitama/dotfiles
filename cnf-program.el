@@ -234,15 +234,15 @@
 (autoload 'ruby-mode "ruby-mode"
   "Mode for editing ruby source files" t)
 (setq auto-mode-alist
-      (append '(("\\.rb$" . ruby-mode)) auto-mode-alist))
+      (append '(("\\(\\.rb\\|\\.iht\\|\\Capfile|\\Gemfile|\\[Rr]akefile\\)$" . ruby-mode)) auto-mode-alist))
 (setq interpreter-mode-alist (append '(("ruby" . ruby-mode))
                                      interpreter-mode-alist))
 
 ;; ------------------------------------------------------------------------
 ;; inf-ruby, ruby-electric-mode
 
-(autoload 'inf-ruby-minor-mode "inf-ruby")
-(setenv "PAGER" (executable-find "cat"))
+(autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
+(add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
 
 (add-hook 'ruby-mode-hook
   (lambda ()
@@ -253,6 +253,8 @@
   )
   )
 
+(setq ruby-electric-expand-delimiters-list nil)
+
 ;; ------------------------------------------------------------------------
 ;; robe
 
@@ -262,6 +264,7 @@
 (add-hook 'robe-mode-hook 'ac-robe-setup)
 
 ;; > gem install pry pry-doc method_source
+;; > gem install ruby-lint
 
 ;; ------------------------------------------------------------------------
 ;; python-mode

@@ -13,7 +13,7 @@ To run dotfileslins.sh
 > sh ./dotfileslink.sh
 
 ## description
-I will give you updates this repository
+I will give you updates this repository.
 
 ### bash
  * .bash_profile
@@ -32,7 +32,8 @@ I will give you updates this repository
  * tmux-status-line
 
 paste board support
-```
+
+```bash
 sudo port install tmux-pasteboard
 ```
 
@@ -42,7 +43,8 @@ sudo port install tmux-pasteboard
  * .tigrc
 
 install diff-hilight
-```
+
+```bash
 cd /opt/local/share/git/contrib/diff-highlight/
 sudo make
 sudo ln -s /opt/local/share/git/contrib/diff-highlight/diff-highlight /usr/local/bin/diff-highlight
@@ -52,9 +54,15 @@ sudo ln -s /opt/local/share/git/contrib/diff-highlight/diff-highlight /usr/local
  * .fzfcmd.sh
 
 install fzf
-```
+
+```bash
 git clone https://github.com/junegunn/fzf.git ~/.fzf
 cd ~/.fzf
 ./install
 ```
 
+### etc
+
+```bash
+sudo port install readline
+```

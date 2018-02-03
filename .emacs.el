@@ -56,6 +56,7 @@
     rainbow-mode
     rainbow-delimiters
     web-mode
+    web-beautify
     php-mode
     php-eldoc
     rbenv

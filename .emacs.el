@@ -426,7 +426,8 @@
 
 (setq-default flyspell-mode t)
 (setq ispell-program-name "aspell")
-;;(setq ispell-dictionary "american")
+(eval-after-load "ispell"
+ '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
 
 ;(add-hook 'find-file-hook 'flyspell-mode)
 ;(add-hook 'find-file-hook 'flyspell-buffer)

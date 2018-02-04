@@ -85,6 +85,12 @@ sudo port install readline
 sudo port install editorconfig-core-c
 ```
 
+* Web
+
+```bash
+npm -g install js-beautify
+```
+
 * TypeScript
 
 ```bash
@@ -95,18 +101,25 @@ sudo npm install -g clausreinke/typescript-tools
 
 * Ruby
 
-```
+```bash
 gem install pry pry-doc method_source
 gem install ruby-lint
 ```
 
 * Tags
 
-```
+```bash
 sudo port install ctags
 pip-2.7 install pygments
 sudo port install global
 cp -p /opt/local/share/gtags/gtags.conf ~/.globalrc
 sed -i -e "s/exuberant-ctags\.la/exuberant-ctags.so/g" ~/.globalrc
 sed -i -e "s/pygments-parser\.la/pygments-parser.so/g" ~/.globalrc
+```
+
+* aspell
+
+```bash
+sudo port install aspell
+sudo port install aspell-dict-en
 ```

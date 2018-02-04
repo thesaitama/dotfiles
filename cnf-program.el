@@ -171,6 +171,8 @@
         "--indent-size 2"
         "--end-with-newline"))
 
+;; > npm -g install js-beautify
+
 ;; ------------------------------------------------------------------------
 ;; js2-mode
 

@@ -177,6 +177,7 @@
 ;; https://github.com/uwabami/locale-eaw-emoji
 
 (require 'locale-eaw-emoji)
+(eaw-and-emoji-fullwidth)
 
 ;; ------------------------------------------------------------------------
 ;; binary path (exec-path-from-shell)

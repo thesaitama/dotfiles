@@ -80,6 +80,11 @@
 (global-set-key (kbd "C-M-s") 'helm-ag-this-file)
 
 ;; ------------------------------------------------------------------------
+;; helm-flyspell
+
+(global-set-key (kbd "M-g M-c") 'helm-flyspell-correct)
+
+;; ------------------------------------------------------------------------
 ;; bm, helm-bm
 
 (setq-default bm-buffer-persistence nil)

@@ -82,6 +82,7 @@
     helm-ag
     helm-gtags
     helm-descbinds
+    helm-flyspell
     bm
     helm-bm
     restclient
@@ -423,12 +424,14 @@
 ;; flyspell (spell check)
 
 (setq-default flyspell-mode t)
-(setq ispell-dictionary "american")
+(setq ispell-program-name "aspell")
+;;(setq ispell-dictionary "american")
 
 ;(add-hook 'find-file-hook 'flyspell-mode)
 ;(add-hook 'find-file-hook 'flyspell-buffer)
 
-;; > sudo port install ispell
+;; > sudo port install aspell
+;; > sudo port install aspell-dict-en
 
 ;; ------------------------------------------------------------------------
 ;; volatile-highlights
@@ -510,11 +513,12 @@
 (setq special-display-function 'popwin:special-display-popup-window)
 (push '(dired-mode :position top) popwin:special-display-config)
 (push '(compilation-mode :noselect t) popwin:special-display-config)
+(push '("*grep*" :noselect t) popwin:special-display-config)
 (push '("*quickrun*" :height 15) popwin:special-display-config)
 (push '("*ruby*" :height 15) popwin:special-display-config)
 (push '("*Ilist*" :height 15) popwin:special-display-config)
-(push '(" *undo-tree*" :width 0.2 :position right) popwin:special-display-config)
-(push '("*comment-tags*" :height 15) popwin:special-display-config) ;; not work
+(push '(" *undo-tree*" :widtoh 0.2 :position right) popwin:special-display-config)
+(push '("\*comment-tags" :regexp t :height 15) popwin:special-display-config) ;; not work
 (push '("*HTTP Response*" :height 15) popwin:special-display-config)
 (push '("COMMIT_EDITMSG" :height 15) popwin:special-display-config)
 
@@ -708,7 +712,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode tss typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
+    (helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode tss typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)

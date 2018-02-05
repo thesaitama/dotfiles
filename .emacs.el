@@ -10,10 +10,6 @@
 ;;
 ;; thesaitama@ .emacs.el
 ;;
-;; Install
-;;
-;; MacPorts site-lisp path
-;; /opt/local/share/emacs/site-lisp/
 
 ;;; Code:
 
@@ -519,6 +515,7 @@
 (push '("*quickrun*" :height 15) popwin:special-display-config)
 (push '("*ruby*" :height 15) popwin:special-display-config)
 (push '("*Ilist*" :height 15) popwin:special-display-config)
+(push '("*wclock*" :height 5) popwin:special-display-config)
 (push '(" *undo-tree*" :width 0.2 :position right) popwin:special-display-config)
 (push '("*comment-tags*" :height 15) popwin:special-display-config) ;; not work
 (push '("*HTTP Response*" :height 15) popwin:special-display-config)

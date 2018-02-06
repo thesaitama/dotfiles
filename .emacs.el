@@ -212,7 +212,7 @@
 (require 'elscreen)
 (elscreen-start)
 (setq elscreen-prefix-key (kbd "M-z"))
-(setq elscreen-display-tab 25)
+(setq elscreen-display-tab 30)
 (setq elscreen-tab-display-kill-screen nil)
 (setq elscreen-tab-display-control nil)
 (setq elscreen-buffer-to-nickname-alist
@@ -512,6 +512,7 @@
 (push '(dired-mode :position top) popwin:special-display-config)
 (push '(compilation-mode :noselect t) popwin:special-display-config)
 (push '("*grep*" :noselect t) popwin:special-display-config)
+(push '("*compilation*" :height 15) popwin:special-display-config)
 (push '("*quickrun*" :height 15) popwin:special-display-config)
 (push '("*ruby*" :height 15) popwin:special-display-config)
 (push '("*Ilist*" :height 15) popwin:special-display-config)

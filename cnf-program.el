@@ -89,6 +89,31 @@
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; ------------------------------------------------------------------------
+;; cc-mode (built-in)
+
+(setq auto-mode-alist
+      (append
+       '(
+         ("\\.c$" . c-mode)
+         ("\\.h$" . c-mode)
+         ("\\.c\\+\\+$" . c++-mode)
+         ("\\.cpp$". c++-mode)
+         ("\\.cc$" . c++-mode)
+         ("\\.hh$" . c++-mode)
+         )
+       auto-mode-alist))
+
+(add-hook 'c-mode-common-hook
+ '(lambda ()
+    (c-set-style "gnu")
+    (setq c-tab-always-indent t)
+    (define-key c-mode-map "\C-cc" 'compile)
+    (setq compilation-window-height 8)
+    (define-key c-mode-map "\C-cd" 'gdb)
+    (c-set-offset 'case-label 2)
+    ))
+
+;; ------------------------------------------------------------------------
 ;; php-mode
 
 (autoload 'php-mode "php-mode")

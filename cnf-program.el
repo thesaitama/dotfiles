@@ -159,9 +159,16 @@
 ;; web-mode
 
 (require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.as[cp]x$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\(\\.x?html?\\|\\.iht\\)\\([.]?\\w+\\)*$". web-mode))
-(add-to-list 'auto-mode-alist '("\\(\\.sass\\|\\.s?css\\)\\([.]?\\w+\\)*$". web-mode))
+(setq auto-mode-alist
+      (append
+       '(
+         ("\\.as[cp]x$" . web-mode)
+         ("\\.iht$" . web-mode)
+         ("\\.x?html?$" . web-mode)
+         ("\\(\\.sass\\|\\.s?css\\)$" . web-mode)
+         )
+       auto-mode-alist))
+
 (defun web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 2)

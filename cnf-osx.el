@@ -2,7 +2,7 @@
 
 ;;; Commentary:
 ;;
-;; This file is part of thesaitam Emacs configuration (for macOS)
+;; This file is part of thesaitama Emacs configuration (for macOS)
 
 ;;; Code:
 

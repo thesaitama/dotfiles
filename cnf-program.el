@@ -156,6 +156,14 @@
 (add-hook 'php-mode-hook 'php-mode-options)
 
 ;; ------------------------------------------------------------------------
+;; cperl-mode
+
+(setq auto-mode-alist
+      (append '(("\\.\\([pP][Llm]\\|al\\)$" . cperl-mode))  auto-mode-alist ))
+(setq interpreter-mode-alist (append '(("perl" . cperl-mode))
+                                     interpreter-mode-alist))
+
+;; ------------------------------------------------------------------------
 ;; web-mode
 
 (require 'web-mode)
@@ -164,6 +172,7 @@
        '(
          ("\\.as[cp]x$" . web-mode)
          ("\\.iht$" . web-mode)
+         ("\\.jsp$" . web-mode)
          ("\\.x?html?$" . web-mode)
          ("\\(\\.sass\\|\\.s?css\\)$" . web-mode)
          )
@@ -183,11 +192,11 @@
   (auto-complete-mode t))
 (add-hook 'web-mode-hook 'web-mode-hook)
 (setq web-mode-auto-close-style 2)
-(setq web-mode-tag-auto-close-style 2)
-(setq web-mode-enable-auto-pairing t)
-;;(setq web-mode-enable-css-colorization t)
+(setq web-mode-tag-auto-close-style t)
+(setq web-mode-enable-auto-pairing nil)
 (setq web-mode-enable-current-element-highlight t)
 (setq web-mode-enable-current-column-highlight t)
+;;(setq web-mode-enable-css-colorization t)
 
 (setq web-mode-ac-sources-alist
       '(("php" . (ac-source-yasnippet ac-source-php-auto-yasnippets))

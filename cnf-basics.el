@@ -313,7 +313,19 @@
   (setq time-stamp-start "Last Update: ")
   (setq time-stamp-format "%04y-%02m-%02d@%02H:%02M")
   (setq time-stamp-end "$")
-  (setq time-stamp-line-limit 10)) ; def=8
+  (setq time-stamp-line-limit 15)) ; def=8
+
+;; ------------------------------------------------------------------------
+;; nxml-mode (built-in)
+
+(add-hook 'nxml-mode-hook
+          (lambda ()
+            (setq nxml-slash-auto-complete-flag t)
+            (setq nxml-child-indent 1)
+            (setq indent-tabs-mode nil)
+            (setq tab-width 2)
+            )
+          )
 
 ;; ------------------------------------------------------------------------
 

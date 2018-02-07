@@ -251,18 +251,6 @@
 (add-hook 'kill-buffer-hook 'tss--delete-process t)
 
 ;; ------------------------------------------------------------------------
-;; nxml-mode
-
-(add-hook 'nxml-mode-hook
-  (lambda ()
-    (setq nxml-slash-auto-complete-flag t)
-    (setq nxml-child-indent 1)
-    (setq indent-tabs-mode nil)
-    (setq tab-width 2)
-  )
-)
-
-;; ------------------------------------------------------------------------
 ;; ruby-mode
 
 (autoload 'ruby-mode "ruby-mode"

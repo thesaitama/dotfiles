@@ -10,6 +10,11 @@ set diff-highlight = true
 
 set refresh-mode = auto
 
+set ignore-case = true
+
+color diff-chunk black white
+
+
 
 
 

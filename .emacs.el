@@ -29,21 +29,23 @@
 
 (defvar my-favorite-package-list
   '(exec-path-from-shell
-    0xc
     package-utils
+    0xc
     auto-complete
+    fuzzy
     pos-tip
     avy
-    fuzzy
     sequential-command
     editorconfig
     quickrun
     ac-html
+    ac-emmet
     ac-js2
     ac-php
     ac-helm
     anzu
     expand-region
+    electric-operator
     highlight-symbol
     foreign-regexp
     undo-tree
@@ -53,6 +55,7 @@
     rainbow-delimiters
     web-mode
     web-beautify
+    emmet-mode
     php-mode
     php-eldoc
     rbenv

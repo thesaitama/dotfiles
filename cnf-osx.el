@@ -133,6 +133,7 @@
         '((".*Ricty Deminished for Powerline.*" . 1.2)))
 
   ;; key
+  (setq ns-command-modifier (quote super))
   (setq ns-alternate-modifier (quote meta))
   )
 

@@ -9,7 +9,6 @@
 ;; ------------------------------------------------------------------------
 ;; editorconfig
 
-(require 'editorconfig)
 (editorconfig-mode 1)
 (setq editorconfig-get-properties-function
       'editorconfig-core-get-properties-hash)
@@ -21,7 +20,6 @@
 ;; ------------------------------------------------------------------------
 ;; comment-tags
 
-(require 'comment-tags)
 (setq comment-tags-keymap-prefix (kbd "C-c t"))
 (with-eval-after-load "comment-tags"
   (setq comment-tags-keyword-faces
@@ -39,16 +37,15 @@
         comment-tags-show-faces t
         comment-tags-lighter nil))
 
+(add-hook 'c-mode-hook  'comment-tags-mode)
 (add-hook 'python-mode-hook 'comment-tags-mode)
 (add-hook 'php-mode-hook 'comment-tags-mode)
-(add-hook 'web-mode-hook 'comment-tags-mode)
 (add-hook 'js2-mode-hook 'comment-tags-mode)
 (add-hook 'typescript-mode-hook 'comment-tags-mode)
 
 ;; ------------------------------------------------------------------------
 ;; projectile
 
-(require 'projectile)
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
 (setq projectile-switch-project-action 'helm-projectile)

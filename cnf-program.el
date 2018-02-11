@@ -346,7 +346,11 @@
 ;; disable flymake
 (remove-hook 'elpy-modules 'elpy-module-flymake)
 
+;; disable indent highlight
+(remove-hook 'elpy-modules 'highlight-indentation-mode)
+
 ;; > sudo port install py-rope py36-rope
+;; > sudo port install py-yapf py36-yapf
 ;; > sudo port install py-importmagic
 ;; > sudo pip-3.6 install importmagic
 ;; > sudo pip install autopep8 flake8

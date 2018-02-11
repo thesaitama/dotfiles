@@ -413,7 +413,7 @@
    for index from 1 to rainbow-delimiters-max-face-count
    do
    (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
-    (cl-callf color-saturate-name (face-foreground face) 50))))
+    (cl-callf color-saturate-name (face-foreground face) 30))))
 (add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
 
 ;; ------------------------------------------------------------------------
@@ -650,8 +650,9 @@
  '(helm-ff-dotted-directory ((t (:background "Gray25" :foreground "white"))))
  '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "cyan"))))
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
- '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
+ '(helm-grep-file ((t (:inherit font-lock-builtin-face :underline t :foreground "cyan"))))
  '(helm-grep-match ((t (:background "LightCyan" :foreground "black"))))
+ '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
  '(helm-match ((t (:foreground "cyan"))))
  '(helm-selection ((t (:background "Gray30"))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
@@ -710,7 +711,8 @@
  '(web-mode-html-attr-equal-face ((t (:foreground "white"))))
  '(web-mode-html-attr-name-face ((t (:foreground "LightBlue"))))
  '(web-mode-html-attr-value-face ((t (:foreground "yellow"))))
- '(web-mode-html-tag-face ((t (:foreground "cyan"))))
+ '(web-mode-html-tag-face ((t (:foreground "blue"))))
+ '(web-mode-html-tag-bracket-face ((t (:foreground "LightBlue"))))
  '(web-mode-server-comment-face ((t (:foreground "green"))))
  '(which-func ((t (:foreground "ivory"))))
  '(which-key-command-description-face ((t (:foreground "white")))))

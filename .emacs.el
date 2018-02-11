@@ -22,6 +22,10 @@
 (setq ad-redefinition-action 'accept)
 
 ;; ------------------------------------------------------------------------
+
+(setq initial-scratch-message ";; saitamacs\n")
+
+;; ------------------------------------------------------------------------
 ;; backage.el
 
 ;; M-x list-packages

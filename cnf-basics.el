@@ -142,15 +142,15 @@
 ;; open symlinks no confirmation
 (setq vc-follow-symlinks t)
 
+;; which fucntion
+(which-function-mode 1)
+
 ;; ;; ------------------------------------------------------------------------
 ;; ;; modeline
 
 ;; (line-number-mode t)
 ;; (column-number-mode t)
 ;; (size-indication-mode t)
-
-;; ;; display function
-;; (which-function-mode 1)
 
 ;; ;; clean mode line
 ;; (defvar mode-line-cleaner-alist

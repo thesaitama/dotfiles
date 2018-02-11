@@ -42,9 +42,9 @@
 
 (setq helm-split-window-inside-p t)
 ;; auto resize
-;;(setq helm-autoresize-max-height 0)
-;;(setq helm-autoresize-min-height 40)
-;;(helm-autoresize-mode 1)
+(setq helm-autoresize-max-height 0)
+(setq helm-autoresize-min-height 40)
+(helm-autoresize-mode 1)
 
 ;; ------------------------------------------------------------------------
 ;; helm-smex

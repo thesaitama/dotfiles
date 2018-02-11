@@ -263,6 +263,7 @@
 
 ;; dot use tss-config-default
 (defun typescript-setup ()
+  "Typescript setup."
   (setq typescript-indent-level 2)
   (flycheck-mode t)
   ;;(flycheck-typescript-tslint-setup)
@@ -324,7 +325,8 @@
       (cons '("\\.py$" . python-mode) auto-mode-alist))
 (autoload 'python-mode "python-mode" "Python editing mode." t)
 
-;; elpy
+;; ------------------------------------------------------------------------
+;; elpy (python-mode)
 
 (add-hook 'python-mode-hook
           '(lambda ()
@@ -335,9 +337,20 @@
 
 (setq elpy-rpc-backend "jedi")
 
-;M-x jedi:install-server
+;;M-x jedi:install-server
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t) ; optional
+
+(setq elpy-rpc-python-command "python3")
+
+;; disable flymake
+(remove-hook 'elpy-modules 'elpy-module-flymake)
+
+;; > sudo port install py-rope py36-rope
+;; > sudo port install py-importmagic
+;; > sudo pip-3.6 install importmagic
+;; > sudo pip install autopep8 flake8
+;; > sudo pip-3.6 install autopep8 flake8
 
 ;; ------------------------------------------------------------------------
 ;; go-mode

@@ -36,17 +36,17 @@
     package-utils
     0xc
     auto-complete
+    ac-html
+    ac-emmet
+    ac-js2
+    ac-php
+    ac-helm
     fuzzy
     pos-tip
     avy
     sequential-command
     editorconfig
     quickrun
-    ac-html
-    ac-emmet
-    ac-js2
-    ac-php
-    ac-helm
     anzu
     expand-region
     electric-operator
@@ -75,6 +75,9 @@
     python-mode
     jedi
     elpy
+    go-mode
+    go-eldoc
+    go-autocomplete
     flycheck
     flycheck-popup-tip
     imenus
@@ -97,16 +100,10 @@
     yasnippet
     yasnippet-snippets
     helm-c-yasnippet
-    qiita
-    yagist
-    projectile
-    helm-projectile
-    magit
-    magit-find-file
-    emamux
     elscreen
     popwin
     import-popwin
+    emamux
     multi-term
     shell-pop
     scratch-pop
@@ -120,6 +117,8 @@
     xah-lookup
     google-translate
     howdoi
+    qiita
+    yagist
     )
   "Packages to be installed.")
 
@@ -648,6 +647,7 @@
  '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "cyan"))))
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
+ '(helm-grep-match ((t (:background "LightCyan" :foreground "black"))))
  '(helm-match ((t (:foreground "cyan"))))
  '(helm-selection ((t (:background "Gray30"))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))

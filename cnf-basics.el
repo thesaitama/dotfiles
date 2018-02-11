@@ -306,6 +306,12 @@
 (add-hook 'dired-load-hook (lambda () (load "dired-x")))
 
 ;; ------------------------------------------------------------------------
+;; executable make buffer
+
+(add-hook 'after-save-hook
+          'executable-make-buffer-file-executable-if-script-p)
+
+;; ------------------------------------------------------------------------
 ;; time-stamp
 
 (add-hook 'before-save-hook 'time-stamp)

@@ -316,6 +316,17 @@
   (setq time-stamp-line-limit 15)) ; def=8
 
 ;; ------------------------------------------------------------------------
+;; display-time-world
+
+(setq display-time-world-time-format "%Z\t %Y %b %d (%a) %R"
+      display-time-world-list
+      '(("Asia/Tokyo" "Tokyo")
+        ("America/Los_Angeles" "Los Angeles")
+        ("America/New_York" "New York")
+        ("Europe/London" "London")
+        ("Europe/Paris" "Paris")))
+
+;; ------------------------------------------------------------------------
 ;; nxml-mode (built-in)
 
 (add-hook 'nxml-mode-hook

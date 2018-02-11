@@ -78,6 +78,10 @@
     go-mode
     go-eldoc
     go-autocomplete
+    emacsql
+    emacsql-mysql
+    emacsql-psql
+    emacsql-sqlite
     flycheck
     flycheck-popup-tip
     imenus

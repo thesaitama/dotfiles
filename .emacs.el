@@ -88,6 +88,10 @@
     helm-flyspell
     bm
     helm-bm
+    projectile
+    helm-projectile
+    magit
+    magit-find-file
     restclient
     restclient-helm
     yasnippet

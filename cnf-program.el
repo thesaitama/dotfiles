@@ -340,6 +340,24 @@
 (setq jedi:complete-on-dot t) ; optional
 
 ;; ------------------------------------------------------------------------
+;; go-mode
+
+(add-hook 'go-mode-hook 'flycheck-mode)
+(add-hook 'go-mode-hook (lambda()
+                          (add-hook 'before-save-hook' 'gofmt-before-save)
+                          (add-hook 'go-mode-hook 'go-eldoc-setup)
+                          (local-set-key (kbd "M-.") 'godef-jump)
+                          (setq indent-tabs-mode nil)
+                          (setq c-basic-offset 4)
+                          (setq tab-width 4)))
+
+(eval-after-load "go-mode"
+  '(progn
+     (require 'go-autocomplete)))
+
+;; > go get -u github.com/nsf/gocode
+
+;; ------------------------------------------------------------------------
 ;; helm-gtags
 
 (require 'helm-gtags)

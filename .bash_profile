@@ -10,8 +10,10 @@
 # Language and Unicode Support
 export LESSCHARSET=utf-8
 export LANG=ja_JP.UTF-8
-export LC_ALL=$LANG
-export LC_CTYPE=$LANG
+#export LC_ALL=$LANG
+#export LC_CTYPE=$LANG
+
+export XDG_CONFIG_HOME="${HOME}/.config"
 
 # Path
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/X11R6/bin:/Developer/Tools:$PATH
@@ -38,12 +40,16 @@ export GTAGSLABEL="pygments"
 export GOPATH="${HOME}/go"
 export PATH="${HOME}/go/bin:${PATH}"
 
-# for Fink
+# Fink
 #test -d /sw && export PATH=/sw/bin:/sw/sbin:$PATH &&
 #               export MANPATH=/sw/share/man:$MANPATH
 #test -r /sw/bin/init.sh && . /sw/bin/init.sh
 
-# for MacPorts
+# Homebrew
+#export PATH=/usr/local/bin:$PATH
+#export HOMEBREW_NO_EMOJI=1
+
+# MacPorts
 test -d /opt && export PATH=/opt/local/bin:/opt/local/sbin:$PATH &&
                 export MANPATH=/opt/local/share/man:/opt/local/man:$MANPATH
 

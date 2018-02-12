@@ -1,4 +1,12 @@
+;;; cnf-browser.el --- thesaitama Emacs configuration
 
+;;; Commentary:
+;;
+;; This file is part of thesaitama Emacs configuration
+
+;;; Code:
+
+;; ------------------------------------------------------------------------
 ;; w3m
 
 (require 'w3m)
@@ -10,3 +18,10 @@
 (setq w3m-search-default-engine "google")
 (setq w3m-home-page "http://www.google.co.jp")
 (setq w3m-use-cookies t)
+
+;; ------------------------------------------------------------------------
+
+(provide 'cnf-browser.el)
+;;; cnf-browser.el ends here
+
+

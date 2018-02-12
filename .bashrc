@@ -12,7 +12,8 @@ umask 022
 # alias
 alias e='emacsclient -nw -a ""'
 alias emacs='emacsclient -nw -a ""'
-alias ls='ls -avlGF'
+alias minimacs='\emacs -q -l ~/dotfiles/minimacs.el'
+alias ls='ls -avhplGF'
 alias g='git'
 alias ..='cd ..'
 alias grep='grep --color=auto'
@@ -95,6 +96,10 @@ shopt -s checkwinsize
 
 # noblobber (disable overwirte)
 set noblobber
+
+set completion-ignore-case on
+set bell-style none
+set visible-stats on
 
 # tmux
 # lunch tmux

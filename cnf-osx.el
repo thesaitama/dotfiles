@@ -1,5 +1,10 @@
+;;; cnf-osx.el --- thesaitama Emacs configuration
 
-;; macOSX
+;;; Commentary:
+;;
+;; This file is part of thesaitama Emacs configuration (for macOS)
+
+;;; Code:
 
 ;; ------------------------------------------------------------------------
 ;; ucs normalize
@@ -128,7 +133,11 @@
         '((".*Ricty Deminished for Powerline.*" . 1.2)))
 
   ;; key
+  (setq ns-command-modifier (quote super))
   (setq ns-alternate-modifier (quote meta))
-)
+  )
 
+;; ------------------------------------------------------------------------
 
+(provide 'cnf-osx.el)
+;;; cnf-osx.el ends here

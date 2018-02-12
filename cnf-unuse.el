@@ -1,5 +1,49 @@
 
 ;; ------------------------------------------------------------------------
+;; eldoc-extension)
+
+(add-hook 'emacs-lisp-mode-hook '(lambda ()
+   (require 'eldoc-extension)
+   (eldoc-mode t)
+))
+
+;; ------------------------------------------------------------------------
+;; iflipb
+
+(global-set-key (kbd "<f8>") 'iflipb-next-buffer)
+(global-set-key (kbd "<f7>") 'iflipb-previous-buffer)
+
+;; ------------------------------------------------------------------------
+;; neotree
+
+(require 'neotree)
+(global-set-key (kbd "<f10>") 'neotree-toggle)
+(setq neo-show-hidden-files t)
+(setq neo-create-file-auto-open t)
+(setq neo-persist-show t)
+(setq neo-keymap-style 'concise)
+(setq neo-dont-be-alone t)
+(setq neo-window-fixed-size nil)
+;(setq neo-smart-open t)
+(setq neo-vc-integration '(face char))
+;; popwin
+(when neo-persist-show
+  (add-hook 'popwin:before-popup-hook (lambda () (setq neo-persist-show nil)))
+  (add-hook 'popwin:after-popup-hook (lambda () (setq neo-persist-show t))))
+;; helm project
+(defadvice helm-projectile-find-file (after helm-projectile-find-file activate)
+  (neotree-dir default-directory))
+
+ ;; '(neo-dir-link-face ((t (:background "Gray25" :foreground "orange"))))
+ ;; '(neo-file-link-face ((t (:foreground "ivory"))))
+ ;; '(neo-header-face ((t (:foreground "white"))))
+ ;; '(neo-root-dir-face ((t (:background "BrightBlue" :foreground "white"))))
+ ;; '(neo-vc-default-face ((t (:foreground "ivory"))))
+ ;; '(neo-vc-edited-face ((t (:foreground "green"))))
+ ;; '(neo-vc-removed-face ((t (:foreground "red"))))
+ ;; '(neo-vc-up-to-date-face ((t (:foreground "ivory"))))
+
+;; ------------------------------------------------------------------------
 ;; html-mode (xhtml, html)
 
 (setq auto-mode-alist
@@ -17,7 +61,7 @@
 
 (require 'mmm-auto)
 (setq mmm-global-mode 'maybe)
-;(set-face-background 'mmm-default-submode-face nil) ;背景色が不要な場合
+;(set-face-background 'mmm-default-submode-face nil)
 (mmm-add-classes
  '((embedded-css
     :submode css-mode
@@ -110,4 +154,16 @@
 
 (setq auto-mode-alist
       (append '(("\\.\\(xml\\|rlx\\|pml\\|rng\\)$" . xml-mode))
-       auto-mode-alist))
+              auto-mode-alist))
+
+;; ------------------------------------------------------------------------
+;; helm-qiita
+
+(setq helm-qiita-username (my-lisp-load "helm-qiita-username"))
+(setq helm-qiita-access-token (my-lisp-load "helm-qiita-access-token"))
+(helm-qiita-initialize)
+
+;; ------------------------------------------------------------------------
+
+(provide 'cnf-unuse.el)
+;;; cnf-unuse.el ends here

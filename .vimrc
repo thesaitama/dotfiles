@@ -7,6 +7,12 @@
 
 "sudo port install vim +huge +python36
 
+set langmenu=en_US
+let $LANG = 'en_US'
+
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
 set rtp+=~/.fzf
 set clipboard+=unnamed
 
@@ -18,10 +24,6 @@ set fileformats=unix,dos,mac
 set ambiwidth=double
 
 set helplang=ja,en
-
-source $VIMRUNTIME/delmenu.vim 
-set langmenu=none 
-source $VIMRUNTIME/menu.vim
 
 set laststatus=2
 "set statusline=%F%m%r%h%w\ %{&ff}\ %Y\ \%02.2B\ %04l,%04v\ 
@@ -61,22 +63,32 @@ set history=49
 set whichwrap=b,s,[,],<,>
 set backspace=indent,eol,start
 set wildmenu
-
+set visualbell
 set showmatch matchtime=1
-
 set nowritebackup
 set nobackup
+
+set nocursorline
+autocmd InsertEnter,InsertLeave * set cursorline!
+
+let mapleader = ","
+let maplocalleader = 'm'
 
 nnoremap <silent>bp :bprevious<CR>
 nnoremap <silent>bn :bnext<CR>
 nnoremap <silent>bb :b#<CR>
+nnoremap <leader>ev :e ~/dotfiles/.vimrc
+nnoremap <leader>cv :e ~/dotfiles/vim.txt
+
+nnoremap <ESC><ESC> :nohl<CR>
+
 
 "dein plugin
 let s:dein_dir = expand('~/.vim/dein')
-" dein.vim 本体
+" dein.vim
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
-" dein.vim がなければ github から落としてくる
+" if not exist dein.vim fetch from github
 if &runtimepath !~# '/dein.vim'
   if !isdirectory(s:dein_repo_dir)
     execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
@@ -104,7 +116,31 @@ endif
 
 call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
 
-syntax on
+"color scheme
+autocmd ColorScheme * highlight Comment ctermfg=2
+autocmd ColorScheme * highlight Normal ctermbg=none
+autocmd ColorScheme * highlight LineNr ctermbg=none
+
+"let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+syntax enable
+set background=dark
+colorscheme solarized
+
+"fzf
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>x :Commands<CR>
+nnoremap <Leader>f :GFiles<CR>
+nnoremap <Leader>a :Ag<CR>
+nnoremap <Leader>k :bd<CR>
+command! FZFMru call fzf#run({
+\  'source':  v:oldfiles,
+\  'sink':    'e',
+\  'options': '-m -x +s',
+\  'down':    '40%'})
+nnoremap <Leader>r :FZFMru<CR>
+
+inoremap <silent> jj <ESC>
 
 "auto reload .vimrc
 augroup source-vimrc

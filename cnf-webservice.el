@@ -1,16 +1,32 @@
+;;; cnf-webservice.el --- thesaitama Emacs configuration
+
+;;; Commentary:
+;;
+;; This file is part of thesaitama Emacs configuration
+
+;;; Code:
+
+;; ------------------------------------------------------------------------
+;; xah-lookup
+
+(setq xah-lookup-browser-function 'eww)
 
 ;; ------------------------------------------------------------------------
 ;; google-translate
 
 (require 'google-translate)
-(custom-set-variables
-  '(google-translate-default-source-language "ja")
-  '(google-translate-default-target-language "en"))
+
+;;(custom-set-variables
+;;  '(google-translate-default-source-language "ja")
+;;  '(google-translate-default-target-language "en"))
+
+(setq google-translate-default-source-language "ja")
+(setq google-translate-default-target-language "en")
 
 (defvar google-translate-english-chars "[:ascii:]’“”–"
-  "これらの文字が含まれているときは英語とみなす")
+  "English characters list.")
 (defun google-translate-enja-or-jaen (&optional string)
-  "regionか、現在のセンテンスを言語自動判別でGoogle翻訳する。"
+  "Auto detection translate language by region or current sentence."
   (interactive)
   (setq string
         (cond ((stringp string) string)
@@ -43,21 +59,23 @@
 (global-set-key (kbd "M-g a") 'helm-google-suggest)
 
 ;; ------------------------------------------------------------------------
-;; helm-qiita
+;; howdoi
 
-;;(setq helm-qiita-username "Your Qiita Account")
-;;(setq helm-qiita-organization "Your Organization") ;; optional.
-;;(setq helm-qiita-access-token "Your Access Token") ;; See https://qiita.com/settings/applications
-(setq helm-qiita-username (my-lisp-load "helm-qiita-username"))
-(setq helm-qiita-access-token (my-lisp-load "helm-qiita-access-token"))
-(helm-qiita-initialize)
+(require 'howdoi)
+(setq howdoi-display-question t)
+(defun howdoi-show-url (&rest ignore)
+  (interactive)
+  (message "%s" howdoi-current-stackoverflow-url))
+(advice-add 'howdoi-pop-answer-to-buffer-callback :after 'howdoi-show-url)
+(define-key howdoi-mode-map (kbd "c") 'howdoi-show-url)
 
 ;; ------------------------------------------------------------------------
 ;; yagist
 
-;(setq yagist-github-token "******************************")
 (setq yagist-github-token (my-lisp-load "yagist-github-token"))
 (require 'yagist)
 
+;; ------------------------------------------------------------------------
 
-
+(provide 'cnf-webservice.el)
+;;; cnf-webservice.el ends here

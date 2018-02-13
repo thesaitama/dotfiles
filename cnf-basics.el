@@ -199,6 +199,17 @@
 (require 'generic-x)
 
 ;; ------------------------------------------------------------------------
+;; abbrev
+
+(let ((abbrev-file "~/.abbrev_defs"))
+  (setq abbrev-file-name abbrev-file)
+  (if (file-exists-p abbrev-file)
+      (quietly-read-abbrev-file abbrev-file)))
+
+(setq save-abbrevs 'silently)
+(setq default-abbrev-mode t)
+
+;; ------------------------------------------------------------------------
 ;; dabbrev
 
 ;(global-set-key (kbd "C-<tab>") 'dabbrev-expand)

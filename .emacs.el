@@ -121,6 +121,7 @@
     xah-lookup
     google-translate
     howdoi
+    mew
     qiita
     yagist
     )
@@ -430,6 +431,13 @@
 (load "~/dotfiles/cnf-helm.el")
 
 ;; ------------------------------------------------------------------------
+;; load mew settings
+
+(let ((mew-file "~/cnf-mew.el"))
+  (if (file-exists-p mew-file)
+      (load mew-file)))
+
+;; ------------------------------------------------------------------------
 ;; flyspell (spell check)
 
 (setq-default flyspell-mode t)
@@ -648,9 +656,9 @@
  '(helm-ff-dotted-directory ((t (:background "Gray25" :foreground "white"))))
  '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "cyan"))))
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
+ '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
  '(helm-grep-file ((t (:inherit font-lock-builtin-face :underline t :foreground "cyan"))))
  '(helm-grep-match ((t (:background "LightCyan" :foreground "black"))))
- '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
  '(helm-match ((t (:foreground "cyan"))))
  '(helm-selection ((t (:background "Gray30"))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
@@ -673,17 +681,6 @@
  '(magit-diff-removed-highlight ((((type tty)) (:foreground "IndianRed"))))
  '(magit-log-author ((t (:foreground "magenta"))))
  '(magit-section-highlight ((t (:background "Gray23"))))
- '(minibuffer-prompt ((t (:foreground "blue"))))
- '(package-name ((t (:foreground "blue"))))
- '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
- '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
- '(region ((t (:background "Gray40"))))
- '(tool-bar ((t (:foreground "cyan"))))
- '(outline-1 ((t (:background "BrightBlue" :foreground "white" :weight bold))))
- '(outline-2 ((t (:foreground "cyan" :weight bold))))
- '(outline-3 ((t (:foreground "blue" :weight bold))))
- '(outline-4 ((t (:foreground "orange" :weight bold))))
- '(outline-5 ((t (:foreground "goldenrod" :weight bold))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1))))
  '(markdown-header-face-2 ((t (:inherit outline-2))))
@@ -692,16 +689,27 @@
  '(markdown-header-face-5 ((t (:inherit outline-5))))
  '(markdown-header-face-6 ((t (:inherit outline-6))))
  '(markdown-pre-face ((t (:foreground "ivory"))))
- '(nxml-name-face ((t (:foreground "cyan"))))
- '(nxml-tag-delimiter ((t (:foreground "LightBlue"))))
- '(nxml-element-local-name ((t (:foreground "blue"))))
+ '(minibuffer-prompt ((t (:foreground "blue"))))
  '(nxml-attribute-local-name ((t (:foreground "LightBlue"))))
  '(nxml-attribute-value ((t (:foreground "yellow"))))
+ '(nxml-cdata-section-content ((t (:foreground "gray"))))
  '(nxml-comment-content ((t (:foreground "gree"))))
  '(nxml-comment-delimiter ((t (:foreground "green"))))
- '(nxml-cdata-section-content ((t (:foreground "gray"))))
+ '(nxml-element-local-name ((t (:foreground "blue"))))
  '(nxml-entity-ref-delimiter ((t (:foreground "red"))))
  '(nxml-entity-ref-name ((t (:foreground "red"))))
+ '(nxml-name-face ((t (:foreground "cyan"))))
+ '(nxml-tag-delimiter ((t (:foreground "LightBlue"))))
+ '(outline-1 ((t (:background "BrightBlue" :foreground "white" :weight bold))))
+ '(outline-2 ((t (:foreground "cyan" :weight bold))))
+ '(outline-3 ((t (:foreground "blue" :weight bold))))
+ '(outline-4 ((t (:foreground "orange" :weight bold))))
+ '(outline-5 ((t (:foreground "goldenrod" :weight bold))))
+ '(package-name ((t (:foreground "blue"))))
+ '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
+ '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
+ '(region ((t (:background "Gray40"))))
+ '(tool-bar ((t (:foreground "cyan"))))
  '(web-mode-comment-face ((t (:foreground "green"))))
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
  '(web-mode-css-pseudo-class ((t (:foreground "blue"))))
@@ -710,8 +718,8 @@
  '(web-mode-html-attr-equal-face ((t (:foreground "white"))))
  '(web-mode-html-attr-name-face ((t (:foreground "LightBlue"))))
  '(web-mode-html-attr-value-face ((t (:foreground "yellow"))))
- '(web-mode-html-tag-face ((t (:foreground "blue"))))
  '(web-mode-html-tag-bracket-face ((t (:foreground "LightBlue"))))
+ '(web-mode-html-tag-face ((t (:foreground "blue"))))
  '(web-mode-server-comment-face ((t (:foreground "green"))))
  '(which-func ((t (:foreground "ivory"))))
  '(which-key-command-description-face ((t (:foreground "white")))))
@@ -729,13 +737,13 @@
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(emamux:completing-read-type (quote helm))
- '(foreign-regexp/regexp-type (quote perl))
+ '(foreign-regexp/regexp-type (quote perl) t)
  '(google-translate-default-source-language "ja")
  '(google-translate-default-target-language "en")
+ '(helm-ag-base-command "ag --nogroup --ignore-case")
  '(helm-mini-default-sources
    (quote
     (helm-source-buffers-list helm-source-recentf helm-source-projectile-files-list)))
- '(helm-ag-base-command "ag --nogroup --ignore-case")
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote

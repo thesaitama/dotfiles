@@ -303,8 +303,6 @@
 (defvar foreign-regexp/regexp-type "")
 (defvar foreign-regexp/re-builder/targ-buf-state/.orig-pt "")
 
-(require 'foreign-regexp)
-
 ;; ------------------------------------------------------------------------
 ;; auto-complete
 
@@ -598,7 +596,7 @@
 
 (require 'smart-mode-line)
 ;; bug hack
-(setq sml/active-background-color "gray60")
+(setq sml/active-background-color "Gray80")
 (setq sml/read-only-char "%%")
 (setq sml/modified-char "*")
 ;; hide Helm and auto-complete
@@ -737,6 +735,7 @@
  '(helm-mini-default-sources
    (quote
     (helm-source-buffers-list helm-source-recentf helm-source-projectile-files-list)))
+ '(helm-ag-base-command "ag --nogroup --ignore-case")
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote

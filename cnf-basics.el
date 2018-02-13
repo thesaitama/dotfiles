@@ -145,51 +145,6 @@
 ;; which fucntion
 (which-function-mode 1)
 
-;; ;; ------------------------------------------------------------------------
-;; ;; modeline
-
-;; (line-number-mode t)
-;; (column-number-mode t)
-;; (size-indication-mode t)
-
-;; ;; clean mode line
-;; (defvar mode-line-cleaner-alist
-;;   '( ;; For minor-mode, first char is 'space'
-;;     (paredit-mode . " Pe")
-;;     (eldoc-mode . "")
-;;     (abbrev-mode . "")
-;;     (undo-tree-mode . "")
-;;     (font-lock-mode . "")
-;;     (editorconfig-mode . " EC")
-;;     (elisp-slime-nav-mode . " EN")
-;;     (helm-gtags-mode . " HG")
-;;     (flymake-mode . " Fm")
-;;     ;; Major modes
-;;     (emacs-lisp-mode . "El")
-;;     (default-generic-mode . "DGen")
-;;     (generic-mode . "Gen")
-;;     (lisp-interaction-mode . "Li")
-;;     (shell-script-mode . "SS")
-;;     (python-mode . "Py")
-;;     (ruby-mode . "Rb")
-;;     (typescript-mode . "TS")
-;;     (markdown-mode . "Md")
-;;     (fundamental-mode . "Fund")
-;;     ))
-
-;; (defun clean-mode-line ()
-;;   (interactive)
-;;   (loop for (mode . mode-str) in mode-line-cleaner-alist
-;;         do
-;;         (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
-;;           (when old-mode-str
-;;             (setcar old-mode-str mode-str))
-;;           ;; major mode
-;;           (when (eq mode major-mode)
-;;             (setq mode-name mode-str)))))
-
-;; (add-hook 'after-change-major-mode-hook 'clean-mode-line)
-
 ;; ------------------------------------------------------------------------
 ;; uniquify
 

@@ -33,6 +33,7 @@ ln -s ~/dotfiles/pip.conf ~/pip.conf
 ln -s ~/dotfiles/.globalrc ~/.globalrc
 
 # etc
+ln -s ~/dotfiles/.tern-config ~/.tern-config
 ln -s ~/dotfiles/.aspell.conf ~/.aspell.conf
 ln -s ~/dotfiles/.fd2rc ~/.fd2rc
 

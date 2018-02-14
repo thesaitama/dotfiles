@@ -273,6 +273,19 @@
 (add-hook 'kill-buffer-hook 'tss--delete-process t)
 
 ;; ------------------------------------------------------------------------
+;; tern
+
+(add-hook 'js2-mode-hook (lambda ()(tern-mode t)))
+(add-hook 'typescript-mode-hook (lambda ()(tern-mode t)))
+
+(eval-after-load 'tern
+   '(progn
+      (require 'tern-auto-complete)
+      (tern-ac-setup)))
+
+;; > npm install -g tern
+
+;; ------------------------------------------------------------------------
 ;; ruby-mode
 
 (autoload 'ruby-mode "ruby-mode"

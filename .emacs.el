@@ -71,6 +71,8 @@
     json-mode
     typescript-mode
     tss
+    tern
+    tern-auto-complete
     yaml-mode
     python-mode
     jedi

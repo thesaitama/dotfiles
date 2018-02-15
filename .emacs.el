@@ -305,6 +305,7 @@
 ;; avoid ref warnings
 (defvar foreign-regexp/regexp-type "")
 (defvar foreign-regexp/re-builder/targ-buf-state/.orig-pt "")
+(require 'foreign-regexp)
 
 ;; ------------------------------------------------------------------------
 ;; auto-complete

@@ -607,7 +607,7 @@
 
 (require 'smart-mode-line)
 ;; bug hack
-(setq sml/active-background-color "Gray80")
+(setq sml/active-background-color "gray60")
 (setq sml/read-only-char "%%")
 (setq sml/modified-char "*")
 ;; hide Helm and auto-complete
@@ -615,7 +615,7 @@
 ;; hack (privent overflow)
 (setq sml/extra-filler -10)
 ;;; sml/replacer-regexp-list
-(add-to-list 'sml/replacer-regexp-list '("^.+/junk/[0-9]+/" ":J:") t)
+;;(add-to-list 'sml/replacer-regexp-list '("^.+/junk/[0-9]+/" ":J:") t)
 (setq sml/no-confirm-load-theme t)
 (sml/setup)
 ;; theme
@@ -651,7 +651,6 @@
  '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
  '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
- '(font-lock-doc-face ((t (:foreground "green"))))
  '(fringe ((t (:background "Gray12" :foreground "blue"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-buffer-process ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
@@ -708,6 +707,8 @@
  '(outline-3 ((t (:foreground "blue" :weight bold))))
  '(outline-4 ((t (:foreground "orange" :weight bold))))
  '(outline-5 ((t (:foreground "goldenrod" :weight bold))))
+ '(outline-6 ((t (:foreground "orange"))))
+ '(outline-7 ((t (:foreground "goldenrod"))))
  '(package-name ((t (:foreground "blue"))))
  '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
  '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))

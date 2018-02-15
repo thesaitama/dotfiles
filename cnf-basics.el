@@ -56,16 +56,18 @@
 ;; color set-face (basic)
 
 (global-font-lock-mode t)
-(set-face-foreground 'font-lock-type-face "darkyellow")
+(set-face-foreground 'font-lock-type-face "brightred")
 (set-face-foreground 'font-lock-builtin-face "magenta")
 (set-face-foreground 'font-lock-comment-face "green")
 (set-face-foreground 'font-lock-comment-delimiter-face "green")
-(set-face-foreground 'font-lock-string-face "darkorange")
+(set-face-foreground 'font-lock-doc-face "darkgreen")
+(set-face-foreground 'font-lock-string-face "orange")
+(set-face-foreground 'font-lock-regexp-grouping-backslash "gray")
 (set-face-foreground 'font-lock-keyword-face "blue")
 (set-face-foreground 'font-lock-function-name-face "yellow")
 (set-face-foreground 'font-lock-variable-name-face "goldenrod")
 (set-face-foreground 'font-lock-constant-face "orange")
-(set-face-foreground 'font-lock-preprocessor-face "darkyellow")
+(set-face-foreground 'font-lock-preprocessor-face "yellow")
 (set-face-foreground 'font-lock-warning-face "pink")
 
 ;; ------------------------------------------------------------------------

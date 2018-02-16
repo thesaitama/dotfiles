@@ -28,12 +28,15 @@ ln -s ~/dotfiles/tmux-status-line /usr/local/bin/tmux-status-line
 
 # python
 ln -s ~/dotfiles/pip.conf ~/pip.conf
+ln -s ~/dotfiles/.flake8 ~/.flake8
+
+# javascript
+ln -s ~/dotfiles/.tern-config ~/.tern-config
 
 # tags
 ln -s ~/dotfiles/.globalrc ~/.globalrc
 
 # etc
-ln -s ~/dotfiles/.tern-config ~/.tern-config
 ln -s ~/dotfiles/.aspell.conf ~/.aspell.conf
 ln -s ~/dotfiles/.fd2rc ~/.fd2rc
 

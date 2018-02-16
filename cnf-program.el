@@ -367,8 +367,8 @@
 ;; > sudo port install py-yapf py36-yapf
 ;; > sudo port install py-importmagic
 ;; > sudo pip-3.6 install importmagic
-;; > sudo pip install autopep8 flake8
-;; > sudo pip-3.6 install autopep8 flake8
+;; > sudo pip install jedi autopep8 flake8
+;; > sudo pip-3.6 install jedi autopep8 flake8
 
 ;; ------------------------------------------------------------------------
 ;; go-mode

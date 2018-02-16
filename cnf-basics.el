@@ -60,7 +60,7 @@
 (set-face-foreground 'font-lock-builtin-face "magenta")
 (set-face-foreground 'font-lock-comment-face "green")
 (set-face-foreground 'font-lock-comment-delimiter-face "green")
-(set-face-foreground 'font-lock-doc-face "darkgreen")
+(set-face-foreground 'font-lock-doc-face "gray")
 (set-face-foreground 'font-lock-string-face "orange")
 (set-face-foreground 'font-lock-regexp-grouping-backslash "gray")
 (set-face-foreground 'font-lock-keyword-face "blue")

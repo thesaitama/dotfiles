@@ -312,6 +312,8 @@
 
 (require 'auto-complete-config)
 (ac-config-default)
+(ac-flyspell-workaround)
+(ac-linum-workaround)
 (global-auto-complete-mode t)
 (add-to-list 'ac-modes 'text-mode)
 (add-to-list 'ac-modes 'fundamental-mode)
@@ -320,6 +322,7 @@
 (setq ac-use-menu-map t)
 (setq ac-use-fuzzy t)
 (setq ac-menu-height 15)
+(setq ac-max-width 35)
 (setq ac-ignore-case t)
 (setq ac-delay 0.1)
 (setq ac-auto-show-menu 0.2)

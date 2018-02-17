@@ -520,6 +520,7 @@
   (define-key term-raw-map "\C-t" 'set-mark-command)
   (define-key term-raw-map "\C-p" 'term-send-up)
   (define-key term-raw-map "\C-n" 'term-send-down)
+  (define-key term-raw-map "\C-h" 'term-send-backspace)
   (define-key term-raw-map (kbd "ESC") 'term-send-raw)
   (define-key term-raw-map [delete] 'term-send-raw)
   (define-key term-raw-map [mouse-4] 'term-send-up)
@@ -528,6 +529,9 @@
     (lookup-key (current-global-map) "\C-z"))))
 (global-set-key (kbd "C-c n") 'multi-term-next)
 (global-set-key (kbd "C-c p") 'multi-term-prev)
+
+;; > curl https://opensource.apple.com/source/emacs/emacs-70/emacs/etc/e/eterm-color.ti\?txt > eterm-color.ti
+;; > tic -o ~/.terminfo eterm-color.ti
 
 ;; ------------------------------------------------------------------------
 ;; popwin

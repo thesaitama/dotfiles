@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;;
+;; Last Update: 2018-02-17 16:18:09
 
 ;;; Code:
 
@@ -106,6 +106,7 @@
     yasnippet
     yasnippet-snippets
     helm-c-yasnippet
+    centered-cursor-mode
     elscreen
     popwin
     import-popwin
@@ -530,6 +531,9 @@
 (global-set-key (kbd "C-c n") 'multi-term-next)
 (global-set-key (kbd "C-c p") 'multi-term-prev)
 
+(with-eval-after-load "multi-term"
+      (setenv "HOSTTYPE" "intel-mac"))
+
 ;; > curl https://opensource.apple.com/source/emacs/emacs-70/emacs/etc/e/eterm-color.ti\?txt > eterm-color.ti
 ;; > tic -o ~/.terminfo eterm-color.ti
 
@@ -594,6 +598,14 @@
 ;; (which-key-setup-side-window-right-bottom)
 
 (which-key-mode 1)
+
+;; ------------------------------------------------------------------------
+;; centered-cursor-mode
+
+(add-hook 'isearch-mode-hook
+          #'(lambda () (centered-cursor-mode 1)))
+(add-hook 'isearch-mode-end-hook
+          #'(lambda () (centered-cursor-mode -1)))
 
 ;; ------------------------------------------------------------------------
 ;; undo-tree
@@ -748,7 +760,7 @@
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(emamux:completing-read-type (quote helm))
- '(foreign-regexp/regexp-type (quote perl) t)
+ '(foreign-regexp/regexp-type (quote perl))
  '(google-translate-default-source-language "ja")
  '(google-translate-default-target-language "en")
  '(helm-ag-base-command "ag --nogroup --ignore-case")
@@ -775,6 +787,10 @@
  '(tool-bar-mode nil))
 
 (put 'set-goal-column 'disabled nil)
+
+;; ------------------------------------------------------------------------
+
+(setq initial-scratch-message ";; saitamacs ok\n")
 
 ;; ------------------------------------------------------------------------
 

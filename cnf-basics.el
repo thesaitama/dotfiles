@@ -282,10 +282,11 @@
 ;; ------------------------------------------------------------------------
 ;; time-stamp
 
+(require 'time-stamp)
 (add-hook 'before-save-hook 'time-stamp)
 (with-eval-after-load "time-stamp"
-  (setq time-stamp-start "Last Update: ")
-  (setq time-stamp-format "%04y-%02m-%02d@%02H:%02M")
+  (setq time-stamp-start "Last Update:")
+  (setq time-stamp-format " %04y-%02m-%02d %02H:%02M:%02S")
   (setq time-stamp-end "$")
   (setq time-stamp-line-limit 15)) ; def=8
 

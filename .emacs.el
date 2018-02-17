@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-02-17 16:18:09
+;; Last Update: 2018-02-17 17:03:09
 
 ;;; Code:
 
@@ -626,7 +626,7 @@
 
 (require 'smart-mode-line)
 ;; bug hack
-(setq sml/active-background-color "gray60")
+(setq sml/active-background-color "Gray60")
 (setq sml/read-only-char "%%")
 (setq sml/modified-char "*")
 ;; hide Helm and auto-complete
@@ -671,6 +671,7 @@
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
  '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
  '(fringe ((t (:background "Gray12" :foreground "blue"))))
+ '(helm-header ((t (:background "Gray40" :foreground "Gray80"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-buffer-process ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "orange"))))

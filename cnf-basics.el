@@ -147,12 +147,21 @@
 ;; which fucntion
 (which-function-mode 1)
 
+;; search
+(setq case-fold-search t)
+(setq isearch-case-fold-search t)
+
+;; ignore case
+(setq read-buffer-completion-ignore-case t)
+(setq read-file-name-completion-ignore-case t)
+
 ;; ------------------------------------------------------------------------
 ;; uniquify
 
 (require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets
-      uniquify-min-dir-content 1)
+(setq uniquify-ignore-buffers-re "*[^*]+*")
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+(setq uniquify-min-dir-content 1)
 
 ;; ------------------------------------------------------------------------
 ;; mouse

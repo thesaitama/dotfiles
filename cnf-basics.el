@@ -229,14 +229,23 @@
 ;; ------------------------------------------------------------------------
 ;; recentf
 
-(when (require 'recentf nil t)
-  (setq recentf-max-saved-items 2000)
-  (setq recentf-exclude '(".recentf"))
-  (setq recentf-auto-cleanup 10)
-  (setq recentf-auto-save-timer
-        (run-with-idle-timer 30 t 'recentf-save-list))
-  (recentf-mode 1))
+;;(when (require 'recentf nil t)
+(require 'recentf)
+
+(defadvice recentf-cleanup
+  (around no-message activate)
+  "Suppress the output from `message` to minibuffer."
+  (cl-flet ((message (format-string &rest args)
+                     (eval `(format ,format-string ,@args))))
+    ad-do-it))
+
+(setq recentf-max-saved-items 2000)
+(setq recentf-exclude '(".recentf"))
+(setq recentf-auto-cleanup 10)
+(setq recentf-auto-save-timer
+      (run-with-idle-timer 30 t 'recentf-save-list))
 (setq-default find-file-visit-truename t)
+(recentf-mode 1)
 
 ;; ------------------------------------------------------------------------
 ;; dired + wdired + dired-x

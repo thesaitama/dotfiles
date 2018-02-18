@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-02-17 17:03:09
+;; Last Update: 2018-02-18 17:51:51
 
 ;;; Code:
 
@@ -35,12 +35,10 @@
   '(exec-path-from-shell
     package-utils
     0xc
+    elscreen
+    popwin
+    import-popwin
     auto-complete
-    ac-html
-    ac-emmet
-    ac-js2
-    ac-php
-    ac-helm
     fuzzy
     pos-tip
     avy
@@ -49,7 +47,6 @@
     quickrun
     anzu
     expand-region
-    electric-operator
     highlight-symbol
     foreign-regexp
     undo-tree
@@ -59,8 +56,11 @@
     rainbow-delimiters
     web-mode
     web-beautify
+    ac-html
     emmet-mode
+    ac-emmet
     php-mode
+    ac-php
     php-eldoc
     rbenv
     ruby-electric
@@ -68,6 +68,7 @@
     robe
     js2-mode
     js2-refactor
+    ac-js2
     json-mode
     typescript-mode
     tss
@@ -95,6 +96,8 @@
     helm-gtags
     helm-descbinds
     helm-flyspell
+    helm-elscreen
+    ac-helm
     bm
     helm-bm
     projectile
@@ -107,9 +110,6 @@
     yasnippet-snippets
     helm-c-yasnippet
     centered-cursor-mode
-    elscreen
-    popwin
-    import-popwin
     emamux
     multi-term
     shell-pop
@@ -119,6 +119,7 @@
     w3m
     dired-narrow
     dired-subtree
+    electric-operator
     japanese-holidays
     osx-trash
     xah-lookup
@@ -671,7 +672,6 @@
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
  '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
  '(fringe ((t (:background "Gray12" :foreground "blue"))))
- '(helm-header ((t (:background "Gray40" :foreground "Gray80"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-buffer-process ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "orange"))))
@@ -681,6 +681,7 @@
  '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
  '(helm-grep-file ((t (:inherit font-lock-builtin-face :underline t :foreground "cyan"))))
  '(helm-grep-match ((t (:background "LightCyan" :foreground "black"))))
+ '(helm-header ((t (:background "Gray40" :foreground "Gray80"))))
  '(helm-match ((t (:foreground "cyan"))))
  '(helm-selection ((t (:background "Gray30"))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))

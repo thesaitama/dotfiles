@@ -199,7 +199,7 @@
 
 (setq web-mode-ac-sources-alist
       '(("php" . (ac-source-yasnippet ac-source-php-auto-yasnippets))
-        ("css" . (ac-source-css-property))
+        ("css" . (ac-source-css-property ac-source-emmet-css-snippets))
         ("html" . (ac-source-emmet-html-aliases ac-source-emmet-html-snippets ac-source-words-in-buffer ac-source-abbrev))))
 
 (add-hook 'web-mode-before-auto-complete-hooks
@@ -459,6 +459,12 @@
 (add-hook 'ruby-mode-hook #'electric-operator-mode)
 (add-hook 'js2-mode-hook #'electric-operator-mode)
 (add-hook 'typescript-mode-hook #'electric-operator-mode)
+
+;; ------------------------------------------------------------------------
+;; git-complete
+
+(require 'git-complete)
+(global-set-key (kbd "M-g j") 'git-complete)
 
 ;; ------------------------------------------------------------------------
 

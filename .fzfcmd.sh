@@ -7,6 +7,24 @@ fe() {
   [ -n "$file" ] && ${EDITOR:-vim} "$file"
 }
 
+fep() {
+  local file
+  file=$(fzf --preview "pygmentize {}" --query="$1" --select-1 --exit-0)
+  [ -n "$file" ] && ${EDITOR:-vim} "$file"
+}
+
+# fuzzy grep open via ag
+eg() {
+  local file
+
+  file="$(ag --nobreak --noheading $@ | fzf -0 -1 | awk -F: '{print $1 " +" $2}')"
+
+  if [[ -n $file ]]
+  then
+     e $file
+  fi
+}
+
 # fd - cd to selected directory
 fcd() {
   local dir
@@ -41,8 +59,24 @@ fbr() {
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
+# fco_preview - checkout git branch/tag, with a preview showing the commits between the tag/branch and HEAD
+fco() {
+  local tags branches target
+  tags=$(
+git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
+  branches=$(
+git branch --all | grep -v HEAD |
+sed "s/.* //" | sed "s#remotes/[^/]*/##" |
+sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
+  target=$(
+(echo "$tags"; echo "$branches") |
+    fzf --no-hscroll --no-multi --delimiter="\t" -n 2 \
+        --ansi --preview="git log -200 --pretty=format:%s $(echo {+2..} |  sed 's/$/../' )" ) || return
+  git checkout $(echo "$target" | awk '{print $2}')
+}
+
 # fshow - git commit browser
-fgs() {
+fshow() {
   git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
   fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
@@ -53,11 +87,31 @@ fgs() {
 FZF-EOF"
 }
 
+# ftpane - switch pane (@george-b)
+ftpane() {
+  local panes current_window current_pane target target_window target_pane
+  panes=$(tmux list-panes -s -F '#I:#P - #{pane_current_path} #{pane_current_command}')
+  current_pane=$(tmux display-message -p '#I:#P')
+  current_window=$(tmux display-message -p '#I')
+
+  target=$(echo "$panes" | grep -v "$current_pane" | fzf +m --reverse) || return
+
+  target_window=$(echo $target | awk 'BEGIN{FS=":|-"} {print$1}')
+  target_pane=$(echo $target | awk 'BEGIN{FS=":|-"} {print$2}' | cut -c 1)
+
+  if [[ $current_window -eq $target_window ]]; then
+    tmux select-pane -t ${target_window}.${target_pane}
+  else
+    tmux select-pane -t ${target_window}.${target_pane} &&
+    tmux select-window -t $target_window
+  fi
+}
+
 # Mac OSX Only
 if [ "$(uname)" == 'Darwin' ]; then
   # app - osx appluncher
   app() {
-    app_path=$(find /Applications -maxdepth 3 -type d  | grep '\.app$' | sed 's/\/Applications\///' | sed 's/\.app$//' | fzf-tmux --query="$1" --prompt="App > ")
+    app_path=$(find /Applications -maxdepth 3 -type d  | grep '\.app$' | sed 's/\/Applications\///' | sed 's/\.app$//' | fzf --query="$1" --prompt="App > ")
     open -a "/Applications/$app_path.app/"
   }
   alias appe='app && exit'

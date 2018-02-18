@@ -152,6 +152,11 @@ if [ -f ~/.fzfcmd.sh ] ; then
   . ~/.fzfcmd.sh
 fi
 
+export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
+export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+
 # bash-completion
 if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
   . /opt/local/etc/profile.d/bash_completion.sh

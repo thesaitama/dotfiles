@@ -7,6 +7,8 @@
 
 "sudo port install vim +huge +python36
 
+set shortmess+=I
+
 set langmenu=en_US
 let $LANG = 'en_US'
 
@@ -122,10 +124,10 @@ autocmd ColorScheme * highlight Normal ctermbg=none
 autocmd ColorScheme * highlight LineNr ctermbg=none
 
 "let g:solarized_termcolors=256
-let g:solarized_termtrans=1
+"let g:solarized_termtrans=1
 syntax enable
-set background=dark
-colorscheme solarized
+"set background=dark
+"colorscheme solarized
 
 "fzf
 nnoremap <Leader>b :Buffers<CR>

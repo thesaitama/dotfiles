@@ -25,6 +25,9 @@ repo = 'Shougo/denite.nvim'
 repo = 'junegunn/fzf.vim'
 
 [[plugins]]
+repo = 'scrooloose/syntastic'
+
+[[plugins]]
 repo = 'tomasr/molokai'
 
 [[plugins]]

@@ -31,8 +31,6 @@ set laststatus=2
 "set statusline=%F%m%r%h%w\ %{&ff}\ %Y\ \%02.2B\ %04l,%04v\ 
 "set statusline+=%{has('multi_byte')&&\&fileencoding!=''?&fileencoding:&encoding}
 
-set background=dark
-
 set showcmd
 
 if has('mouse')
@@ -69,9 +67,12 @@ set visualbell
 set showmatch matchtime=1
 set nowritebackup
 set nobackup
-
 set nocursorline
+
 autocmd InsertEnter,InsertLeave * set cursorline!
+
+" ------------------------------------------------------------------------
+" keymap
 
 let mapleader = ","
 let maplocalleader = 'm'
@@ -81,11 +82,12 @@ nnoremap <silent>bn :bnext<CR>
 nnoremap <silent>bb :b#<CR>
 nnoremap <leader>ev :e ~/dotfiles/.vimrc
 nnoremap <leader>cv :e ~/dotfiles/vim.txt
-
+inoremap <silent> jj <ESC>
 nnoremap <ESC><ESC> :nohl<CR>
 
+" ------------------------------------------------------------------------
+" dein plugin
 
-"dein plugin
 let s:dein_dir = expand('~/.vim/dein')
 " dein.vim
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -116,20 +118,18 @@ if dein#check_install()
   call dein#install()
 endif
 
-call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+" ------------------------------------------------------------------------
+" syntastics
 
-"syntastics
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map = { 'mode': 'passive' }
 
-"color scheme
-autocmd ColorScheme * highlight Comment ctermfg=2
-autocmd ColorScheme * highlight Normal ctermbg=none
-autocmd ColorScheme * highlight LineNr ctermbg=none
+" ------------------------------------------------------------------------
+" lightline
 
-"lightline
 let g:lightline = {
         \ 'colorscheme': 'wombat',
         \ 'mode_map': {'c': 'NORMAL'},
@@ -157,7 +157,6 @@ let g:lightline = {
         \ }
         \ }
 
-let g:syntastic_mode_map = { 'mode': 'passive' }
 augroup AutoSyntastic
   autocmd!
   autocmd BufWritePost *.c,*.cpp call s:syntastic()
@@ -209,27 +208,40 @@ function! LightlineMode()
   return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
-syntax enable
-colorscheme industry
+" ------------------------------------------------------------------------
+" colorscheme
 
-"fzf
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>x :Commands<CR>
-nnoremap <Leader>f :GFiles<CR>
-nnoremap <Leader>a :Ag<CR>
-nnoremap <Leader>k :bd<CR>
+autocmd ColorScheme * highlight Comment ctermfg=2
+autocmd ColorScheme * highlight Normal ctermbg=none
+autocmd ColorScheme * highlight nonText ctermbg=none
+
+colorscheme onedark
+syntax enable
+
+" ------------------------------------------------------------------------
+" fzf
+
+call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
 command! FZFMru call fzf#run({
 \  'source':  v:oldfiles,
 \  'sink':    'e',
 \  'options': '-m -x +s',
 \  'down':    '40%'})
+
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>x :Commands<CR>
+nnoremap <Leader>f :GFiles<CR>
+nnoremap <Leader>a :Ag<CR>
+nnoremap <Leader>k :bd<CR>
 nnoremap <Leader>r :FZFMru<CR>
 
-inoremap <silent> jj <ESC>
+" ------------------------------------------------------------------------
+" auto reload .vimrc
 
-"auto reload .vimrc
 augroup source-vimrc
   autocmd!
   autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
   autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
 augroup END
+
+" ------------------------------------------------------------------------

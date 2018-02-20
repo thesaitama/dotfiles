@@ -16,6 +16,9 @@ rev  = 'colorize-template-strings'
 repo = 'Shougo/unite.vim'
 
 [[plugins]]
+repo = 'ujihisa/unite-colorscheme'
+
+[[plugins]]
 repo = 'Shougo/vimfiler'
 
 [[plugins]]
@@ -29,6 +32,12 @@ repo = 'scrooloose/syntastic'
 
 [[plugins]]
 repo = 'tomasr/molokai'
+
+[[plugins]]
+repo = 'joshdick/onedark.vim'
+
+[[plugins]]
+repo = 'flazz/vim-colorschemes'
 
 [[plugins]]
 repo = 'altercation/vim-colors-solarized'

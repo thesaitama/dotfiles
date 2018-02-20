@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-02-18 19:32:27
+;; Last Update: 2018-02-21 00:01:18
 
 ;;; Code:
 
@@ -723,9 +723,9 @@
  '(nxml-entity-ref-name ((t (:foreground "red"))))
  '(nxml-name-face ((t (:foreground "cyan"))))
  '(nxml-tag-delimiter ((t (:foreground "LightBlue"))))
- '(outline-1 ((t (:background "BrightBlue" :foreground "white" :weight bold))))
- '(outline-2 ((t (:foreground "cyan" :weight bold))))
- '(outline-3 ((t (:foreground "blue" :weight bold))))
+ '(outline-1 ((t (:background "Blue1" :foreground "white1"))))
+ '(outline-2 ((t (:foreground "LightBlue" :weight bold))))
+ '(outline-3 ((t (:foreground "cyan" :weight bold))))
  '(outline-4 ((t (:foreground "orange" :weight bold))))
  '(outline-5 ((t (:foreground "goldenrod" :weight bold))))
  '(outline-6 ((t (:foreground "orange"))))

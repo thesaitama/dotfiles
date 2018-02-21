@@ -92,12 +92,12 @@ endif
 let mapleader = ","
 let maplocalleader = 'm'
 
-nmap n nzz 
-nmap N Nzz 
-nmap * *zz 
-nmap # #zz 
-nmap g* g*zz 
-nmap g# g#zz
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
 
 nnoremap <silent>bp :bprevious<CR>
 nnoremap <silent>bn :bnext<CR>

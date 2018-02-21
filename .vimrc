@@ -18,14 +18,11 @@ source $VIMRUNTIME/menu.vim
 set rtp+=~/.fzf
 set clipboard+=unnamed
 
-set encoding=utf-8
 scriptencoding utf-8
+set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-boms,utf-8,cp932,euc-jp
 set fileformats=unix,dos,mac
-set ambiwidth=double
-
-set helplang=ja,en
 
 set laststatus=2
 "set statusline=%F%m%r%h%w\ %{&ff}\ %Y\ \%02.2B\ %04l,%04v\ 
@@ -44,45 +41,70 @@ if has('mouse')
   endif
 endif
 
-"set number
-set notitle
-set tabstop=4
+set ambiwidth=double
+set autoread
+set backspace=indent,eol,start
 set expandtab
-set shiftwidth=4
-set smartindent
-set ruler
-set incsearch
-set hlsearch
-set ignorecase
-set paste
-set list
-set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
-set nrformats-=octal
+set helplang=ja,en
 set hidden
 set history=49
-set whichwrap=b,s,[,],<,>
-set backspace=indent,eol,start
-set wildmenu
-set visualbell
-set showmatch matchtime=1
-set nowritebackup
+set hlsearch
+set ignorecase
+set incsearch
+set list
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 set nobackup
 set nocursorline
+set noerrorbells
+set noignorecase
+set nostartofline
+set notitle
+set nowritebackup
+set nrformats-=octal
+"set number
+set paste
+set ruler
+set scrolloff=5
+set shiftwidth=4
+set showbreak=↪
+set showmatch matchtime=1
+set smartindent
+set tabstop=4
+set visualbell t_vb=
+set whichwrap=b,s,[,],<,>
+set wildmenu
+set wrapscan
 
 autocmd InsertEnter,InsertLeave * set cursorline!
 
 " ------------------------------------------------------------------------
 " keymap
 
+if ! has('gui_running')
+ set ttimeoutlen=10
+ augroup FastEscape
+   autocmd!
+   au InsertEnter * set timeoutlen=0
+   au InsertLeave * set timeoutlen=1000
+ augroup END
+endif
+
 let mapleader = ","
 let maplocalleader = 'm'
+
+nmap n nzz 
+nmap N Nzz 
+nmap * *zz 
+nmap # #zz 
+nmap g* g*zz 
+nmap g# g#zz
 
 nnoremap <silent>bp :bprevious<CR>
 nnoremap <silent>bn :bnext<CR>
 nnoremap <silent>bb :b#<CR>
 nnoremap <leader>ev :e ~/dotfiles/.vimrc
 nnoremap <leader>cv :e ~/dotfiles/vim.txt
-inoremap <silent> jj <ESC>
+inoremap jj <Esc>
 nnoremap <ESC><ESC> :nohl<CR>
 
 " ------------------------------------------------------------------------

@@ -13,19 +13,16 @@ repo = 'delphinus35/typescript-vim'
 rev  = 'colorize-template-strings'
 
 [[plugins]]
-repo = 'Shougo/unite.vim'
-
-[[plugins]]
-repo = 'ujihisa/unite-colorscheme'
-
-[[plugins]]
-repo = 'Shougo/vimfiler'
+repo = 'thinca/vim-quickrun'
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'
 
 [[plugins]]
-repo = 'junegunn/fzf.vim'
+repo = 'Shougo/unite.vim'
+
+[[plugins]]
+repo = 'Shougo/vimfiler'
 
 [[plugins]]
 repo = 'scrooloose/syntastic'
@@ -34,10 +31,7 @@ repo = 'scrooloose/syntastic'
 repo = 'tomasr/molokai'
 
 [[plugins]]
-repo = 'joshdick/onedark.vim'
-
-[[plugins]]
-repo = 'flazz/vim-colorschemes'
+repo = 'freeo/vim-kalisi'
 
 [[plugins]]
 repo = 'altercation/vim-colors-solarized'
@@ -46,8 +40,9 @@ repo = 'altercation/vim-colors-solarized'
 repo = 'junegunn/fzf.vim'
 depends = 'fzf'
 hook_add = '''
-    command! -bang -nargs=* Rg
-      \ call fzf#vim#grep(
-      \   'rg --line-number --no-heading '.shellescape(<q-args>), 0,
-      \   fzf#vim#with_preview({'options': '--exact --reverse'}, 'right:50%:wrap'))
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
 '''

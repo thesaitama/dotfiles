@@ -1,3 +1,4 @@
+" .vimrc --- thesaitama Vim configuration
 
 "   _   _                     _ _
 "  | |_| |__   ___  ___  __ _(_) |_ __ _ _ __ ___   __ _
@@ -5,7 +6,13 @@
 "  | |_| | | |  __/\__ \ (_| | | || (_| | | | | | | (_| |
 "   \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
 
+" ------------------------------------------------------------------------
+" install
+
 "sudo port install vim +huge +python36
+
+" ------------------------------------------------------------------------
+" basic setttings
 
 set shortmess+=I
 
@@ -28,18 +35,19 @@ set laststatus=2
 "set statusline=%F%m%r%h%w\ %{&ff}\ %Y\ \%02.2B\ %04l,%04v\ 
 "set statusline+=%{has('multi_byte')&&\&fileencoding!=''?&fileencoding:&encoding}
 
-set showcmd
-
 if has('mouse')
   set mouse=a
   if has('mouse_sgr')
     set ttymouse=sgr
-  elseif v:version > 703 || v:version is 703 && has('patch632')
+  elseif v:version > 703 || v:version is 703 && has('patch632') " I couldn't use has('mouse_sgr') :-(
     set ttymouse=sgr
   else
     set ttymouse=xterm2
   endif
 endif
+
+set showcmd
+set number
 
 set ambiwidth=double
 set autoread
@@ -61,7 +69,6 @@ set nostartofline
 set notitle
 set nowritebackup
 set nrformats-=octal
-"set number
 set paste
 set ruler
 set scrolloff=5
@@ -141,94 +148,12 @@ if dein#check_install()
 endif
 
 " ------------------------------------------------------------------------
-" syntastics
+" plugins
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_mode_map = { 'mode': 'passive' }
-
-" ------------------------------------------------------------------------
-" lightline
-
-let g:lightline = {
-        \ 'colorscheme': 'wombat',
-        \ 'mode_map': {'c': 'NORMAL'},
-        \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
-        \   'right': [ [ 'syntastic', 'lineinfo' ],
-        \              [ 'percent' ],
-        \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
-        \ },
-        \ 'component_function': {
-        \   'modified': 'LightlineModified',
-        \   'readonly': 'LightlineReadonly',
-        \   'fugitive': 'LightlineFugitive',
-        \   'filename': 'LightlineFilename',
-        \   'fileformat': 'LightlineFileformat',
-        \   'filetype': 'LightlineFiletype',
-        \   'fileencoding': 'LightlineFileencoding',
-        \   'mode': 'LightlineMode'
-        \ },
-        \ 'component_expand': {
-        \   'syntastic': 'SyntasticStatuslineFlag',
-        \ },
-        \ 'component_type': {
-        \   'syntastic': 'error',
-        \ }
-        \ }
-
-augroup AutoSyntastic
-  autocmd!
-  autocmd BufWritePost *.c,*.cpp call s:syntastic()
-  autocmd BufWritePost *.py,*.php,*.xml call s:syntastic()
-augroup END
-function! s:syntastic()
-  SyntasticCheck
-  call lightline#update()
-endfunction
-
-function! LightlineModified()
-  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
-
-function! LightlineReadonly()
-  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
-endfunction
-
-function! LightlineFilename()
-  return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \  &ft == 'unite' ? unite#get_status_string() :
-        \  &ft == 'vimshell' ? vimshell#get_status_string() :
-        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-        \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
-endfunction
-
-function! LightlineFugitive()
-  if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
-    return fugitive#head()
-  else
-    return ''
-  endif
-endfunction
-
-function! LightlineFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
-endfunction
-
-function! LightlineFiletype()
-  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-endfunction
-
-function! LightlineFileencoding()
-  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
-endfunction
-
-function! LightlineMode()
-  return winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
+source ~/dotfiles/cnf-syntastics.vim
+source ~/dotfiles/cnf-lightline.vim
+source ~/dotfiles/cnf-vimfiler.vim
+source ~/dotfiles/cnf-fzf.vim
 
 " ------------------------------------------------------------------------
 " colorscheme
@@ -237,25 +162,9 @@ autocmd ColorScheme * highlight Comment ctermfg=2
 autocmd ColorScheme * highlight Normal ctermbg=none
 autocmd ColorScheme * highlight nonText ctermbg=none
 
-colorscheme onedark
+set background=dark
+colorscheme kalisi
 syntax enable
-
-" ------------------------------------------------------------------------
-" fzf
-
-call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
-command! FZFMru call fzf#run({
-\  'source':  v:oldfiles,
-\  'sink':    'e',
-\  'options': '-m -x +s',
-\  'down':    '40%'})
-
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>x :Commands<CR>
-nnoremap <Leader>f :GFiles<CR>
-nnoremap <Leader>a :Ag<CR>
-nnoremap <Leader>k :bd<CR>
-nnoremap <Leader>r :FZFMru<CR>
 
 " ------------------------------------------------------------------------
 " auto reload .vimrc

@@ -90,6 +90,7 @@
 (require 'helm-files)
 (require 'helm-ag)
 
+(setq helm-ag-base-command "ag --nogroup --ignore-case --hidden")
 (global-set-key (kbd "M-g .") 'helm-ag)
 (global-set-key (kbd "M-g ,") 'helm-ag-pop-stack)
 (global-set-key (kbd "C-M-s") 'helm-ag-this-file)
@@ -118,15 +119,15 @@
 (setq helm-source-bm (delete '(multiline) helm-source-bm))
 
 (defun bm-toggle-or-helm ()
-  "when 2 times load run helm-bm"
+  "When 2 times load run helm-bm."
   (interactive)
   (bm-toggle)
   (when (eq last-command 'bm-toggle-or-helm)
     (helm-bm)))
 (global-set-key (kbd "M-SPC") 'bm-toggle-or-helm)
 
-;;; bug ?
-(require 'compile)
+;; bug ?
+;; (require 'compile)
 
 ;; ------------------------------------------------------------------------
 ;; id-manager

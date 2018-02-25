@@ -101,6 +101,11 @@ set completion-ignore-case on
 set bell-style none
 set visible-stats on
 
+# git-completion
+if [ "$(uname)" == 'Darwin' ]; then
+  source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
+fi
+
 # tmux
 # lunch tmux
 tm() {

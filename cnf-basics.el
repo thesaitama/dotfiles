@@ -186,10 +186,9 @@
 ;; ------------------------------------------------------------------------
 ;; electric-pair
 
-(electric-pair-mode 1)
-
 ;; https://abicky.net/2013/12/21/195058/
 
+(electric-pair-mode 1)
 (defadvice electric-pair-post-self-insert-function
   (around electric-pair-post-self-insert-function-around activate)
   "Don't insert the closing pair in comments or strings."
@@ -330,6 +329,12 @@
             (setq tab-width 2)
             )
           )
+
+;; ------------------------------------------------------------------------
+;; org-mode
+
+(setq org-log-done 'time)
+(add-hook 'org-mode-hook 'turn-on-font-lock)
 
 ;; ------------------------------------------------------------------------
 

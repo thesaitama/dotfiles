@@ -10,7 +10,7 @@ repo = 'itchyny/lightline.vim'
 
 [[plugins]]
 repo = 'delphinus35/typescript-vim'
-rev  = 'colorize-template-strings'
+rev = 'colorize-template-strings'
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
@@ -32,9 +32,6 @@ repo = 'tomasr/molokai'
 
 [[plugins]]
 repo = 'freeo/vim-kalisi'
-
-[[plugins]]
-repo = 'altercation/vim-colors-solarized'
 
 [[plugins]]
 repo = 'junegunn/fzf.vim'

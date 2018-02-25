@@ -10,6 +10,7 @@
 " install
 
 "sudo port install vim +huge +python36
+"sudo pip-3.6 install neovim
 
 " ------------------------------------------------------------------------
 " basic setttings
@@ -37,12 +38,14 @@ set laststatus=2
 
 if has('mouse')
   set mouse=a
-  if has('mouse_sgr')
-    set ttymouse=sgr
-  elseif v:version > 703 || v:version is 703 && has('patch632') " I couldn't use has('mouse_sgr') :-(
-    set ttymouse=sgr
-  else
-    set ttymouse=xterm2
+  if !has('nvim')
+    if has('mouse_sgr')
+      set ttymouse=sgr
+        elseif v:version > 703 || v:version is 703 && has('patch632') " I couldn't use has('mouse_sgr') :-(
+        set ttymouse=sgr
+      else
+        set ttymouse=xterm2
+    endif
   endif
 endif
 
@@ -60,7 +63,7 @@ set hlsearch
 set ignorecase
 set incsearch
 set list
-set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+set listchars=tab:»-,eol:↲,extends:»,precedes:«,nbsp:%
 set nobackup
 set nocursorline
 set noerrorbells
@@ -78,6 +81,7 @@ set showmatch matchtime=1
 set smartindent
 set tabstop=4
 set visualbell t_vb=
+set virtualedit=block
 set whichwrap=b,s,[,],<,>
 set wildmenu
 set wrapscan
@@ -142,6 +146,14 @@ if dein#load_state(s:dein_dir)
   call dein#end()
   call dein#save_state()
 endif
+
+"deoplete
+call dein#add('Shougo/deoplete.nvim')
+if !has('nvim')
+  call dein#add('roxma/nvim-yarp')
+  call dein#add('roxma/vim-hug-neovim-rpc')
+endif
+let g:deoplete#enable_at_startup = 1
 
 if dein#check_install()
   call dein#install()

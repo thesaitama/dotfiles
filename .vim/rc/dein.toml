@@ -29,9 +29,6 @@ repo = 'scrooloose/syntastic'
 
 [[plugins]]
 repo = 'sgur/vim-editorconfig'
-hook_add = '''
-let g:editorconfig_verbose = 1
-'''
 
 [[plugins]]
 repo = 'tomasr/molokai'

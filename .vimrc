@@ -33,7 +33,7 @@ set fileencodings=ucs-boms,utf-8,cp932,euc-jp
 set fileformats=unix,dos,mac
 
 set laststatus=2
-"set statusline=%F%m%r%h%w\ %{&ff}\ %Y\ \%02.2B\ %04l,%04v\ 
+"set statusline=%F%m%r%h%w\ %{&ff}\ %Y\ \%02.2B\ %04l,%04v\
 "set statusline+=%{has('multi_byte')&&\&fileencoding!=''?&fileencoding:&encoding}
 
 if has('mouse')

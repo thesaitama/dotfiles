@@ -37,6 +37,9 @@ repo = 'tomasr/molokai'
 repo = 'freeo/vim-kalisi'
 
 [[plugins]]
+repo = 'aereal/vim-colors-japanesque'
+
+[[plugins]]
 repo = 'junegunn/fzf.vim'
 depends = 'fzf'
 hook_add = '''

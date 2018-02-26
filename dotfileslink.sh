@@ -8,14 +8,19 @@ ln -s ~/dotfiles/.bash_profile ~/.bash_profile
 ln -s ~/dotfiles/.inputrc ~/.inputrc
 ln -s ~/dotfiles/.fzfcmd.sh ~/.fzfcmd.sh
 
-# editor
+# emacs
 ln -s ~/dotfiles/.emacs.el ~/.emacs.el
+
+# vim
 ln -s ~/dotfiles/.vimrc ~/.vimrc
 ln -s ~/dotfiles/.vim ~/.vim
 
 # neovim
-ln -s ~/dotfiles/.vim ~/.config/nvim
-ln -s ~/dotfiles/.vimrc ~/.config/nvim/init.vim
+# ~/.config/nvim@ -> ~/dotfiles/.vim
+# ~/.config/nvim/.vim@ -> ~/.vim
+# ~/.config/nvim/init.vim@ -> ~/.vimrc
+ln -s ~/.vim ~/.config/nvim
+ln -s ~/.vimrc ~/.config/nvim/init.vim
 
 # git
 ln -s ~/dotfiles/.gitconfig ~/.gitconfig

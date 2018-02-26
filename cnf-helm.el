@@ -96,6 +96,11 @@
 (global-set-key (kbd "C-M-s") 'helm-ag-this-file)
 
 ;; ------------------------------------------------------------------------
+;; helm-elscreen
+
+(global-set-key (kbd "M-g e") 'helm-elscreen)
+
+;; ------------------------------------------------------------------------
 ;; helm-flyspell
 
 (global-set-key (kbd "M-g M-c") 'helm-flyspell-correct)

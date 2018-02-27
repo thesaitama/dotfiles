@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-02-27 23:43:55
+;; Last Update: 2018-02-27 23:53:18
 
 ;;; Code:
 
@@ -231,7 +231,7 @@
 ;; elscreen
 
 (elscreen-start)
-;;(elscreen-create)
+(elscreen-create)
 (setq elscreen-prefix-key (kbd "C-z"))
 (setq elscreen-display-tab nil)
 (setq elscreen-tab-display-kill-screen nil)

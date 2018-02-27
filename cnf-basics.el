@@ -117,6 +117,9 @@
 ;; region display
 (setq transient-mark-mode t)
 
+;; mark comamnd repeat (C-u C-SPC ...)
+(setq set-mark-command-repeat-pop t)
+
 ;; line number
 (global-linum-mode 0)
 (setq linum-format "%4d ")

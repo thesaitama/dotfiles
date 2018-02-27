@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-02-25 21:48:09
+;; Last Update: 2018-02-27 23:43:55
 
 ;;; Code:
 
@@ -49,6 +49,7 @@
     expand-region
     highlight-symbol
     foreign-regexp
+    undohist
     undo-tree
     editorconfig
     comment-tags
@@ -230,7 +231,7 @@
 ;; elscreen
 
 (elscreen-start)
-(elscreen-create)
+;;(elscreen-create)
 (setq elscreen-prefix-key (kbd "C-z"))
 (setq elscreen-display-tab nil)
 (setq elscreen-tab-display-kill-screen nil)
@@ -459,6 +460,13 @@
 
 ;; > sudo port install aspell
 ;; > sudo port install aspell-dict-en
+
+;; ------------------------------------------------------------------------
+;; undohist
+
+(require 'undohist)
+(undohist-initialize)
+(setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG"))
 
 ;; ------------------------------------------------------------------------
 ;; volatile-highlights

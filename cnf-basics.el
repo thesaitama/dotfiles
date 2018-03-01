@@ -357,6 +357,15 @@
 (add-hook 'org-mode-hook 'turn-on-font-lock)
 
 ;; ------------------------------------------------------------------------
+;; describe-face-at-point
+
+;; https://uwabami.github.io/cc-env/Emacs.html#orgb08f4b8
+
+(defun my:describe-face-at-point ()
+  (interactive)
+  (message "%s" (get-char-property (point) 'face)))
+
+;; ------------------------------------------------------------------------
 
 (provide 'cnf-basics.el)
 ;;; cnf-basics.el ends here

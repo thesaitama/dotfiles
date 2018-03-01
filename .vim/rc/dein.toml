@@ -6,11 +6,8 @@ repo = 'Shougo/vimproc.vim'
 build = 'make'
 
 [[plugins]]
-repo = 'itchyny/lightline.vim'
-
-[[plugins]]
-repo = 'delphinus35/typescript-vim'
-rev = 'colorize-template-strings'
+repo = 'Shougo/neomru.vim'
+on_path = '.*'
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
@@ -20,9 +17,24 @@ repo = 'Shougo/denite.nvim'
 
 [[plugins]]
 repo = 'Shougo/unite.vim'
+depends = 'neomru.vim'
 
 [[plugins]]
 repo = 'Shougo/vimfiler'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+if = '!has("nvim")'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+if = '!has("nvim")'
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
 
 [[plugins]]
 repo = 'scrooloose/syntastic'

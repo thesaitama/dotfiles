@@ -75,11 +75,13 @@ set nrformats-=octal
 set paste
 set ruler
 set scrolloff=5
-set shiftwidth=4
+set softtabstop=0
+set shiftwidth=2
 set showbreak=↪
 set showmatch matchtime=1
 set smartindent
-set tabstop=4
+set smarttab
+set tabstop=2
 set visualbell t_vb=
 set virtualedit=block
 set whichwrap=b,s,[,],<,>

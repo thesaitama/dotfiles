@@ -19,7 +19,6 @@ ln -s ~/dotfiles/.vim ~/.vim
 # ~/.config/nvim@ -> ~/dotfiles/.vim
 # ~/.config/nvim/.vim@ -> ~/.vim
 # ~/.config/nvim/init.vim@ -> ~/.vimrc
-rm ~/dotfiles/.vim/init.vim
 ln -s ~/.vim ~/.config/nvim
 ln -s ~/.vimrc ~/.config/nvim/init.vim
 

@@ -135,6 +135,13 @@
 ;; (require 'compile)
 
 ;; ------------------------------------------------------------------------
+;; helm-dash
+
+;;(setq helm-dash-browser-func 'eww)
+(setq helm-dash-min-lengh 0)
+(define-key global-map (kbd "M-g d") 'helm-dash-at-point)
+
+;; ------------------------------------------------------------------------
 ;; id-manager
 
 (autoload 'id-manager "id-manager" nil t)

@@ -34,10 +34,6 @@ if [ "$(uname)" == 'Darwin' ]; then
   alias reminders='open -a reminders'
   alias chrome='open -a google\ chrome'
   alias firefox='open -a firefox'
-  alias thunderbird='open -a thunderbird'
-  alias excel='open -a microsoft\ excel'
-  alias msword='open -a microsoft\ word'
-  alias powerpoint='open -a microsoft\ powerpoint'
   # macOS Finder
   alias finderShowH='defaults write com.apple.finder ShowAllFiles TRUE'
   alias finderHideH='defaults write com.apple.finder ShowAllFiles FALSE'

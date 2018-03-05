@@ -7,6 +7,7 @@ fe() {
   [ -n "$file" ] && ${EDITOR:-vim} "$file"
 }
 
+# fep preview + open editor
 fep() {
   local file
   file=$(fzf --preview "pygmentize {}" --query="$1" --select-1 --exit-0)
@@ -115,4 +116,5 @@ if [ "$(uname)" == 'Darwin' ]; then
     open -a "/Applications/$app_path.app/"
   }
   alias appe='app && exit'
+  bind '"\C-A":"app\n"'
 fi

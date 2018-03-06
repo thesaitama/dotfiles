@@ -91,6 +91,18 @@ set wrapscan
 autocmd InsertEnter,InsertLeave * set cursorline!
 
 " ------------------------------------------------------------------------
+" python path
+
+function! s:python_path(ver)
+  let ver = a:ver == 2 ? "" : a:ver
+  let paths = split(glob("/usr/local/Cellar/python".ver."/*/Frameworks/Python.framework/Versions/*/Python"), "\n")
+  if len(paths) > 0
+    return paths[-1]
+  endif
+endfunction
+let $PYTHON3_DLL = s:python_path(3)
+
+" ------------------------------------------------------------------------
 " keymap
 
 if ! has('gui_running')

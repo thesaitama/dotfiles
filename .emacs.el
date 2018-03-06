@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-04 22:36:38
+;; Last Update: 2018-03-06 22:41:31
 
 ;;; Code:
 
@@ -543,7 +543,8 @@
 (global-set-key (kbd "C-c p") 'multi-term-prev)
 
 (with-eval-after-load "multi-term"
-      (setenv "HOSTTYPE" "intel-mac"))
+  (setenv "TERMINFO" "~/.terminfo")
+  (setenv "HOSTTYPE" "intel-mac"))
 
 ;; > curl https://opensource.apple.com/source/emacs/emacs-70/emacs/etc/e/eterm-color.ti\?txt > eterm-color.ti
 ;; > tic -o ~/.terminfo eterm-color.ti

@@ -72,7 +72,6 @@ set nostartofline
 set notitle
 set nowritebackup
 set nrformats-=octal
-set paste
 set ruler
 set scrolloff=5
 set softtabstop=0
@@ -87,6 +86,7 @@ set virtualedit=block
 set whichwrap=b,s,[,],<,>
 set wildmenu
 set wrapscan
+"set paste "this option should be disable
 
 autocmd InsertEnter,InsertLeave * set cursorline!
 

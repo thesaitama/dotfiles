@@ -116,5 +116,4 @@ if [ "$(uname)" == 'Darwin' ]; then
     open -a "/Applications/$app_path.app/"
   }
   alias appe='app && exit'
-  bind '"\C-A":"app\n"'
 fi

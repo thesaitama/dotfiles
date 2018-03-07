@@ -41,7 +41,7 @@ if has('mouse')
   if !has('nvim')
     if has('mouse_sgr')
       set ttymouse=sgr
-        elseif v:version > 703 || v:version is 703 && has('patch632') " I couldn't use has('mouse_sgr') :-(
+        elseif v:version > 703 || v:version is 703 && has('patch632')
         set ttymouse=sgr
       else
         set ttymouse=xterm2
@@ -65,7 +65,6 @@ set incsearch
 set list
 set listchars=tab:»-,eol:↲,extends:»,precedes:«,nbsp:%
 set nobackup
-set nocursorline
 set noerrorbells
 set noignorecase
 set nostartofline
@@ -88,7 +87,9 @@ set wildmenu
 set wrapscan
 "set paste "this option should be disable
 
-autocmd InsertEnter,InsertLeave * set cursorline!
+"set nocursorline
+autocmd InsertEnter * set cursorline
+autocmd InsertLeave * set nocursorline
 
 " ------------------------------------------------------------------------
 " python path

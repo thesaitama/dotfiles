@@ -75,6 +75,8 @@
 (setq gdb-use-separate-io-buffer t)
 (setq gud-tooltip-echo-area nil)
 
+;; gcc -g -o test test.c
+
 ;; ------------------------------------------------------------------------
 ;; imenu-list
 

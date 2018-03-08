@@ -40,11 +40,24 @@ if [ "$(uname)" == 'Darwin' ]; then
   alias finderHideH='defaults write com.apple.finder ShowAllFiles FALSE'
 fi
 
+# share history
+function share_history {
+  history -a
+  history -c
+  history -r
+}
+shopt -u histappend
+PROMPT_COMMAND='share_history'
+
 # Env (shell)
+export TERMINFO=~/.terminfo
 export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export PROMPT_DIRTRIM=1
+export HISTSIZE=10000
 export HISTCONTROL=ignoredups:ignorespace:erasedups
+export HISTIGNORE="fg*:bg*:history*"
+export HISTTIMEFORMAT='%Y%m%d %T ';
 
 # color man
 man() {

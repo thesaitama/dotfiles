@@ -424,6 +424,14 @@
 ;; > sed -i -e "s/pygments-parser\.la/pygments-parser.so/g" ~/.globalrc
 
 ;; ------------------------------------------------------------------------
+;; auto-complete-nxml
+
+(eval-after-load 'nxml-mode
+  '(progn
+     (require 'auto-complete-nxml)
+     ))
+
+;; ------------------------------------------------------------------------
 ;; yasnippet
 
 (yas-global-mode 1)

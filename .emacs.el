@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-06 22:41:31
+;; Last Update: 2018-03-08 22:09:17
 
 ;;; Code:
 
@@ -76,6 +76,7 @@
     tern
     tern-auto-complete
     yaml-mode
+    toml-mode
     python-mode
     jedi
     elpy
@@ -100,6 +101,7 @@
     helm-elscreen
     helm-dash
     ac-helm
+    auto-complete-nxml
     bm
     helm-bm
     projectile
@@ -734,7 +736,7 @@
  '(nxml-entity-ref-name ((t (:foreground "red"))))
  '(nxml-name-face ((t (:foreground "cyan"))))
  '(nxml-tag-delimiter ((t (:foreground "LightBlue"))))
- '(outline-1 ((t (:background "Blue1" :foreground "white1"))))
+ '(outline-1 ((t (:foreground "LightBlue" :weight bold :underline t))))
  '(outline-2 ((t (:foreground "LightBlue" :weight bold))))
  '(outline-3 ((t (:foreground "cyan" :weight bold))))
  '(outline-4 ((t (:foreground "orange" :weight bold))))

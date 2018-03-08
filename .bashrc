@@ -11,6 +11,7 @@ umask 022
 
 # alias
 alias e='emacsclient -nw -a ""'
+# alias e='TERM=xterm-256color-italic emacsclient -nw -a ""'
 alias emacs='emacsclient -nw -a ""'
 alias minimacs='\emacs -q -l ~/dotfiles/minimacs.el'
 alias ls='ls -avhplGF'

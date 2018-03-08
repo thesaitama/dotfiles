@@ -57,6 +57,10 @@ repo = 'tomasr/molokai'
 repo = 'freeo/vim-kalisi'
 
 [[plugins]]
+repo = 'rakr/vim-one'
+
+
+[[plugins]]
 repo = 'aereal/vim-colors-japanesque'
 
 # fuzzy finder

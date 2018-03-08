@@ -177,7 +177,7 @@ source ~/dotfiles/cnf-fzf.vim
 " ------------------------------------------------------------------------
 " colorscheme
 
-autocmd ColorScheme * highlight Comment ctermfg=2
+"autocmd ColorScheme * highlight Comment ctermfg=2
 autocmd ColorScheme * highlight Normal ctermbg=none
 autocmd ColorScheme * highlight nonText ctermbg=none
 

@@ -20,9 +20,6 @@ repo = 'Shougo/unite.vim'
 depends = 'neomru.vim'
 
 [[plugins]]
-repo = 'Shougo/vimfiler'
-
-[[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
@@ -33,15 +30,26 @@ if = '!has("nvim")'
 repo = 'roxma/vim-hug-neovim-rpc'
 if = '!has("nvim")'
 
+# filer
+[[plugins]]
+repo = 'Shougo/vimfiler'
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+
+# mode line
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 
+# syntax checker
 [[plugins]]
 repo = 'scrooloose/syntastic'
 
+# editor-config
 [[plugins]]
 repo = 'sgur/vim-editorconfig'
 
+# color theme
 [[plugins]]
 repo = 'tomasr/molokai'
 
@@ -51,6 +59,7 @@ repo = 'freeo/vim-kalisi'
 [[plugins]]
 repo = 'aereal/vim-colors-japanesque'
 
+# fuzzy finder
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 depends = 'fzf'

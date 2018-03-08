@@ -21,3 +21,13 @@ hook_source = '''
         \    "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 '''
 on_i = 1
+
+# toml syntax
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+# typescript syntax
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+on_ft = 'ts'

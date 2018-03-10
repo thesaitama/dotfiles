@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-08 22:09:17
+;; Last Update: 2018-03-10 15:09:18
 
 ;;; Code:
 
@@ -94,6 +94,7 @@
     imenu-list
     helm
     helm-smex
+    helm-swoop
     helm-ag
     helm-gtags
     helm-descbinds

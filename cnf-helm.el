@@ -72,7 +72,6 @@
 ;; helm-swoop
 
 (require 'helm-swoop)
-
 (global-set-key (kbd "M-i") 'helm-swoop)
 (global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
 (global-set-key (kbd "C-c M-i") 'helm-multi-swoop)
@@ -89,7 +88,6 @@
 
 (require 'helm-files)
 (require 'helm-ag)
-
 (setq helm-ag-base-command "ag --nogroup --ignore-case --hidden")
 (global-set-key (kbd "M-g .") 'helm-ag)
 (global-set-key (kbd "M-g ,") 'helm-ag-pop-stack)

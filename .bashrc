@@ -190,7 +190,31 @@ if [ -f ~/.enhancd/init.sh ]; then
   source ~/.enhancd/init.sh
 fi
 
+# ranger
+ranger() {
+  [ -n "$RANGER_LEVEL" ] && exit || LESS="$LESS -+F -+X" command ranger "$@";
+}
+[ -n "$RANGER_LEVEL" ] && PS1="RANGER> $PS1"
+alias rng='ranger'
+
+# w3m ranger
+function google() {
+    local str opt
+    if [ $# != 0 ]; then
+        for i in $*; do
+            str="$str+$i"
+        done
+        str=`echo $str | sed 's/^\+//'`
+        opt='search?num=50&hl=ja&lr=lang_ja'
+        opt="${opt}&q=${str}"
+    fi
+    w3m http://www.google.co.jp/$opt
+}
+
+
 # .inputrc
 [ -f ~/.inputrc ] && bind -f ~/.inputrc
+
+
 
 

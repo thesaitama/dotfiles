@@ -123,3 +123,11 @@ sed -i -e "s/pygments-parser\.la/pygments-parser.so/g" ~/.globalrc
 sudo port install aspell
 sudo port install aspell-dict-en
 ```
+
+* ranger
+
+```bash
+sudo port install ranger
+sudo port install mediainfo atool libcaca imlib2 highlight
+ranger --copy-config=all
+```

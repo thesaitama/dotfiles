@@ -14,7 +14,6 @@
 
 ;;; Code:
 
-
 ;; ------------------------------------------------------------------------
 
 (setq initial-scratch-message ";; minimacs\n")
@@ -55,10 +54,9 @@
  '(isearch ((t (:background "LightPink" :foreground "black"))))
  '(link ((t (:foreground "blue"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
- '(outline-1 ((t (:background "BrightBlue" :foreground "white" :weight bold))))
- '(outline-1 ((t (:background "BrightBlue" :foreground "white" :weight bold))))
- '(outline-2 ((t (:foreground "cyan" :weight bold))))
- '(outline-3 ((t (:foreground "blue" :weight bold))))
+ '(outline-1 ((t (:foreground "LightBlue" :weight bold :underline t))))
+ '(outline-2 ((t (:foreground "LightBlue" :weight bold))))
+ '(outline-3 ((t (:foreground "cyan" :weight bold))))
  '(outline-4 ((t (:foreground "orange" :weight bold))))
  '(outline-5 ((t (:foreground "goldenrod" :weight bold))))
  '(outline-6 ((t (:foreground "orange"))))

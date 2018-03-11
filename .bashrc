@@ -121,11 +121,18 @@ fi
 tm() {
   tmux ls > /dev/null
   if [ $? -eq 1 -a -z "$TMUX" ]; then
-    exec tmux
+    tmux
   elif [ -z "$TMUX" ] ; then
-    exec tmux attach
+    tmux a
   else
     echo "sessions should be nested with care."
+  fi
+}
+tk() {
+  if [ -z $1 ]; then
+    tmux kill-session
+  else
+    tmux kill-session -t $1
   fi
 }
 
@@ -197,7 +204,7 @@ ranger() {
 [ -n "$RANGER_LEVEL" ] && PS1="RANGER> $PS1"
 alias rng='ranger'
 
-# w3m ranger
+# w3m for google
 function google() {
     local str opt
     if [ $# != 0 ]; then
@@ -210,7 +217,6 @@ function google() {
     fi
     w3m http://www.google.co.jp/$opt
 }
-
 
 # .inputrc
 [ -f ~/.inputrc ] && bind -f ~/.inputrc

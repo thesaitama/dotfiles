@@ -38,7 +38,7 @@ let g:fzf_tags_command = 'ctags -R'
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
-call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+""call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
 command! FZFMru call fzf#run({
 \  'source':  v:oldfiles,
 \  'sink':    'e',

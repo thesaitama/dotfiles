@@ -13,14 +13,14 @@ on_path = '.*'
 repo = 'thinca/vim-quickrun'
 
 [[plugins]]
-repo = 'Shougo/denite.nvim'
-
-[[plugins]]
 repo = 'Shougo/unite.vim'
 depends = 'neomru.vim'
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
 
 [[plugins]]
 repo = 'roxma/nvim-yarp'
@@ -58,10 +58,6 @@ repo = 'freeo/vim-kalisi'
 
 [[plugins]]
 repo = 'rakr/vim-one'
-
-
-[[plugins]]
-repo = 'aereal/vim-colors-japanesque'
 
 # fuzzy finder
 [[plugins]]

@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-10 15:09:18
+;; Last Update: 2018-03-11 17:15:45
 
 ;;; Code:
 
@@ -49,6 +49,8 @@
     expand-region
     highlight-symbol
     foreign-regexp
+    multiple-cursors
+    electric-operator
     undohist
     undo-tree
     editorconfig
@@ -70,10 +72,10 @@
     js2-mode
     js2-refactor
     ac-js2
+    tern
     json-mode
     typescript-mode
     tss
-    tern
     tern-auto-complete
     yaml-mode
     toml-mode
@@ -121,17 +123,16 @@
     scratch-pop
     which-key
     smart-mode-line
-    w3m
     dired-narrow
     dired-subtree
-    electric-operator
     japanese-holidays
     osx-trash
-    xah-lookup
     vimrc-mode
-    google-translate
-    howdoi
+    w3m
     mew
+    google-translate
+    xah-lookup
+    howdoi
     qiita
     yagist
     )
@@ -430,6 +431,11 @@
 (add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
 
 ;; ------------------------------------------------------------------------
+;; multiple-cursors
+
+(require 'multiple-cursors)
+
+;; ------------------------------------------------------------------------
 ;; imenu
 
 (setq imenu-auto-rescan t)
@@ -454,10 +460,30 @@
 ;; ------------------------------------------------------------------------
 ;; flyspell (spell check)
 
-(setq-default flyspell-mode t)
 (setq ispell-program-name "aspell")
 (eval-after-load "ispell"
- '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
+  '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
+
+;; only enable comment
+(mapc
+ (lambda (hook)
+   (add-hook hook 'flyspell-prog-mode))
+ '(
+   c-mode-common-hook
+   emacs-lisp-mode-hook
+   typescript-mode-hook
+   js2-mode-hook
+   python-mode-hook
+   magit-mode-hook
+   ))
+;; enable all
+(mapc
+   (lambda (hook)
+     (add-hook hook
+               '(lambda () (flyspell-mode 1))))
+   '(
+     markdown-mode-hook
+     ))
 
 ;(add-hook 'find-file-hook 'flyspell-mode)
 ;(add-hook 'find-file-hook 'flyspell-buffer)

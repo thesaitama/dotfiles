@@ -128,6 +128,7 @@ tm() {
     echo "sessions should be nested with care."
   fi
 }
+
 tk() {
   if [ -z $1 ]; then
     tmux kill-session
@@ -137,12 +138,12 @@ tk() {
 }
 
 # run new pane
-s(){
-    if [ $# -eq 0 ]; then
-        cat > /tmp/tmux.tmp && tmux split-window -v "less /tmp/tmux.tmp"
-    else
-        tmux split-window -v "$*"
-    fi
+tnp() {
+  if [ $# -eq 0 ]; then
+    cat > /tmp/tmux.tmp && tmux split-window -v "less /tmp/tmux.tmp"
+  else
+    tmux split-window -v "$*"
+  fi
 }
 
 # rename window-name when ssh
@@ -178,6 +179,10 @@ fi
 if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
   . /opt/local/etc/profile.d/autojump.sh
 fi
+
+# fasd
+# > sudo port install fasd
+eval "$(fasd --init auto)"
 
 # fzf
 # > git clone https://github.com/junegunn/fzf.git ~/.fzf
@@ -220,7 +225,3 @@ function google() {
 
 # .inputrc
 [ -f ~/.inputrc ] && bind -f ~/.inputrc
-
-
-
-

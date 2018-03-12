@@ -1,3 +1,6 @@
+# ------------------------------------------------------------------------
+# file open
+
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
 #   - Bypass fuzzy finder if there's only one match (--select-1)
 #   - Exit if there's no match (--exit-0)
@@ -14,7 +17,10 @@ fep() {
   [ -n "$file" ] && ${EDITOR:-vim} "$file"
 }
 
-# fuzzy grep open via ag
+# ------------------------------------------------------------------------
+# grep 
+
+# eg fuzzy grep open via ag
 eg() {
   local file
 
@@ -26,32 +32,27 @@ eg() {
   fi
 }
 
-# fd - cd to selected directory
-fcd() {
-  local dir
-  dir=$(find ${1:-*} -path '*/\.*' -prune \
-                  -o -type d -print 2> /dev/null | fzf +m) &&
-  cd "$dir"
-}
+# ------------------------------------------------------------------------
+# history 
 
 # fh - repeat history
 fh() {
   eval $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s | sed 's/ *[0-9]* *//')
 }
 
+# ------------------------------------------------------------------------
+# process
+
 # fkill - kill process
 fkill() {
   ps -ef | sed 1d | fzf -m | awk '{print $2}' | xargs kill -${1:-9}
 }
 
-# cdf - cd into the directory of the selected file
-cdf() {
-   local file
-   local dir
-   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
-}
+# ------------------------------------------------------------------------
+# git
 
-# fbr - checkout git branch (including remote branches), sorted by most recent commit, limit 30 last branches
+# fbr - checkout git branch (including remote branches),
+#       sorted by most recent commit, limit 30 last branches
 fbr() {
   local branches branch
   branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
@@ -60,7 +61,8 @@ fbr() {
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
-# fco_preview - checkout git branch/tag, with a preview showing the commits between the tag/branch and HEAD
+# fco_preview - checkout git branch/tag,
+#               with a preview showing the commits between the tag/branch and HEAD
 fco() {
   local tags branches target
   tags=$(
@@ -88,6 +90,38 @@ fshow() {
 FZF-EOF"
 }
 
+# fstash - easier way to deal with stashes
+# type fstash to get a list of your stashes
+# enter shows you the contents of the stash
+# ctrl-d shows a diff of the stash against your current HEAD
+# ctrl-b checks the stash out as a branch, for easier merging
+fstash() {
+  local out q k sha
+  while out=$(
+    git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
+    fzf --ansi --no-sort --query="$q" --print-query \
+        --expect=ctrl-d,ctrl-b);
+  do
+    mapfile -t out <<< "$out"
+    q="${out[0]}"
+    k="${out[1]}"
+    sha="${out[-1]}"
+    sha="${sha%% *}"
+    [[ -z "$sha" ]] && continue
+    if [[ "$k" == 'ctrl-d' ]]; then
+      git diff $sha
+    elif [[ "$k" == 'ctrl-b' ]]; then
+      git stash branch "stash-$sha" $sha
+      break;
+    else
+      git stash show -p $sha
+    fi
+  done
+}
+
+# ------------------------------------------------------------------------
+# tmxu
+
 # ftpane - switch pane (@george-b)
 ftpane() {
   local panes current_window current_pane target target_window target_pane
@@ -108,14 +142,26 @@ ftpane() {
   fi
 }
 
+# ------------------------------------------------------------------------
 # fasd
+
 v() {
     [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
     local file
     file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
 }
+unalias z
+z() {
+  if [[ -z "$*" ]]; then
+    cd "$(fasd_cd -d | fzf -1 -0 --no-sort +m | sed 's/^[0-9,.]* *//')"
+  else
+    cd "$(fasd_cd -d | fzf --query="$*" -1 -0 --no-sort +m | sed 's/^[0-9,.]* *//')"
+  fi
+}
 
+# ------------------------------------------------------------------------
 # Mac OSX Only
+
 if [ "$(uname)" == 'Darwin' ]; then
   # app - osx appluncher
   app() {

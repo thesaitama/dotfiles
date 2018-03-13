@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-13 23:25:54
+;; Last Update: 2018-03-13 23:32:59
 
 ;;; Code:
 
@@ -746,6 +746,7 @@
  '(helm-selection ((t (:background "Gray30"))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
  '(highlight-symbol-face ((t (:background "Gray25"))))
+ '(tide-hl-identifier-face ((t (:background "Gray28"))))
  '(hl-line ((t (:background "color-236"))))
  '(holiday ((t (:background "pink"))))
  '(isearch ((t (:background "LightPink" :foreground "black"))))

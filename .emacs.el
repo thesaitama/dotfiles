@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-11 17:15:45
+;; Last Update: 2018-03-13 23:25:54
 
 ;;; Code:
 
@@ -41,6 +41,8 @@
     auto-complete
     fuzzy
     pos-tip
+    company
+    company-quickhelp
     avy
     sequential-command
     editorconfig
@@ -76,6 +78,7 @@
     json-mode
     typescript-mode
     tss
+    tide
     tern-auto-complete
     yaml-mode
     toml-mode
@@ -343,6 +346,21 @@
 (setq-default ac-sources (push 'ac-source-yasnippet ac-sources))
 
 ;; ------------------------------------------------------------------------
+;; company
+
+;; (global-company-mode t)
+(company-quickhelp-mode t)
+
+(global-set-key (kbd "C-M-i") 'company-complete)
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
+(define-key company-search-map (kbd "C-n") 'company-select-next)
+(define-key company-search-map (kbd "C-p") 'company-select-previous)
+(define-key company-active-map (kbd "C-s") 'company-filter-candidates)
+(define-key company-active-map (kbd "C-i") 'company-complete-selection)
+;;(define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
+
+;; ------------------------------------------------------------------------
 ;; dired + wdired + dired-x
 
 (setq dired-listing-switches (purecopy "-avhplGF"))
@@ -469,12 +487,7 @@
  (lambda (hook)
    (add-hook hook 'flyspell-prog-mode))
  '(
-   c-mode-common-hook
    emacs-lisp-mode-hook
-   typescript-mode-hook
-   js2-mode-hook
-   python-mode-hook
-   magit-mode-hook
    ))
 ;; enable all
 (mapc
@@ -671,7 +684,7 @@
 (setq sml/read-only-char "%%")
 (setq sml/modified-char "*")
 ;; hide Helm and auto-complete
-(setq sml/hidden-modes '(" Helm" " AC" " yas" " ARev" " Anzu"))
+(setq sml/hidden-modes '(" Helm" " yas" " ARev" " Anzu"))
 ;; hack (privent overflow)
 (setq sml/extra-filler -10)
 ;;; sml/replacer-regexp-list
@@ -698,6 +711,13 @@
  ;; If there is more than one, they won't work right.
  '(bm-face ((t (:background "color-28"))))
  '(bm-fringe-face ((t (:background "color-28"))))
+ '(company-preview-common ((t (:background nil :foreground "LightGray" :underline t))))
+ '(company-scrollbar-bg ((t (:background "Gray40"))))
+ '(company-scrollbar-fg ((t (:background "orange"))))
+ '(company-tooltip ((t (:foreground "black" :background "LightGray"))))
+ '(company-tooltip-common ((t (:foreground "black" :background "LightGray"))))
+ '(company-tooltip-common-selection ((t (:foreground "white" :background "SteelBlue"))))
+ '(company-tooltip-selection ((t (:foreground "black" :background "SteelBlue"))))
  '(diff-added ((((type tty)) (:foreground "green"))))
  '(diff-removed ((((type tty)) (:foreground "red"))))
  '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
@@ -798,6 +818,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
+ '(company-dabbrev-code-other-buffers (quote all))
+ '(company-dabbrev-other-buffers (quote all))
  '(custom-safe-themes
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
@@ -812,7 +834,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode tss typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
+    (tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode tss typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)

@@ -258,21 +258,40 @@
 (require 'typescript)
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
 
-(require 'tss)
-(setq tss-popup-help-key "C-:")
-(setq tss-jump-to-definition-key "C->")
-(setq tss-implement-definition-key "C-c i")
+;; ------------------------------------------------------------------------
+;; typescript (tss + auto-complete)
 
-;; dot use tss-config-default
-(defun typescript-setup ()
-  "Typescript setup."
-  (setq typescript-indent-level 2)
-  (flycheck-mode t)
-  ;;(flycheck-typescript-tslint-setup)
-  (tss-setup-current-buffer))
+;; (require 'tss)
+;; (setq tss-popup-help-key "C-:")
+;; (setq tss-jump-to-definition-key "C->")
+;; (setq tss-implement-definition-key "C-c i")
 
-(add-hook 'typescript-mode-hook 'typescript-setup)
-(add-hook 'kill-buffer-hook 'tss--delete-process t)
+;; (defun typescript-setup ()
+;;   "Typescript setup."
+;;   (tss-config-default)
+;;   (setq typescript-indent-level 2)
+;;   (flycheck-mode t)
+;;   (eldoc-mode t)
+;;   ;;(flycheck-typescript-tslint-setup)
+;;   (tss-setup-current-buffer))
+
+;; (add-hook 'typescript-mode-hook 'typescript-setup)
+;; (add-hook 'kill-buffer-hook 'tss--delete-process t)
+
+;; ------------------------------------------------------------------------
+;; typescript (tide + company-mode)
+
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  (company-mode +1))
+(setq company-tooltip-align-annotations t)
+(add-hook 'before-save-hook 'tide-format-before-save)
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
 
 ;; ------------------------------------------------------------------------
 ;; tern

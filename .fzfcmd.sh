@@ -153,9 +153,9 @@ v() {
 unalias z
 z() {
   if [[ -z "$*" ]]; then
-    cd "$(fasd_cd -d | fzf -1 -0 --no-sort +m | sed 's/^[0-9,.]* *//')"
+    cd "$(fasd_cd -d | fzf -1 -0 --no-sort --tac +m | sed 's/^[0-9,.]* *//')"
   else
-    cd "$(fasd_cd -d | fzf --query="$*" -1 -0 --no-sort +m | sed 's/^[0-9,.]* *//')"
+    cd "$(fasd_cd -d | fzf --query="$*" -1 -0 --no-sort --tac +m | sed 's/^[0-9,.]* *//')"
   fi
 }
 

@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-13 23:32:59
+;; Last Update: 2018-03-14 23:27:25
 
 ;;; Code:
 
@@ -170,6 +170,7 @@
     (elisp-slime-nav-mode . " EN")
     (helm-gtags-mode . " HG")
     (flymake-mode . " Fm")
+    (company-mode . " Comp")
     ;; Major modes
     (emacs-lisp-mode . "El")
     (default-generic-mode . "DGen")
@@ -348,8 +349,16 @@
 ;; ------------------------------------------------------------------------
 ;; company
 
+(require 'company)
 ;; (global-company-mode t)
-(company-quickhelp-mode t)
+;; (company-quickhelp-mode t) ;; only support GUI
+
+(setq company-idle-delay 0.1)
+(setq company-minimum-prefix-length 2)
+(setq company-selection-wrap-around t)
+(setq completion-ignore-case t)
+(setq company-dabbrev-downcase nil)
+(setq company-transformers '(company-sort-by-backend-importance))
 
 (global-set-key (kbd "C-M-i") 'company-complete)
 (define-key company-active-map (kbd "C-n") 'company-select-next)

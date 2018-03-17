@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-14 23:27:25
+;; Last Update: 2018-03-17 15:09:10
 
 ;;; Code:
 
@@ -270,7 +270,8 @@
 ;; expand-region
 
 (require 'expand-region)
-(global-set-key (kbd "M-,") 'er/expand-region)
+(global-set-key (kbd "C-,") 'er/expand-region)
+(global-set-key (kbd "C-M-,") 'er/contract-region)
 
 ;; ------------------------------------------------------------------------
 ;; highlight-symbol

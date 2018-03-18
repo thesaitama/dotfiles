@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-18 21:20:44
+;; Last Update: 2018-03-18 22:50:43
 
 ;;; Code:
 
@@ -352,7 +352,10 @@
 
 (require 'company)
 ;; (global-company-mode t)
-;; (company-quickhelp-mode t) ;; only support GUI
+
+(if window-system (progn
+                    (company-quickhelp-mode t) ;; only support GUI
+                    ))
 
 (setq company-idle-delay 0.1)
 (setq company-minimum-prefix-length 2)

@@ -466,6 +466,7 @@
 
 (global-set-key (kbd "C-x g") 'magit-status)
 (setq magit-diff-refine-hunk t)
+(setq magit-merge-arguments '("--no-ff"))
 (setq smerge-refine-ignore-whitespace nil)
 
 ;; ------------------------------------------------------------------------

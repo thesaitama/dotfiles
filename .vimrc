@@ -1,3 +1,4 @@
+" .vimrc --- thesaitama Vim configuration
 
 "   _   _                     _ _
 "  | |_| |__   ___  ___  __ _(_) |_ __ _ _ __ ___   __ _
@@ -5,7 +6,16 @@
 "  | |_| | | |  __/\__ \ (_| | | || (_| | | | | | | (_| |
 "   \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
 
+" ------------------------------------------------------------------------
+" install
+
 "sudo port install vim +huge +python36
+"sudo pip-3.6 install neovim
+
+" ------------------------------------------------------------------------
+" basic setttings
+
+set shortmess+=I
 
 set langmenu=en_US
 let $LANG = 'en_US'
@@ -16,74 +26,116 @@ source $VIMRUNTIME/menu.vim
 set rtp+=~/.fzf
 set clipboard+=unnamed
 
-set encoding=utf-8
 scriptencoding utf-8
+set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-boms,utf-8,cp932,euc-jp
 set fileformats=unix,dos,mac
-set ambiwidth=double
-
-set helplang=ja,en
 
 set laststatus=2
-"set statusline=%F%m%r%h%w\ %{&ff}\ %Y\ \%02.2B\ %04l,%04v\ 
+"set statusline=%F%m%r%h%w\ %{&ff}\ %Y\ \%02.2B\ %04l,%04v\
 "set statusline+=%{has('multi_byte')&&\&fileencoding!=''?&fileencoding:&encoding}
-
-set background=dark
-
-set showcmd
 
 if has('mouse')
   set mouse=a
-  if has('mouse_sgr')
-    set ttymouse=sgr
-  elseif v:version > 703 || v:version is 703 && has('patch632')
-    set ttymouse=sgr
-  else
-    set ttymouse=xterm2
+  if !has('nvim')
+    if has('mouse_sgr')
+      set ttymouse=sgr
+        elseif v:version > 703 || v:version is 703 && has('patch632')
+        set ttymouse=sgr
+      else
+        set ttymouse=xterm2
+    endif
   endif
 endif
 
-"set number
-set notitle
-set tabstop=4
+set showcmd
+set number
+
+set ambiwidth=double
+set autoread
+set backspace=indent,eol,start
 set expandtab
-set shiftwidth=4
-set smartindent
-set ruler
-set incsearch
-set hlsearch
-set ignorecase
-set paste
-set list
-set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
-set nrformats-=octal
+set helplang=ja,en
 set hidden
 set history=49
-set whichwrap=b,s,[,],<,>
-set backspace=indent,eol,start
-set wildmenu
-set visualbell
-set showmatch matchtime=1
-set nowritebackup
+set hlsearch
+set ignorecase
+set incsearch
+set list
+set listchars=tab:»-,eol:↲,extends:»,precedes:«,nbsp:%
 set nobackup
+set noerrorbells
+set noignorecase
+set nostartofline
+set notitle
+set nowritebackup
+set nrformats-=octal
+set ruler
+set scrolloff=5
+set softtabstop=0
+set shiftwidth=2
+set showbreak=↪
+set showmatch matchtime=1
+set smartindent
+set smarttab
+set tabstop=2
+set visualbell t_vb=
+set virtualedit=block
+set whichwrap=b,s,[,],<,>
+set wildmenu
+set wrapscan
+"set paste "this option should be disable
 
-set nocursorline
-autocmd InsertEnter,InsertLeave * set cursorline!
+"set nocursorline
+autocmd InsertEnter * set cursorline
+autocmd InsertLeave * set nocursorline
+
+" ------------------------------------------------------------------------
+" python path
+
+function! s:python_path(ver)
+  let ver = a:ver == 2 ? "" : a:ver
+  let paths = split(glob("/usr/local/Cellar/python".ver."/*/Frameworks/Python.framework/Versions/*/Python"), "\n")
+  if len(paths) > 0
+    return paths[-1]
+  endif
+endfunction
+let $PYTHON3_DLL = s:python_path(3)
+
+" ------------------------------------------------------------------------
+" keymap
+
+if ! has('gui_running')
+ set ttimeoutlen=10
+ augroup FastEscape
+   autocmd!
+   au InsertEnter * set timeoutlen=0
+   au InsertLeave * set timeoutlen=1000
+ augroup END
+endif
 
 let mapleader = ","
 let maplocalleader = 'm'
+
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
 
 nnoremap <silent>bp :bprevious<CR>
 nnoremap <silent>bn :bnext<CR>
 nnoremap <silent>bb :b#<CR>
 nnoremap <leader>ev :e ~/dotfiles/.vimrc
 nnoremap <leader>cv :e ~/dotfiles/vim.txt
-
+inoremap jj <Esc>
 nnoremap <ESC><ESC> :nohl<CR>
 
+" ------------------------------------------------------------------------
+" dein plugin
 
-"dein plugin
 let s:dein_dir = expand('~/.vim/dein')
 " dein.vim
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -114,37 +166,32 @@ if dein#check_install()
   call dein#install()
 endif
 
-call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+" ------------------------------------------------------------------------
+" plugins
 
-"color scheme
-autocmd ColorScheme * highlight Comment ctermfg=2
+source ~/dotfiles/cnf-syntastics.vim
+source ~/dotfiles/cnf-lightline.vim
+source ~/dotfiles/cnf-vimfiler.vim
+source ~/dotfiles/cnf-fzf.vim
+
+" ------------------------------------------------------------------------
+" colorscheme
+
+"autocmd ColorScheme * highlight Comment ctermfg=2
 autocmd ColorScheme * highlight Normal ctermbg=none
-autocmd ColorScheme * highlight LineNr ctermbg=none
+autocmd ColorScheme * highlight nonText ctermbg=none
 
-"let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-syntax enable
 set background=dark
-colorscheme solarized
+colorscheme kalisi
+syntax enable
 
-"fzf
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>x :Commands<CR>
-nnoremap <Leader>f :GFiles<CR>
-nnoremap <Leader>a :Ag<CR>
-nnoremap <Leader>k :bd<CR>
-command! FZFMru call fzf#run({
-\  'source':  v:oldfiles,
-\  'sink':    'e',
-\  'options': '-m -x +s',
-\  'down':    '40%'})
-nnoremap <Leader>r :FZFMru<CR>
+" ------------------------------------------------------------------------
+" auto reload .vimrc
 
-inoremap <silent> jj <ESC>
-
-"auto reload .vimrc
 augroup source-vimrc
   autocmd!
   autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
   autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
 augroup END
+
+" ------------------------------------------------------------------------

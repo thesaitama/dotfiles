@@ -72,7 +72,6 @@
 ;; helm-swoop
 
 (require 'helm-swoop)
-
 (global-set-key (kbd "M-i") 'helm-swoop)
 (global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
 (global-set-key (kbd "C-c M-i") 'helm-multi-swoop)
@@ -89,10 +88,15 @@
 
 (require 'helm-files)
 (require 'helm-ag)
-
+(setq helm-ag-base-command "ag --nogroup --ignore-case --hidden")
 (global-set-key (kbd "M-g .") 'helm-ag)
 (global-set-key (kbd "M-g ,") 'helm-ag-pop-stack)
 (global-set-key (kbd "C-M-s") 'helm-ag-this-file)
+
+;; ------------------------------------------------------------------------
+;; helm-elscreen
+
+(global-set-key (kbd "M-g e") 'helm-elscreen)
 
 ;; ------------------------------------------------------------------------
 ;; helm-flyspell
@@ -118,15 +122,22 @@
 (setq helm-source-bm (delete '(multiline) helm-source-bm))
 
 (defun bm-toggle-or-helm ()
-  "when 2 times load run helm-bm"
+  "When 2 times load run helm-bm."
   (interactive)
   (bm-toggle)
   (when (eq last-command 'bm-toggle-or-helm)
     (helm-bm)))
 (global-set-key (kbd "M-SPC") 'bm-toggle-or-helm)
 
-;;; bug ?
-(require 'compile)
+;; bug ?
+;; (require 'compile)
+
+;; ------------------------------------------------------------------------
+;; helm-dash
+
+;;(setq helm-dash-browser-func 'eww)
+(setq helm-dash-min-lengh 0)
+(define-key global-map (kbd "M-g d") 'helm-dash-at-point)
 
 ;; ------------------------------------------------------------------------
 ;; id-manager

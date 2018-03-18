@@ -6,36 +6,67 @@ repo = 'Shougo/vimproc.vim'
 build = 'make'
 
 [[plugins]]
-repo = 'itchyny/lightline.vim'
+repo = 'Shougo/neomru.vim'
+on_path = '.*'
 
 [[plugins]]
-repo = 'delphinus35/typescript-vim'
-rev  = 'colorize-template-strings'
+repo = 'thinca/vim-quickrun'
 
 [[plugins]]
 repo = 'Shougo/unite.vim'
+depends = 'neomru.vim'
 
 [[plugins]]
-repo = 'Shougo/vimfiler'
+repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'
 
 [[plugins]]
-repo = 'junegunn/fzf.vim'
+repo = 'roxma/nvim-yarp'
+if = '!has("nvim")'
 
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+if = '!has("nvim")'
+
+# filer
+[[plugins]]
+repo = 'Shougo/vimfiler'
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+
+# mode line
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+
+# syntax checker
+[[plugins]]
+repo = 'scrooloose/syntastic'
+
+# editor-config
+[[plugins]]
+repo = 'sgur/vim-editorconfig'
+
+# color theme
 [[plugins]]
 repo = 'tomasr/molokai'
 
 [[plugins]]
-repo = 'altercation/vim-colors-solarized'
+repo = 'freeo/vim-kalisi'
 
+[[plugins]]
+repo = 'rakr/vim-one'
+
+# fuzzy finder
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 depends = 'fzf'
 hook_add = '''
-    command! -bang -nargs=* Rg
-      \ call fzf#vim#grep(
-      \   'rg --line-number --no-heading '.shellescape(<q-args>), 0,
-      \   fzf#vim#with_preview({'options': '--exact --reverse'}, 'right:50%:wrap'))
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
 '''

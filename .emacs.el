@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;;
+;; Last Update: 2018-03-17 15:09:10
 
 ;;; Code:
 
@@ -35,23 +35,25 @@
   '(exec-path-from-shell
     package-utils
     0xc
+    elscreen
+    popwin
+    import-popwin
     auto-complete
-    ac-html
-    ac-emmet
-    ac-js2
-    ac-php
-    ac-helm
     fuzzy
     pos-tip
+    company
+    company-quickhelp
     avy
     sequential-command
     editorconfig
     quickrun
     anzu
     expand-region
-    electric-operator
     highlight-symbol
     foreign-regexp
+    multiple-cursors
+    electric-operator
+    undohist
     undo-tree
     editorconfig
     comment-tags
@@ -59,8 +61,11 @@
     rainbow-delimiters
     web-mode
     web-beautify
+    ac-html
     emmet-mode
+    ac-emmet
     php-mode
+    ac-php
     php-eldoc
     rbenv
     ruby-electric
@@ -68,10 +73,15 @@
     robe
     js2-mode
     js2-refactor
+    ac-js2
+    tern
     json-mode
     typescript-mode
     tss
+    tide
+    tern-auto-complete
     yaml-mode
+    toml-mode
     python-mode
     jedi
     elpy
@@ -89,10 +99,15 @@
     imenu-list
     helm
     helm-smex
+    helm-swoop
     helm-ag
     helm-gtags
     helm-descbinds
     helm-flyspell
+    helm-elscreen
+    helm-dash
+    ac-helm
+    auto-complete-nxml
     bm
     helm-bm
     projectile
@@ -104,22 +119,22 @@
     yasnippet
     yasnippet-snippets
     helm-c-yasnippet
-    elscreen
-    popwin
-    import-popwin
+    centered-cursor-mode
     emamux
     multi-term
     shell-pop
     scratch-pop
     which-key
     smart-mode-line
-    w3m
     dired-narrow
     dired-subtree
     japanese-holidays
     osx-trash
-    xah-lookup
+    vimrc-mode
+    w3m
+    mew
     google-translate
+    xah-lookup
     howdoi
     qiita
     yagist
@@ -155,6 +170,7 @@
     (elisp-slime-nav-mode . " EN")
     (helm-gtags-mode . " HG")
     (flymake-mode . " Fm")
+    (company-mode . " Comp")
     ;; Major modes
     (emacs-lisp-mode . "El")
     (default-generic-mode . "DGen")
@@ -223,10 +239,10 @@
 ;; ------------------------------------------------------------------------
 ;; elscreen
 
-(require 'elscreen)
 (elscreen-start)
-(setq elscreen-prefix-key (kbd "M-z"))
-(setq elscreen-display-tab 30)
+(elscreen-create)
+(setq elscreen-prefix-key (kbd "C-z"))
+(setq elscreen-display-tab nil)
 (setq elscreen-tab-display-kill-screen nil)
 (setq elscreen-tab-display-control nil)
 (setq elscreen-buffer-to-nickname-alist
@@ -254,7 +270,8 @@
 ;; expand-region
 
 (require 'expand-region)
-(global-set-key (kbd "M-,") 'er/expand-region)
+(global-set-key (kbd "C-,") 'er/expand-region)
+(global-set-key (kbd "C-M-,") 'er/contract-region)
 
 ;; ------------------------------------------------------------------------
 ;; highlight-symbol
@@ -302,7 +319,6 @@
 ;; avoid ref warnings
 (defvar foreign-regexp/regexp-type "")
 (defvar foreign-regexp/re-builder/targ-buf-state/.orig-pt "")
-
 (require 'foreign-regexp)
 
 ;; ------------------------------------------------------------------------
@@ -310,6 +326,8 @@
 
 (require 'auto-complete-config)
 (ac-config-default)
+(ac-flyspell-workaround)
+(ac-linum-workaround)
 (global-auto-complete-mode t)
 (add-to-list 'ac-modes 'text-mode)
 (add-to-list 'ac-modes 'fundamental-mode)
@@ -318,6 +336,7 @@
 (setq ac-use-menu-map t)
 (setq ac-use-fuzzy t)
 (setq ac-menu-height 15)
+(setq ac-max-width 35)
 (setq ac-ignore-case t)
 (setq ac-delay 0.1)
 (setq ac-auto-show-menu 0.2)
@@ -327,6 +346,29 @@
 
 (setq-default ac-sources 'ac-source-words-in-same-mode-buffers)
 (setq-default ac-sources (push 'ac-source-yasnippet ac-sources))
+
+;; ------------------------------------------------------------------------
+;; company
+
+(require 'company)
+;; (global-company-mode t)
+;; (company-quickhelp-mode t) ;; only support GUI
+
+(setq company-idle-delay 0.1)
+(setq company-minimum-prefix-length 2)
+(setq company-selection-wrap-around t)
+(setq completion-ignore-case t)
+(setq company-dabbrev-downcase nil)
+(setq company-transformers '(company-sort-by-backend-importance))
+
+(global-set-key (kbd "C-M-i") 'company-complete)
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
+(define-key company-search-map (kbd "C-n") 'company-select-next)
+(define-key company-search-map (kbd "C-p") 'company-select-previous)
+(define-key company-active-map (kbd "C-s") 'company-filter-candidates)
+(define-key company-active-map (kbd "C-i") 'company-complete-selection)
+;;(define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
 
 ;; ------------------------------------------------------------------------
 ;; dired + wdired + dired-x
@@ -417,6 +459,11 @@
 (add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
 
 ;; ------------------------------------------------------------------------
+;; multiple-cursors
+
+(require 'multiple-cursors)
+
+;; ------------------------------------------------------------------------
 ;; imenu
 
 (setq imenu-auto-rescan t)
@@ -432,18 +479,47 @@
 (load "~/dotfiles/cnf-helm.el")
 
 ;; ------------------------------------------------------------------------
+;; load mew settings
+
+(let ((mew-file "~/cnf-mew.el"))
+  (if (file-exists-p mew-file)
+      (load mew-file)))
+
+;; ------------------------------------------------------------------------
 ;; flyspell (spell check)
 
-(setq-default flyspell-mode t)
 (setq ispell-program-name "aspell")
 (eval-after-load "ispell"
- '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
+  '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
+
+;; only enable comment
+(mapc
+ (lambda (hook)
+   (add-hook hook 'flyspell-prog-mode))
+ '(
+   emacs-lisp-mode-hook
+   ))
+;; enable all
+(mapc
+   (lambda (hook)
+     (add-hook hook
+               '(lambda () (flyspell-mode 1))))
+   '(
+     markdown-mode-hook
+     ))
 
 ;(add-hook 'find-file-hook 'flyspell-mode)
 ;(add-hook 'find-file-hook 'flyspell-buffer)
 
 ;; > sudo port install aspell
 ;; > sudo port install aspell-dict-en
+
+;; ------------------------------------------------------------------------
+;; undohist
+
+(require 'undohist)
+(undohist-initialize)
+(setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG"))
 
 ;; ------------------------------------------------------------------------
 ;; volatile-highlights
@@ -508,6 +584,7 @@
   (define-key term-raw-map "\C-t" 'set-mark-command)
   (define-key term-raw-map "\C-p" 'term-send-up)
   (define-key term-raw-map "\C-n" 'term-send-down)
+  (define-key term-raw-map "\C-h" 'term-send-backspace)
   (define-key term-raw-map (kbd "ESC") 'term-send-raw)
   (define-key term-raw-map [delete] 'term-send-raw)
   (define-key term-raw-map [mouse-4] 'term-send-up)
@@ -516,6 +593,13 @@
     (lookup-key (current-global-map) "\C-z"))))
 (global-set-key (kbd "C-c n") 'multi-term-next)
 (global-set-key (kbd "C-c p") 'multi-term-prev)
+
+(with-eval-after-load "multi-term"
+  (setenv "TERMINFO" "~/.terminfo")
+  (setenv "HOSTTYPE" "intel-mac"))
+
+;; > curl https://opensource.apple.com/source/emacs/emacs-70/emacs/etc/e/eterm-color.ti\?txt > eterm-color.ti
+;; > tic -o ~/.terminfo eterm-color.ti
 
 ;; ------------------------------------------------------------------------
 ;; popwin
@@ -580,6 +664,14 @@
 (which-key-mode 1)
 
 ;; ------------------------------------------------------------------------
+;; centered-cursor-mode
+
+(add-hook 'isearch-mode-hook
+          #'(lambda () (centered-cursor-mode 1)))
+(add-hook 'isearch-mode-end-hook
+          #'(lambda () (centered-cursor-mode -1)))
+
+;; ------------------------------------------------------------------------
 ;; undo-tree
 
 (require 'undo-tree)
@@ -598,15 +690,15 @@
 
 (require 'smart-mode-line)
 ;; bug hack
-(setq sml/active-background-color "gray60")
+(setq sml/active-background-color "Gray60")
 (setq sml/read-only-char "%%")
 (setq sml/modified-char "*")
 ;; hide Helm and auto-complete
-(setq sml/hidden-modes '(" Helm" " AC" " yas" " ARev" " Anzu"))
+(setq sml/hidden-modes '(" Helm" " yas" " ARev" " Anzu"))
 ;; hack (privent overflow)
 (setq sml/extra-filler -10)
 ;;; sml/replacer-regexp-list
-(add-to-list 'sml/replacer-regexp-list '("^.+/junk/[0-9]+/" ":J:") t)
+;;(add-to-list 'sml/replacer-regexp-list '("^.+/junk/[0-9]+/" ":J:") t)
 (setq sml/no-confirm-load-theme t)
 (sml/setup)
 ;; theme
@@ -629,6 +721,13 @@
  ;; If there is more than one, they won't work right.
  '(bm-face ((t (:background "color-28"))))
  '(bm-fringe-face ((t (:background "color-28"))))
+ '(company-preview-common ((t (:background nil :foreground "LightGray" :underline t))))
+ '(company-scrollbar-bg ((t (:background "Gray40"))))
+ '(company-scrollbar-fg ((t (:background "orange"))))
+ '(company-tooltip ((t (:foreground "black" :background "LightGray"))))
+ '(company-tooltip-common ((t (:foreground "black" :background "LightGray"))))
+ '(company-tooltip-common-selection ((t (:foreground "white" :background "SteelBlue"))))
+ '(company-tooltip-selection ((t (:foreground "black" :background "SteelBlue"))))
  '(diff-added ((((type tty)) (:foreground "green"))))
  '(diff-removed ((((type tty)) (:foreground "red"))))
  '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
@@ -642,7 +741,6 @@
  '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
  '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
- '(font-lock-doc-face ((t (:foreground "green"))))
  '(fringe ((t (:background "Gray12" :foreground "blue"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-buffer-process ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
@@ -650,13 +748,15 @@
  '(helm-ff-dotted-directory ((t (:background "Gray25" :foreground "white"))))
  '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "cyan"))))
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
+ '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
  '(helm-grep-file ((t (:inherit font-lock-builtin-face :underline t :foreground "cyan"))))
  '(helm-grep-match ((t (:background "LightCyan" :foreground "black"))))
- '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
+ '(helm-header ((t (:background "Gray40" :foreground "Gray80"))))
  '(helm-match ((t (:foreground "cyan"))))
  '(helm-selection ((t (:background "Gray30"))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
  '(highlight-symbol-face ((t (:background "Gray25"))))
+ '(tide-hl-identifier-face ((t (:background "Gray28"))))
  '(hl-line ((t (:background "color-236"))))
  '(holiday ((t (:background "pink"))))
  '(isearch ((t (:background "LightPink" :foreground "black"))))
@@ -676,33 +776,36 @@
  '(magit-log-author ((t (:foreground "magenta"))))
  '(magit-section-highlight ((t (:background "Gray23"))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
- '(markdown-header-face-1 ((t (:inherit outline-1 :weight bold))))
- '(markdown-header-face-2 ((t (:inherit outline-2 :weight bold))))
- '(markdown-header-face-3 ((t (:inherit outline-3 :weight bold))))
- '(markdown-header-face-4 ((t (:inherit outline-4 :weight bold))))
- '(markdown-header-face-5 ((t (:inherit outline-5 :weight bold))))
- '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
+ '(markdown-header-face-1 ((t (:inherit outline-1))))
+ '(markdown-header-face-2 ((t (:inherit outline-2))))
+ '(markdown-header-face-3 ((t (:inherit outline-3))))
+ '(markdown-header-face-4 ((t (:inherit outline-4))))
+ '(markdown-header-face-5 ((t (:inherit outline-5))))
+ '(markdown-header-face-6 ((t (:inherit outline-6))))
  '(markdown-pre-face ((t (:foreground "ivory"))))
  '(minibuffer-prompt ((t (:foreground "blue"))))
- '(outline-1 ((t (:background "BrightBlue" :foreground "white"))))
- '(outline-2 ((t (:foreground "cyan"))))
- '(outline-3 ((t (:foreground "blue"))))
- '(outline-4 ((t (:foreground "goldenrod"))))
+ '(nxml-attribute-local-name ((t (:foreground "LightBlue"))))
+ '(nxml-attribute-value ((t (:foreground "yellow"))))
+ '(nxml-cdata-section-content ((t (:foreground "gray"))))
+ '(nxml-comment-content ((t (:foreground "gree"))))
+ '(nxml-comment-delimiter ((t (:foreground "green"))))
+ '(nxml-element-local-name ((t (:foreground "blue"))))
+ '(nxml-entity-ref-delimiter ((t (:foreground "red"))))
+ '(nxml-entity-ref-name ((t (:foreground "red"))))
+ '(nxml-name-face ((t (:foreground "cyan"))))
+ '(nxml-tag-delimiter ((t (:foreground "LightBlue"))))
+ '(outline-1 ((t (:foreground "LightBlue" :weight bold :underline t))))
+ '(outline-2 ((t (:foreground "LightBlue" :weight bold))))
+ '(outline-3 ((t (:foreground "cyan" :weight bold))))
+ '(outline-4 ((t (:foreground "orange" :weight bold))))
+ '(outline-5 ((t (:foreground "goldenrod" :weight bold))))
+ '(outline-6 ((t (:foreground "orange"))))
+ '(outline-7 ((t (:foreground "goldenrod"))))
  '(package-name ((t (:foreground "blue"))))
  '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
  '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
  '(region ((t (:background "Gray40"))))
  '(tool-bar ((t (:foreground "cyan"))))
- '(nxml-name-face ((t (:foreground "cyan"))))
- '(nxml-tag-delimiter ((t (:foreground "LightBlue"))))
- '(nxml-element-local-name ((t (:foreground "blue"))))
- '(nxml-attribute-local-name ((t (:foreground "LightBlue"))))
- '(nxml-attribute-value ((t (:foreground "yellow"))))
- '(nxml-comment-content ((t (:foreground "gree"))))
- '(nxml-comment-delimiter ((t (:foreground "green"))))
- '(nxml-cdata-section-content ((t (:foreground "gray"))))
- '(nxml-entity-ref-delimiter ((t (:foreground "red"))))
- '(nxml-entity-ref-name ((t (:foreground "red"))))
  '(web-mode-comment-face ((t (:foreground "green"))))
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
  '(web-mode-css-pseudo-class ((t (:foreground "blue"))))
@@ -711,8 +814,8 @@
  '(web-mode-html-attr-equal-face ((t (:foreground "white"))))
  '(web-mode-html-attr-name-face ((t (:foreground "LightBlue"))))
  '(web-mode-html-attr-value-face ((t (:foreground "yellow"))))
- '(web-mode-html-tag-face ((t (:foreground "blue"))))
  '(web-mode-html-tag-bracket-face ((t (:foreground "LightBlue"))))
+ '(web-mode-html-tag-face ((t (:foreground "blue"))))
  '(web-mode-server-comment-face ((t (:foreground "green"))))
  '(which-func ((t (:foreground "ivory"))))
  '(which-key-command-description-face ((t (:foreground "white")))))
@@ -726,6 +829,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
+ '(company-dabbrev-code-other-buffers (quote all))
+ '(company-dabbrev-other-buffers (quote all))
  '(custom-safe-themes
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
@@ -733,13 +838,14 @@
  '(foreign-regexp/regexp-type (quote perl))
  '(google-translate-default-source-language "ja")
  '(google-translate-default-target-language "en")
+ '(helm-ag-base-command "ag --nogroup --ignore-case")
  '(helm-mini-default-sources
    (quote
     (helm-source-buffers-list helm-source-recentf helm-source-projectile-files-list)))
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode tss typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
+    (tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode tss typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)
@@ -756,6 +862,10 @@
  '(tool-bar-mode nil))
 
 (put 'set-goal-column 'disabled nil)
+
+;; ------------------------------------------------------------------------
+
+(setq initial-scratch-message ";; saitamacs ok\n")
 
 ;; ------------------------------------------------------------------------
 

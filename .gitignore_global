@@ -3,6 +3,8 @@
 *#
 .#*
 
+.cache
+
 # gtags
 GPATH
 GRTAGS
@@ -11,6 +13,10 @@ GTAGS
 # Vim
 *.swp
 *.swo
+
+# MS
+*.aps
+*.pch
 
 # VSCode
 .vscode

@@ -75,6 +75,8 @@
 (setq gdb-use-separate-io-buffer t)
 (setq gud-tooltip-echo-area nil)
 
+;; gcc -g -o test test.c
+
 ;; ------------------------------------------------------------------------
 ;; imenu-list
 
@@ -199,7 +201,7 @@
 
 (setq web-mode-ac-sources-alist
       '(("php" . (ac-source-yasnippet ac-source-php-auto-yasnippets))
-        ("css" . (ac-source-css-property))
+        ("css" . (ac-source-css-property ac-source-emmet-css-snippets))
         ("html" . (ac-source-emmet-html-aliases ac-source-emmet-html-snippets ac-source-words-in-buffer ac-source-abbrev))))
 
 (add-hook 'web-mode-before-auto-complete-hooks
@@ -256,21 +258,54 @@
 (require 'typescript)
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
 
-(require 'tss)
-(setq tss-popup-help-key "C-:")
-(setq tss-jump-to-definition-key "C->")
-(setq tss-implement-definition-key "C-c i")
+;; ------------------------------------------------------------------------
+;; typescript (tss + auto-complete)
 
-;; dot use tss-config-default
-(defun typescript-setup ()
-  "Typescript setup."
-  (setq typescript-indent-level 2)
-  (flycheck-mode t)
-  ;;(flycheck-typescript-tslint-setup)
-  (tss-setup-current-buffer))
+;; (require 'tss)
+;; (setq tss-popup-help-key "C-:")
+;; (setq tss-jump-to-definition-key "C->")
+;; (setq tss-implement-definition-key "C-c i")
 
-(add-hook 'typescript-mode-hook 'typescript-setup)
-(add-hook 'kill-buffer-hook 'tss--delete-process t)
+;; (defun typescript-setup ()
+;;   "Typescript setup."
+;;   (tss-config-default)
+;;   (setq typescript-indent-level 2)
+;;   (flycheck-mode t)
+;;   (eldoc-mode t)
+;;   ;;(flycheck-typescript-tslint-setup)
+;;   (tss-setup-current-buffer))
+
+;; (add-hook 'typescript-mode-hook 'typescript-setup)
+;; (add-hook 'kill-buffer-hook 'tss--delete-process t)
+
+;; ------------------------------------------------------------------------
+;; typescript (tide + company-mode)
+
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  (company-mode +1))
+(setq company-tooltip-align-annotations t)
+(add-hook 'before-save-hook 'tide-format-before-save)
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+;; ------------------------------------------------------------------------
+;; tern
+
+(setq tern-command '("tern" "--no-port-file"))
+(add-hook 'js2-mode-hook (lambda ()(tern-mode t)))
+;;(add-hook 'typescript-mode-hook (lambda ()(tern-mode t)))
+
+(eval-after-load 'tern
+   '(progn
+      (require 'tern-auto-complete)
+      (tern-ac-setup)))
+
+;; > suod npm install -g tern
 
 ;; ------------------------------------------------------------------------
 ;; ruby-mode
@@ -353,8 +388,8 @@
 ;; > sudo port install py-yapf py36-yapf
 ;; > sudo port install py-importmagic
 ;; > sudo pip-3.6 install importmagic
-;; > sudo pip install autopep8 flake8
-;; > sudo pip-3.6 install autopep8 flake8
+;; > sudo pip install jedi autopep8 flake8
+;; > sudo pip-3.6 install jedi autopep8 flake8
 
 ;; ------------------------------------------------------------------------
 ;; go-mode
@@ -408,6 +443,14 @@
 ;; > sed -i -e "s/pygments-parser\.la/pygments-parser.so/g" ~/.globalrc
 
 ;; ------------------------------------------------------------------------
+;; auto-complete-nxml
+
+(eval-after-load 'nxml-mode
+  '(progn
+     (require 'auto-complete-nxml)
+     ))
+
+;; ------------------------------------------------------------------------
 ;; yasnippet
 
 (yas-global-mode 1)
@@ -445,6 +488,12 @@
 (add-hook 'ruby-mode-hook #'electric-operator-mode)
 (add-hook 'js2-mode-hook #'electric-operator-mode)
 (add-hook 'typescript-mode-hook #'electric-operator-mode)
+
+;; ------------------------------------------------------------------------
+;; git-complete
+
+(require 'git-complete)
+(global-set-key (kbd "M-g j") 'git-complete)
 
 ;; ------------------------------------------------------------------------
 

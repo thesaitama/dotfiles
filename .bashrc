@@ -11,6 +11,7 @@ umask 022
 
 # alias
 alias e='emacsclient -nw -a ""'
+# alias e='TERM=xterm-256color-italic emacsclient -nw -a ""'
 alias emacs='emacsclient -nw -a ""'
 alias minimacs='\emacs -q -l ~/dotfiles/minimacs.el'
 alias ls='ls -avhplGF'
@@ -34,20 +35,29 @@ if [ "$(uname)" == 'Darwin' ]; then
   alias reminders='open -a reminders'
   alias chrome='open -a google\ chrome'
   alias firefox='open -a firefox'
-  alias thunderbird='open -a thunderbird'
-  alias excel='open -a microsoft\ excel'
-  alias msword='open -a microsoft\ word'
-  alias powerpoint='open -a microsoft\ powerpoint'
   # macOS Finder
   alias finderShowH='defaults write com.apple.finder ShowAllFiles TRUE'
   alias finderHideH='defaults write com.apple.finder ShowAllFiles FALSE'
 fi
 
+# share history
+function share_history {
+  history -a
+  history -c
+  history -r
+}
+shopt -u histappend
+PROMPT_COMMAND='share_history'
+
 # Env (shell)
+export TERMINFO=~/.terminfo
 export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export PROMPT_DIRTRIM=1
+export HISTSIZE=10000
 export HISTCONTROL=ignoredups:ignorespace:erasedups
+export HISTIGNORE="fg*:bg*:history*"
+export HISTTIMEFORMAT='%Y%m%d %T ';
 
 # color man
 man() {
@@ -101,26 +111,39 @@ set completion-ignore-case on
 set bell-style none
 set visible-stats on
 
+# git-completion
+if [ "$(uname)" == 'Darwin' ]; then
+  source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
+fi
+
 # tmux
 # lunch tmux
 tm() {
   tmux ls > /dev/null
   if [ $? -eq 1 -a -z "$TMUX" ]; then
-    exec tmux
+    tmux
   elif [ -z "$TMUX" ] ; then
-    exec tmux attach
+    tmux a
   else
     echo "sessions should be nested with care."
   fi
 }
 
+tk() {
+  if [ -z $1 ]; then
+    tmux kill-session
+  else
+    tmux kill-session -t $1
+  fi
+}
+
 # run new pane
-s(){
-    if [ $# -eq 0 ]; then
-        cat > /tmp/tmux.tmp && tmux split-window -v "less /tmp/tmux.tmp"
-    else
-        tmux split-window -v "$*"
-    fi
+tnp() {
+  if [ $# -eq 0 ]; then
+    cat > /tmp/tmux.tmp && tmux split-window -v "less /tmp/tmux.tmp"
+  else
+    tmux split-window -v "$*"
+  fi
 }
 
 # rename window-name when ssh
@@ -145,19 +168,60 @@ exit() {
   fi
 }
 
+# bash-completion
+# > sudo port install bash-completion
+if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+  . /opt/local/etc/profile.d/bash_completion.sh
+fi
+
+# autojump
+# > sudo port install autojump
+if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
+  . /opt/local/etc/profile.d/autojump.sh
+fi
+
+# fasd
+# > sudo port install fasd
+eval "$(fasd --init auto)"
+
 # fzf
 # > git clone https://github.com/junegunn/fzf.git ~/.fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 if [ -f ~/.fzfcmd.sh ] ; then
   . ~/.fzfcmd.sh
+  export FZF_DEFAULT_OPTS='--height 40% --reverse'
+  export FZF_DEFAULT_COMMAND='ag -g ""'
+  export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+  export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 fi
 
-# bash-completion
-if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
-  . /opt/local/etc/profile.d/bash_completion.sh
+# enhancd
+# > git clone https://github.com/b4b4r07/enhancd ~/.enhancd
+if [ -f ~/.enhancd/init.sh ]; then
+  export ENHANCD_FILTER=fzf
+  source ~/.enhancd/init.sh
 fi
+
+# ranger
+ranger() {
+  [ -n "$RANGER_LEVEL" ] && exit || LESS="$LESS -+F -+X" command ranger "$@";
+}
+[ -n "$RANGER_LEVEL" ] && PS1="RANGER> $PS1"
+alias rng='ranger'
+
+# w3m for google
+function google() {
+  local str opt
+  if [ $# != 0 ]; then
+    for i in $*; do
+      str="$str+$i"
+    done
+    str=`echo $str | sed 's/^\+//'`
+    opt='search?num=50&hl=ja&lr=lang_ja'
+    opt="${opt}&q=${str}"
+  fi
+  w3m http://www.google.co.jp/$opt
+}
 
 # .inputrc
 [ -f ~/.inputrc ] && bind -f ~/.inputrc
-
-

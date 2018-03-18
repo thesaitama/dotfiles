@@ -1,1 +1,0 @@
-/Users/kazuhiro/dotfiles/.vimrc

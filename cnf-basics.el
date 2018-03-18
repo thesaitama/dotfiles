@@ -56,16 +56,18 @@
 ;; color set-face (basic)
 
 (global-font-lock-mode t)
-(set-face-foreground 'font-lock-type-face "darkyellow")
+(set-face-foreground 'font-lock-type-face "brightred")
 (set-face-foreground 'font-lock-builtin-face "magenta")
 (set-face-foreground 'font-lock-comment-face "green")
 (set-face-foreground 'font-lock-comment-delimiter-face "green")
-(set-face-foreground 'font-lock-string-face "darkorange")
+(set-face-foreground 'font-lock-doc-face "gray")
+(set-face-foreground 'font-lock-string-face "orange")
+(set-face-foreground 'font-lock-regexp-grouping-backslash "gray")
 (set-face-foreground 'font-lock-keyword-face "blue")
 (set-face-foreground 'font-lock-function-name-face "yellow")
 (set-face-foreground 'font-lock-variable-name-face "goldenrod")
 (set-face-foreground 'font-lock-constant-face "orange")
-(set-face-foreground 'font-lock-preprocessor-face "darkyellow")
+(set-face-foreground 'font-lock-preprocessor-face "yellow")
 (set-face-foreground 'font-lock-warning-face "pink")
 
 ;; ------------------------------------------------------------------------
@@ -115,6 +117,9 @@
 ;; region display
 (setq transient-mark-mode t)
 
+;; mark comamnd repeat (C-u C-SPC ...)
+(setq set-mark-command-repeat-pop t)
+
 ;; line number
 (global-linum-mode 0)
 (setq linum-format "%4d ")
@@ -145,57 +150,38 @@
 ;; which fucntion
 (which-function-mode 1)
 
-;; ;; ------------------------------------------------------------------------
-;; ;; modeline
+;; ignore case
+(setq read-buffer-completion-ignore-case t)
+(setq read-file-name-completion-ignore-case t)
 
-;; (line-number-mode t)
-;; (column-number-mode t)
-;; (size-indication-mode t)
+;; ------------------------------------------------------------------------
+;; isearch
 
-;; ;; clean mode line
-;; (defvar mode-line-cleaner-alist
-;;   '( ;; For minor-mode, first char is 'space'
-;;     (paredit-mode . " Pe")
-;;     (eldoc-mode . "")
-;;     (abbrev-mode . "")
-;;     (undo-tree-mode . "")
-;;     (font-lock-mode . "")
-;;     (editorconfig-mode . " EC")
-;;     (elisp-slime-nav-mode . " EN")
-;;     (helm-gtags-mode . " HG")
-;;     (flymake-mode . " Fm")
-;;     ;; Major modes
-;;     (emacs-lisp-mode . "El")
-;;     (default-generic-mode . "DGen")
-;;     (generic-mode . "Gen")
-;;     (lisp-interaction-mode . "Li")
-;;     (shell-script-mode . "SS")
-;;     (python-mode . "Py")
-;;     (ruby-mode . "Rb")
-;;     (typescript-mode . "TS")
-;;     (markdown-mode . "Md")
-;;     (fundamental-mode . "Fund")
-;;     ))
+;; search
+(setq case-fold-search t)
+(setq isearch-case-fold-search t)
 
-;; (defun clean-mode-line ()
-;;   (interactive)
-;;   (loop for (mode . mode-str) in mode-line-cleaner-alist
-;;         do
-;;         (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
-;;           (when old-mode-str
-;;             (setcar old-mode-str mode-str))
-;;           ;; major mode
-;;           (when (eq mode major-mode)
-;;             (setq mode-name mode-str)))))
-
-;; (add-hook 'after-change-major-mode-hook 'clean-mode-line)
+(defadvice isearch-mode
+    (around isearch-mode-default-string
+            (forward &optional regexp op-fun recursive-edit word-p) activate)
+  (if (and transient-mark-mode mark-active (not (eq (mark) (point))))
+      (progn
+        (isearch-update-ring (buffer-substring-no-properties (mark) (point)))
+        (deactivate-mark)
+        ad-do-it
+        (if (not forward)
+            (isearch-repeat-backward)
+          (goto-char (mark))
+          (isearch-repeat-forward)))
+    ad-do-it))
 
 ;; ------------------------------------------------------------------------
 ;; uniquify
 
 (require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets
-      uniquify-min-dir-content 1)
+(setq uniquify-ignore-buffers-re "*[^*]+*")
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+(setq uniquify-min-dir-content 1)
 
 ;; ------------------------------------------------------------------------
 ;; mouse
@@ -220,10 +206,9 @@
 ;; ------------------------------------------------------------------------
 ;; electric-pair
 
-(electric-pair-mode 1)
-
 ;; https://abicky.net/2013/12/21/195058/
 
+(electric-pair-mode 1)
 (defadvice electric-pair-post-self-insert-function
   (around electric-pair-post-self-insert-function-around activate)
   "Don't insert the closing pair in comments or strings."
@@ -244,6 +229,17 @@
 (require 'generic-x)
 
 ;; ------------------------------------------------------------------------
+;; abbrev
+
+(let ((abbrev-file "~/.abbrev_defs"))
+  (setq abbrev-file-name abbrev-file)
+  (if (file-exists-p abbrev-file)
+      (quietly-read-abbrev-file abbrev-file)))
+
+(setq save-abbrevs 'silently)
+(setq default-abbrev-mode t)
+
+;; ------------------------------------------------------------------------
 ;; dabbrev
 
 ;(global-set-key (kbd "C-<tab>") 'dabbrev-expand)
@@ -252,14 +248,23 @@
 ;; ------------------------------------------------------------------------
 ;; recentf
 
-(when (require 'recentf nil t)
-  (setq recentf-max-saved-items 2000)
-  (setq recentf-exclude '(".recentf"))
-  (setq recentf-auto-cleanup 10)
-  (setq recentf-auto-save-timer
-        (run-with-idle-timer 30 t 'recentf-save-list))
-  (recentf-mode 1))
+;;(when (require 'recentf nil t)
+(require 'recentf)
+
+(defadvice recentf-cleanup
+  (around no-message activate)
+  "Suppress the output from `message` to minibuffer."
+  (cl-flet ((message (format-string &rest args)
+                     (eval `(format ,format-string ,@args))))
+    ad-do-it))
+
+(setq recentf-max-saved-items 2000)
+(setq recentf-exclude '(".recentf"))
+(setq recentf-auto-cleanup 10)
+(setq recentf-auto-save-timer
+      (run-with-idle-timer 30 t 'recentf-save-list))
 (setq-default find-file-visit-truename t)
+(recentf-mode 1)
 
 ;; ------------------------------------------------------------------------
 ;; dired + wdired + dired-x
@@ -314,10 +319,11 @@
 ;; ------------------------------------------------------------------------
 ;; time-stamp
 
+(require 'time-stamp)
 (add-hook 'before-save-hook 'time-stamp)
 (with-eval-after-load "time-stamp"
-  (setq time-stamp-start "Last Update: ")
-  (setq time-stamp-format "%04y-%02m-%02d@%02H:%02M")
+  (setq time-stamp-start "Last Update:")
+  (setq time-stamp-format " %04y-%02m-%02d %02H:%02M:%02S")
   (setq time-stamp-end "$")
   (setq time-stamp-line-limit 15)) ; def=8
 
@@ -343,6 +349,41 @@
             (setq tab-width 2)
             )
           )
+
+;; ------------------------------------------------------------------------
+;; org-mode
+
+(setq org-log-done 'time)
+(add-hook 'org-mode-hook 'turn-on-font-lock)
+
+;; ------------------------------------------------------------------------
+;; eww
+
+(defvar eww-disable-colorize t)
+(defun shr-colorize-region--disable (orig start end fg &optional bg &rest _)
+  (unless eww-disable-colorize
+    (funcall orig start end fg)))
+(advice-add 'shr-colorize-region :around 'shr-colorize-region--disable)
+(advice-add 'eww-colorize-region :around 'shr-colorize-region--disable)
+(defun eww-disable-color ()
+  "When eww disable flip colorize."
+  (interactive)
+  (setq-local eww-disable-colorize t)
+  (eww-reload))
+(defun eww-enable-color ()
+  "When eww enaboe color rize."
+  (interactive)
+  (setq-local eww-disable-colorize nil)
+  (eww-reload))
+
+;; ------------------------------------------------------------------------
+;; describe-face-at-point
+
+;; https://uwabami.github.io/cc-env/Emacs.html#orgb08f4b8
+
+(defun my:describe-face-at-point ()
+  (interactive)
+  (message "%s" (get-char-property (point) 'face)))
 
 ;; ------------------------------------------------------------------------
 

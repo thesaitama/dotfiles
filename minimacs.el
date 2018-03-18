@@ -14,7 +14,6 @@
 
 ;;; Code:
 
-
 ;; ------------------------------------------------------------------------
 
 (setq initial-scratch-message ";; minimacs\n")
@@ -55,13 +54,27 @@
  '(isearch ((t (:background "LightPink" :foreground "black"))))
  '(link ((t (:foreground "blue"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
- '(outline-1 ((t (:background "BrightBlue" :foreground "white"))))
- '(outline-2 ((t (:foreground "cyan"))))
- '(outline-3 ((t (:foreground "blue"))))
- '(outline-4 ((t (:foreground "goldenrod"))))
+ '(outline-1 ((t (:foreground "LightBlue" :weight bold :underline t))))
+ '(outline-2 ((t (:foreground "LightBlue" :weight bold))))
+ '(outline-3 ((t (:foreground "cyan" :weight bold))))
+ '(outline-4 ((t (:foreground "orange" :weight bold))))
+ '(outline-5 ((t (:foreground "goldenrod" :weight bold))))
+ '(outline-6 ((t (:foreground "orange"))))
+ '(outline-7 ((t (:foreground "goldenrod"))))
  '(package-name ((t (:foreground "blue"))))
  '(region ((t (:background "Gray40"))))
  '(tool-bar ((t (:foreground "cyan"))))
+ '(minibuffer-prompt ((t (:foreground "blue"))))
+ '(nxml-name-face ((t (:foreground "cyan"))))
+ '(nxml-tag-delimiter ((t (:foreground "LightBlue"))))
+ '(nxml-element-local-name ((t (:foreground "blue"))))
+ '(nxml-attribute-local-name ((t (:foreground "LightBlue"))))
+ '(nxml-attribute-value ((t (:foreground "yellow"))))
+ '(nxml-comment-content ((t (:foreground "gree"))))
+ '(nxml-comment-delimiter ((t (:foreground "green"))))
+ '(nxml-cdata-section-content ((t (:foreground "gray"))))
+ '(nxml-entity-ref-delimiter ((t (:foreground "red"))))
+ '(nxml-entity-ref-name ((t (:foreground "red"))))
 )
 
 ;; ------------------------------------------------------------------------

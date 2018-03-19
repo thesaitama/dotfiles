@@ -12,13 +12,15 @@
 "sudo port install vim +huge +python36
 "sudo pip-3.6 install neovim
 
+if !1 | finish | endif
+
 " ------------------------------------------------------------------------
 " basic setttings
 
 set shortmess+=I
 
 set langmenu=en_US
-let $LANG = 'en_US'
+let $LANG='en_US'
 
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim

@@ -73,8 +73,8 @@
 ;; ------------------------------------------------------------------------
 ;; color white spaces
 
-(defface my-face-b-1 '((t (:background "lightyellow"))) nil)
-(defface my-face-b-2 '((t (:background "darkgray"))) nil)
+(defface my-face-b-1 '((t (:background "Gray30"))) nil)
+(defface my-face-b-2 '((t (:background "Gray60"))) nil)
 (defvar my-face-b-1 'my-face-b-1)
 (defvar my-face-b-2 'my-face-b-2)
 (defvar my-face-u-1 'my-face-b-2)

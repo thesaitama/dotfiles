@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-18 22:50:43
+;; Last Update: 2018-03-19 21:56:24
 
 ;;; Code:
 
@@ -133,6 +133,7 @@
     vimrc-mode
     w3m
     mew
+    ac-ispell
     google-translate
     xah-lookup
     howdoi
@@ -518,6 +519,20 @@
 ;; > sudo port install aspell-dict-en
 
 ;; ------------------------------------------------------------------------
+;; ac-ispell
+
+;; Completion words longer than 4 characters
+;; (custom-set-variable '(ac-ispell-requires 4))
+
+(eval-after-load "auto-complete"
+  '(progn
+      (ac-ispell-setup)))
+
+(add-hook 'git-commit-mode-hook 'ac-ispell-ac-setup)
+(add-hook 'mail-mode-hook 'ac-ispell-ac-setup)
+(add-hook 'text-mode-hook 'ac-ispell-ac-setup)
+
+;; ------------------------------------------------------------------------
 ;; undohist
 
 (require 'undohist)
@@ -615,6 +630,7 @@
 (push '("*grep*" :noselect t) popwin:special-display-config)
 (push '("*compilation*" :height 15) popwin:special-display-config)
 (push '("*quickrun*" :height 15) popwin:special-display-config)
+(push '("*Flycheck errors*" :height 15) popwin:special-display-config)
 (push '("*ruby*" :height 15) popwin:special-display-config)
 (push '("*Ilist*" :height 15) popwin:special-display-config)
 (push '("*wclock*" :height 7) popwin:special-display-config)
@@ -759,7 +775,6 @@
  '(helm-selection ((t (:background "Gray30"))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
  '(highlight-symbol-face ((t (:background "Gray25"))))
- '(tide-hl-identifier-face ((t (:background "Gray28"))))
  '(hl-line ((t (:background "color-236"))))
  '(holiday ((t (:background "pink"))))
  '(isearch ((t (:background "LightPink" :foreground "black"))))
@@ -808,6 +823,7 @@
  '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
  '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
  '(region ((t (:background "Gray40"))))
+ '(tide-hl-identifier-face ((t (:background "Gray28"))))
  '(tool-bar ((t (:foreground "cyan"))))
  '(web-mode-comment-face ((t (:foreground "green"))))
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))

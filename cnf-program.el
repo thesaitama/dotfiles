@@ -290,7 +290,8 @@
   (tide-hl-identifier-mode +1)
   (company-mode +1))
 (setq company-tooltip-align-annotations t)
-(add-hook 'before-save-hook 'tide-format-before-save)
+
+;;(add-hook 'before-save-hook 'tide-format-before-save)
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
 ;; ------------------------------------------------------------------------

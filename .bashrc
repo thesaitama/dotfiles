@@ -7,11 +7,31 @@
 
 # thesaitama@ .bashrc
 
+# ------------------------------------------------------------------------
+# Env (shell)
+
 umask 022
 
+export TERMINFO=~/.terminfo
+export CLICOLOR=1
+export LSCOLORS=gxfxcxdxbxegedabagacad
+export PROMPT_DIRTRIM=1
+
+# Make bash check it's window size after a process completes
+shopt -s checkwinsize
+
+# noblobber (disable overwirte)
+set noblobber
+
+set completion-ignore-case on
+set bell-style none
+set visible-stats on
+
+# ------------------------------------------------------------------------
 # alias
+
 alias e='emacsclient -nw -a ""'
-# alias e='TERM=xterm-256color-italic emacsclient -nw -a ""'
+# alias e='TERM=screen-256color-italic emacsclient -nw -a ""'
 alias emacs='emacsclient -nw -a ""'
 alias minimacs='\emacs -q -l ~/dotfiles/minimacs.el'
 alias ls='ls -avhplGF'
@@ -40,6 +60,9 @@ if [ "$(uname)" == 'Darwin' ]; then
   alias finderHideH='defaults write com.apple.finder ShowAllFiles FALSE'
 fi
 
+# ------------------------------------------------------------------------w
+# history
+
 # share history
 function share_history {
   history -a
@@ -47,19 +70,17 @@ function share_history {
   history -r
 }
 shopt -u histappend
-PROMPT_COMMAND='share_history'
 
-# Env (shell)
-export TERMINFO=~/.terminfo
-export CLICOLOR=1
-export LSCOLORS=gxfxcxdxbxegedabagacad
-export PROMPT_DIRTRIM=1
+PROMPT_COMMAND='share_history'
 export HISTSIZE=10000
 export HISTCONTROL=ignoredups:ignorespace:erasedups
 export HISTIGNORE="fg*:bg*:history*"
 export HISTTIMEFORMAT='%Y%m%d %T ';
 
-# color man
+# ------------------------------------------------------------------------
+# color
+
+#man
 man() {
   env \
     LESS_TERMCAP_mb=$(printf "\e[1;32m") \
@@ -88,35 +109,16 @@ ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
 echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
 ${c_blue}\\\$${c_reset} "
 
-# Visual Studio Code
-if [ "$(uname)" == 'Darwin' ]; then
-  vsc() {
-    if [[ $# = 0 ]]
-    then
-      open -a "visual studio code"
-    else
-      [[ $1 = /* ]] && F="$1" || F="$PWD/${1#./}"
-      open -a "visual studio code" --args "$F"
-    fi
-  }
-fi
-
-# Make bash check it's window size after a process completes
-shopt -s checkwinsize
-
-# noblobber (disable overwirte)
-set noblobber
-
-set completion-ignore-case on
-set bell-style none
-set visible-stats on
-
+# ------------------------------------------------------------------------
 # git-completion
+
 if [ "$(uname)" == 'Darwin' ]; then
   source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
 fi
 
+# ------------------------------------------------------------------------
 # tmux
+
 # lunch tmux
 tm() {
   tmux ls > /dev/null
@@ -129,11 +131,19 @@ tm() {
   fi
 }
 
+# kill tmux session
 tk() {
   if [ -z $1 ]; then
     tmux kill-session
   else
     tmux kill-session -t $1
+  fi
+}
+
+# tmux precmd
+precmd() {
+  if [ ! -z $TMUX ]; then
+    tmux refresh-client -S
   fi
 }
 
@@ -168,48 +178,10 @@ exit() {
   fi
 }
 
-# bash-completion
-# > sudo port install bash-completion
-if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
-  . /opt/local/etc/profile.d/bash_completion.sh
-fi
-
-# autojump
-# > sudo port install autojump
-if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
-  . /opt/local/etc/profile.d/autojump.sh
-fi
-
-# fasd
-# > sudo port install fasd
-eval "$(fasd --init auto)"
-
-# fzf
-# > git clone https://github.com/junegunn/fzf.git ~/.fzf
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-if [ -f ~/.fzfcmd.sh ] ; then
-  . ~/.fzfcmd.sh
-  export FZF_DEFAULT_OPTS='--height 40% --reverse'
-  export FZF_DEFAULT_COMMAND='ag -g ""'
-  export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
-  export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
-fi
-
-# enhancd
-# > git clone https://github.com/b4b4r07/enhancd ~/.enhancd
-if [ -f ~/.enhancd/init.sh ]; then
-  export ENHANCD_FILTER=fzf
-  source ~/.enhancd/init.sh
-fi
-
-# ranger
-ranger() {
-  [ -n "$RANGER_LEVEL" ] && exit || LESS="$LESS -+F -+X" command ranger "$@";
-}
-[ -n "$RANGER_LEVEL" ] && PS1="RANGER> $PS1"
-alias rng='ranger'
-
+# ------------------------------------------------------------------------
 # w3m for google
+# > sudo port install w3m
+
 function google() {
   local str opt
   if [ $# != 0 ]; then
@@ -223,5 +195,78 @@ function google() {
   w3m http://www.google.co.jp/$opt
 }
 
+# ------------------------------------------------------------------------
+# bash-completion
+# > sudo port install bash-completion
+
+if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+  . /opt/local/etc/profile.d/bash_completion.sh
+fi
+
+# ------------------------------------------------------------------------
+# autojump
+# > sudo port install autojump
+
+if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
+  . /opt/local/etc/profile.d/autojump.sh
+fi
+
+# ------------------------------------------------------------------------
+# fasd
+# > sudo port install fasd
+
+if type fasd >/dev/null 2>&1; then
+  eval "$(fasd --init auto)"
+fi
+
+# ------------------------------------------------------------------------
+# fzf
+# > git clone https://github.com/junegunn/fzf.git ~/.fzf
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if [ -f ~/.fzfcmd.sh ]; then
+  . ~/.fzfcmd.sh
+  export FZF_DEFAULT_OPTS='--height 40% --reverse'
+  export FZF_DEFAULT_COMMAND='ag -g ""'
+  export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+  export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+fi
+
+# ------------------------------------------------------------------------
+# enhancd
+# > git clone https://github.com/b4b4r07/enhancd ~/.enhancd
+
+if [ -f ~/.enhancd/init.sh ]; then
+  export ENHANCD_FILTER=fzf
+  source ~/.enhancd/init.sh
+fi
+
+# ------------------------------------------------------------------------
+# ranger
+# > sudo port install ranger
+
+ranger() {
+  [ -n "$RANGER_LEVEL" ] && exit || LESS="$LESS -+F -+X" command ranger "$@";
+}
+[ -n "$RANGER_LEVEL" ] && PS1="RANGER> $PS1"
+alias rng='ranger'
+
+# ------------------------------------------------------------------------
+# Visual Studio Code
+
+if [ "$(uname)" == 'Darwin' ]; then
+  vsc() {
+    if [[ $# = 0 ]]
+    then
+      open -a "visual studio code"
+    else
+      [[ $1 = /* ]] && F="$1" || F="$PWD/${1#./}"
+      open -a "visual studio code" --args "$F"
+    fi
+  }
+fi
+
+# ------------------------------------------------------------------------
 # .inputrc
+
 [ -f ~/.inputrc ] && bind -f ~/.inputrc

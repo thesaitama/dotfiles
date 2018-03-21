@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if git_info=$(cd $1 && git status 2>/dev/null ); then
+  git_branch="$(echo $git_info | awk 'NR==1 {print $3}')"
+  case $git_info in
+    *Changes\ not\ staged* ) git_status="#[bg=colour203,fg=black] ns #[fg=default]" ;;
+    *Changes\ to\ be\ committed* ) git_status="#[bg=blue,fg=black] tc #[default]" ;;
+    * ) git_status="#[bg=green,fg=black] ok #[default]" ;;
+  esac
+  if [[ $git_branch = "master" ]]; then
+    git_info="#[bg=colour244,fg=colour255] :${git_branch} #[default]${git_status}"
+  else
+    git_info="#[bg=colour244,fg=white] :${git_branch} #[default]${git_status}"
+  fi
+else
+  git_info=""
+fi
+
+directory="#[bg=colour242,fg=white]$1#[default]"
+
+echo "${git_info}"
+
+

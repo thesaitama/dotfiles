@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-19 21:56:24
+;; Last Update: 2018-03-21 11:05:25
 
 ;;; Code:
 
@@ -271,8 +271,8 @@
 ;; expand-region
 
 (require 'expand-region)
-(global-set-key (kbd "C-,") 'er/expand-region)
-(global-set-key (kbd "C-M-,") 'er/contract-region)
+(global-set-key (kbd "M-,") 'er/expand-region)
+(global-set-key (kbd "M-C-,") 'er/contract-region)
 
 ;; ------------------------------------------------------------------------
 ;; highlight-symbol
@@ -522,7 +522,6 @@
 ;; ac-ispell
 
 ;; Completion words longer than 4 characters
-;; (custom-set-variable '(ac-ispell-requires 4))
 
 (eval-after-load "auto-complete"
   '(progn
@@ -847,6 +846,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ac-ispell-requires 4)
+ '(ac-ispell-fuzzy-limit 4)
  '(column-number-mode t)
  '(company-dabbrev-code-other-buffers (quote all))
  '(company-dabbrev-other-buffers (quote all))

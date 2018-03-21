@@ -1,6 +1,6 @@
 #!/bin/bash
 
-git
+# git information
 cd `tmux display-message -p -F "#{pane_current_path}"`
 git_name=`git config --get user.name`
 git_email=`git config --get user.email`

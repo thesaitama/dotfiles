@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# git information
 if git_info=$(cd $1 && git status 2>/dev/null ); then
   git_branch="$(echo $git_info | awk 'NR==1 {print $3}')"
   case $git_info in
@@ -16,11 +17,7 @@ else
   git_info=""
 fi
 
+# directory
 directory="#[bg=colour240,fg=white]$1 #[default]"
 
 echo "${directory}${git_info}"
-
-
-
-
-

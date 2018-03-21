@@ -103,18 +103,25 @@ c_cyan="\[\033[36m\]"
 c_reset="\[\033[00m\]"
 
 # PS1
-#export PS1="${c_purple}\u@:${c_reset}${c_cyan}\W:${c_reset}$(_ps1_result)$ "
+# export PS1="${c_purple}\u@:${c_reset}${c_cyan}\W:${c_reset}$(_ps1_result)$ "
+# export PS1="${c_reset}${c_green}\
+# ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
+# echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
+# ${c_blue}\\\$${c_reset} "
 export PS1="${c_reset}${c_green}\W/ \
 ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
 echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
 ${c_blue}\\\$${c_reset} "
 
 # ------------------------------------------------------------------------
-# git-completion
+# shell hook
 
-if [ "$(uname)" == 'Darwin' ]; then
-  source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
-fi
+# precmd
+precmd() {
+  if [ ! -z $TMUX ]; then
+    tmux refresh-client -S
+  fi
+}
 
 # ------------------------------------------------------------------------
 # tmux
@@ -137,13 +144,6 @@ tk() {
     tmux kill-session
   else
     tmux kill-session -t $1
-  fi
-}
-
-# tmux precmd
-precmd() {
-  if [ ! -z $TMUX ]; then
-    tmux refresh-client -S
   fi
 }
 
@@ -177,6 +177,13 @@ exit() {
     command exit
   fi
 }
+
+# ------------------------------------------------------------------------
+# git-completion
+
+if [ "$(uname)" == 'Darwin' ]; then
+  source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
+fi
 
 # ------------------------------------------------------------------------
 # w3m for google

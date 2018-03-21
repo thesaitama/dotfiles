@@ -8,16 +8,19 @@ if git_info=$(cd $1 && git status 2>/dev/null ); then
     * ) git_status="#[bg=green,fg=black] ok #[default]" ;;
   esac
   if [[ $git_branch = "master" ]]; then
-    git_info="#[bg=colour244,fg=colour255] :${git_branch} #[default]${git_status}"
+    git_info="#[bg=colour238,fg=colour255] :${git_branch} #[default]${git_status}"
   else
-    git_info="#[bg=colour244,fg=white] :${git_branch} #[default]${git_status}"
+    git_info="#[bg=colour238,fg=white] :${git_branch} #[default]${git_status}"
   fi
 else
   git_info=""
 fi
 
-directory="#[bg=colour242,fg=white]$1#[default]"
+directory="#[bg=colour240,fg=white]$1 #[default]"
 
-echo "${git_info}"
+echo "${directory}${git_info}"
+
+
+
 
 

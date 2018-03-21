@@ -31,7 +31,7 @@ set visible-stats on
 # alias
 
 alias e='emacsclient -nw -a ""'
-# alias e='TERM=screen-256color-italic emacsclient -nw -a ""'
+alias e256='TERM=screen-256color emacsclient -nw -a ""'
 alias emacs='emacsclient -nw -a ""'
 alias minimacs='\emacs -q -l ~/dotfiles/minimacs.el'
 alias ls='ls -avhplGF'

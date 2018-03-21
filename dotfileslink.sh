@@ -29,8 +29,10 @@ ln -s ~/dotfiles/.tigrc ~/.tigrc
 
 # tmux
 ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
-ln -s ~/dotfiles/tmux-status-line /usr/local/bin/tmux-status-line
-ln -s ~/dotfiles/tmux-pane-border /usr/local/bin/tmux-pane-border
+# ln -s ~/dotfiles/tmux-status-line /usr/local/bin/tmux-status-line
+# ln -s ~/dotfiles/tmux-pane-border /usr/local/bin/tmux-pane-border
+# rm /usr/local/bin/tmux-status-line
+# rm /usr/local/bin/tmux-pane-border
 
 # python
 ln -s ~/dotfiles/pip.conf ~/pip.conf

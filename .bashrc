@@ -30,6 +30,8 @@ set visible-stats on
 # ------------------------------------------------------------------------
 # alias
 
+alias sshx="TERM=xterm-256color ssh"
+
 alias e='emacsclient -nw -a ""'
 alias e256='TERM=screen-256color emacsclient -nw -a ""'
 alias emacs='emacsclient -nw -a ""'
@@ -104,7 +106,7 @@ c_reset="\[\033[00m\]"
 
 # PS1
 # export PS1="${c_purple}\u@:${c_reset}${c_cyan}\W:${c_reset}$(_ps1_result)$ "
-# export PS1="${c_reset}${c_green}\
+# export PS1="${c_reset}${c_green} \
 # ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
 # echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
 # ${c_blue}\\\$${c_reset} "
@@ -114,14 +116,11 @@ echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
 ${c_blue}\\\$${c_reset} "
 
 # ------------------------------------------------------------------------
-# shell hook
+# git-completion
 
-# precmd
-precmd() {
-  if [ ! -z $TMUX ]; then
-    tmux refresh-client -S
-  fi
-}
+if [ "$(uname)" == 'Darwin' ]; then
+  source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
+fi
 
 # ------------------------------------------------------------------------
 # tmux
@@ -144,6 +143,13 @@ tk() {
     tmux kill-session
   else
     tmux kill-session -t $1
+  fi
+}
+
+# tmux precmd
+precmd() {
+  if [ ! -z $TMUX ]; then
+    tmux refresh-client -S
   fi
 }
 
@@ -177,13 +183,6 @@ exit() {
     command exit
   fi
 }
-
-# ------------------------------------------------------------------------
-# git-completion
-
-if [ "$(uname)" == 'Darwin' ]; then
-  source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
-fi
 
 # ------------------------------------------------------------------------
 # w3m for google
@@ -277,3 +276,5 @@ fi
 # .inputrc
 
 [ -f ~/.inputrc ] && bind -f ~/.inputrc
+
+# ------------------------------------------------------------------------

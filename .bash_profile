@@ -18,6 +18,7 @@ export XDG_CONFIG_HOME="${HOME}/.config"
 # Path
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/X11R6/bin:/Developer/Tools:$PATH
 export PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH
+export PATH=~/dotfiles/bin:$PATH
 
 # Python
 export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-package:$PYTHONPATH
@@ -29,7 +30,7 @@ export PIP_CONFIG_FILE="${HOME}/pip.conf"
 export EDITOR='emacsclient -nw'
 
 # GTags
-export GTAGSLABEL="pygments" 
+export GTAGSLABEL="pygments"
 
 # NAOqi SDK
 #export PYTHONPATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/python2.7/site-packages:$PYTHONPATH

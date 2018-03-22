@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-21 11:05:25
+;; Last Update: 2018-03-22 22:12:31
 
 ;;; Code:
 
@@ -272,7 +272,7 @@
 
 (require 'expand-region)
 (global-set-key (kbd "M-,") 'er/expand-region)
-(global-set-key (kbd "M-C-,") 'er/contract-region)
+(global-set-key (kbd "C-M-,") 'er/contract-region)
 
 ;; ------------------------------------------------------------------------
 ;; highlight-symbol
@@ -781,6 +781,8 @@
  '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))
  '(link ((t (:foreground "blue"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
+ '(diff-refine-added ((t (:foreground "white" :background "LimeGreen"))))
+ '(diff-refine-removed ((t (:foreground "white" :background "red"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
  '(magit-branch-remote ((t (:foreground "blue"))))
  '(magit-context-highlight ((t (:background "Gray23"))))

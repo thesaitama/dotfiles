@@ -74,6 +74,7 @@
 (add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
 (setq gdb-use-separate-io-buffer t)
 (setq gud-tooltip-echo-area nil)
+(setq gdb-command-name "ggdb")
 
 ;; gcc -g -o test test.c
 
@@ -284,7 +285,7 @@
 (defun setup-tide-mode ()
   (interactive)
   (tide-setup)
-  (flycheck-mode +1)
+  (flycheck-mode t)
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)

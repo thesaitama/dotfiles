@@ -1,0 +1,19 @@
+
+# only macOS
+
+# ------------------------------------------------------------------------
+# copy-mode
+
+set -g default-command "reattach-to-user-namespace -l ${SHELL}"
+unbind -T copy-mode 'C-w'
+unbind -T copy-mode 'M-w'
+unbind -T copy-mode Enter
+bind-key -T copy-mode 'C-w' send -X copy-pipe "reattach-to-user-namespace pbcopy"
+bind-key -T copy-mode 'M-w' send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
+bind-key -T copy-mode Enter send -X copy-pipe "reattach-to-user-namespace pbcopy"
+
+# ------------------------------------------------------------------------
+# status
+
+set-option -g status-right " #(tmux-status-git)#(tmux-status-load)#(tmux-status-mac)#[bg=colour242,fg=white] %m/%d "
+

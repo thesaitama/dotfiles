@@ -8,13 +8,11 @@ set diff-highlight = true
 set ignore-case = true
 set mouse = true
 set refresh-mode = auto
+set refresh-interval = 60
 set wrap-lines = yes
 
+color title-focus white blue
+color cursor white black
 color diff-chunk black white
-
-
-
-
-
-
-
+color diff-add-highlight default green standout
+color diff-del-highlight default red standout

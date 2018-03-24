@@ -1,4 +1,4 @@
-
+# .bash_profile
 #  _   _                     _ _
 # | |_| |__   ___  ___  __ _(_) |_ __ _ _ __ ___   __ _
 # | __| '_ \ / _ \/ __|/ _` | | __/ _` | '_ ` _ \ / _` |
@@ -23,8 +23,8 @@ export XDG_CONFIG_HOME="${HOME}/.config"
 
 # X-Window System
 export DISPLAY=":0.0"
-export PATH=/usr/X11R6/bin:$PATH
-export LD_LIBRARY_PATH=/usr/X11R6/lib
+test -d /usr/X11R6 && export PATH=/usr/X11R6/bin:$PATH &&
+  export LD_LIBRARY_PATH=/usr/X11R6/lib
 
 # Editor
 export EDITOR='emacsclient -nw'
@@ -35,48 +35,50 @@ export EDITOR='emacsclient -nw'
 # Python PIP
 export PIP_CONFIG_FILE="${HOME}/pip.conf"
 
-# GTags
+# GTAGS
 export GTAGSLABEL="pygments"
 
 # GO
-export GOPATH="${HOME}/go"
-export PATH="${HOME}/go/bin:${PATH}"
+test -d ~/go && export GOPATH="${HOME}/go" &&
+  export PATH="${HOME}/go/bin:${PATH}"
 
 # Rust
 # install
 # > curl https://sh.rustup.rs -sSf | sh
 # > cargo install rustfmt
 # > cargo install racer
-# > cargo install ripgrep
-# > cargo install fd-find
+# > cargo install ripgrep fd-find
 # > rustup component add rust-src
 export PATH="$HOME/.cargo/bin:$PATH"
 export RUST_SRC_PATH="$HOME/.rustup/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src"
 
 # ------------------------------------------------------------------------
 # MacOSX old Devloper Tools
+# > xcode-select --install
 
 test -d /Developer && export PATH=/Developer/Tools:$PATH
 
 # ------------------------------------------------------------------------
-# Package system (for MacOSX)
-
 # Fink
-# test -d /sw && export PATH=/sw/bin:/sw/sbin:$PATH && export MANPATH=/sw/share/man:$MANPATH
-# test -r /sw/bin/init.sh && . /sw/bin/init.sh
 
+test -d /sw && export PATH=/sw/bin:/sw/sbin:$PATH && export MANPATH=/sw/share/man:$MANPATH
+test -r /sw/bin/init.sh && . /sw/bin/init.sh
+
+# ------------------------------------------------------------------------
 # MacPorts
-test -d /opt && export PATH=/opt/local/bin:/opt/local/sbin:$PATH &&
+
+test -d /opt/local && export PATH=/opt/local/bin:/opt/local/sbin:$PATH &&
   export PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH &&
   export MANPATH=/opt/local/share/man:/opt/local/man:$MANPATH &&
   export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-package:$PYTHONPATH
 
+# ------------------------------------------------------------------------
 # Homebrew
+# > /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# > brew tap caskroom/cask
+
 export PATH=/usr/local/bin:$PATH
 export HOMEBREW_NO_EMOJI=1
-#
-# installer
-# > /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # ------------------------------------------------------------------------
 # Mac special settings
@@ -88,7 +90,7 @@ test -d /usr/local/Qt4.8 && export QTDIR=/usr/local/Qt4.8 &&
   export QMAKESPEC=$QTDIR/mkspecs/macx-g++
 
 # MySQL
-export PATH=/usr/local/mysql/bin:$PATH
+test -d /usr/local/mysql && export export PATH=/usr/local/mysql/bin:$PATH
 
 # iTerm shell integration
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"

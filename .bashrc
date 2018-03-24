@@ -1,4 +1,4 @@
-
+# .bashrc
 #  _   _                     _ _
 # | |_| |__   ___  ___  __ _(_) |_ __ _ _ __ ___   __ _
 # | __| '_ \ / _ \/ __|/ _` | | __/ _` | '_ ` _ \ / _` |
@@ -28,7 +28,7 @@ set bell-style none
 set visible-stats on
 
 # ------------------------------------------------------------------------
-# alias
+# Alias
 
 alias sshx="TERM=xterm-256color ssh"
 
@@ -58,25 +58,35 @@ if [ "$(uname)" == 'Darwin' ]; then
   alias finderHideH='defaults write com.apple.finder ShowAllFiles FALSE'
 fi
 
-# ------------------------------------------------------------------------w
-# history
+# ------------------------------------------------------------------------
+# History
+
+prompt_dispatch() {
+  export EXIT_STATUS="$?"
+  local f
+  for f in ${!PROMPT_COMMAND_*}; do
+    eval "${!f}"
+  done
+  unset f
+}
+export PROMPT_COMMAND="prompt_dispatch"
+export PROMPT_COMMAND_HISTSAVE="share_history"
 
 # share history
-function share_history {
+share_history() {
   history -a
   history -c
   history -r
 }
 shopt -u histappend
 
-PROMPT_COMMAND='share_history'
 export HISTSIZE=10000
 export HISTCONTROL=ignoredups:ignorespace:erasedups
 export HISTIGNORE="fg*:bg*:history*"
 export HISTTIMEFORMAT='%Y%m%d %T ';
 
 # ------------------------------------------------------------------------
-# color
+# Color
 
 #man
 man() {
@@ -129,7 +139,7 @@ tm() {
   elif [ -z "$TMUX" ] ; then
     tmux a
   else
-    echo "sessions should be nested with care."
+    echo "privent nest Tmux sessions."
   fi
 }
 
@@ -161,22 +171,15 @@ tnp() {
 # rename window-name when ssh
 ssh() {
   if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
+    local window_name=$(tmux display -p '#{window_name}')
     tmux rename-window ${@: -1}
+    export TMUX_PANE_NAME=${@: -1}
     command ssh "$@"
+    tmux rename-window ${window_name}
+    export TMUX_PANE_NAME="a"
     tmux set-window-option automatic-rename "on" 1>/dev/null
   else
     command ssh "$@"
-  fi
-}
-
-# rename window-name when exit
-exit() {
-  if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
-    tmux rename-window ${@: -1}
-    command exit
-    tmux set-window-option automatic-rename "on" 1>/dev/null
-  else
-    command exit
   fi
 }
 

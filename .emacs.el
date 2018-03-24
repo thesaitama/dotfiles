@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-22 22:12:31
+;; Last Update: 2018-03-24 13:40:46
 
 ;;; Code:
 
@@ -88,6 +88,10 @@
     go-mode
     go-eldoc
     go-autocomplete
+    rust-mode
+    racer
+    company-racer
+    flycheck-rust
     emacsql
     emacsql-mysql
     emacsql-psql
@@ -747,6 +751,8 @@
  '(company-tooltip-common-selection ((t (:foreground "white" :background "SteelBlue"))))
  '(company-tooltip-selection ((t (:foreground "black" :background "SteelBlue"))))
  '(diff-added ((((type tty)) (:foreground "green"))))
+ '(diff-refine-added ((t (:foreground "white" :background "LimeGreen"))))
+ '(diff-refine-removed ((t (:foreground "white" :background "red"))))
  '(diff-removed ((((type tty)) (:foreground "red"))))
  '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
  '(dired-subtree-depth-1-face ((t (:background "Gray19"))))
@@ -781,8 +787,6 @@
  '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))
  '(link ((t (:foreground "blue"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
- '(diff-refine-added ((t (:foreground "white" :background "LimeGreen"))))
- '(diff-refine-removed ((t (:foreground "white" :background "red"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
  '(magit-branch-remote ((t (:foreground "blue"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
@@ -848,8 +852,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ac-ispell-requires 4)
  '(ac-ispell-fuzzy-limit 4)
+ '(ac-ispell-requires 4)
  '(column-number-mode t)
  '(company-dabbrev-code-other-buffers (quote all))
  '(company-dabbrev-other-buffers (quote all))

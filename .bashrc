@@ -44,10 +44,6 @@ alias egrep='egrep --color=auto'
 
 alias c='pygmentize -O style=monokai -f console256 -g'
 
-alias snao='dns-sd -B _naoqi._tcp'
-alias mdlk='dns-sd -q'
-#dns-sd -B _nao._tcp
-
 alias cleanupDS="find . -type f -name '*.DS_Store' -ls -delete"
 
 # macOS Only

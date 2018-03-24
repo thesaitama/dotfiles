@@ -30,7 +30,7 @@ export LD_LIBRARY_PATH=/usr/X11R6/lib
 export EDITOR='emacsclient -nw'
 
 # ------------------------------------------------------------------------
-# Programing language
+# Programing languages
 
 # Python PIP
 export PIP_CONFIG_FILE="${HOME}/pip.conf"
@@ -43,16 +43,23 @@ export GOPATH="${HOME}/go"
 export PATH="${HOME}/go/bin:${PATH}"
 
 # Rust
-# >curl https://sh.rustup.rs -sSf | sh
-#
-# installer
+# install
+# > curl https://sh.rustup.rs -sSf | sh
+# > cargo install rustfmt
+# > cargo install racer
+# > cargo install ripgrep
+# > cargo install fd-find
+# > rustup component add rust-src
 export PATH="$HOME/.cargo/bin:$PATH"
+export RUST_SRC_PATH="$HOME/.rustup/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src"
 
-# MacOS old Devloper Tools
+# ------------------------------------------------------------------------
+# MacOSX old Devloper Tools
+
 test -d /Developer && export PATH=/Developer/Tools:$PATH
 
 # ------------------------------------------------------------------------
-# Package system (for Mac)
+# Package system (for MacOSX)
 
 # Fink
 # test -d /sw && export PATH=/sw/bin:/sw/sbin:$PATH && export MANPATH=/sw/share/man:$MANPATH
@@ -71,7 +78,10 @@ export HOMEBREW_NO_EMOJI=1
 # installer
 # > /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-# Qt4/Mac
+# ------------------------------------------------------------------------
+# Mac special settings
+
+# Qt4
 test -d /usr/local/Qt4.8 && export QTDIR=/usr/local/Qt4.8 &&
   export PATH=$QTDIR/bin:$PATH &&
   export QMAKESPEC=$QTDIR/mkspecs/macx-xcode &&
@@ -80,13 +90,20 @@ test -d /usr/local/Qt4.8 && export QTDIR=/usr/local/Qt4.8 &&
 # MySQL
 export PATH=/usr/local/mysql/bin:$PATH
 
+# iTerm shell integration
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
 # ------------------------------------------------------------------------
 # NAOqi SDK
 
 test -d /usr/local/bin/naoqi && export PYTHONPATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/python2.7/site-packages:$PYTHONPATH &&
   export DYLD_LIBRARY_PATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib:$DYLD_LIBRARY_PATH
 #
-# > ln -s /usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/* /usr/local/lib  
+# > ln -s /usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/* /usr/local/lib
+
+alias snao='dns-sd -B _naoqi._tcp'
+alias mdlk='dns-sd -q'
+# dns-sd -B _nao._tcp
 
 # ------------------------------------------------------------------------
 
@@ -100,6 +117,4 @@ if [ -f ~/.bash_private ] ; then
   . ~/.bash_private
 fi
 
-# iTerm shell integration
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-
+# ------------------------------------------------------------------------

@@ -76,7 +76,14 @@
 (setq gud-tooltip-echo-area nil)
 (setq gdb-command-name "ggdb")
 
-;; gcc -g -o test test.c
+;; install on macOS need codesign
+;; > codesign -s gdb-cert /opt/local/bin/ggdb
+;;
+;; basic usage
+;; 1. compile with -g option
+;; > gcc -g -o test test.c
+;; 2. run gdb
+;; > ggdb -i=mi test
 
 ;; ------------------------------------------------------------------------
 ;; imenu-list

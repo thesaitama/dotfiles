@@ -9,7 +9,8 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-24 13:40:46
+;; Last Update: 2018-03-25 11:18:18
+;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
 
@@ -162,31 +163,32 @@
 (load "~/dotfiles/cnf-basics.el")
 
 ;; ------------------------------------------------------------------------
-;; clenad modeline
+;; modeline cleaner
 
 (defvar mode-line-cleaner-alist
   '( ;; For minor-mode, first char is 'space'
-    (paredit-mode . " Pe")
-    (eldoc-mode . "")
     (abbrev-mode . "")
-    (undo-tree-mode . "")
-    (font-lock-mode . "")
-    (editorconfig-mode . " EC")
-    (elisp-slime-nav-mode . " EN")
-    (helm-gtags-mode . " HG")
-    (flymake-mode . " Fm")
     (company-mode . " Comp")
+    (editorconfig-mode . " EC")
+    (eldoc-mode . "")
+    (elisp-slime-nav-mode . " EN")
+    (flymake-mode . " FlyM")
+    (font-lock-mode . "")
+    (helm-gtags-mode . " HG")
+    (paredit-mode . " Pe")
+    (undo-tree-mode . "")
     ;; Major modes
-    (emacs-lisp-mode . "El")
     (default-generic-mode . "DGen")
+    (emacs-lisp-mode . "El")
+    (fundamental-mode . "Fund")
     (generic-mode . "Gen")
     (lisp-interaction-mode . "Li")
-    (shell-script-mode . "SS")
+    (markdown-mode . "Md")
     (python-mode . "Py")
     (ruby-mode . "Rb")
+    (rust-mode . "Rs")
+    (shell-script-mode . "Sh")
     (typescript-mode . "TS")
-    (markdown-mode . "Md")
-    (fundamental-mode . "Fund")
     ))
 
 (defun clean-mode-line ()
@@ -224,13 +226,17 @@
 ;; https://masutaka.net/chalow/2016-05-06-2.html
 
 (defun my-lisp-load (filename)
-"Load Lisp from FILENAME."
+  "Load Lisp from FILENAME."
   (let ((fullname (expand-file-name (concat "spec/" filename) user-emacs-directory)) lisp)
     (when (file-readable-p fullname)
       (with-temp-buffer
-        (progn (insert-file-contents fullname)
-               (setq lisp
-                     (condition-case nil (read (current-buffer)) (error ())))))) lisp))
+        (progn
+          (insert-file-contents fullname)
+          (setq lisp
+                (condition-case nil
+                    (read (current-buffer))
+                  (error ()))))))
+    lisp))
 
 ;; ------------------------------------------------------------------------
 ;; auto-install
@@ -312,7 +318,7 @@
 
 (require 'anzu)
 (global-anzu-mode +1)
-;(setq anzu-use-migemo t)
+;; (setq anzu-use-migemo t)
 (setq anzu-search-threshold 1000)
 (setq anzu-minimum-input-length 3)
 (global-set-key (kbd "C-c r") 'anzu-query-replace)
@@ -376,7 +382,7 @@
 (define-key company-search-map (kbd "C-p") 'company-select-previous)
 (define-key company-active-map (kbd "C-s") 'company-filter-candidates)
 (define-key company-active-map (kbd "C-i") 'company-complete-selection)
-;;(define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
+;; (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
 
 ;; ------------------------------------------------------------------------
 ;; dired + wdired + dired-x
@@ -447,14 +453,12 @@
 ;; ------------------------------------------------------------------------
 ;; rainbow-mode
 
-;;(require 'rainbow-mode)
 (add-hook 'web-mode-hook 'rainbow-mode)
 (add-hook 'php-mode-hook 'rainbow-mode)
 
 ;; ------------------------------------------------------------------------
 ;; rainbow-delimiters
 
-;;(require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (require 'color)
 (defun rainbow-delimiters-using-stronger-colors ()
@@ -516,8 +520,8 @@
      markdown-mode-hook
      ))
 
-;(add-hook 'find-file-hook 'flyspell-mode)
-;(add-hook 'find-file-hook 'flyspell-buffer)
+;; (add-hook 'find-file-hook 'flyspell-mode)
+;; (add-hook 'find-file-hook 'flyspell-buffer)
 
 ;; > sudo port install aspell
 ;; > sudo port install aspell-dict-en
@@ -585,10 +589,10 @@
 ;; ------------------------------------------------------------------------
 ;; shell-pop
 
-;;(setq shell-pop-shell-type '("eshell" "*eshell*" (lambda () (eshell))))
-;;(setq shell-pop-shell-type '("shell" "*shell*" (lambda () (shell))))
-;;(setq shell-pop-shell-type '("terminal" "*terminal*" (lambda () (term shell-pop-term-shell))))
-;;(setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
+;; (setq shell-pop-shell-type '("eshell" "*eshell*" (lambda () (eshell))))
+;; (setq shell-pop-shell-type '("shell" "*shell*" (lambda () (shell))))
+;; (setq shell-pop-shell-type '("terminal" "*terminal*" (lambda () (term shell-pop-term-shell))))
+;; (setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
 
 (global-set-key (kbd "C-c s") 'shell-pop)
 
@@ -719,13 +723,13 @@
 (setq sml/hidden-modes '(" Helm" " yas" " VHl" " WK" " Fly" " EC" " ARev" " Anzu"))
 ;; hack (privent overflow)
 (setq sml/extra-filler -10)
-;;; sml/replacer-regexp-list
-;;(add-to-list 'sml/replacer-regexp-list '("^.+/junk/[0-9]+/" ":J:") t)
+;; sml/replacer-regexp-list
+;; (add-to-list 'sml/replacer-regexp-list '("^.+/junk/[0-9]+/" ":J:") t)
 (setq sml/no-confirm-load-theme t)
 (sml/setup)
 ;; theme
-;;(sml/apply-theme 'respectful)
-;;(sml/apply-theme 'light)
+;; (sml/apply-theme 'respectful)
+;; (sml/apply-theme 'light)
 (sml/apply-theme 'dark)
 
 ;; ------------------------------------------------------------------------

@@ -37,10 +37,11 @@ alias e256='TERM=screen-256color emacsclient -nw -a ""'
 alias emacs='emacsclient -nw -a ""'
 alias minimacs='\emacs -q -l ~/dotfiles/minimacs.el'
 alias ls='ls -avhplGF'
-alias g='git'
-alias ..='cd ..'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
+
+alias g='git'
+alias ..='cd ..'
 
 alias c='pygmentize -O style=monokai -f console256 -g'
 

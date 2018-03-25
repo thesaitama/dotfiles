@@ -6,6 +6,9 @@
 	ff = false
 	tool = vimdiff
 
+[pull]
+	ff = only
+
 [core]
 	editor = vim -c \"set fenc=utf-8\"
 	excludesfile = ~/.gitignore_global
@@ -21,11 +24,14 @@
 
 [credential]
 	helper = osxkeychain
+
 [diff]
 	tool = vimdiff
 	compactionHeuristic = true
+
 [difftool]
 	prompt = false
+
 [mergetool]
 	prompt = false
 

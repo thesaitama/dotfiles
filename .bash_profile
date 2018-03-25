@@ -11,7 +11,8 @@
 # Language and Unicode Support
 
 export LESSCHARSET=utf-8
-export LANG=ja_JP.UTF-8
+export LANG=C.UTF-8
+# export LANG=ja_JP.UTF-8
 # export LC_ALL=$LANG
 # export LC_CTYPE=$LANG
 
@@ -42,6 +43,7 @@ pypath() {
   fi
 }
 
+export PYTHONIOENCODING=utf-8
 export PIP_CONFIG_FILE="${HOME}/pip.conf"
 
 # GTAGS
@@ -81,8 +83,13 @@ test -r /sw/bin/init.sh && . /sw/bin/init.sh
 test -d /opt/local && export PATH=/opt/local/bin:/opt/local/sbin:$PATH &&
   export PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH &&
   export MANPATH=/opt/local/share/man:/opt/local/man:$MANPATH &&
+  export NODE_PATH=/opt/local/lib/node_modules
   export PKGPATH=/opt/local/bin/ &&
   pypath
+
+# useful command
+# > sudo port uninstall inactive
+# > sudo port -u upgrade outdated
 
 # ------------------------------------------------------------------------
 # Homebrew

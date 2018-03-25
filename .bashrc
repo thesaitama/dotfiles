@@ -173,10 +173,8 @@ ssh() {
   if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
     local window_name=$(tmux display -p '#{window_name}')
     tmux rename-window ${@: -1}
-    export TMUX_PANE_NAME=${@: -1}
     command ssh "$@"
     tmux rename-window ${window_name}
-    export TMUX_PANE_NAME="a"
     tmux set-window-option automatic-rename "on" 1>/dev/null
   else
     command ssh "$@"
@@ -254,7 +252,10 @@ ranger() {
   [ -n "$RANGER_LEVEL" ] && exit || LESS="$LESS -+F -+X" command ranger "$@";
 }
 [ -n "$RANGER_LEVEL" ] && PS1="RANGER> $PS1"
-alias rng='ranger'
+
+if type ranger >/dev/null 2>&1; then
+  alias rng='ranger'
+fi
 
 # ------------------------------------------------------------------------
 # Visual Studio Code

@@ -32,7 +32,16 @@ export EDITOR='emacsclient -nw'
 # ------------------------------------------------------------------------
 # Programing languages
 
-# Python PIP
+# Python
+pypath() {
+  if [[ $# = 0 ]]
+  then
+    export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packagen
+  else
+    export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/$1/lib/python$1/site-packagen
+  fi
+}
+
 export PIP_CONFIG_FILE="${HOME}/pip.conf"
 
 # GTAGS
@@ -52,6 +61,8 @@ test -d ~/go && export GOPATH="${HOME}/go" &&
 export PATH="$HOME/.cargo/bin:$PATH"
 export RUST_SRC_PATH="$HOME/.rustup/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src"
 
+export PKGPATH=/usr/local/bin/
+
 # ------------------------------------------------------------------------
 # MacOSX old Devloper Tools
 # > xcode-select --install
@@ -70,7 +81,8 @@ test -r /sw/bin/init.sh && . /sw/bin/init.sh
 test -d /opt/local && export PATH=/opt/local/bin:/opt/local/sbin:$PATH &&
   export PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH &&
   export MANPATH=/opt/local/share/man:/opt/local/man:$MANPATH &&
-  export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-package:$PYTHONPATH
+  export PKGPATH=/opt/local/bin/ &&
+  pypath
 
 # ------------------------------------------------------------------------
 # Homebrew
@@ -98,8 +110,8 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 # ------------------------------------------------------------------------
 # NAOqi SDK
 
-test -d /usr/local/bin/naoqi && export PYTHONPATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/python2.7/site-packages:$PYTHONPATH &&
-  export DYLD_LIBRARY_PATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib:$DYLD_LIBRARY_PATH
+# test -d /usr/local/bin/naoqi && export PYTHONPATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/python2.7/site-packages:$PYTHONPATH &&
+#   export DYLD_LIBRARY_PATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib:$DYLD_LIBRARY_PATH
 #
 # > ln -s /usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/* /usr/local/lib
 

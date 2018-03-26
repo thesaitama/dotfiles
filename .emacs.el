@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-25 11:18:18
+;; Last Update: 2018-03-26 22:36:16
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -44,11 +44,11 @@
     pos-tip
     company
     company-quickhelp
-    avy
     sequential-command
-    editorconfig
-    quickrun
+    avy
+    ace-isearch
     anzu
+    editorconfig
     expand-region
     highlight-symbol
     foreign-regexp
@@ -125,6 +125,7 @@
     yasnippet-snippets
     helm-c-yasnippet
     centered-cursor-mode
+    quickrun
     emamux
     multi-term
     shell-pop
@@ -312,6 +313,13 @@
 ;; avy
 
 (global-set-key (kbd "M-s") 'avy-goto-char)
+
+;; ------------------------------------------------------------------------
+;; ace-isearch
+
+(global-ace-isearch-mode +1)
+(setq ace-isearch-function 'avy-goto-char)
+(setq ace-isearch-jump-delay 1.0)
 
 ;; ------------------------------------------------------------------------
 ;; anzu

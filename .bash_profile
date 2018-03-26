@@ -10,11 +10,12 @@
 # ------------------------------------------------------------------------
 # Language and Unicode Support
 
+export LANG=ja_JP.UTF-8
+export LC_ALL=$LANG
+export LC_CTYPE=$LANG
+# > sudo dpkg-reconfigure locales
+
 export LESSCHARSET=utf-8
-export LANG=C.UTF-8
-# export LANG=ja_JP.UTF-8
-# export LC_ALL=$LANG
-# export LC_CTYPE=$LANG
 
 # dotfiles bin
 export PATH=~/dotfiles/bin:$PATH
@@ -129,12 +130,12 @@ alias mdlk='dns-sd -q'
 # ------------------------------------------------------------------------
 
 # load .bashrc
-if [ -f ~/.bashrc ] ; then
+if [ -f ~/.bashrc ]; then
   . ~/.bashrc
 fi
 
 # load private settings
-if [ -f ~/.bash_private ] ; then
+if [ -f ~/.bash_private ]; then
   . ~/.bash_private
 fi
 

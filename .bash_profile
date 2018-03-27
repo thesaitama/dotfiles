@@ -51,8 +51,8 @@ export PIP_CONFIG_FILE="${HOME}/pip.conf"
 export GTAGSLABEL="pygments"
 
 # GO
-test -d ~/go && export GOPATH="${HOME}/go" &&
-  export PATH="${HOME}/go/bin:${PATH}"
+test -d ~/.go && export GOPATH="${HOME}/.go" &&
+  export PATH="${HOME}/.go/bin:${PATH}"
 
 # Rust
 # install
@@ -125,7 +125,7 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 
 alias snao='dns-sd -B _naoqi._tcp'
 alias mdlk='dns-sd -q'
-# dns-sd -B _nao._tcp
+# > dns-sd -B _nao._tcp
 
 # ------------------------------------------------------------------------
 

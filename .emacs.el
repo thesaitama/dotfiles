@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-26 22:36:16
+;; Last Update: 2018-03-27 22:57:52
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -319,7 +319,7 @@
 
 (global-ace-isearch-mode +1)
 (setq ace-isearch-function 'avy-goto-char)
-(setq ace-isearch-jump-delay 1.0)
+(setq ace-isearch-jump-delay 0.5)
 
 ;; ------------------------------------------------------------------------
 ;; anzu
@@ -541,7 +541,7 @@
 
 (eval-after-load "auto-complete"
   '(progn
-      (ac-ispell-setup)))
+     (ac-ispell-setup)))
 
 (add-hook 'git-commit-mode-hook 'ac-ispell-ac-setup)
 (add-hook 'mail-mode-hook 'ac-ispell-ac-setup)
@@ -864,9 +864,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(column-number-mode t)
  '(ac-ispell-fuzzy-limit 4)
  '(ac-ispell-requires 4)
- '(column-number-mode t)
  '(company-dabbrev-code-other-buffers (quote all))
  '(company-dabbrev-other-buffers (quote all))
  '(custom-safe-themes

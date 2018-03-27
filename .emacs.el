@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-27 22:57:52
+;; Last Update: 2018-03-27 23:56:48
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -36,6 +36,7 @@
   '(exec-path-from-shell
     package-utils
     0xc
+    smooth-scroll
     elscreen
     popwin
     import-popwin
@@ -58,6 +59,7 @@
     undo-tree
     editorconfig
     comment-tags
+    csv-mode
     rainbow-mode
     rainbow-delimiters
     web-mode
@@ -277,6 +279,14 @@
         ("-telnet" . "telnet")
         ("dict" . "OnlineDict")
         ("*WL:Message*" . "Wanderlust")))
+
+;; ------------------------------------------------------------------------
+;; smooth-scroll
+
+(require 'smooth-scroll)
+(smooth-scroll-mode t)
+(setq smooth-scroll/vscroll-step-size 4)
+(setq smooth-scroll/hscroll-step-size 4)
 
 ;; ------------------------------------------------------------------------
 ;; expand-region
@@ -864,9 +874,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(column-number-mode t)
  '(ac-ispell-fuzzy-limit 4)
  '(ac-ispell-requires 4)
+ '(column-number-mode t)
  '(company-dabbrev-code-other-buffers (quote all))
  '(company-dabbrev-other-buffers (quote all))
  '(custom-safe-themes
@@ -883,7 +893,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode tss typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
+    (smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode tss typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)

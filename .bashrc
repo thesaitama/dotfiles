@@ -17,6 +17,10 @@ export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export PROMPT_DIRTRIM=1
 
+export LESS='-g -i -M -R -S -W -z-4 -x4'
+export LESSOPEN='|lessfilter %s'
+export PAGER=less
+
 # Make bash check it's window size after a process completes
 shopt -s checkwinsize
 
@@ -43,7 +47,11 @@ alias egrep='egrep --color=auto'
 alias g='git'
 alias ..='cd ..'
 
-alias c='pygmentize -O style=monokai -f console256 -g'
+alias c='pygmentize -O encoding=utf-8 style=monokai -f terminal256 -O -g'
+cl() {
+  c $1 | nl -n ln -b a
+}
+alias cl=cl
 
 alias cleanupDS="find . -type f -name '*.DS_Store' -ls -delete"
 
@@ -89,7 +97,7 @@ export HISTTIMEFORMAT='%Y%m%d %T ';
 # ------------------------------------------------------------------------
 # Color
 
-#man
+# man
 man() {
   env \
     LESS_TERMCAP_mb=$(printf "\e[1;32m") \

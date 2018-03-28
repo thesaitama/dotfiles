@@ -1,0 +1,27 @@
+#!/bin/bash
+
+case "$1" in
+  *.sh|*.awk|*.diff|*.patch|*.sql|\
+  *.php|*.pl|*.pm|*.py|*.rb|*.haml|*.slim|\
+  *.java|*.groovy|*.scala|*.clj|*.cljs|\
+  *.c|*.h|*.m|*.swift|*.go|*.lua|*.hs|*.erl|*.fs|*.ml|*.exs|\
+  *.html|*.js|*.coffee|*.css|*.sass|*.scss|\
+  *.json|*.xml|*.yaml|*.yml)
+    pygmentize -O encoding=utf-8 -O style=monokai -f terminal256 -g "$1"
+    ;;
+  .zshrc|.bashrc|.bash_aliases|.bash_environment)
+    pygmentize -O encoding=utf-8 -O style=monokai -f terminal256 -l sh "$1"
+    ;;
+  Gemfile|Rakefile)
+    pygmentize -O encoding=utf-8 -O style=monokai -f terminal256 -l ruby "$1"
+    ;;
+  *)
+    grep '#!/bin/bash\|#!/bin/sh' "$1" > /dev/null
+    if [ "$?" -eq "0" ]; then
+      pygmentize -O encoding=utf-8 style=monokai -f terminal256 -l sh "$1"
+    else
+      exit 1
+    fi
+esac
+
+exit 0

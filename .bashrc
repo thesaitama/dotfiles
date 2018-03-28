@@ -47,7 +47,7 @@ alias egrep='egrep --color=auto'
 alias g='git'
 alias ..='cd ..'
 
-alias c='pygmentize -O encoding=utf-8 style=monokai -f terminal256 -O -g'
+alias c='pygmentize -O encoding=utf-8 -O style=monokai -f terminal256 -g'
 cl() {
   c $1 | nl -n ln -b a
 }

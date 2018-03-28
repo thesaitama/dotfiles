@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-27 23:56:48
+;; Last Update: 2018-03-28 22:52:37
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -173,13 +173,16 @@
     (abbrev-mode . "")
     (company-mode . " Comp")
     (editorconfig-mode . " EC")
-    (eldoc-mode . "")
     (elisp-slime-nav-mode . " EN")
     (flymake-mode . " FlyM")
-    (font-lock-mode . "")
     (helm-gtags-mode . " HG")
     (paredit-mode . " Pe")
+    (eldoc-mode . "")
+    (font-lock-mode . "")
+    (ace-isearch-mode . "")
     (undo-tree-mode . "")
+    (volatile-highlights-mode . "")
+    (smooth-scroll-mode . "")
     ;; Major modes
     (default-generic-mode . "DGen")
     (emacs-lisp-mode . "El")

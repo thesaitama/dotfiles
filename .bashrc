@@ -210,6 +210,7 @@ function google() {
 # ------------------------------------------------------------------------
 # bash-completion
 # > sudo port install bash-completion
+# path: /opt/local/etc/bash_completion.d
 
 if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
   . /opt/local/etc/profile.d/bash_completion.sh

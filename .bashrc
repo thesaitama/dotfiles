@@ -6,6 +6,7 @@
 #  \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
 
 # thesaitama@ .bashrc
+# Last Update: 2018-03-31 21:08:36
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -27,10 +28,6 @@ shopt -s checkwinsize
 
 # noblobber (disable overwirte)
 set noblobber
-
-set completion-ignore-case on
-set bell-style none
-set visible-stats on
 
 # ------------------------------------------------------------------------
 # Alias
@@ -146,10 +143,10 @@ tm() {
   tmux ls > /dev/null
   if [ $? -eq 1 -a -z "$TMUX" ]; then
     tmux
-  elif [ -z "$TMUX" ] ; then
+  elif [ -z "$TMUX" ]; then
     tmux a
   else
-    echo "privent nest Tmux sessions."
+    echo "prevent nested TMUX sessions."
   fi
 }
 
@@ -192,10 +189,10 @@ ssh() {
 }
 
 # ------------------------------------------------------------------------
-# w3m for google
+# w3m for google, and wikitionary
 # > sudo port install w3m
 
-function google() {
+google() {
   local str opt
   if [ $# != 0 ]; then
     for i in $*; do
@@ -208,10 +205,23 @@ function google() {
   w3m http://www.google.co.jp/$opt
 }
 
+wikitionary() {
+  local str opt
+  if [ $# != 0 ]; then
+    for i in $*; do
+      str="$str+$i"
+    done
+    str=`echo $str | sed 's/^\+//'`
+    opt="${str}"
+  fi
+  w3m https://en.wiktionary.org/wiki/$opt
+}
+
 # ------------------------------------------------------------------------
 # bash-completion
 # > sudo port install bash-completion
 # path: /opt/local/etc/bash_completion.d
+# add: '+bash_completion' >> /opt/local/etc/macports/variants.conf
 
 if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
   . /opt/local/etc/profile.d/bash_completion.sh
@@ -221,9 +231,9 @@ fi
 # autojump
 # > sudo port install autojump
 
-if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
-  . /opt/local/etc/profile.d/autojump.sh
-fi
+# if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
+#   . /opt/local/etc/profile.d/autojump.sh
+# fi
 
 # ------------------------------------------------------------------------
 # fasd
@@ -269,21 +279,6 @@ ranger() {
 
 if type ranger >/dev/null 2>&1; then
   alias rng='ranger'
-fi
-
-# ------------------------------------------------------------------------
-# Visual Studio Code
-
-if [ "$(uname)" == 'Darwin' ]; then
-  vsc() {
-    if [[ $# = 0 ]]
-    then
-      open -a "visual studio code"
-    else
-      [[ $1 = /* ]] && F="$1" || F="$PWD/${1#./}"
-      open -a "visual studio code" --args "$F"
-    fi
-  }
 fi
 
 # ------------------------------------------------------------------------

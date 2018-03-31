@@ -1,3 +1,7 @@
+# .inputrc
+
+# thesaitama@ .input
+# Last Update: 2018-03-31 20:58:26
 
 set completion-ignore-case on
 set bell-style none
@@ -13,6 +17,7 @@ $if Bash
   set input-meta on
   set output-meta on
   set convert-meta off
+  set show-all-if-ambiguous on
 
   "\C-n": history-search-forward
   "\C-p": history-search-backward

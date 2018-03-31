@@ -12,6 +12,7 @@
 
 umask 022
 
+# export TERM=xterm-256color-italic
 export TERMINFO=~/.terminfo
 export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad
@@ -244,6 +245,9 @@ if [ -f ~/.fzfcmd.sh ]; then
   export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
   export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 fi
+
+# bash cd completion workaround
+complete -o bashdefault -o default -F _fzf_dir_completion cd
 
 # ------------------------------------------------------------------------
 # enhancd

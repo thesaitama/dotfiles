@@ -1,9 +1,14 @@
-# .tigrc
 
-set main-view = id date author commit-title:graph=yes,refs=yes
-set blob-view-line-number = yes
-set blame-view-line-number = yes
+#    __  _
+#   / /_(_)___ ___________
+#  / __/ / __ `/ ___/ ___/
+# / /_/ / /_/ / /  / /__
+# \__/_/\__, /_/   \___/
+#      /____/
 
+# thesaitama@ .tigrc
+
+set diff-context = 1
 set diff-highlight = true
 set ignore-case = true
 set mouse = true
@@ -11,8 +16,17 @@ set refresh-mode = auto
 set refresh-interval = 60
 set wrap-lines = yes
 
+set main-view = id date author commit-title:graph=yes,refs=yes
+set blob-view-line-number = yes
+set blame-view-line-number = yes
+
+# color
 color title-focus white blue
 color cursor white black
 color diff-chunk black white
-color diff-add-highlight default green standout
-color diff-del-highlight default red standout
+color diff-add-highlight green white standout
+color diff-del-highlight red white standout
+
+# Keybind
+bind generic F none
+bind generic F !git fetch

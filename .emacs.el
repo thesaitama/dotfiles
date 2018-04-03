@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-28 22:52:37
+;; Last Update: 2018-04-03 23:11:27
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -140,6 +140,7 @@
     osx-trash
     vimrc-mode
     w3m
+    docker
     mew
     ac-ispell
     google-translate
@@ -664,6 +665,7 @@
 (push '("*wclock*" :height 7) popwin:special-display-config)
 (push '(" *undo-tree*" :width 0.2 :position right) popwin:special-display-config)
 (push '("*comment-tags*" :height 15) popwin:special-display-config) ;; not work
+(push '("*docker\-.+" :regexp t :height 15) popwin:special-display-config)
 (push '("*HTTP Response*" :height 15) popwin:special-display-config)
 (push '("COMMIT_EDITMSG" :height 15) popwin:special-display-config)
 

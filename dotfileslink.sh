@@ -6,7 +6,6 @@ sudo -v
 ln -s ~/dotfiles/.bashrc ~/.bashrc
 ln -s ~/dotfiles/.bash_profile ~/.bash_profile
 ln -s ~/dotfiles/.inputrc ~/.inputrc
-ln -s ~/dotfiles/.fzfcmd.sh ~/.fzfcmd.sh
 
 # emacs
 ln -s ~/dotfiles/.emacs.el ~/.emacs.el

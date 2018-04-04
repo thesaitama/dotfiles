@@ -6,7 +6,7 @@
 #  \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
 
 # thesaitama@ .bashrc
-# Last Update: 2018-03-31 21:08:36
+# Last Update: 2018-04-04 22:35:19
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -38,6 +38,7 @@ alias e='emacsclient -nw -a ""'
 alias e256='TERM=screen-256color emacsclient -nw -a ""'
 alias emacs='emacsclient -nw -a ""'
 alias minimacs='\emacs -q -l ~/dotfiles/minimacs.el'
+
 alias ls='ls -avhplGF'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
@@ -132,7 +133,9 @@ ${c_blue}\\\$${c_reset} "
 # git-completion
 
 if [ "$(uname)" == 'Darwin' ]; then
-  source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
+  if [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ]; then
+    source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
+  fi
 fi
 
 # ------------------------------------------------------------------------
@@ -247,13 +250,17 @@ fi
 # fzf
 # > git clone https://github.com/junegunn/fzf.git ~/.fzf
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-if [ -f ~/.fzfcmd.sh ]; then
-  . ~/.fzfcmd.sh
+if [ ~/.fzf.bash ]; then
+  source ~/.fzf.bash
   export FZF_DEFAULT_OPTS='--height 40% --reverse'
   export FZF_DEFAULT_COMMAND='ag -g ""'
   export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
   export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+fi
+
+# fzf extra commands
+if [ -f ~/dotfiles/fzf-commands.sh ]; then
+  . ~/dotfiles/fzf-commands.sh
 fi
 
 # bash cd completion workaround

@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-04-03 23:11:27
+;; Last Update: 2018-04-05 21:19:14
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -164,7 +164,7 @@
 ;; ------------------------------------------------------------------------
 ;; load basic settings
 
-(load "~/dotfiles/cnf-basics.el")
+(load "~/dotfiles/elisp/cnf-basics.el")
 
 ;; ------------------------------------------------------------------------
 ;; modeline cleaner
@@ -510,7 +510,7 @@
 ;; ------------------------------------------------------------------------
 ;; load helm settings
 
-(load "~/dotfiles/cnf-helm.el")
+(load "~/dotfiles/elisp/cnf-helm.el")
 
 ;; ------------------------------------------------------------------------
 ;; load mew settings
@@ -582,16 +582,16 @@
 ;; os switch
 
 (cond ((equal system-type 'gnu/linux)
-       (load "~/dotfiles/cnf-webservice.el")
-       (load "~/dotfiles/cnf-browser.el")
-       (load "~/dotfiles/cnf-program.el"))
+       (load "~/dotfiles/elisp/cnf-webservice.el")
+       (load "~/dotfiles/elisp/cnf-browser.el")
+       (load "~/dotfiles/elisp/cnf-program.el"))
       ((equal system-type 'windows-nt)
-       (load "~/dotfiles/cnf-program.el"))
+       (load "~/dotfiles/elisp/cnf-program.el"))
       ((equal system-type 'darwin)
-       (load "~/dotfiles/cnf-osx.el")
-       (load "~/dotfiles/cnf-webservice.el")
-       (load "~/dotfiles/cnf-program.el")
-       (load "~/dotfiles/cnf-browser.el"))
+       (load "~/dotfiles/elisp/cnf-osx.el")
+       (load "~/dotfiles/elisp/cnf-webservice.el")
+       (load "~/dotfiles/elisp/cnf-program.el")
+       (load "~/dotfiles/elisp/cnf-browser.el"))
 )
 
 ;; ------------------------------------------------------------------------
@@ -758,7 +758,7 @@
 ;; ------------------------------------------------------------------------
 ;; load calendar settings
 
-(load "~/dotfiles/cnf-calendar.el")
+(load "~/dotfiles/elisp/cnf-calendar.el")
 
 ;; ------------------------------------------------------------------------
 ;; custom-set-faces

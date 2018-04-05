@@ -57,14 +57,20 @@ test -d ~/.go && export GOPATH="${HOME}/.go" &&
 # Rust
 # install
 # > curl https://sh.rustup.rs -sSf | sh
-# > cargo install rustfmt
-# > cargo install racer
-# > cargo install ripgrep fd-find
+# > cargo install rustfmt racer ripgrep fd-find
 # > rustup component add rust-src
 export PATH="$HOME/.cargo/bin:$PATH"
 export RUST_SRC_PATH="$HOME/.rustup/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src"
 
 export PKGPATH=/usr/local/bin/
+
+# ------------------------------------------------------------------------
+# Homebrew
+# > /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# > brew tap caskroom/cask
+
+export PATH=/usr/local/bin:$PATH
+export HOMEBREW_NO_EMOJI=1
 
 # ------------------------------------------------------------------------
 # MacOSX old Devloper Tools
@@ -91,14 +97,6 @@ test -d /opt/local && export PATH=/opt/local/bin:/opt/local/sbin:$PATH &&
 # useful command
 # > sudo port uninstall inactive
 # > sudo port -u upgrade outdated
-
-# ------------------------------------------------------------------------
-# Homebrew
-# > /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-# > brew tap caskroom/cask
-
-export PATH=/usr/local/bin:$PATH
-export HOMEBREW_NO_EMOJI=1
 
 # ------------------------------------------------------------------------
 # Mac special settings

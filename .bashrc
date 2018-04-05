@@ -6,7 +6,7 @@
 #  \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
 
 # thesaitama@ .bashrc
-# Last Update: 2018-04-05 21:23:24
+# Last Update: 2018-04-05 22:20:11
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -147,16 +147,28 @@ tm() {
   if [ $? -eq 1 -a -z "$TMUX" ]; then
     tmux
   elif [ -z "$TMUX" ]; then
-    tmux a
+    target=$(tmux list-sessions |
+               fzf -0 --no-sort --tac +m --exit-0 |
+               perl -pe 's/^([0-9]+).+$/$1/g;')
+    if [ -n "$target" ]; then
+      tmux a -t ${target}
+    else
+      tmux new-session
+    fi
   else
-    echo "prevent nested TMUX sessions."
+    echo "prevent nested TMUX sessions. :-P"
   fi
 }
 
 # kill tmux session
 tk() {
   if [ -z $1 ]; then
-    tmux kill-session
+    target=$(tmux list-sessions |
+               fzf -1 -0 --no-sort --tac +m --exit-0 |
+               perl -pe 's/^([0-9]+).+$/$1/g;')
+    if [ -n "$target" ]; then
+      tmux kill-session -t ${target}
+    fi
   else
     tmux kill-session -t $1
   fi

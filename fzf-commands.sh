@@ -174,9 +174,14 @@ z() {
 if [ "$(uname)" == 'Darwin' ]; then
   # app - osx appluncher
   app() {
-    app_path=$(find /Applications -maxdepth 3 -type d  | grep '\.app$' | sed 's/\/Applications\///' | sed 's/\.app$//' | fzf --query="$1" --prompt="App > " --exit-0)
+    app_path=$(find /Applications -maxdepth 3 -type d |
+                 grep '\.app$' |
+                 sed 's/\/Applications\///' |
+                 sed 's/\.app$//' |
+                 fzf --query="$1" --prompt="App > " --exit-0)
     if [ -n "$app_path" ]; then
       open -a "/Applications/$app_path.app/"
+      # in emacs terminal excute and exit
       [ $TERM == 'eterm-color' ] && exit
     fi
   }

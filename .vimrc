@@ -171,10 +171,10 @@ endif
 " ------------------------------------------------------------------------
 " plugins
 
-source ~/dotfiles/cnf-syntastics.vim
-source ~/dotfiles/cnf-lightline.vim
-source ~/dotfiles/cnf-vimfiler.vim
-source ~/dotfiles/cnf-fzf.vim
+source ~/dotfiles/.vim/cnf-syntastics.vim
+source ~/dotfiles/.vim/cnf-lightline.vim
+source ~/dotfiles/.vim/cnf-vimfiler.vim
+source ~/dotfiles/.vim/cnf-fzf.vim
 
 " ------------------------------------------------------------------------
 " colorscheme

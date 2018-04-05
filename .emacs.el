@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-04-05 21:19:14
+;; Last Update: 2018-04-05 21:34:10
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -666,6 +666,7 @@
 (push '(" *undo-tree*" :width 0.2 :position right) popwin:special-display-config)
 (push '("*comment-tags*" :height 15) popwin:special-display-config) ;; not work
 (push '("*docker\-.+" :regexp t :height 15) popwin:special-display-config)
+(push '("*SQL*" :height 15) popwin:special-display-config)
 (push '("*HTTP Response*" :height 15) popwin:special-display-config)
 (push '("COMMIT_EDITMSG" :height 15) popwin:special-display-config)
 
@@ -814,6 +815,8 @@
  '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))
  '(link ((t (:foreground "blue"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
+ '(pulse-highlight-face ((t (:background "Gray35"))))
+ '(pulse-highlight-start-face ((t (:background "Gray35"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
  '(magit-branch-remote ((t (:foreground "blue"))))
  '(magit-context-highlight ((t (:background "Gray23"))))

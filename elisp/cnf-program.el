@@ -439,8 +439,8 @@
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
 (add-hook 'php-mode-hook 'helm-gtags-mode)
 (add-hook 'python-mode-hook 'helm-gtags-mode)
-(add-hook 'js2-mode 'helm-gtags-mode)
-(add-hook 'typescript-mode 'helm-gtags-mode)
+(add-hook 'js2-mode-hook 'helm-gtags-mode)
+(add-hook 'typescript-mode-hook 'helm-gtags-mode)
 
 (setq helm-gtags-path-style 'root)
 (setq helm-gtags-ignore-case t)

@@ -131,7 +131,7 @@ nnoremap <silent>bp :bprevious<CR>
 nnoremap <silent>bn :bnext<CR>
 nnoremap <silent>bb :b#<CR>
 nnoremap <leader>ev :e ~/dotfiles/.vimrc
-nnoremap <leader>cv :e ~/dotfiles/vim.txt
+nnoremap <leader>cv :e ~/dotfiles/.vim/memo.txt
 inoremap jj <Esc>
 nnoremap <ESC><ESC> :nohl<CR>
 

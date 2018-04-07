@@ -164,6 +164,26 @@
 (helm-qiita-initialize)
 
 ;; ------------------------------------------------------------------------
+;; typescript (tss + auto-complete)
+
+(require 'tss)
+(setq tss-popup-help-key "C-:")
+(setq tss-jump-to-definition-key "C->")
+(setq tss-implement-definition-key "C-c i")
+
+(defun typescript-setup ()
+  "Typescript setup."
+  (tss-config-default)
+  (setq typescript-indent-level 2)
+  (flycheck-mode t)
+  (eldoc-mode t)
+  ;;(flycheck-typescript-tslint-setup)
+  (tss-setup-current-buffer))
+
+(add-hook 'typescript-mode-hook 'typescript-setup)
+(add-hook 'kill-buffer-hook 'tss--delete-process t)
+
+;; ------------------------------------------------------------------------
 
 (provide 'cnf-unuse.el)
 ;;; cnf-unuse.el ends here

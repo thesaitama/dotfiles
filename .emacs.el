@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-04-05 21:34:10
+;; Last Update: 2018-04-07 09:40:53
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -661,12 +661,13 @@
 (push '("*quickrun*" :height 15) popwin:special-display-config)
 (push '("*Flycheck errors*" :height 15) popwin:special-display-config)
 (push '("*ruby*" :height 15) popwin:special-display-config)
+(push '("*Python*" :height 15) popwin:special-display-config)
+(push '("*SQL*" :height 15) popwin:special-display-config)
 (push '("*Ilist*" :height 15) popwin:special-display-config)
 (push '("*wclock*" :height 7) popwin:special-display-config)
 (push '(" *undo-tree*" :width 0.2 :position right) popwin:special-display-config)
 (push '("*comment-tags*" :height 15) popwin:special-display-config) ;; not work
 (push '("*docker\-.+" :regexp t :height 15) popwin:special-display-config)
-(push '("*SQL*" :height 15) popwin:special-display-config)
 (push '("*HTTP Response*" :height 15) popwin:special-display-config)
 (push '("COMMIT_EDITMSG" :height 15) popwin:special-display-config)
 

@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-04-07 09:40:53
+;; Last Update: 2018-04-07 15:26:11
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -812,8 +812,9 @@
  '(hl-line ((t (:background "color-236"))))
  '(holiday ((t (:background "pink"))))
  '(isearch ((t (:background "LightPink" :foreground "black"))))
- '(japanese-holiday-saturday ((t (:background "cyan"))))
  '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))
+ '(holiday ((t (:background "LightPink" :foreground "black"))))
+ '(japanese-holiday-saturday ((t (:background "cyan" :foreground "black"))))
  '(link ((t (:foreground "blue"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
  '(pulse-highlight-face ((t (:background "Gray35"))))

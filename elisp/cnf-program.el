@@ -412,8 +412,8 @@
 
 (add-hook 'go-mode-hook 'flycheck-mode)
 (add-hook 'go-mode-hook (lambda()
-                          (add-hook 'before-save-hook' 'gofmt-before-save)
-                          (add-hook 'go-mode-hook 'go-eldoc-setup)
+                          (add-hook 'before-save-hook 'gofmt-before-save)
+                          (go-eldoc-setup)
                           (local-set-key (kbd "M-.") 'godef-jump)
                           (setq indent-tabs-mode nil)
                           (setq c-basic-offset 4)
@@ -448,9 +448,10 @@
 (add-hook 'python-mode-hook 'helm-gtags-mode)
 (add-hook 'js2-mode-hook 'helm-gtags-mode)
 (add-hook 'typescript-mode-hook 'helm-gtags-mode)
+(add-hook 'go-mode-hook 'helm-gtags-mode)
 
 (setq helm-gtags-path-style 'root)
-(setq helm-gtags-ignore-case t)
+;; (setq helm-gtags-ignore-case t)
 (setq helm-gtags-auto-update t)
 
 ;; key bindings

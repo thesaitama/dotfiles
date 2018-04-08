@@ -252,12 +252,20 @@
 ;;(when (require 'recentf nil t)
 (require 'recentf)
 
-(defadvice recentf-cleanup
-  (around no-message activate)
-  "Suppress the output from `message` to minibuffer."
-  (cl-flet ((message (format-string &rest args)
-                     (eval `(format ,format-string ,@args))))
-    ad-do-it))
+(defun recentf-save-list-inhibit-message:around (orig-func &rest args)
+  (setq inhibit-message t)
+  (apply orig-func args)
+  (setq inhibit-message nil)
+  'around)
+(advice-add 'recentf-cleanup :around 'recentf-save-list-inhibit-message:around)
+(advice-add 'recentf-save-list :around 'recentf-save-list-inhibit-message:around)
+
+;; (defadvice recentf-cleanup
+;;   (around no-message activate)
+;;   "Suppress the output from `message` to minibuffer."
+;;   (cl-flet ((message (format-string &rest args)
+;;                      (eval `(format ,format-string ,@args))))
+;;     ad-do-it))
 
 (setq recentf-max-saved-items 2000)
 (setq recentf-exclude '(".recentf"))

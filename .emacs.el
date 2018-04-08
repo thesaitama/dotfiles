@@ -9,7 +9,8 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-03-17 15:09:10
+;; Last Update: 2018-04-07 22:29:06
+;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
 
@@ -35,6 +36,7 @@
   '(exec-path-from-shell
     package-utils
     0xc
+    smooth-scroll
     elscreen
     popwin
     import-popwin
@@ -43,11 +45,11 @@
     pos-tip
     company
     company-quickhelp
-    avy
     sequential-command
-    editorconfig
-    quickrun
+    avy
+    ace-isearch
     anzu
+    editorconfig
     expand-region
     highlight-symbol
     foreign-regexp
@@ -57,6 +59,7 @@
     undo-tree
     editorconfig
     comment-tags
+    csv-mode
     rainbow-mode
     rainbow-delimiters
     web-mode
@@ -88,6 +91,10 @@
     go-mode
     go-eldoc
     go-autocomplete
+    rust-mode
+    racer
+    company-racer
+    flycheck-rust
     emacsql
     emacsql-mysql
     emacsql-psql
@@ -120,6 +127,7 @@
     yasnippet-snippets
     helm-c-yasnippet
     centered-cursor-mode
+    quickrun
     emamux
     multi-term
     shell-pop
@@ -132,7 +140,9 @@
     osx-trash
     vimrc-mode
     w3m
+    docker
     mew
+    ac-ispell
     google-translate
     xah-lookup
     howdoi
@@ -154,34 +164,38 @@
 ;; ------------------------------------------------------------------------
 ;; load basic settings
 
-(load "~/dotfiles/cnf-basics.el")
+(load "~/dotfiles/elisp/cnf-basics.el")
 
 ;; ------------------------------------------------------------------------
-;; clenad modeline
+;; modeline cleaner
 
 (defvar mode-line-cleaner-alist
   '( ;; For minor-mode, first char is 'space'
-    (paredit-mode . " Pe")
-    (eldoc-mode . "")
     (abbrev-mode . "")
-    (undo-tree-mode . "")
-    (font-lock-mode . "")
+    (company-mode . " Comp")
     (editorconfig-mode . " EC")
     (elisp-slime-nav-mode . " EN")
+    (flymake-mode . " FlyM")
     (helm-gtags-mode . " HG")
-    (flymake-mode . " Fm")
-    (company-mode . " Comp")
+    (paredit-mode . " Pe")
+    (eldoc-mode . "")
+    (font-lock-mode . "")
+    (ace-isearch-mode . "")
+    (undo-tree-mode . "")
+    (volatile-highlights-mode . "")
+    (smooth-scroll-mode . "")
     ;; Major modes
-    (emacs-lisp-mode . "El")
     (default-generic-mode . "DGen")
+    (emacs-lisp-mode . "El")
+    (fundamental-mode . "Fund")
     (generic-mode . "Gen")
     (lisp-interaction-mode . "Li")
-    (shell-script-mode . "SS")
+    (markdown-mode . "Md")
     (python-mode . "Py")
     (ruby-mode . "Rb")
+    (rust-mode . "Rs")
+    (shell-script-mode . "Sh")
     (typescript-mode . "TS")
-    (markdown-mode . "Md")
-    (fundamental-mode . "Fund")
     ))
 
 (defun clean-mode-line ()
@@ -219,13 +233,17 @@
 ;; https://masutaka.net/chalow/2016-05-06-2.html
 
 (defun my-lisp-load (filename)
-"Load Lisp from FILENAME."
+  "Load Lisp from FILENAME."
   (let ((fullname (expand-file-name (concat "spec/" filename) user-emacs-directory)) lisp)
     (when (file-readable-p fullname)
       (with-temp-buffer
-        (progn (insert-file-contents fullname)
-               (setq lisp
-                     (condition-case nil (read (current-buffer)) (error ())))))) lisp))
+        (progn
+          (insert-file-contents fullname)
+          (setq lisp
+                (condition-case nil
+                    (read (current-buffer))
+                  (error ()))))))
+    lisp))
 
 ;; ------------------------------------------------------------------------
 ;; auto-install
@@ -267,10 +285,18 @@
         ("*WL:Message*" . "Wanderlust")))
 
 ;; ------------------------------------------------------------------------
+;; smooth-scroll
+
+(require 'smooth-scroll)
+(smooth-scroll-mode t)
+(setq smooth-scroll/vscroll-step-size 4)
+(setq smooth-scroll/hscroll-step-size 4)
+
+;; ------------------------------------------------------------------------
 ;; expand-region
 
 (require 'expand-region)
-(global-set-key (kbd "C-,") 'er/expand-region)
+(global-set-key (kbd "M-,") 'er/expand-region)
 (global-set-key (kbd "C-M-,") 'er/contract-region)
 
 ;; ------------------------------------------------------------------------
@@ -303,11 +329,18 @@
 (global-set-key (kbd "M-s") 'avy-goto-char)
 
 ;; ------------------------------------------------------------------------
+;; ace-isearch
+
+(global-ace-isearch-mode +1)
+(setq ace-isearch-function 'avy-goto-char)
+(setq ace-isearch-jump-delay 0.5)
+
+;; ------------------------------------------------------------------------
 ;; anzu
 
 (require 'anzu)
 (global-anzu-mode +1)
-;(setq anzu-use-migemo t)
+;; (setq anzu-use-migemo t)
 (setq anzu-search-threshold 1000)
 (setq anzu-minimum-input-length 3)
 (global-set-key (kbd "C-c r") 'anzu-query-replace)
@@ -352,7 +385,10 @@
 
 (require 'company)
 ;; (global-company-mode t)
-;; (company-quickhelp-mode t) ;; only support GUI
+
+(if window-system (progn
+                    (company-quickhelp-mode t) ;; only support GUI
+                    ))
 
 (setq company-idle-delay 0.1)
 (setq company-minimum-prefix-length 2)
@@ -368,7 +404,7 @@
 (define-key company-search-map (kbd "C-p") 'company-select-previous)
 (define-key company-active-map (kbd "C-s") 'company-filter-candidates)
 (define-key company-active-map (kbd "C-i") 'company-complete-selection)
-;;(define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
+;; (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
 
 ;; ------------------------------------------------------------------------
 ;; dired + wdired + dired-x
@@ -439,14 +475,12 @@
 ;; ------------------------------------------------------------------------
 ;; rainbow-mode
 
-;;(require 'rainbow-mode)
 (add-hook 'web-mode-hook 'rainbow-mode)
 (add-hook 'php-mode-hook 'rainbow-mode)
 
 ;; ------------------------------------------------------------------------
 ;; rainbow-delimiters
 
-;;(require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (require 'color)
 (defun rainbow-delimiters-using-stronger-colors ()
@@ -476,7 +510,7 @@
 ;; ------------------------------------------------------------------------
 ;; load helm settings
 
-(load "~/dotfiles/cnf-helm.el")
+(load "~/dotfiles/elisp/cnf-helm.el")
 
 ;; ------------------------------------------------------------------------
 ;; load mew settings
@@ -508,11 +542,24 @@
      markdown-mode-hook
      ))
 
-;(add-hook 'find-file-hook 'flyspell-mode)
-;(add-hook 'find-file-hook 'flyspell-buffer)
+;; (add-hook 'find-file-hook 'flyspell-mode)
+;; (add-hook 'find-file-hook 'flyspell-buffer)
 
 ;; > sudo port install aspell
 ;; > sudo port install aspell-dict-en
+
+;; ------------------------------------------------------------------------
+;; ac-ispell
+
+;; Completion words longer than 4 characters
+
+(eval-after-load "auto-complete"
+  '(progn
+     (ac-ispell-setup)))
+
+(add-hook 'git-commit-mode-hook 'ac-ispell-ac-setup)
+(add-hook 'mail-mode-hook 'ac-ispell-ac-setup)
+(add-hook 'text-mode-hook 'ac-ispell-ac-setup)
 
 ;; ------------------------------------------------------------------------
 ;; undohist
@@ -535,16 +582,16 @@
 ;; os switch
 
 (cond ((equal system-type 'gnu/linux)
-       (load "~/dotfiles/cnf-webservice.el")
-       (load "~/dotfiles/cnf-browser.el")
-       (load "~/dotfiles/cnf-program.el"))
+       (load "~/dotfiles/elisp/cnf-webservice.el")
+       (load "~/dotfiles/elisp/cnf-browser.el")
+       (load "~/dotfiles/elisp/cnf-program.el"))
       ((equal system-type 'windows-nt)
-       (load "~/dotfiles/cnf-program.el"))
+       (load "~/dotfiles/elisp/cnf-program.el"))
       ((equal system-type 'darwin)
-       (load "~/dotfiles/cnf-osx.el")
-       (load "~/dotfiles/cnf-webservice.el")
-       (load "~/dotfiles/cnf-program.el")
-       (load "~/dotfiles/cnf-browser.el"))
+       (load "~/dotfiles/elisp/cnf-osx.el")
+       (load "~/dotfiles/elisp/cnf-webservice.el")
+       (load "~/dotfiles/elisp/cnf-program.el")
+       (load "~/dotfiles/elisp/cnf-browser.el"))
 )
 
 ;; ------------------------------------------------------------------------
@@ -564,10 +611,10 @@
 ;; ------------------------------------------------------------------------
 ;; shell-pop
 
-;;(setq shell-pop-shell-type '("eshell" "*eshell*" (lambda () (eshell))))
-;;(setq shell-pop-shell-type '("shell" "*shell*" (lambda () (shell))))
-;;(setq shell-pop-shell-type '("terminal" "*terminal*" (lambda () (term shell-pop-term-shell))))
-;;(setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
+;; (setq shell-pop-shell-type '("eshell" "*eshell*" (lambda () (eshell))))
+;; (setq shell-pop-shell-type '("shell" "*shell*" (lambda () (shell))))
+;; (setq shell-pop-shell-type '("terminal" "*terminal*" (lambda () (term shell-pop-term-shell))))
+;; (setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
 
 (global-set-key (kbd "C-c s") 'shell-pop)
 
@@ -612,11 +659,15 @@
 (push '("*grep*" :noselect t) popwin:special-display-config)
 (push '("*compilation*" :height 15) popwin:special-display-config)
 (push '("*quickrun*" :height 15) popwin:special-display-config)
+(push '("*Flycheck errors*" :height 15) popwin:special-display-config)
 (push '("*ruby*" :height 15) popwin:special-display-config)
+(push '("*Python*" :height 15) popwin:special-display-config)
+(push '("*SQL*" :height 15) popwin:special-display-config)
 (push '("*Ilist*" :height 15) popwin:special-display-config)
 (push '("*wclock*" :height 7) popwin:special-display-config)
 (push '(" *undo-tree*" :width 0.2 :position right) popwin:special-display-config)
 (push '("*comment-tags*" :height 15) popwin:special-display-config) ;; not work
+(push '("*docker\-.+" :regexp t :height 15) popwin:special-display-config)
 (push '("*HTTP Response*" :height 15) popwin:special-display-config)
 (push '("COMMIT_EDITMSG" :height 15) popwin:special-display-config)
 
@@ -694,22 +745,22 @@
 (setq sml/read-only-char "%%")
 (setq sml/modified-char "*")
 ;; hide Helm and auto-complete
-(setq sml/hidden-modes '(" Helm" " yas" " ARev" " Anzu"))
+(setq sml/hidden-modes '(" Helm" " yas" " VHl" " WK" " Fly" " EC" " ARev" " Anzu"))
 ;; hack (privent overflow)
 (setq sml/extra-filler -10)
-;;; sml/replacer-regexp-list
-;;(add-to-list 'sml/replacer-regexp-list '("^.+/junk/[0-9]+/" ":J:") t)
+;; sml/replacer-regexp-list
+;; (add-to-list 'sml/replacer-regexp-list '("^.+/junk/[0-9]+/" ":J:") t)
 (setq sml/no-confirm-load-theme t)
 (sml/setup)
 ;; theme
-;;(sml/apply-theme 'respectful)
-;;(sml/apply-theme 'light)
+;; (sml/apply-theme 'respectful)
+;; (sml/apply-theme 'light)
 (sml/apply-theme 'dark)
 
 ;; ------------------------------------------------------------------------
 ;; load calendar settings
 
-(load "~/dotfiles/cnf-calendar.el")
+(load "~/dotfiles/elisp/cnf-calendar.el")
 
 ;; ------------------------------------------------------------------------
 ;; custom-set-faces
@@ -729,6 +780,8 @@
  '(company-tooltip-common-selection ((t (:foreground "white" :background "SteelBlue"))))
  '(company-tooltip-selection ((t (:foreground "black" :background "SteelBlue"))))
  '(diff-added ((((type tty)) (:foreground "green"))))
+ '(diff-refine-added ((t (:foreground "white" :background "LimeGreen"))))
+ '(diff-refine-removed ((t (:foreground "white" :background "red"))))
  '(diff-removed ((((type tty)) (:foreground "red"))))
  '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
  '(dired-subtree-depth-1-face ((t (:background "Gray19"))))
@@ -756,14 +809,16 @@
  '(helm-selection ((t (:background "Gray30"))))
  '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
  '(highlight-symbol-face ((t (:background "Gray25"))))
- '(tide-hl-identifier-face ((t (:background "Gray28"))))
  '(hl-line ((t (:background "color-236"))))
  '(holiday ((t (:background "pink"))))
  '(isearch ((t (:background "LightPink" :foreground "black"))))
- '(japanese-holiday-saturday ((t (:background "cyan"))))
  '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))
+ '(holiday ((t (:background "LightPink" :foreground "black"))))
+ '(japanese-holiday-saturday ((t (:background "cyan" :foreground "black"))))
  '(link ((t (:foreground "blue"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
+ '(pulse-highlight-face ((t (:background "Gray35"))))
+ '(pulse-highlight-start-face ((t (:background "Gray35"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
  '(magit-branch-remote ((t (:foreground "blue"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
@@ -805,6 +860,7 @@
  '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
  '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
  '(region ((t (:background "Gray40"))))
+ '(tide-hl-identifier-face ((t (:background "Gray28"))))
  '(tool-bar ((t (:foreground "cyan"))))
  '(web-mode-comment-face ((t (:foreground "green"))))
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
@@ -828,6 +884,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ac-ispell-fuzzy-limit 4)
+ '(ac-ispell-requires 4)
  '(column-number-mode t)
  '(company-dabbrev-code-other-buffers (quote all))
  '(company-dabbrev-other-buffers (quote all))
@@ -845,7 +903,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode tss typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
+    (smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode tss typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)

@@ -1,4 +1,4 @@
-
+# .bashrc
 #  _   _                     _ _
 # | |_| |__   ___  ___  __ _(_) |_ __ _ _ __ ___   __ _
 # | __| '_ \ / _ \/ __|/ _` | | __/ _` | '_ ` _ \ / _` |
@@ -6,25 +6,51 @@
 #  \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
 
 # thesaitama@ .bashrc
+# Last Update: 2018-04-05 22:23:43
+
+# ------------------------------------------------------------------------
+# Env (shell)
 
 umask 022
 
-# alias
+# export TERM=xterm-256color-italic
+export TERMINFO=~/.terminfo
+export CLICOLOR=1
+export LSCOLORS=gxfxcxdxbxegedabagacad
+export PROMPT_DIRTRIM=1
+
+export LESS='-g -i -M -R -S -W -z-4 -x4'
+export LESSOPEN='|lessfilter %s'
+export PAGER=less
+
+# Make bash check it's window size after a process completes
+shopt -s checkwinsize
+
+# noblobber (disable overwirte)
+set noblobber
+
+# ------------------------------------------------------------------------
+# Alias
+
+alias sshx="TERM=xterm-256color ssh"
+
 alias e='emacsclient -nw -a ""'
-# alias e='TERM=xterm-256color-italic emacsclient -nw -a ""'
+alias e256='TERM=screen-256color emacsclient -nw -a ""'
 alias emacs='emacsclient -nw -a ""'
-alias minimacs='\emacs -q -l ~/dotfiles/minimacs.el'
+alias minimacs='\emacs -q -l ~/dotfiles/elisp/minimacs.el'
+
 alias ls='ls -avhplGF'
-alias g='git'
-alias ..='cd ..'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 
-alias c='pygmentize -O style=monokai -f console256 -g'
+alias g='git'
+alias ..='cd ..'
 
-alias snao='dns-sd -B _naoqi._tcp'
-alias mdlk='dns-sd -q'
-#dns-sd -B _nao._tcp
+alias c='pygmentize -O encoding=utf-8 -O style=monokai -f terminal256 -g'
+cl() {
+  c $1 | nl -n ln -b a
+}
+alias cl=cl
 
 alias cleanupDS="find . -type f -name '*.DS_Store' -ls -delete"
 
@@ -40,26 +66,37 @@ if [ "$(uname)" == 'Darwin' ]; then
   alias finderHideH='defaults write com.apple.finder ShowAllFiles FALSE'
 fi
 
+# ------------------------------------------------------------------------
+# History
+
+prompt_dispatch() {
+  export EXIT_STATUS="$?"
+  local f
+  for f in ${!PROMPT_COMMAND_*}; do
+    eval "${!f}"
+  done
+  unset f
+}
+export PROMPT_COMMAND="prompt_dispatch"
+export PROMPT_COMMAND_HISTSAVE="share_history"
+
 # share history
-function share_history {
+share_history() {
   history -a
   history -c
   history -r
 }
 shopt -u histappend
-PROMPT_COMMAND='share_history'
 
-# Env (shell)
-export TERMINFO=~/.terminfo
-export CLICOLOR=1
-export LSCOLORS=gxfxcxdxbxegedabagacad
-export PROMPT_DIRTRIM=1
 export HISTSIZE=10000
 export HISTCONTROL=ignoredups:ignorespace:erasedups
 export HISTIGNORE="fg*:bg*:history*"
 export HISTTIMEFORMAT='%Y%m%d %T ';
 
-# color man
+# ------------------------------------------------------------------------
+# Color
+
+# man
 man() {
   env \
     LESS_TERMCAP_mb=$(printf "\e[1;32m") \
@@ -82,58 +119,65 @@ c_cyan="\[\033[36m\]"
 c_reset="\[\033[00m\]"
 
 # PS1
-#export PS1="${c_purple}\u@:${c_reset}${c_cyan}\W:${c_reset}$(_ps1_result)$ "
+# export PS1="${c_purple}\u@:${c_reset}${c_cyan}\W:${c_reset}$(_ps1_result)$ "
+# export PS1="${c_reset}${c_green} \
+# ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
+# echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
+# ${c_blue}\\\$${c_reset} "
 export PS1="${c_reset}${c_green}\W/ \
 ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
 echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
 ${c_blue}\\\$${c_reset} "
 
-# Visual Studio Code
-if [ "$(uname)" == 'Darwin' ]; then
-  vsc() {
-    if [[ $# = 0 ]]
-    then
-      open -a "visual studio code"
-    else
-      [[ $1 = /* ]] && F="$1" || F="$PWD/${1#./}"
-      open -a "visual studio code" --args "$F"
-    fi
-  }
-fi
-
-# Make bash check it's window size after a process completes
-shopt -s checkwinsize
-
-# noblobber (disable overwirte)
-set noblobber
-
-set completion-ignore-case on
-set bell-style none
-set visible-stats on
-
+# ------------------------------------------------------------------------
 # git-completion
+
 if [ "$(uname)" == 'Darwin' ]; then
-  source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
+  if [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ]; then
+    source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
+  fi
 fi
 
+# ------------------------------------------------------------------------
 # tmux
+
 # lunch tmux
 tm() {
   tmux ls > /dev/null
   if [ $? -eq 1 -a -z "$TMUX" ]; then
     tmux
-  elif [ -z "$TMUX" ] ; then
-    tmux a
+  elif [ -z "$TMUX" ]; then
+    target=$(tmux list-sessions |
+               fzf -0 --no-sort --tac +m --exit-0 |
+               perl -pe 's/^([0-9]+).+$/$1/g;')
+    if [ -n "$target" ]; then
+      tmux a -t ${target}
+    else
+      tmux new-session
+    fi
   else
-    echo "sessions should be nested with care."
+    echo "prevent nested TMUX sessions. :-P"
   fi
 }
 
+# kill tmux session
 tk() {
   if [ -z $1 ]; then
-    tmux kill-session
+    target=$(tmux list-sessions |
+               fzf -1 -0 --no-sort --tac +m --exit-0 |
+               perl -pe 's/^([0-9]+).+$/$1/g;')
+    if [ -n "$target" ]; then
+      tmux kill-session -t ${target}
+    fi
   else
     tmux kill-session -t $1
+  fi
+}
+
+# tmux precmd
+precmd() {
+  if [ ! -z $TMUX ]; then
+    tmux refresh-client -S
   fi
 }
 
@@ -149,68 +193,21 @@ tnp() {
 # rename window-name when ssh
 ssh() {
   if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
+    local window_name=$(tmux display -p '#{window_name}')
     tmux rename-window ${@: -1}
     command ssh "$@"
+    tmux rename-window ${window_name}
     tmux set-window-option automatic-rename "on" 1>/dev/null
   else
     command ssh "$@"
   fi
 }
 
-# rename window-name when exit
-exit() {
-  if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
-    tmux rename-window ${@: -1}
-    command exit
-    tmux set-window-option automatic-rename "on" 1>/dev/null
-  else
-    command exit
-  fi
-}
+# ------------------------------------------------------------------------
+# w3m for google, and wikitionary
+# > sudo port install w3m
 
-# bash-completion
-# > sudo port install bash-completion
-if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
-  . /opt/local/etc/profile.d/bash_completion.sh
-fi
-
-# autojump
-# > sudo port install autojump
-if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
-  . /opt/local/etc/profile.d/autojump.sh
-fi
-
-# fasd
-# > sudo port install fasd
-eval "$(fasd --init auto)"
-
-# fzf
-# > git clone https://github.com/junegunn/fzf.git ~/.fzf
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-if [ -f ~/.fzfcmd.sh ] ; then
-  . ~/.fzfcmd.sh
-  export FZF_DEFAULT_OPTS='--height 40% --reverse'
-  export FZF_DEFAULT_COMMAND='ag -g ""'
-  export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
-  export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
-fi
-
-# enhancd
-# > git clone https://github.com/b4b4r07/enhancd ~/.enhancd
-if [ -f ~/.enhancd/init.sh ]; then
-  export ENHANCD_FILTER=fzf
-  source ~/.enhancd/init.sh
-fi
-
-# ranger
-ranger() {
-  [ -n "$RANGER_LEVEL" ] && exit || LESS="$LESS -+F -+X" command ranger "$@";
-}
-[ -n "$RANGER_LEVEL" ] && PS1="RANGER> $PS1"
-alias rng='ranger'
-
-# w3m for google
-function google() {
+google() {
   local str opt
   if [ $# != 0 ]; then
     for i in $*; do
@@ -223,5 +220,89 @@ function google() {
   w3m http://www.google.co.jp/$opt
 }
 
+wikitionary() {
+  local str opt
+  if [ $# != 0 ]; then
+    for i in $*; do
+      str="$str+$i"
+    done
+    str=`echo $str | sed 's/^\+//'`
+    opt="${str}"
+  fi
+  w3m https://en.wiktionary.org/wiki/$opt
+}
+
+# ------------------------------------------------------------------------
+# bash-completion
+# > sudo port install bash-completion
+# path: /opt/local/etc/bash_completion.d
+# add: '+bash_completion' >> /opt/local/etc/macports/variants.conf
+
+if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+  . /opt/local/etc/profile.d/bash_completion.sh
+fi
+
+# ------------------------------------------------------------------------
+# autojump
+# > sudo port install autojump
+
+# if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
+#   . /opt/local/etc/profile.d/autojump.sh
+# fi
+
+# ------------------------------------------------------------------------
+# fasd
+# > sudo port install fasd
+
+if type fasd >/dev/null 2>&1; then
+  eval "$(fasd --init auto)"
+fi
+
+# ------------------------------------------------------------------------
+# fzf
+# > git clone https://github.com/junegunn/fzf.git ~/.fzf
+
+if [ ~/.fzf.bash ]; then
+  source ~/.fzf.bash
+  export FZF_DEFAULT_OPTS='--height 40% --reverse'
+  export FZF_DEFAULT_COMMAND='ag -g ""'
+  export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+  export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+fi
+
+# fzf extra commands
+if [ -f ~/dotfiles/fzf-commands.sh ]; then
+  . ~/dotfiles/fzf-commands.sh
+fi
+
+# bash cd completion workaround
+complete -o bashdefault -o default -F _fzf_dir_completion cd
+
+# ------------------------------------------------------------------------
+# enhancd
+# > git clone https://github.com/b4b4r07/enhancd ~/.enhancd
+
+if [ -f ~/.enhancd/init.sh ]; then
+  export ENHANCD_FILTER=fzf
+  source ~/.enhancd/init.sh
+fi
+
+# ------------------------------------------------------------------------
+# ranger
+# > sudo port install ranger
+
+ranger() {
+  [ -n "$RANGER_LEVEL" ] && exit || LESS="$LESS -+F -+X" command ranger "$@";
+}
+[ -n "$RANGER_LEVEL" ] && PS1="RANGER> $PS1"
+
+if type ranger >/dev/null 2>&1; then
+  alias rng='ranger'
+fi
+
+# ------------------------------------------------------------------------
 # .inputrc
+
 [ -f ~/.inputrc ] && bind -f ~/.inputrc
+
+# ------------------------------------------------------------------------

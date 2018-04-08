@@ -59,7 +59,7 @@
 (set-face-foreground 'font-lock-type-face "brightred")
 (set-face-foreground 'font-lock-builtin-face "magenta")
 (set-face-foreground 'font-lock-comment-face "green")
-(set-face-foreground 'font-lock-comment-delimiter-face "green")
+(set-face-foreground 'font-lock-comment-delimiter-face "DarkGreen")
 (set-face-foreground 'font-lock-doc-face "gray")
 (set-face-foreground 'font-lock-string-face "orange")
 (set-face-foreground 'font-lock-regexp-grouping-backslash "gray")
@@ -73,18 +73,19 @@
 ;; ------------------------------------------------------------------------
 ;; color white spaces
 
-(defface my-face-b-1 '((t (:background "lightyellow"))) nil)
-(defface my-face-b-2 '((t (:background "darkgray"))) nil)
-(defvar my-face-b-1 'my-face-b-1)
-(defvar my-face-b-2 'my-face-b-2)
-(defvar my-face-u-1 'my-face-b-2)
+(defface my-face-b-1 '((t (:background "Gray40"))) nil)
+(defface my-face-b-2 '((t (:background "Gray20"))) nil)
+(defface my-face-b-3 '((t (:background "Gray80"))) nil)
+(defvar my-face-u-1 'my-face-b-1)
+(defvar my-face-u-2 'my-face-b-2)
+(defvar my-face-u-3 'my-face-b-3)
 (defadvice font-lock-mode(before my-font-lock-mode ())
-(font-lock-add-keywords
- major-mode '(
-   ("　" 0 my-face-b-1 append)
-   ("\t" 0 my-face-b-2 append)
-   ("[ 　\t]+$" 0 my-face-u-1 append)
-   )))
+  (font-lock-add-keywords
+   major-mode '(
+                ("　" 0 my-face-u-1 append)
+                ("\t" 0 my-face-u-2 append)
+                ("[ 　\t]+$" 0 my-face-u-3 append)
+              )))
 (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
 (ad-activate 'font-lock-mode)
 (add-hook 'find-file-hooks '(lambda ()

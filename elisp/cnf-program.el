@@ -15,7 +15,7 @@
 
 ;; if you need editorconfig excutables
 ;; > sudo port install editorconfig-core-c
-;(setq edconf-exec-path "/opt/local/bin/editorconfig")
+;; (setq edconf-exec-path "/opt/local/bin/editorconfig")
 
 ;; ------------------------------------------------------------------------
 ;; comment-tags
@@ -74,8 +74,16 @@
 (add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
 (setq gdb-use-separate-io-buffer t)
 (setq gud-tooltip-echo-area nil)
+(setq gdb-command-name "ggdb")
 
-;; gcc -g -o test test.c
+;; install on macOS need codesign
+;; > codesign -s gdb-cert /opt/local/bin/ggdb
+;;
+;; basic usage
+;; 1. compile with -g option
+;; > gcc -g -o test test.c
+;; 2. run gdb
+;; > ggdb -i=mi test
 
 ;; ------------------------------------------------------------------------
 ;; imenu-list
@@ -222,9 +230,9 @@
 
 (setq-default web-beautify-args
        '("-f"
-        "-"
-        "--indent-size 2"
-        "--end-with-newline"))
+         "-"
+         "--indent-size 2"
+         "--end-with-newline"))
 
 ;; > npm -g install js-beautify
 
@@ -235,6 +243,19 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode))
 (add-hook 'js2-mode-hook #'js2-refactor-mode)
+
+;; ------------------------------------------------------------------------
+;; tern
+
+(setq tern-command '("tern" "--no-port-file"))
+(add-hook 'js2-mode-hook (lambda ()(tern-mode t)))
+
+(eval-after-load 'tern
+   '(progn
+      (require 'tern-auto-complete)
+      (tern-ac-setup)))
+
+;; > suod npm install -g tern
 
 ;; ------------------------------------------------------------------------
 ;; json-mode
@@ -251,32 +272,11 @@
 ;; ------------------------------------------------------------------------
 ;; typescript
 
-;; > sudo npm install tslint
-;; > sudo npm install typescript
+;; > sudo npm install tslint typescript
 ;; > sudo npm install -g clausreinke/typescript-tools
 
 (require 'typescript)
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
-
-;; ------------------------------------------------------------------------
-;; typescript (tss + auto-complete)
-
-;; (require 'tss)
-;; (setq tss-popup-help-key "C-:")
-;; (setq tss-jump-to-definition-key "C->")
-;; (setq tss-implement-definition-key "C-c i")
-
-;; (defun typescript-setup ()
-;;   "Typescript setup."
-;;   (tss-config-default)
-;;   (setq typescript-indent-level 2)
-;;   (flycheck-mode t)
-;;   (eldoc-mode t)
-;;   ;;(flycheck-typescript-tslint-setup)
-;;   (tss-setup-current-buffer))
-
-;; (add-hook 'typescript-mode-hook 'typescript-setup)
-;; (add-hook 'kill-buffer-hook 'tss--delete-process t)
 
 ;; ------------------------------------------------------------------------
 ;; typescript (tide + company-mode)
@@ -284,28 +284,15 @@
 (defun setup-tide-mode ()
   (interactive)
   (tide-setup)
-  (flycheck-mode +1)
+  (flycheck-mode t)
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
   (company-mode +1))
 (setq company-tooltip-align-annotations t)
-(add-hook 'before-save-hook 'tide-format-before-save)
+
+;;(add-hook 'before-save-hook 'tide-format-before-save)
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
-
-;; ------------------------------------------------------------------------
-;; tern
-
-(setq tern-command '("tern" "--no-port-file"))
-(add-hook 'js2-mode-hook (lambda ()(tern-mode t)))
-;;(add-hook 'typescript-mode-hook (lambda ()(tern-mode t)))
-
-(eval-after-load 'tern
-   '(progn
-      (require 'tern-auto-complete)
-      (tern-ac-setup)))
-
-;; > suod npm install -g tern
 
 ;; ------------------------------------------------------------------------
 ;; ruby-mode
@@ -360,7 +347,10 @@
       (cons '("\\.py$" . python-mode) auto-mode-alist))
 (autoload 'python-mode "python-mode" "Python editing mode." t)
 
-;; ------------------------------------------------------------------------
+;; for Ipython
+(setq python-shell-interpreter-args "--simple-prompt --pprint")
+
+;; -----------------------------------------------------------------------
 ;; elpy (python-mode)
 
 (add-hook 'python-mode-hook
@@ -370,13 +360,40 @@
              (elpy-mode)
              ))
 
+;; M-x jedi:install-server
 (setq elpy-rpc-backend "jedi")
-
-;;M-x jedi:install-server
-(add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t) ; optional
 
-(setq elpy-rpc-python-command "python3")
+(add-hook 'python-mode-hook 'jedi:setup)
+
+(defun use-system-python2 ()
+  "Use system python2 for `elpy-mode`."
+  (interactive)
+  (setq python-shell-interpreter "ipython2")
+  (setq python-check-command
+        "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/pyflakes")
+  (setq elpy-rpc-python-command "python2")
+  (setq elpy-rpc-pythonpath
+        "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages")
+  (setq flycheck-python-flake8-executable
+        "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/flake8")
+  )
+
+(defun use-system-python3 ()
+  "Use system python3 for `elpy-mode`."
+  (interactive)
+  (setq python-shell-interpreter "ipython3")
+  (setq python-check-command
+        "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/bin/pyflakes")
+  (setq elpy-rpc-python-command "python3")
+  (setq elpy-rpc-pythonpath
+        "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages")
+  (setq flycheck-python-flake8-executable
+        "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/bin/flake8")
+  )
+
+;; set start python3
+(use-system-python3)
 
 ;; disable flymake
 (remove-hook 'elpy-modules 'elpy-module-flymake)
@@ -384,20 +401,19 @@
 ;; disable indent highlight
 (remove-hook 'elpy-modules 'highlight-indentation-mode)
 
+;; > sudo port -f install py27-ipython py36-ipython
+;; > sudo port select --set ipython3 py36-ipython
 ;; > sudo port install py-rope py36-rope
-;; > sudo port install py-yapf py36-yapf
-;; > sudo port install py-importmagic
-;; > sudo pip-3.6 install importmagic
-;; > sudo pip install jedi autopep8 flake8
-;; > sudo pip-3.6 install jedi autopep8 flake8
+;; > sudo pip install jedi elpy autopep8 flake8 importmagic
+;; > sudo pip-3.6 install jedi elpy autopep8 flake8 importmagic
 
 ;; ------------------------------------------------------------------------
 ;; go-mode
 
 (add-hook 'go-mode-hook 'flycheck-mode)
 (add-hook 'go-mode-hook (lambda()
-                          (add-hook 'before-save-hook' 'gofmt-before-save)
-                          (add-hook 'go-mode-hook 'go-eldoc-setup)
+                          (add-hook 'before-save-hook 'gofmt-before-save)
+                          (go-eldoc-setup)
                           (local-set-key (kbd "M-.") 'godef-jump)
                           (setq indent-tabs-mode nil)
                           (setq c-basic-offset 4)
@@ -410,6 +426,19 @@
 ;; > go get -u github.com/nsf/gocode
 
 ;; ------------------------------------------------------------------------
+;; rust-mode
+
+(add-to-list 'exec-path (expand-file-name "~/.cargo/bin/"))
+(eval-after-load "rust-mode"
+  '(setq-default rust-format-on-save t))
+(add-hook 'rust-mode-hook (lambda ()
+                            (racer-mode)
+                            (flycheck-rust-setup)))
+(add-hook 'racer-mode-hook #'eldoc-mode)
+(add-hook 'racer-mode-hook (lambda ()
+                             (company-mode)))
+
+;; ------------------------------------------------------------------------
 ;; helm-gtags
 
 (require 'helm-gtags)
@@ -417,11 +446,12 @@
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
 (add-hook 'php-mode-hook 'helm-gtags-mode)
 (add-hook 'python-mode-hook 'helm-gtags-mode)
-(add-hook 'js2-mode 'helm-gtags-mode)
-(add-hook 'typescript-mode 'helm-gtags-mode)
+(add-hook 'js2-mode-hook 'helm-gtags-mode)
+(add-hook 'typescript-mode-hook 'helm-gtags-mode)
+(add-hook 'go-mode-hook 'helm-gtags-mode)
 
 (setq helm-gtags-path-style 'root)
-(setq helm-gtags-ignore-case t)
+;; (setq helm-gtags-ignore-case t)
 (setq helm-gtags-auto-update t)
 
 ;; key bindings
@@ -466,6 +496,7 @@
 
 (global-set-key (kbd "C-x g") 'magit-status)
 (setq magit-diff-refine-hunk t)
+(setq magit-merge-arguments '("--no-ff"))
 (setq smerge-refine-ignore-whitespace nil)
 
 ;; ------------------------------------------------------------------------

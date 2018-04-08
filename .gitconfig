@@ -21,11 +21,14 @@
 
 [credential]
 	helper = osxkeychain
+
 [diff]
 	tool = vimdiff
 	compactionHeuristic = true
+
 [difftool]
 	prompt = false
+
 [mergetool]
 	prompt = false
 

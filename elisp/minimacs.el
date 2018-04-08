@@ -28,7 +28,7 @@
 ;; ------------------------------------------------------------------------
 ;; load basic settings
 
-(load "~/dotfiles/cnf-basics.el")
+(load "~/dotfiles/elisp/cnf-basics.el")
 
 ;; ------------------------------------------------------------------------
 ;; custom-set-faces

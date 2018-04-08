@@ -6,7 +6,6 @@ sudo -v
 ln -s ~/dotfiles/.bashrc ~/.bashrc
 ln -s ~/dotfiles/.bash_profile ~/.bash_profile
 ln -s ~/dotfiles/.inputrc ~/.inputrc
-ln -s ~/dotfiles/.fzfcmd.sh ~/.fzfcmd.sh
 
 # emacs
 ln -s ~/dotfiles/.emacs.el ~/.emacs.el
@@ -27,9 +26,13 @@ ln -s ~/dotfiles/.gitconfig ~/.gitconfig
 ln -s ~/dotfiles/.gitignore_global ~/.gitignore_global
 ln -s ~/dotfiles/.tigrc ~/.tigrc
 
+# screen
+ln -s ~/dotfiles/.screenrc ~/.screenrc
+
 # tmux
 ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
-ln -s ~/dotfiles/tmux-status-line /usr/local/bin/tmux-status-line
+# rm /usr/local/bin/tmux-status-line
+# rm /usr/local/bin/tmux-pane-border
 
 # python
 ln -s ~/dotfiles/pip.conf ~/pip.conf

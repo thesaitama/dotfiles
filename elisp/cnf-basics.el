@@ -102,6 +102,9 @@
 ;; find file at point
 (ffap-bindings)
 
+;; disable auto fill
+(setq fill-column nil)
+
 ;; disable bell
 (setq visible-bell t)
 (setq ring-bell-function 'ignore)

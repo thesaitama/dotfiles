@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-04-07 22:29:06
+;; Last Update: 2018-04-09 22:24:35
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -95,6 +95,9 @@
     racer
     company-racer
     flycheck-rust
+    clojure-mode
+    cider
+    clj-refactor
     emacsql
     emacsql-mysql
     emacsql-psql
@@ -199,6 +202,7 @@
     ))
 
 (defun clean-mode-line ()
+  "Clean up mode line."
   (interactive)
   (loop for (mode . mode-str) in mode-line-cleaner-alist
         do
@@ -289,8 +293,8 @@
 
 (require 'smooth-scroll)
 (smooth-scroll-mode t)
-(setq smooth-scroll/vscroll-step-size 4)
-(setq smooth-scroll/hscroll-step-size 4)
+(setq smooth-scroll/vscroll-step-size 5)
+(setq smooth-scroll/hscroll-step-size 5)
 
 ;; ------------------------------------------------------------------------
 ;; expand-region
@@ -484,6 +488,7 @@
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (require 'color)
 (defun rainbow-delimiters-using-stronger-colors ()
+  "Rainbow delimiter more vivid colors."
   (interactive)
   (cl-loop
    for index from 1 to rainbow-delimiters-max-face-count
@@ -645,9 +650,6 @@
   (setenv "TERMINFO" "~/.terminfo")
   (setenv "HOSTTYPE" "intel-mac"))
 
-;; > curl https://opensource.apple.com/source/emacs/emacs-70/emacs/etc/e/eterm-color.ti\?txt > eterm-color.ti
-;; > tic -o ~/.terminfo eterm-color.ti
-
 ;; ------------------------------------------------------------------------
 ;; popwin
 
@@ -728,12 +730,13 @@
 (require 'undo-tree)
 (global-undo-tree-mode t)
 (global-set-key (kbd "M-/") 'undo-tree-redo)
-;;(defun undo-tree-split-side-by-side (original-function &rest args)
-;;  "Split undo-tree side-by-side"
-;;  (let ((split-height-threshold nil)
-;;        (split-width-threshold 0))
-;;    (apply original-function args)))
-;;(advice-add 'undo-tree-visualize :around #'undo-tree-split-side-by-side)
+
+;; (defun undo-tree-split-side-by-side (original-function &rest args)
+;;   "Split undo-tree side-by-side."
+;;   (let ((split-height-threshold nil)
+;;         (split-width-threshold 0))
+;;     (apply original-function args)))
+;; (advice-add 'undo-tree-visualize :around #'undo-tree-split-side-by-side)
 
 ;; ------------------------------------------------------------------------
 ;; smart-mode-line
@@ -812,13 +815,10 @@
  '(hl-line ((t (:background "color-236"))))
  '(holiday ((t (:background "pink"))))
  '(isearch ((t (:background "LightPink" :foreground "black"))))
- '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))
- '(holiday ((t (:background "LightPink" :foreground "black"))))
  '(japanese-holiday-saturday ((t (:background "cyan" :foreground "black"))))
+ '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))
  '(link ((t (:foreground "blue"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
- '(pulse-highlight-face ((t (:background "Gray35"))))
- '(pulse-highlight-start-face ((t (:background "Gray35"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
  '(magit-branch-remote ((t (:foreground "blue"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
@@ -857,6 +857,8 @@
  '(outline-6 ((t (:foreground "orange"))))
  '(outline-7 ((t (:foreground "goldenrod"))))
  '(package-name ((t (:foreground "blue"))))
+ '(pulse-highlight-face ((t (:background "Gray35"))))
+ '(pulse-highlight-start-face ((t (:background "Gray35"))))
  '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
  '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
  '(region ((t (:background "Gray40"))))

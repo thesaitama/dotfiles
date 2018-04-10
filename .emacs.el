@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-04-10 21:36:32
+;; Last Update: 2018-04-10 22:18:38
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -143,8 +143,8 @@
     osx-trash
     vimrc-mode
     w3m
-    docker
     mew
+    docker
     ac-ispell
     google-translate
     xah-lookup
@@ -309,7 +309,15 @@
 ;; highlight-symbol
 
 (require 'highlight-symbol)
-(setq highlight-symbol-colors '("LightSeaGreen" "HotPink" "SlateBlue1" "SpringGreen1" "tan" "DarkOrange" "DodgerBlue1" "DeepPink1"))
+(setq highlight-symbol-colors '("DarkOrange"
+                                "DeepPink1"
+                                "DodgerBlue1"
+                                "HotPink"
+                                "SlateBlue1"
+                                "SpringGreen1"
+                                "tan"
+                                "LightSeaGreen")
+      )
 (setq highlight-symbol-idle-delay 1.0)
 (add-hook 'prog-mode-hook 'highlight-symbol-mode)
 (add-hook 'prog-mode-hook 'highlight-symbol-nav-mode)
@@ -603,6 +611,11 @@
 )
 
 ;; ------------------------------------------------------------------------
+;; shell-mode
+
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+;; ------------------------------------------------------------------------
 ;; eshell
 
 (setq eshell-command-aliases-list
@@ -666,6 +679,7 @@
 (push '("*quickrun*" :height 15) popwin:special-display-config)
 (push '("*Flycheck errors*" :height 15) popwin:special-display-config)
 (push '("*ruby*" :height 15) popwin:special-display-config)
+(push '("*pry*" :height 15) popwin:special-display-config)
 (push '("*Python*" :height 15) popwin:special-display-config)
 (push '("*SQL*" :height 15) popwin:special-display-config)
 (push '("*Ilist*" :height 15) popwin:special-display-config)

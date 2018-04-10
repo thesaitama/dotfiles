@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-04-09 22:24:35
+;; Last Update: 2018-04-10 21:36:32
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -157,7 +157,7 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
-;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
+;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (package-initialize)
 (unless package-archive-contents (package-refresh-contents))
 (dolist (pkg my-favorite-package-list)
@@ -165,9 +165,18 @@
     (package-install pkg)))
 
 ;; ------------------------------------------------------------------------
+;; utility function
+
+(defun load-if-exist (file-path)
+  "Load file if FILE-PATH is exist."
+  (if (file-exists-p file-path)
+      (load file-path))
+  )
+
+;; ------------------------------------------------------------------------
 ;; load basic settings
 
-(load "~/dotfiles/elisp/cnf-basics.el")
+(load-if-exist "~/dotfiles/elisp/cnf-basics.el")
 
 ;; ------------------------------------------------------------------------
 ;; modeline cleaner
@@ -220,8 +229,9 @@
 
 ;; https://github.com/uwabami/locale-eaw-emoji
 
-(require 'locale-eaw-emoji)
-(eaw-and-emoji-fullwidth)
+(when (require 'locale-eaw-emoji nil t)
+  (eaw-and-emoji-fullwidth)
+  )
 
 ;; ------------------------------------------------------------------------
 ;; binary path (exec-path-from-shell)
@@ -250,17 +260,9 @@
     lisp))
 
 ;; ------------------------------------------------------------------------
-;; auto-install
-
-;; (require 'auto-install)
-;; (setq auto-install-use-wget t)
-;; (setq auto-install-directory "~/.emacs.d/auto-install/")
-;; (auto-install-update-emacswiki-package-name t)
-;; (auto-install-compatibility-setup)
-
-;; ------------------------------------------------------------------------
 ;; elscreen
 
+(require 'elscreen)
 (elscreen-start)
 (elscreen-create)
 (setq elscreen-prefix-key (kbd "C-z"))
@@ -318,11 +320,13 @@
 ;; sequential-command
 
 (require 'sequential-command-config)
-(global-set-key "\C-a" 'seq-home)
-(global-set-key "\C-e" 'seq-end)
+(global-set-key (kbd "C-a") 'seq-home)
+(global-set-key (kbd "C-e") 'seq-end)
+
 (when (require 'org nil t)
-  (define-key org-mode-map "\C-a" 'org-seq-home)
-  (define-key org-mode-map "\C-e" 'org-seq-end))
+  (define-key org-mode-map (kbd "C-a") 'org-seq-home)
+  (define-key org-mode-map (kbd "C-e") 'org-seq-end)
+  )
 (define-key esc-map "u" 'seq-upcase-backward-word)
 (define-key esc-map "c" 'seq-capitalize-backward-word)
 (define-key esc-map "l" 'seq-downcase-backward-word)
@@ -337,7 +341,7 @@
 
 (global-ace-isearch-mode +1)
 (setq ace-isearch-function 'avy-goto-char)
-(setq ace-isearch-jump-delay 0.5)
+(setq ace-isearch-jump-delay 0.7)
 
 ;; ------------------------------------------------------------------------
 ;; anzu
@@ -394,10 +398,10 @@
                     (company-quickhelp-mode t) ;; only support GUI
                     ))
 
+(setq completion-ignore-case t)
 (setq company-idle-delay 0.1)
 (setq company-minimum-prefix-length 2)
 (setq company-selection-wrap-around t)
-(setq completion-ignore-case t)
 (setq company-dabbrev-downcase nil)
 (setq company-transformers '(company-sort-by-backend-importance))
 
@@ -515,14 +519,12 @@
 ;; ------------------------------------------------------------------------
 ;; load helm settings
 
-(load "~/dotfiles/elisp/cnf-helm.el")
+(load-if-exist "~/dotfiles/elisp/cnf-helm.el")
 
 ;; ------------------------------------------------------------------------
 ;; load mew settings
 
-(let ((mew-file "~/cnf-mew.el"))
-  (if (file-exists-p mew-file)
-      (load mew-file)))
+(load-if-exist "~/cnf-mew.el")
 
 ;; ------------------------------------------------------------------------
 ;; flyspell (spell check)
@@ -578,25 +580,26 @@
 
 ;; https://github.com/k-talo/volatile-highlights.el
 
-(require 'volatile-highlights)
-(volatile-highlights-mode t)
-(vhl/define-extension 'undo-tree 'undo-tree-yank 'undo-tree-move)
-(vhl/install-extension 'undo-tree)
+(when (require 'volatile-highlights nil t)
+  (volatile-highlights-mode t)
+  (vhl/define-extension 'undo-tree 'undo-tree-yank 'undo-tree-move)
+  (vhl/install-extension 'undo-tree)
+  )
 
 ;; ------------------------------------------------------------------------
 ;; os switch
 
 (cond ((equal system-type 'gnu/linux)
-       (load "~/dotfiles/elisp/cnf-webservice.el")
-       (load "~/dotfiles/elisp/cnf-browser.el")
-       (load "~/dotfiles/elisp/cnf-program.el"))
+       (load-if-exist "~/dotfiles/elisp/cnf-webservice.el")
+       (load-if-exist "~/dotfiles/elisp/cnf-browser.el")
+       (load-if-exist "~/dotfiles/elisp/cnf-program.el"))
       ((equal system-type 'windows-nt)
-       (load "~/dotfiles/elisp/cnf-program.el"))
+       (load-if-exist "~/dotfiles/elisp/cnf-program.el"))
       ((equal system-type 'darwin)
-       (load "~/dotfiles/elisp/cnf-osx.el")
-       (load "~/dotfiles/elisp/cnf-webservice.el")
-       (load "~/dotfiles/elisp/cnf-program.el")
-       (load "~/dotfiles/elisp/cnf-browser.el"))
+       (load-if-exist "~/dotfiles/elisp/cnf-osx.el")
+       (load-if-exist "~/dotfiles/elisp/cnf-webservice.el")
+       (load-if-exist "~/dotfiles/elisp/cnf-program.el")
+       (load-if-exist "~/dotfiles/elisp/cnf-browser.el"))
 )
 
 ;; ------------------------------------------------------------------------
@@ -669,7 +672,7 @@
 (push '("*wclock*" :height 7) popwin:special-display-config)
 (push '(" *undo-tree*" :width 0.2 :position right) popwin:special-display-config)
 (push '("*comment-tags*" :height 15) popwin:special-display-config) ;; not work
-(push '("*docker\-.+" :regexp t :height 15) popwin:special-display-config)
+(push '("\*docker\-.+" :regexp t :height 15) popwin:special-display-config)
 (push '("*HTTP Response*" :height 15) popwin:special-display-config)
 (push '("COMMIT_EDITMSG" :height 15) popwin:special-display-config)
 
@@ -763,7 +766,7 @@
 ;; ------------------------------------------------------------------------
 ;; load calendar settings
 
-(load "~/dotfiles/elisp/cnf-calendar.el")
+(load-if-exist "~/dotfiles/elisp/cnf-calendar.el")
 
 ;; ------------------------------------------------------------------------
 ;; custom-set-faces

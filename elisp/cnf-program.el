@@ -37,10 +37,13 @@
         comment-tags-show-faces t
         comment-tags-lighter nil))
 
+(add-hook 'c++-mode-hook 'comment-tags-mode)
 (add-hook 'c-mode-hook  'comment-tags-mode)
-(add-hook 'python-mode-hook 'comment-tags-mode)
-(add-hook 'php-mode-hook 'comment-tags-mode)
+(add-hook 'go-mode-hook 'comment-tags-mode)
 (add-hook 'js2-mode-hook 'comment-tags-mode)
+(add-hook 'php-mode-hook 'comment-tags-mode)
+(add-hook 'python-mode-hook 'comment-tags-mode)
+(add-hook 'ruby-mode-hook 'comment-tags-mode)
 (add-hook 'typescript-mode-hook 'comment-tags-mode)
 
 ;; ------------------------------------------------------------------------
@@ -70,8 +73,8 @@
 ;; ------------------------------------------------------------------------
 ;; debugger
 
-(setq gdb-many-windows t)
 (add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
+(setq gdb-many-windows t)
 (setq gdb-use-separate-io-buffer t)
 (setq gud-tooltip-echo-area nil)
 (setq gdb-command-name "ggdb")
@@ -340,9 +343,9 @@
 ;; ------------------------------------------------------------------------
 ;; robe
 
-(add-hook 'ruby-mode-hook 'robe-mode)
 (autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
 (autoload 'ac-robe-setup "ac-robe" "auto-complete robe" nil nil)
+(add-hook 'ruby-mode-hook 'robe-mode)
 (add-hook 'robe-mode-hook 'ac-robe-setup)
 
 ;; ------------------------------------------------------------------------
@@ -466,13 +469,13 @@
 ;; helm-gtags
 
 (require 'helm-gtags)
-(add-hook 'c-mode-hook 'helm-gtags-mode)
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
+(add-hook 'c-mode-hook 'helm-gtags-mode)
+(add-hook 'go-mode-hook 'helm-gtags-mode)
+(add-hook 'js2-mode-hook 'helm-gtags-mode)
 (add-hook 'php-mode-hook 'helm-gtags-mode)
 (add-hook 'python-mode-hook 'helm-gtags-mode)
-(add-hook 'js2-mode-hook 'helm-gtags-mode)
 (add-hook 'typescript-mode-hook 'helm-gtags-mode)
-(add-hook 'go-mode-hook 'helm-gtags-mode)
 
 (setq helm-gtags-path-style 'root)
 ;; (setq helm-gtags-ignore-case t)
@@ -537,11 +540,13 @@
 ;; ------------------------------------------------------------------------
 ;; electric-operator
 
+(add-hook 'c++-mode-hook #'electric-operator-mode)
 (add-hook 'c-mode-hook  #'electric-operator-mode)
-(add-hook 'python-mode-hook #'electric-operator-mode)
-(add-hook 'php-mode-hook #'electric-operator-mode)
-(add-hook 'ruby-mode-hook #'electric-operator-mode)
+(add-hook 'go-mode-hook #'electric-operator-mode)
 (add-hook 'js2-mode-hook #'electric-operator-mode)
+(add-hook 'php-mode-hook #'electric-operator-mode)
+(add-hook 'python-mode-hook #'electric-operator-mode)
+(add-hook 'ruby-mode-hook #'electric-operator-mode)
 (add-hook 'typescript-mode-hook #'electric-operator-mode)
 
 ;; ------------------------------------------------------------------------

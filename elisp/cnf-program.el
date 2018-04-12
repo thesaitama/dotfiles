@@ -37,14 +37,15 @@
         comment-tags-show-faces t
         comment-tags-lighter nil))
 
-(add-hook 'c++-mode-hook 'comment-tags-mode)
-(add-hook 'c-mode-hook  'comment-tags-mode)
-(add-hook 'go-mode-hook 'comment-tags-mode)
-(add-hook 'js2-mode-hook 'comment-tags-mode)
-(add-hook 'php-mode-hook 'comment-tags-mode)
-(add-hook 'python-mode-hook 'comment-tags-mode)
-(add-hook 'ruby-mode-hook 'comment-tags-mode)
-(add-hook 'typescript-mode-hook 'comment-tags-mode)
+(add-hook 'prog-mode-hook 'comment-tags-mode)
+;; (add-hook 'c++-mode-hook 'comment-tags-mode)
+;; (add-hook 'c-mode-hook  'comment-tags-mode)
+;; (add-hook 'go-mode-hook 'comment-tags-mode)
+;; (add-hook 'js2-mode-hook 'comment-tags-mode)
+;; (add-hook 'php-mode-hook 'comment-tags-mode)
+;; (add-hook 'python-mode-hook 'comment-tags-mode)
+;; (add-hook 'ruby-mode-hook 'comment-tags-mode)
+;; (add-hook 'typescript-mode-hook 'comment-tags-mode)
 
 ;; ------------------------------------------------------------------------
 ;; projectile

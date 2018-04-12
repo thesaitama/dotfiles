@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-04-10 22:18:38
+;; Last Update: 2018-04-12 21:48:56
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -680,13 +680,13 @@
 (push '("*Flycheck errors*" :height 15) popwin:special-display-config)
 (push '("*ruby*" :height 15) popwin:special-display-config)
 (push '("*pry*" :height 15) popwin:special-display-config)
-(push '("*Python*" :height 15) popwin:special-display-config)
+(push '("\\*[Ii]?[Pp]ython.+" :regexp t :height 15) popwin:special-display-config)
+;; (push '("*Python*" :height 15) popwin:special-display-config)
 (push '("*SQL*" :height 15) popwin:special-display-config)
 (push '("*Ilist*" :height 15) popwin:special-display-config)
 (push '("*wclock*" :height 7) popwin:special-display-config)
 (push '(" *undo-tree*" :width 0.2 :position right) popwin:special-display-config)
-(push '("*comment-tags*" :height 15) popwin:special-display-config) ;; not work
-(push '("\*docker\-.+" :regexp t :height 15) popwin:special-display-config)
+(push '("\\*docker\\-.+" :regexp t :height 15) popwin:special-display-config)
 (push '("*HTTP Response*" :height 15) popwin:special-display-config)
 (push '("COMMIT_EDITMSG" :height 15) popwin:special-display-config)
 

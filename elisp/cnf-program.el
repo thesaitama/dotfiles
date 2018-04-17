@@ -367,6 +367,9 @@
              (package-initialize)
              (elpy-enable)
              (elpy-mode)
+             ;; auto-complete
+             (setq ac-sources (delete 'ac-source-words-in-same-mode-buffers ac-sources))
+             (add-to-list 'ac-sources 'ac-source-jedi-direct)
              ))
 
 ;; M-x jedi:install-server

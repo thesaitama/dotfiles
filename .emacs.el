@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-04-12 21:48:56
+;; Last Update: 2018-04-17 23:37:18
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -394,7 +394,8 @@
 (setq read-file-name-completion-ignore-case t)
 
 (setq-default ac-sources 'ac-source-words-in-same-mode-buffers)
-(setq-default ac-sources (push 'ac-source-yasnippet ac-sources))
+(add-to-list 'ac-sources 'ac-source-yasnippet)
+(add-to-list 'ac-sources 'ac-source-filename)
 
 ;; ------------------------------------------------------------------------
 ;; company

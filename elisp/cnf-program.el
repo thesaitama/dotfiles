@@ -238,7 +238,7 @@
          "--indent-size 2"
          "--end-with-newline"))
 
-;; > npm -g install js-beautify
+;; > sudo npm install -g install js-beautify
 
 ;; ------------------------------------------------------------------------
 ;; js2-mode
@@ -246,7 +246,15 @@
 (require 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode))
-(add-hook 'js2-mode-hook #'js2-refactor-mode)
+(add-hook 'js2-mode-hook
+          (lambda ()
+            (js2-refactor-mode)
+            (ac-js2-mode)
+            )
+          )
+(setq ac-js2-evaluate-calls t)
+
+;; > sudo npm install -g eslint babel-eslint
 
 ;; ------------------------------------------------------------------------
 ;; tern
@@ -259,7 +267,7 @@
       (require 'tern-auto-complete)
       (tern-ac-setup)))
 
-;; > suod npm install -g tern
+;; > sudo npm install -g tern
 
 ;; ------------------------------------------------------------------------
 ;; json-mode

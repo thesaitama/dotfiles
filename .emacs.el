@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-04-17 23:37:18
+;; Last Update: 2018-04-19 21:35:28
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -197,16 +197,17 @@
     (volatile-highlights-mode . "")
     (smooth-scroll-mode . "")
     ;; Major modes
-    (default-generic-mode . "DGen")
-    (emacs-lisp-mode . "El")
     (fundamental-mode . "Fund")
     (generic-mode . "Gen")
+    (default-generic-mode . "DGen")
+    (emacs-lisp-mode . "El")
     (lisp-interaction-mode . "Li")
     (markdown-mode . "Md")
     (python-mode . "Py")
     (ruby-mode . "Rb")
     (rust-mode . "Rs")
     (shell-script-mode . "Sh")
+    (js2-mode . "JS")
     (typescript-mode . "TS")
     ))
 
@@ -393,9 +394,11 @@
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 
-(setq-default ac-sources 'ac-source-words-in-same-mode-buffers)
+(setq-default ac-sources 'ac-source-filename ac-source-words-in-same-mode-buffers)
 (add-to-list 'ac-sources 'ac-source-yasnippet)
-(add-to-list 'ac-sources 'ac-source-filename)
+
+;; for filename completion (ac-source-filename should be earlier)
+(add-hook 'auto-complete-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-filename)))
 
 ;; ------------------------------------------------------------------------
 ;; company

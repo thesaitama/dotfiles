@@ -39,6 +39,7 @@ ln -s ~/dotfiles/pip.conf ~/pip.conf
 ln -s ~/dotfiles/.flake8 ~/.flake8
 
 # javascript
+ln -s ~/dotfiles/.eslintrc ~/.eslintrc
 ln -s ~/dotfiles/.tern-config ~/.tern-config
 
 # tags

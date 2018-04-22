@@ -33,11 +33,11 @@
 ;; ------------------------------------------------------------------------
 ;; backup and lock file
 
-(setq backup-inhibited t)
-(setq make-backup-files nil)
 (setq auto-save-default nil)
-(setq delete-auto-save-files t)
+(setq backup-inhibited t)
 (setq create-lockfiles nil)
+(setq delete-auto-save-files t)
+(setq make-backup-files nil)
 
 ;; ------------------------------------------------------------------------
 ;; key bind
@@ -56,18 +56,18 @@
 ;; color set-face (basic)
 
 (global-font-lock-mode t)
-(set-face-foreground 'font-lock-type-face "brightred")
 (set-face-foreground 'font-lock-builtin-face "magenta")
-(set-face-foreground 'font-lock-comment-face "green")
 (set-face-foreground 'font-lock-comment-delimiter-face "DarkGreen")
-(set-face-foreground 'font-lock-doc-face "gray")
-(set-face-foreground 'font-lock-string-face "orange")
-(set-face-foreground 'font-lock-regexp-grouping-backslash "gray")
-(set-face-foreground 'font-lock-keyword-face "blue")
-(set-face-foreground 'font-lock-function-name-face "yellow")
-(set-face-foreground 'font-lock-variable-name-face "goldenrod")
+(set-face-foreground 'font-lock-comment-face "green")
 (set-face-foreground 'font-lock-constant-face "orange")
+(set-face-foreground 'font-lock-doc-face "gray")
+(set-face-foreground 'font-lock-function-name-face "yellow")
+(set-face-foreground 'font-lock-keyword-face "blue")
 (set-face-foreground 'font-lock-preprocessor-face "yellow")
+(set-face-foreground 'font-lock-regexp-grouping-backslash "gray")
+(set-face-foreground 'font-lock-string-face "orange")
+(set-face-foreground 'font-lock-type-face "brightred")
+(set-face-foreground 'font-lock-variable-name-face "goldenrod")
 (set-face-foreground 'font-lock-warning-face "pink")
 
 ;; ------------------------------------------------------------------------
@@ -101,6 +101,9 @@
 
 ;; find file at point
 (ffap-bindings)
+
+;; disable auto fill
+(setq fill-column nil)
 
 ;; disable bell
 (setq visible-bell t)
@@ -148,7 +151,7 @@
 ;; open symlinks no confirmation
 (setq vc-follow-symlinks t)
 
-;; which fucntion
+;; which function
 (which-function-mode 1)
 
 ;; ignore case
@@ -249,15 +252,22 @@
 ;; ------------------------------------------------------------------------
 ;; recentf
 
-;;(when (require 'recentf nil t)
 (require 'recentf)
 
-(defadvice recentf-cleanup
-  (around no-message activate)
-  "Suppress the output from `message` to minibuffer."
-  (cl-flet ((message (format-string &rest args)
-                     (eval `(format ,format-string ,@args))))
-    ad-do-it))
+(defun recentf-save-list-inhibit-message:around (orig-func &rest args)
+  (setq inhibit-message t)
+  (apply orig-func args)
+  (setq inhibit-message nil)
+  'around)
+(advice-add 'recentf-cleanup :around 'recentf-save-list-inhibit-message:around)
+(advice-add 'recentf-save-list :around 'recentf-save-list-inhibit-message:around)
+
+;; (defadvice recentf-cleanup
+;;   (around no-message activate)
+;;   "Suppress the output from `message` to minibuffer."
+;;   (cl-flet ((message (format-string &rest args)
+;;                      (eval `(format ,format-string ,@args))))
+;;     ad-do-it))
 
 (setq recentf-max-saved-items 2000)
 (setq recentf-exclude '(".recentf"))
@@ -361,21 +371,28 @@
 ;; eww
 
 (defvar eww-disable-colorize t)
+
 (defun shr-colorize-region--disable (orig start end fg &optional bg &rest _)
   (unless eww-disable-colorize
-    (funcall orig start end fg)))
+    (funcall orig start end fg))
+  )
+
 (advice-add 'shr-colorize-region :around 'shr-colorize-region--disable)
 (advice-add 'eww-colorize-region :around 'shr-colorize-region--disable)
+
 (defun eww-disable-color ()
   "When eww disable flip colorize."
   (interactive)
   (setq-local eww-disable-colorize t)
-  (eww-reload))
+  (eww-reload)
+  )
+
 (defun eww-enable-color ()
   "When eww enaboe color rize."
   (interactive)
   (setq-local eww-disable-colorize nil)
-  (eww-reload))
+  (eww-reload)
+  )
 
 ;; ------------------------------------------------------------------------
 ;; describe-face-at-point
@@ -383,8 +400,10 @@
 ;; https://uwabami.github.io/cc-env/Emacs.html#orgb08f4b8
 
 (defun my:describe-face-at-point ()
+  "Describe face at point."
   (interactive)
-  (message "%s" (get-char-property (point) 'face)))
+  (message "%s" (get-char-property (point) 'face))
+  )
 
 ;; ------------------------------------------------------------------------
 

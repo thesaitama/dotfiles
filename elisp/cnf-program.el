@@ -37,11 +37,15 @@
         comment-tags-show-faces t
         comment-tags-lighter nil))
 
-(add-hook 'c-mode-hook  'comment-tags-mode)
-(add-hook 'python-mode-hook 'comment-tags-mode)
-(add-hook 'php-mode-hook 'comment-tags-mode)
-(add-hook 'js2-mode-hook 'comment-tags-mode)
-(add-hook 'typescript-mode-hook 'comment-tags-mode)
+(add-hook 'prog-mode-hook 'comment-tags-mode)
+;; (add-hook 'c++-mode-hook 'comment-tags-mode)
+;; (add-hook 'c-mode-hook  'comment-tags-mode)
+;; (add-hook 'go-mode-hook 'comment-tags-mode)
+;; (add-hook 'js2-mode-hook 'comment-tags-mode)
+;; (add-hook 'php-mode-hook 'comment-tags-mode)
+;; (add-hook 'python-mode-hook 'comment-tags-mode)
+;; (add-hook 'ruby-mode-hook 'comment-tags-mode)
+;; (add-hook 'typescript-mode-hook 'comment-tags-mode)
 
 ;; ------------------------------------------------------------------------
 ;; projectile
@@ -70,8 +74,8 @@
 ;; ------------------------------------------------------------------------
 ;; debugger
 
-(setq gdb-many-windows t)
 (add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
+(setq gdb-many-windows t)
 (setq gdb-use-separate-io-buffer t)
 (setq gud-tooltip-echo-area nil)
 (setq gdb-command-name "ggdb")
@@ -234,7 +238,7 @@
          "--indent-size 2"
          "--end-with-newline"))
 
-;; > npm -g install js-beautify
+;; > sudo npm install -g install js-beautify
 
 ;; ------------------------------------------------------------------------
 ;; js2-mode
@@ -242,7 +246,15 @@
 (require 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode))
-(add-hook 'js2-mode-hook #'js2-refactor-mode)
+(add-hook 'js2-mode-hook
+          (lambda ()
+            (js2-refactor-mode)
+            (ac-js2-mode)
+            )
+          )
+(setq ac-js2-evaluate-calls t)
+
+;; > sudo npm install -g eslint babel-eslint
 
 ;; ------------------------------------------------------------------------
 ;; tern
@@ -255,7 +267,7 @@
       (require 'tern-auto-complete)
       (tern-ac-setup)))
 
-;; > suod npm install -g tern
+;; > sudo npm install -g tern
 
 ;; ------------------------------------------------------------------------
 ;; json-mode
@@ -327,18 +339,23 @@
   )
   )
 
-(setq ruby-electric-expand-delimiters-list nil)
+(setq inf-ruby-default-implementation "pry")
+(setq inf-ruby-eval-binding "Pry.toplevel_binding")
+(setq inf-ruby-first-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)> *")
+(setq inf-ruby-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)[>*\"'] *")
+
+(add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
+
+;; > gem install pry pry-doc method_source
+;; > gem install ruby-lint
 
 ;; ------------------------------------------------------------------------
 ;; robe
 
-(add-hook 'ruby-mode-hook 'robe-mode)
 (autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
 (autoload 'ac-robe-setup "ac-robe" "auto-complete robe" nil nil)
+(add-hook 'ruby-mode-hook 'robe-mode)
 (add-hook 'robe-mode-hook 'ac-robe-setup)
-
-;; > gem install pry pry-doc method_source
-;; > gem install ruby-lint
 
 ;; ------------------------------------------------------------------------
 ;; python-mode
@@ -358,6 +375,9 @@
              (package-initialize)
              (elpy-enable)
              (elpy-mode)
+             ;; auto-complete
+             (setq ac-sources (delete 'ac-source-words-in-same-mode-buffers ac-sources))
+             (add-to-list 'ac-sources 'ac-source-jedi-direct)
              ))
 
 ;; M-x jedi:install-server
@@ -439,16 +459,35 @@
                              (company-mode)))
 
 ;; ------------------------------------------------------------------------
+;; clojure more
+
+(add-hook 'cider-mode-hook #'clj-refactor-mode)
+(add-hook 'cider-mode-hook #'company-mode)
+(add-hook 'cider-mode-hook #'eldoc-mode)
+(add-hook 'cider-repl-mode-hook (lambda ()
+                                  (company-mode)
+                                  (eldoc-mode)))
+(setq nrepl-log-messages t
+      cider-repl-display-in-current-window t
+      cider-repl-use-clojure-font-lock t
+      cider-prompt-save-file-on-load 'always-save
+      cider-font-lock-dynamically '(macro core function var)
+      cider-overlays-use-font-lock t)
+;; (cider-repl-toggle-pretty-printing)
+
+;; > sudo port install clojure leiningen
+
+;; ------------------------------------------------------------------------
 ;; helm-gtags
 
 (require 'helm-gtags)
-(add-hook 'c-mode-hook 'helm-gtags-mode)
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
+(add-hook 'c-mode-hook 'helm-gtags-mode)
+(add-hook 'go-mode-hook 'helm-gtags-mode)
+(add-hook 'js2-mode-hook 'helm-gtags-mode)
 (add-hook 'php-mode-hook 'helm-gtags-mode)
 (add-hook 'python-mode-hook 'helm-gtags-mode)
-(add-hook 'js2-mode-hook 'helm-gtags-mode)
 (add-hook 'typescript-mode-hook 'helm-gtags-mode)
-(add-hook 'go-mode-hook 'helm-gtags-mode)
 
 (setq helm-gtags-path-style 'root)
 ;; (setq helm-gtags-ignore-case t)
@@ -513,11 +552,13 @@
 ;; ------------------------------------------------------------------------
 ;; electric-operator
 
+(add-hook 'c++-mode-hook #'electric-operator-mode)
 (add-hook 'c-mode-hook  #'electric-operator-mode)
-(add-hook 'python-mode-hook #'electric-operator-mode)
-(add-hook 'php-mode-hook #'electric-operator-mode)
-(add-hook 'ruby-mode-hook #'electric-operator-mode)
+(add-hook 'go-mode-hook #'electric-operator-mode)
 (add-hook 'js2-mode-hook #'electric-operator-mode)
+(add-hook 'php-mode-hook #'electric-operator-mode)
+(add-hook 'python-mode-hook #'electric-operator-mode)
+(add-hook 'ruby-mode-hook #'electric-operator-mode)
 (add-hook 'typescript-mode-hook #'electric-operator-mode)
 
 ;; ------------------------------------------------------------------------

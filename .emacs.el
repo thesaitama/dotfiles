@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-04-07 22:29:06
+;; Last Update: 2018-04-19 21:35:28
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -95,6 +95,9 @@
     racer
     company-racer
     flycheck-rust
+    clojure-mode
+    cider
+    clj-refactor
     emacsql
     emacsql-mysql
     emacsql-psql
@@ -140,8 +143,8 @@
     osx-trash
     vimrc-mode
     w3m
-    docker
     mew
+    docker
     ac-ispell
     google-translate
     xah-lookup
@@ -154,7 +157,7 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
-;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
+;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (package-initialize)
 (unless package-archive-contents (package-refresh-contents))
 (dolist (pkg my-favorite-package-list)
@@ -162,9 +165,18 @@
     (package-install pkg)))
 
 ;; ------------------------------------------------------------------------
+;; utility function
+
+(defun load-if-exist (file-path)
+  "Load file if FILE-PATH is exist."
+  (if (file-exists-p file-path)
+      (load file-path))
+  )
+
+;; ------------------------------------------------------------------------
 ;; load basic settings
 
-(load "~/dotfiles/elisp/cnf-basics.el")
+(load-if-exist "~/dotfiles/elisp/cnf-basics.el")
 
 ;; ------------------------------------------------------------------------
 ;; modeline cleaner
@@ -185,20 +197,22 @@
     (volatile-highlights-mode . "")
     (smooth-scroll-mode . "")
     ;; Major modes
-    (default-generic-mode . "DGen")
-    (emacs-lisp-mode . "El")
     (fundamental-mode . "Fund")
     (generic-mode . "Gen")
+    (default-generic-mode . "DGen")
+    (emacs-lisp-mode . "El")
     (lisp-interaction-mode . "Li")
     (markdown-mode . "Md")
     (python-mode . "Py")
     (ruby-mode . "Rb")
     (rust-mode . "Rs")
     (shell-script-mode . "Sh")
+    (js2-mode . "JS")
     (typescript-mode . "TS")
     ))
 
 (defun clean-mode-line ()
+  "Clean up mode line."
   (interactive)
   (loop for (mode . mode-str) in mode-line-cleaner-alist
         do
@@ -216,8 +230,9 @@
 
 ;; https://github.com/uwabami/locale-eaw-emoji
 
-(require 'locale-eaw-emoji)
-(eaw-and-emoji-fullwidth)
+(when (require 'locale-eaw-emoji nil t)
+  (eaw-and-emoji-fullwidth)
+  )
 
 ;; ------------------------------------------------------------------------
 ;; binary path (exec-path-from-shell)
@@ -246,17 +261,9 @@
     lisp))
 
 ;; ------------------------------------------------------------------------
-;; auto-install
-
-;; (require 'auto-install)
-;; (setq auto-install-use-wget t)
-;; (setq auto-install-directory "~/.emacs.d/auto-install/")
-;; (auto-install-update-emacswiki-package-name t)
-;; (auto-install-compatibility-setup)
-
-;; ------------------------------------------------------------------------
 ;; elscreen
 
+(require 'elscreen)
 (elscreen-start)
 (elscreen-create)
 (setq elscreen-prefix-key (kbd "C-z"))
@@ -289,8 +296,8 @@
 
 (require 'smooth-scroll)
 (smooth-scroll-mode t)
-(setq smooth-scroll/vscroll-step-size 4)
-(setq smooth-scroll/hscroll-step-size 4)
+(setq smooth-scroll/vscroll-step-size 5)
+(setq smooth-scroll/hscroll-step-size 5)
 
 ;; ------------------------------------------------------------------------
 ;; expand-region
@@ -303,7 +310,15 @@
 ;; highlight-symbol
 
 (require 'highlight-symbol)
-(setq highlight-symbol-colors '("LightSeaGreen" "HotPink" "SlateBlue1" "SpringGreen1" "tan" "DarkOrange" "DodgerBlue1" "DeepPink1"))
+(setq highlight-symbol-colors '("DarkOrange"
+                                "DeepPink1"
+                                "DodgerBlue1"
+                                "HotPink"
+                                "SlateBlue1"
+                                "SpringGreen1"
+                                "tan"
+                                "LightSeaGreen")
+      )
 (setq highlight-symbol-idle-delay 1.0)
 (add-hook 'prog-mode-hook 'highlight-symbol-mode)
 (add-hook 'prog-mode-hook 'highlight-symbol-nav-mode)
@@ -314,11 +329,13 @@
 ;; sequential-command
 
 (require 'sequential-command-config)
-(global-set-key "\C-a" 'seq-home)
-(global-set-key "\C-e" 'seq-end)
+(global-set-key (kbd "C-a") 'seq-home)
+(global-set-key (kbd "C-e") 'seq-end)
+
 (when (require 'org nil t)
-  (define-key org-mode-map "\C-a" 'org-seq-home)
-  (define-key org-mode-map "\C-e" 'org-seq-end))
+  (define-key org-mode-map (kbd "C-a") 'org-seq-home)
+  (define-key org-mode-map (kbd "C-e") 'org-seq-end)
+  )
 (define-key esc-map "u" 'seq-upcase-backward-word)
 (define-key esc-map "c" 'seq-capitalize-backward-word)
 (define-key esc-map "l" 'seq-downcase-backward-word)
@@ -333,7 +350,7 @@
 
 (global-ace-isearch-mode +1)
 (setq ace-isearch-function 'avy-goto-char)
-(setq ace-isearch-jump-delay 0.5)
+(setq ace-isearch-jump-delay 0.7)
 
 ;; ------------------------------------------------------------------------
 ;; anzu
@@ -377,8 +394,11 @@
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 
-(setq-default ac-sources 'ac-source-words-in-same-mode-buffers)
-(setq-default ac-sources (push 'ac-source-yasnippet ac-sources))
+(setq-default ac-sources 'ac-source-filename ac-source-words-in-same-mode-buffers)
+(add-to-list 'ac-sources 'ac-source-yasnippet)
+
+;; for filename completion (ac-source-filename should be earlier)
+(add-hook 'auto-complete-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-filename)))
 
 ;; ------------------------------------------------------------------------
 ;; company
@@ -390,10 +410,10 @@
                     (company-quickhelp-mode t) ;; only support GUI
                     ))
 
+(setq completion-ignore-case t)
 (setq company-idle-delay 0.1)
 (setq company-minimum-prefix-length 2)
 (setq company-selection-wrap-around t)
-(setq completion-ignore-case t)
 (setq company-dabbrev-downcase nil)
 (setq company-transformers '(company-sort-by-backend-importance))
 
@@ -484,6 +504,7 @@
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (require 'color)
 (defun rainbow-delimiters-using-stronger-colors ()
+  "Rainbow delimiter more vivid colors."
   (interactive)
   (cl-loop
    for index from 1 to rainbow-delimiters-max-face-count
@@ -510,14 +531,12 @@
 ;; ------------------------------------------------------------------------
 ;; load helm settings
 
-(load "~/dotfiles/elisp/cnf-helm.el")
+(load-if-exist "~/dotfiles/elisp/cnf-helm.el")
 
 ;; ------------------------------------------------------------------------
 ;; load mew settings
 
-(let ((mew-file "~/cnf-mew.el"))
-  (if (file-exists-p mew-file)
-      (load mew-file)))
+(load-if-exist "~/cnf-mew.el")
 
 ;; ------------------------------------------------------------------------
 ;; flyspell (spell check)
@@ -573,26 +592,32 @@
 
 ;; https://github.com/k-talo/volatile-highlights.el
 
-(require 'volatile-highlights)
-(volatile-highlights-mode t)
-(vhl/define-extension 'undo-tree 'undo-tree-yank 'undo-tree-move)
-(vhl/install-extension 'undo-tree)
+(when (require 'volatile-highlights nil t)
+  (volatile-highlights-mode t)
+  (vhl/define-extension 'undo-tree 'undo-tree-yank 'undo-tree-move)
+  (vhl/install-extension 'undo-tree)
+  )
 
 ;; ------------------------------------------------------------------------
 ;; os switch
 
 (cond ((equal system-type 'gnu/linux)
-       (load "~/dotfiles/elisp/cnf-webservice.el")
-       (load "~/dotfiles/elisp/cnf-browser.el")
-       (load "~/dotfiles/elisp/cnf-program.el"))
+       (load-if-exist "~/dotfiles/elisp/cnf-webservice.el")
+       (load-if-exist "~/dotfiles/elisp/cnf-browser.el")
+       (load-if-exist "~/dotfiles/elisp/cnf-program.el"))
       ((equal system-type 'windows-nt)
-       (load "~/dotfiles/elisp/cnf-program.el"))
+       (load-if-exist "~/dotfiles/elisp/cnf-program.el"))
       ((equal system-type 'darwin)
-       (load "~/dotfiles/elisp/cnf-osx.el")
-       (load "~/dotfiles/elisp/cnf-webservice.el")
-       (load "~/dotfiles/elisp/cnf-program.el")
-       (load "~/dotfiles/elisp/cnf-browser.el"))
+       (load-if-exist "~/dotfiles/elisp/cnf-osx.el")
+       (load-if-exist "~/dotfiles/elisp/cnf-webservice.el")
+       (load-if-exist "~/dotfiles/elisp/cnf-program.el")
+       (load-if-exist "~/dotfiles/elisp/cnf-browser.el"))
 )
+
+;; ------------------------------------------------------------------------
+;; shell-mode
+
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 ;; ------------------------------------------------------------------------
 ;; eshell
@@ -645,9 +670,6 @@
   (setenv "TERMINFO" "~/.terminfo")
   (setenv "HOSTTYPE" "intel-mac"))
 
-;; > curl https://opensource.apple.com/source/emacs/emacs-70/emacs/etc/e/eterm-color.ti\?txt > eterm-color.ti
-;; > tic -o ~/.terminfo eterm-color.ti
-
 ;; ------------------------------------------------------------------------
 ;; popwin
 
@@ -661,13 +683,14 @@
 (push '("*quickrun*" :height 15) popwin:special-display-config)
 (push '("*Flycheck errors*" :height 15) popwin:special-display-config)
 (push '("*ruby*" :height 15) popwin:special-display-config)
-(push '("*Python*" :height 15) popwin:special-display-config)
+(push '("*pry*" :height 15) popwin:special-display-config)
+(push '("\\*[Ii]?[Pp]ython.+" :regexp t :height 15) popwin:special-display-config)
+;; (push '("*Python*" :height 15) popwin:special-display-config)
 (push '("*SQL*" :height 15) popwin:special-display-config)
 (push '("*Ilist*" :height 15) popwin:special-display-config)
 (push '("*wclock*" :height 7) popwin:special-display-config)
 (push '(" *undo-tree*" :width 0.2 :position right) popwin:special-display-config)
-(push '("*comment-tags*" :height 15) popwin:special-display-config) ;; not work
-(push '("*docker\-.+" :regexp t :height 15) popwin:special-display-config)
+(push '("\\*docker\\-.+" :regexp t :height 15) popwin:special-display-config)
 (push '("*HTTP Response*" :height 15) popwin:special-display-config)
 (push '("COMMIT_EDITMSG" :height 15) popwin:special-display-config)
 
@@ -728,12 +751,13 @@
 (require 'undo-tree)
 (global-undo-tree-mode t)
 (global-set-key (kbd "M-/") 'undo-tree-redo)
-;;(defun undo-tree-split-side-by-side (original-function &rest args)
-;;  "Split undo-tree side-by-side"
-;;  (let ((split-height-threshold nil)
-;;        (split-width-threshold 0))
-;;    (apply original-function args)))
-;;(advice-add 'undo-tree-visualize :around #'undo-tree-split-side-by-side)
+
+;; (defun undo-tree-split-side-by-side (original-function &rest args)
+;;   "Split undo-tree side-by-side."
+;;   (let ((split-height-threshold nil)
+;;         (split-width-threshold 0))
+;;     (apply original-function args)))
+;; (advice-add 'undo-tree-visualize :around #'undo-tree-split-side-by-side)
 
 ;; ------------------------------------------------------------------------
 ;; smart-mode-line
@@ -760,7 +784,7 @@
 ;; ------------------------------------------------------------------------
 ;; load calendar settings
 
-(load "~/dotfiles/elisp/cnf-calendar.el")
+(load-if-exist "~/dotfiles/elisp/cnf-calendar.el")
 
 ;; ------------------------------------------------------------------------
 ;; custom-set-faces
@@ -812,13 +836,10 @@
  '(hl-line ((t (:background "color-236"))))
  '(holiday ((t (:background "pink"))))
  '(isearch ((t (:background "LightPink" :foreground "black"))))
- '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))
- '(holiday ((t (:background "LightPink" :foreground "black"))))
  '(japanese-holiday-saturday ((t (:background "cyan" :foreground "black"))))
+ '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))
  '(link ((t (:foreground "blue"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
- '(pulse-highlight-face ((t (:background "Gray35"))))
- '(pulse-highlight-start-face ((t (:background "Gray35"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
  '(magit-branch-remote ((t (:foreground "blue"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
@@ -857,6 +878,8 @@
  '(outline-6 ((t (:foreground "orange"))))
  '(outline-7 ((t (:foreground "goldenrod"))))
  '(package-name ((t (:foreground "blue"))))
+ '(pulse-highlight-face ((t (:background "Gray35"))))
+ '(pulse-highlight-start-face ((t (:background "Gray35"))))
  '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
  '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
  '(region ((t (:background "Gray40"))))

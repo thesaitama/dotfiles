@@ -1,5 +1,14 @@
 
 ;; ------------------------------------------------------------------------
+;; auto-install
+
+(require 'auto-install)
+(setq auto-install-use-wget t)
+(setq auto-install-directory "~/.emacs.d/auto-install/")
+(auto-install-update-emacswiki-package-name t)
+(auto-install-compatibility-setup)
+
+;; ------------------------------------------------------------------------
 ;; eldoc-extension)
 
 (add-hook 'emacs-lisp-mode-hook '(lambda ()

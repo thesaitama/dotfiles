@@ -279,7 +279,6 @@
 ;; > sudo npm install tslint typescript
 ;; > sudo npm install -g clausreinke/typescript-tools
 
-(require 'typescript)
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
 
 ;; ------------------------------------------------------------------------

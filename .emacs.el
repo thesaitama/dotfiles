@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-04-24 21:27:54
+;; Last Update: 2018-04-24 21:54:40
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -915,6 +915,7 @@
  '(custom-safe-themes
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+ '(elpy-modules (quote (elpy-module-eldoc elpy-module-yasnippet)))
  '(emamux:completing-read-type (quote helm))
  '(foreign-regexp/regexp-type (quote perl))
  '(google-translate-default-source-language "ja")

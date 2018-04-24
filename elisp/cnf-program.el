@@ -38,14 +38,6 @@
         comment-tags-lighter nil))
 
 (add-hook 'prog-mode-hook 'comment-tags-mode)
-;; (add-hook 'c++-mode-hook 'comment-tags-mode)
-;; (add-hook 'c-mode-hook  'comment-tags-mode)
-;; (add-hook 'go-mode-hook 'comment-tags-mode)
-;; (add-hook 'js2-mode-hook 'comment-tags-mode)
-;; (add-hook 'php-mode-hook 'comment-tags-mode)
-;; (add-hook 'python-mode-hook 'comment-tags-mode)
-;; (add-hook 'ruby-mode-hook 'comment-tags-mode)
-;; (add-hook 'typescript-mode-hook 'comment-tags-mode)
 
 ;; ------------------------------------------------------------------------
 ;; projectile
@@ -328,8 +320,6 @@
 ;; inf-ruby, ruby-electric-mode
 
 (autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
-(add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
-
 (add-hook 'ruby-mode-hook
   (lambda ()
     (ruby-electric-mode t)
@@ -344,7 +334,13 @@
 (setq inf-ruby-first-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)> *")
 (setq inf-ruby-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)[>*\"'] *")
 
-(add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
+(eval-after-load 'auto-complete '(add-to-list 'ac-modes 'inf-ruby-mode))
+(add-hook 'inf-ruby-mode-hook
+          (lambda ()
+            (ansi-color-for-comint-mode-on)
+            (ac-inf-ruby-enable)
+            )
+          )
 
 ;; > gem install pry pry-doc method_source
 ;; > gem install ruby-lint

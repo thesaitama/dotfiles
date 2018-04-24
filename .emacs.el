@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-04-19 21:35:28
+;; Last Update: 2018-04-24 21:21:47
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -73,6 +73,7 @@
     rbenv
     ruby-electric
     inf-ruby
+    ac-inf-ruby
     robe
     js2-mode
     js2-refactor

@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-04-24 21:54:40
+;; Last Update: 2018-04-26 21:27:10
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -682,6 +682,7 @@
 (push '("*compilation*" :height 15) popwin:special-display-config)
 (push '("*quickrun*" :height 15) popwin:special-display-config)
 (push '("*Flycheck errors*" :height 15) popwin:special-display-config)
+(push '("*Typescript*" :height 15) popwin:special-display-config)
 (push '("*ruby*" :height 15) popwin:special-display-config)
 (push '("*pry*" :height 15) popwin:special-display-config)
 (push '("\\*[Ii]?[Pp]ython.+" :regexp t :height 15) popwin:special-display-config)

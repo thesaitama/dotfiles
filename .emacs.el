@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-04-26 21:27:10
+;; Last Update: 2018-05-07 21:23:47
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -42,6 +42,7 @@
     import-popwin
     auto-complete
     fuzzy
+    org-ac
     pos-tip
     company
     company-quickhelp
@@ -399,6 +400,13 @@
 
 ;; for filename completion (ac-source-filename should be earlier)
 (add-hook 'auto-complete-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-filename)))
+
+;; ------------------------------------------------------------------------
+;; org-ac
+
+(when (require 'org-ac nil t)
+  (org-ac/config-default)
+  )
 
 ;; ------------------------------------------------------------------------
 ;; company
@@ -916,7 +924,7 @@
  '(custom-safe-themes
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
- '(elpy-modules (quote (elpy-module-eldoc elpy-module-yasnippet)))
+ '(elpy-modules (quote (elpy-module-eldoc elpy-module-yasnippet)) t)
  '(emamux:completing-read-type (quote helm))
  '(foreign-regexp/regexp-type (quote perl))
  '(google-translate-default-source-language "ja")

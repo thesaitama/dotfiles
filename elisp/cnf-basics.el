@@ -44,7 +44,11 @@
 
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-t") 'other-window)
-(global-set-key (kbd "C-x C-b") 'bs-show) ;; replace list-buffers
+;; replace list-buffers
+(global-set-key (kbd "C-x C-b") 'bs-show)
+(if (>= emacs-major-version 25)
+    (global-set-key (kbd "C-x C-b") 'buffer-menu-open)
+)
 
 ;; ------------------------------------------------------------------------
 ;; ediff

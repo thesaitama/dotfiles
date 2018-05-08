@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-05-07 22:59:04
+;; Last Update: 2018-05-08 23:35:21
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -823,6 +823,10 @@
  '(dired-subtree-depth-4-face ((t (:background "Gray22"))))
  '(dired-subtree-depth-5-face ((t (:background "Gray23"))))
  '(dired-subtree-depth-6-face ((t (:background "Gray24"))))
+ '(menu ((t (:background "Gray30"))))
+ '(tty-menu-enabled-face ((t (:background "Gray45" :foreground "White"))))
+ '(tty-menu-disabled-face ((t (:background "Gray45" :foreground "Gray10"))))
+ '(tty-menu-selected-face ((t (:background "SteelBlue" :foreground "White"))))
  '(elscreen-tab-background-face ((t (:background "Gray10" :foreground "Gray90"))))
  '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))

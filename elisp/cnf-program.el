@@ -381,31 +381,7 @@
 
 (add-hook 'python-mode-hook 'jedi:setup)
 
-(defun use-system-python2 ()
-  "Use system python2 for `elpy-mode`."
-  (interactive)
-  (setq python-shell-interpreter "ipython2")
-  (setq python-check-command
-        "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/pyflakes")
-  (setq elpy-rpc-python-command "python2")
-  (setq elpy-rpc-pythonpath
-        "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages")
-  (setq flycheck-python-flake8-executable
-        "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/flake8")
-  )
-
-(defun use-system-python3 ()
-  "Use system python3 for `elpy-mode`."
-  (interactive)
-  (setq python-shell-interpreter "ipython3")
-  (setq python-check-command
-        "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/bin/pyflakes")
-  (setq elpy-rpc-python-command "python3")
-  (setq elpy-rpc-pythonpath
-        "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages")
-  (setq flycheck-python-flake8-executable
-        "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/bin/flake8")
-  )
+;; see python special settings (cnf-osx.el)
 
 ;; set start python3
 (use-system-python3)

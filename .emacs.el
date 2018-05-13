@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-05-08 23:35:21
+;; Last Update: 2018-05-13 22:04:58
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -390,6 +390,7 @@
 (setq ac-max-width 35)
 (setq ac-ignore-case t)
 (setq ac-delay 0.1)
+(setq ac-auto-start 2)
 (setq ac-auto-show-menu 0.2)
 (setq ac-quick-help-prefer-x t)
 (setq completion-ignore-case t)

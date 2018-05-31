@@ -207,9 +207,6 @@
 
 (show-paren-mode t)
 (setq show-paren-style 'mixed)
-(set-face-background 'show-paren-match-face "black")
-(set-face-foreground 'show-paren-match-face "white")
-(set-face-background 'show-paren-mismatch "red")
 
 ;; ------------------------------------------------------------------------
 ;; electric-pair

@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-05-13 22:04:58
+;; Last Update: 2018-05-31 09:01:46
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -396,7 +396,9 @@
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 
-(setq-default ac-sources 'ac-source-filename ac-source-words-in-same-mode-buffers)
+(if (<= emacs-major-version 25)
+    (setq-default ac-sources 'ac-source-filename ac-source-words-in-same-mode-buffers)
+  )
 (add-to-list 'ac-sources 'ac-source-yasnippet)
 
 ;; for filename completion (ac-source-filename should be earlier)
@@ -854,6 +856,8 @@
  '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))
  '(link ((t (:foreground "blue"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
+ '(show-paren-match-face ((t (:background "black" :foreground "white"))))
+ '(show-paren-mismatch ((t (:background "red"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
  '(magit-branch-remote ((t (:foreground "blue"))))
  '(magit-context-highlight ((t (:background "Gray23"))))

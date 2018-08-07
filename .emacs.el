@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-05-31 09:01:46
+;; Last Update: 2018-08-07 21:52:41
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -613,6 +613,7 @@
 ;; os switch
 
 (cond ((equal system-type 'gnu/linux)
+       (load-if-exist "~/dotfiles/elisp/cnf-linux.el")
        (load-if-exist "~/dotfiles/elisp/cnf-webservice.el")
        (load-if-exist "~/dotfiles/elisp/cnf-browser.el")
        (load-if-exist "~/dotfiles/elisp/cnf-program.el"))
@@ -677,9 +678,9 @@
 (global-set-key (kbd "C-c n") 'multi-term-next)
 (global-set-key (kbd "C-c p") 'multi-term-prev)
 
-(with-eval-after-load "multi-term"
-  (setenv "TERMINFO" "~/.terminfo")
-  (setenv "HOSTTYPE" "intel-mac"))
+;; (with-eval-after-load "multi-term"
+;;   (setenv "TERMINFO" "~/.terminfo")
+;;   (setenv "HOSTTYPE" "intel-mac"))
 
 ;; ------------------------------------------------------------------------
 ;; popwin

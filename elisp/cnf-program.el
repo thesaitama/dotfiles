@@ -42,7 +42,7 @@
 ;; ------------------------------------------------------------------------
 ;; projectile
 
-(projectile-global-mode)
+(setq projectile-keymap-prefix (kbd "C-c p"))
 (setq projectile-completion-system 'helm)
 (setq projectile-switch-project-action 'helm-projectile)
 (setq projectile-mode-line
@@ -51,6 +51,8 @@
 (setq projectile-enable-caching t)
 (setq projectile-switch-project-action 'projectile-dired)
 (setq projectile-remember-window-configs t )
+
+(projectile-global-mode)
 
 ;; ------------------------------------------------------------------------
 ;; helm-projectile

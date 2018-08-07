@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-08-07 21:52:41
+;; Last Update: 2018-08-07 23:07:59
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -99,6 +99,8 @@
     clojure-mode
     cider
     clj-refactor
+    ess
+    ess-R-data-view
     emacsql
     emacsql-mysql
     emacsql-psql
@@ -827,10 +829,6 @@
  '(dired-subtree-depth-4-face ((t (:background "Gray22"))))
  '(dired-subtree-depth-5-face ((t (:background "Gray23"))))
  '(dired-subtree-depth-6-face ((t (:background "Gray24"))))
- '(menu ((t (:background "Gray30"))))
- '(tty-menu-enabled-face ((t (:background "Gray45" :foreground "White"))))
- '(tty-menu-disabled-face ((t (:background "Gray45" :foreground "Gray10"))))
- '(tty-menu-selected-face ((t (:background "SteelBlue" :foreground "White"))))
  '(elscreen-tab-background-face ((t (:background "Gray10" :foreground "Gray90"))))
  '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
@@ -857,8 +855,6 @@
  '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))
  '(link ((t (:foreground "blue"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
- '(show-paren-match-face ((t (:background "black" :foreground "white"))))
- '(show-paren-mismatch ((t (:background "red"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
  '(magit-branch-remote ((t (:foreground "blue"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
@@ -878,6 +874,7 @@
  '(markdown-header-face-5 ((t (:inherit outline-5))))
  '(markdown-header-face-6 ((t (:inherit outline-6))))
  '(markdown-pre-face ((t (:foreground "ivory"))))
+ '(menu ((t (:background "Gray30"))))
  '(minibuffer-prompt ((t (:foreground "blue"))))
  '(nxml-attribute-local-name ((t (:foreground "LightBlue"))))
  '(nxml-attribute-value ((t (:foreground "yellow"))))
@@ -902,8 +899,13 @@
  '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
  '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
  '(region ((t (:background "Gray40"))))
+ '(show-paren-match-face ((t (:background "black" :foreground "white"))))
+ '(show-paren-mismatch ((t (:background "red"))))
  '(tide-hl-identifier-face ((t (:background "Gray28"))))
  '(tool-bar ((t (:foreground "cyan"))))
+ '(tty-menu-disabled-face ((t (:background "Gray45" :foreground "Gray10"))))
+ '(tty-menu-enabled-face ((t (:background "Gray45" :foreground "White"))))
+ '(tty-menu-selected-face ((t (:background "SteelBlue" :foreground "White"))))
  '(web-mode-comment-face ((t (:foreground "green"))))
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
  '(web-mode-css-pseudo-class ((t (:foreground "blue"))))

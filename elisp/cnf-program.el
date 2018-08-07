@@ -398,6 +398,65 @@
 ;; > sudo pip-3.6 install jedi elpy autopep8 flake8 importmagic
 
 ;; ------------------------------------------------------------------------
+;; R
+;; see. https://y-mattu.hatenablog.com/entry/rstudio_emacs
+
+(when (require 'ess-site nil t))
+
+(autoload 'R-mode "ess-site" "Emacs Speaks Statistics mode" t)
+(autoload 'R "ess-site" "start R" t)
+
+(setq ess-loaded-p nil)
+
+(defun ess-load-hook (&optional from-iess-p)
+  (setq ess-indent-level 2)
+  (setq ess-arg-function-offset-new-line (list ess-indent-level))
+  (make-variable-buffer-local 'comment-add)
+  (setq comment-add 0)
+
+  ;; 最初に ESS を呼び出した時の処理
+  (when (not ess-loaded-p)
+    (setq ess-use-auto-complete t)
+    ;; disable ido
+    (setq ess-use-ido nil)
+    (setq ess-eldoc-show-on-symbol t)
+    (setq ess-ask-for-ess-directory nil)
+    (setq ess-fancy-comments nil)
+    (setq ess-loaded-p t)
+    (unless from-iess-p
+      (when (one-window-p)
+        (split-window-below)
+        (let ((buf (current-buffer)))
+          (ess-switch-to-ESS nil)
+          (switch-to-buffer-other-window buf)))
+      (when (and ess-use-auto-complete (require 'auto-complete nil t))
+        (add-to-list 'ac-modes 'ess-mode)
+        (mapcar (lambda (el) (add-to-list 'ac-trigger-commands el))
+                '(ess-smart-comma smart-operator-comma skeleton-pair-insert-maybe))
+        ;; auto-complete source
+        (setq ac-sources '(ac-source-acr
+                           ac-source-R
+                           ac-source-filename
+                           ac-source-yasnippet)))))
+
+  (if from-iess-p
+      (if (> (length ess-process-name-list) 0)
+          (when (one-window-p)
+            (split-window-horizontally)
+            (other-window 1)))
+    (ess-force-buffer-current "Process to load into: ")))
+
+(add-hook 'R-mode-hook 'ess-load-hook)
+
+;; > sudo port install R
+;; > sudo port install ess
+
+;; ------------------------------------------------------------------------
+;; auto-complete-acr
+
+(when (require 'auto-complete-acr nil t))
+
+;; ------------------------------------------------------------------------
 ;; go-mode
 
 (add-hook 'go-mode-hook 'flycheck-mode)

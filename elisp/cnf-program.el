@@ -385,9 +385,6 @@
 
 ;; see python special settings (cnf-osx.el)
 
-;; set start python3
-(use-system-python3)
-
 ;; disable flymake
 (remove-hook 'elpy-modules 'elpy-module-flymake)
 

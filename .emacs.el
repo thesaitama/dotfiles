@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-08-07 23:07:59
+;; Last Update: 2018-08-08 22:26:37
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -101,6 +101,7 @@
     clj-refactor
     ess
     ess-R-data-view
+    vbasense
     emacsql
     emacsql-mysql
     emacsql-psql

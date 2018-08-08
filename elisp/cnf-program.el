@@ -507,6 +507,23 @@
 ;; > sudo port install clojure leiningen
 
 ;; ------------------------------------------------------------------------
+;; visual basic
+
+(when (require 'visual-basic-mode nil t)
+  (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
+  (setq auto-mode-alist (append '(("\\.\$latex frm\\|bas\\|cls\$$" .
+                                   visual-basic-mode)) auto-mode-alist))
+  )
+
+(add-hook 'visual-basic-mode-hook
+            '(lambda ()
+               (auto-complete-mode t)
+               (require 'vbasense)
+               (vbasense-config-default)
+               )
+            )
+
+;; ------------------------------------------------------------------------
 ;; helm-gtags
 
 (require 'helm-gtags)

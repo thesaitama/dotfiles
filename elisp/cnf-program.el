@@ -414,7 +414,6 @@
   (make-variable-buffer-local 'comment-add)
   (setq comment-add 0)
 
-  ;; 最初に ESS を呼び出した時の処理
   (when (not ess-loaded-p)
     (setq ess-use-auto-complete t)
     ;; disable ido
@@ -511,10 +510,8 @@
 
 (when (require 'visual-basic-mode nil t)
   (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
-  (setq auto-mode-alist (append '(("\\.\$latex frm\\|bas\\|cls\$$" .
-                                   visual-basic-mode)) auto-mode-alist))
+  (add-to-list 'auto-mode-alist '("\\(\\.frm\\|\\.bas\\|\\.cls\\)$" . visual-basic-mode))
   )
-
 (add-hook 'visual-basic-mode-hook
             '(lambda ()
                (auto-complete-mode t)

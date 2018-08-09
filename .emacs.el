@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-08-08 22:26:37
+;; Last Update: 2018-08-09 23:37:55
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -213,6 +213,8 @@
     (shell-script-mode . "Sh")
     (js2-mode . "JS")
     (typescript-mode . "TS")
+    (R-mode . "R")
+    (visual-basic-mode . "VB")
     ))
 
 (defun clean-mode-line ()

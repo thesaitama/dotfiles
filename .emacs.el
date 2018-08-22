@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-08-09 23:37:55
+;; Last Update: 2018-08-22 23:01:39
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -246,7 +246,9 @@
 ;;(add-to-list 'exec-path "/opt/local/bin")
 ;;(add-to-list 'exec-path "/usr/bin")
 
-(exec-path-from-shell-initialize)
+(when (not (eq system-type 'windows-nt))
+  (exec-path-from-shell-initialize)
+  )
 
 ;; ------------------------------------------------------------------------
 ;; my-list-load
@@ -623,7 +625,8 @@
        (load-if-exist "~/dotfiles/elisp/cnf-browser.el")
        (load-if-exist "~/dotfiles/elisp/cnf-program.el"))
       ((equal system-type 'windows-nt)
-       (load-if-exist "~/dotfiles/elisp/cnf-program.el"))
+       (load-if-exist "~/dotfiles/elisp/cnf-windows-nt.el")
+       )
       ((equal system-type 'darwin)
        (load-if-exist "~/dotfiles/elisp/cnf-osx.el")
        (load-if-exist "~/dotfiles/elisp/cnf-webservice.el")

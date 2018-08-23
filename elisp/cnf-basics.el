@@ -117,7 +117,7 @@
 (setq frame-title-format (concat "%b - emacs@" (system-name)))
 
 ;; tool-bar
-(setq tool-bar-mode 0)
+;; (setq tool-bar-mode 0)
 
 ;; menu-bar
 (menu-bar-mode -1)

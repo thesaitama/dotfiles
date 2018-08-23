@@ -48,14 +48,43 @@
   (set-face-foreground 'mode-line "#777777")
 
   ;; font
-  (set-face-attribute 'default nil :family "MS Gothic" :height 100)
-  (set-fontset-font nil '(#x80 . #x10ffff) (font-spec :family "MS Gothic"))
+  (set-face-attribute 'default nil :family "MS Gothic" :height 110)
+  ;; (set-fontset-font nil '(#x80 . #x10ffff) (font-spec :family "MS Gothic"))
   (setq use-default-font-for-symbols nil)
 
-  ;; scroll-bar
+  ;; UI items
   (scroll-bar-mode 0)
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+
   )
 )
+
+;; ------------------------------------------------------------------------
+;; elpy (python-mode) for Windows
+
+(defun use-system-python2 ()
+  "Use system python2 for `elpy-mode`."
+  (interactive)
+  (setq python-shell-interpreter "ipython2")
+  ;; (setq python-check-command "<path_to>/pyflakes")
+  (setq elpy-rpc-python-command "python2")
+  ;; (setq elpy-rpc-pythonpath  "<path_to>/site-packages")
+  ;; (setq flycheck-python-flake8-executable "<path_to>/flake8")
+  )
+
+(defun use-system-python3 ()
+  "Use system python3 for `elpy-mode`."
+  (interactive)
+  (setq python-shell-interpreter "ipython3")
+  ;; (setq python-check-command "<path_to>/pyflakes")
+  (setq elpy-rpc-python-command "python3")
+  ;; (setq elpy-rpc-pythonpath  "<path_to>/site-packages")
+  ;; (setq flycheck-python-flake8-executable "<path_to>/flake8")
+  )
+
+;; set start python3
+(use-system-python3)
 
 ;; ------------------------------------------------------------------------
 

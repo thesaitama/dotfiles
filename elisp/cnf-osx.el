@@ -105,6 +105,7 @@
               )
        default-frame-alist)
      )
+
   ;; font-lock
   (set-face-foreground 'font-lock-type-face "#feb008")
   (set-face-foreground 'font-lock-builtin-face "#b998d2")
@@ -121,12 +122,16 @@
   (set-face-background 'region "#b5dad9")
   (set-face-foreground 'isearch "#f9f8f0")
   (set-face-background 'isearch "#daa0b5")
-  (set-face-foreground 'isearch-lazy-highlight-face "#f9f8f0")
-  (set-face-background 'isearch-lazy-highlight-face "#50a3b1")
   (set-face-foreground 'minibuffer-prompt "#69afde")
   (set-face-foreground 'fringe "#cccccc")
   (set-face-background 'fringe "#333333")
   (set-face-foreground 'mode-line "#777777")
+
+  ;; UI items
+  (scroll-bar-mode 0)
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+
   )
 )
 

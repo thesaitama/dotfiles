@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-08-22 23:01:39
+;; Last Update: 2018-08-23 21:44:52
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -621,18 +621,20 @@
 
 (cond ((equal system-type 'gnu/linux)
        (load-if-exist "~/dotfiles/elisp/cnf-linux.el")
-       (load-if-exist "~/dotfiles/elisp/cnf-webservice.el")
        (load-if-exist "~/dotfiles/elisp/cnf-browser.el")
-       (load-if-exist "~/dotfiles/elisp/cnf-program.el"))
+       )
       ((equal system-type 'windows-nt)
        (load-if-exist "~/dotfiles/elisp/cnf-windows-nt.el")
        )
       ((equal system-type 'darwin)
        (load-if-exist "~/dotfiles/elisp/cnf-osx.el")
-       (load-if-exist "~/dotfiles/elisp/cnf-webservice.el")
-       (load-if-exist "~/dotfiles/elisp/cnf-program.el")
-       (load-if-exist "~/dotfiles/elisp/cnf-browser.el"))
-)
+       (load-if-exist "~/dotfiles/elisp/cnf-browser.el")
+       )
+      )
+
+(load-if-exist "~/dotfiles/elisp/cnf-webservice.el")
+(load-if-exist "~/dotfiles/elisp/cnf-program.el")
+(load-if-exist "~/dotfiles/elisp/cnf-user.el")
 
 ;; ------------------------------------------------------------------------
 ;; shell-mode
@@ -951,7 +953,6 @@
  '(helm-mini-default-sources
    (quote
     (helm-source-buffers-list helm-source-recentf helm-source-projectile-files-list)))
- '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
     (smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
@@ -968,7 +969,7 @@
  '(shell-pop-window-size 30)
  '(show-paren-mode t)
  '(size-indication-mode t)
- '(tool-bar-mode nil))
+ )
 
 (put 'set-goal-column 'disabled nil)
 

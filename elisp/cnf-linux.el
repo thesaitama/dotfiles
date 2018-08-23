@@ -7,32 +7,26 @@
 ;;; Code:
 
 ;; ------------------------------------------------------------------------
-;; elpy (python-mode) for linux
+;; elpy (python-mode) for Linux
 
 (defun use-system-python2 ()
   "Use system python2 for `elpy-mode`."
   (interactive)
   (setq python-shell-interpreter "ipython2")
-  ;; (setq python-check-command
-  ;;       "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/pyflakes")
+  ;; (setq python-check-command "<path_to>/pyflakes")
   (setq elpy-rpc-python-command "python2")
-  ;; (setq elpy-rpc-pythonpath
-  ;;       "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages")
-  ;; (setq flycheck-python-flake8-executable
-  ;;       "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/flake8")
+  ;; (setq elpy-rpc-pythonpath  "<path_to>/site-packages")
+  ;; (setq flycheck-python-flake8-executable "<path_to>/flake8")
   )
 
 (defun use-system-python3 ()
   "Use system python3 for `elpy-mode`."
   (interactive)
   (setq python-shell-interpreter "ipython3")
-  ;; (setq python-check-command
-  ;;       "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/bin/pyflakes")
+  ;; (setq python-check-command "<path_to>/pyflakes")
   (setq elpy-rpc-python-command "python3")
-  ;; (setq elpy-rpc-pythonpath
-  ;;       "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages")
-  ;; (setq flycheck-python-flake8-executable
-  ;;       "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/bin/flake8")
+  ;; (setq elpy-rpc-pythonpath  "<path_to>/site-packages")
+  ;; (setq flycheck-python-flake8-executable "<path_to>/flake8")
   )
 
 ;; set start python3

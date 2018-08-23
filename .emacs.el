@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-08-23 21:44:52
+;; Last Update: 2018-08-23 22:44:30
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -968,8 +968,7 @@
  '(shell-pop-window-position "bottom")
  '(shell-pop-window-size 30)
  '(show-paren-mode t)
- '(size-indication-mode t)
- )
+ '(size-indication-mode t))
 
 (put 'set-goal-column 'disabled nil)
 

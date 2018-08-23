@@ -48,14 +48,14 @@
   (set-face-foreground 'mode-line "#777777")
 
   ;; font
-  (set-face-attribute 'default nil :family "MS Gothic" :height 110)
+  (set-face-attribute 'default nil :family "MS Gothic" :height 100)
   ;; (set-fontset-font nil '(#x80 . #x10ffff) (font-spec :family "MS Gothic"))
   (setq use-default-font-for-symbols nil)
 
   ;; UI items
   (scroll-bar-mode 0)
-  (menu-bar-mode -1)
-  (tool-bar-mode -1)
+  (menu-bar-mode 0)
+  (tool-bar-mode 0)
 
   )
 )
@@ -85,6 +85,24 @@
 
 ;; set start python3
 (use-system-python3)
+
+;; ------------------------------------------------------------------------
+;; path
+
+(add-to-list 'exec-path "C:/Program Files/Git/usr/bin")
+
+;; ------------------------------------------------------------------------
+;; shell
+
+;; (setq shell-file-name "C:/Program Files/Git/bin/bash.exe")
+;; (setq shell-command-switch "-i")
+;; (setq explicit-shell-file-name shell-file-name)
+;; (setenv "PATH"
+;;     (concat ".:/usr/local/bin:/mingw/bin:/bin:"
+;;         (replace-regexp-in-string " " "\\\\ "
+;;             (replace-regexp-in-string "\\\\" "/"
+;;                 (replace-regexp-in-string "\\([A-Za-z]\\):" "/\\1"
+;;                     (getenv "PATH"))))))
 
 ;; ------------------------------------------------------------------------
 

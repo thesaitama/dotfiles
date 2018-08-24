@@ -73,18 +73,18 @@
   ;; (setq flycheck-python-flake8-executable "<path_to>/flake8")
   )
 
-(defun use-system-python3 ()
-  "Use system python3 for `elpy-mode`."
+(defun use-anaconda-python3 ()
+  "Use Anaconda python3 for `elpy-mode`."
   (interactive)
-  (setq python-shell-interpreter "ipython3")
-  ;; (setq python-check-command "<path_to>/pyflakes")
-  (setq elpy-rpc-python-command "python3")
-  ;; (setq elpy-rpc-pythonpath  "<path_to>/site-packages")
+  (setq python-shell-interpreter "C:/ProgramData/Anaconda3/Scripts/ipython")
+  (setq python-check-command "C:/ProgramData/Anaconda3/Scripts/pyflakes")
+  (setq elpy-rpc-python-command "C:/ProgramData/Anaconda3/python3")
+  (setq elpy-rpc-pythonpath  "C:/ProgramData/Anaconda3/Lib/site-packages")
   ;; (setq flycheck-python-flake8-executable "<path_to>/flake8")
   )
 
 ;; set start python3
-(use-system-python3)
+(use-anaconda-python3)
 
 ;; ------------------------------------------------------------------------
 ;; path

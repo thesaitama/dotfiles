@@ -12,20 +12,23 @@
 (if window-system (progn
    (load-theme 'wombat t)
    (setq initial-frame-alist
-     (append (list
+         (append (list
               '(border-color . "#353535")
               '(mouse-color . "#f9f8f0")
-              '(menu-bar-lines . 1)
-              )
-  initial-frame-alist))
-  (setq default-frame-alist
-     (append (list
-              '(background-color . "#222222")
+              '(menu-bar-lines . 1))
+                 initial-frame-alist)
+         )
+   (setq default-frame-alist
+        (append (list
+              '(background-color . "#272727")
               '(foreground-color . "#f9f8f0")
-              '(cursor-color . "#f9f8f0")
-              )
-       default-frame-alist)
-     )
+              '(cursor-color . "#f9f8f0"))
+                default-frame-alist)
+        )
+
+  ;; GUI background
+  (set-face-background 'default "#333333")
+
   ;; font-lock
   (set-face-foreground 'font-lock-type-face "#feb008")
   (set-face-foreground 'font-lock-builtin-face "#b998d2")
@@ -70,6 +73,16 @@
   ;; (setq python-check-command "<path_to>/pyflakes")
   (setq elpy-rpc-python-command "python2")
   ;; (setq elpy-rpc-pythonpath  "<path_to>/site-packages")
+  ;; (setq flycheck-python-flake8-executable "<path_to>/flake8")
+  )
+
+(defun use-system-python3 ()
+  "Use system python3 for `elpy-mode`."
+  (interactive)
+  (setq python-shell-interpreter "ipython3")
+  ;; (setq python-check-command "<path_to>/pyflakes")
+  (setq elpy-rpc-python-command "C:/Python36/python")
+  (setq elpy-rpc-pythonpath  "C:/Python36/Lib/site-packages")
   ;; (setq flycheck-python-flake8-executable "<path_to>/flake8")
   )
 

@@ -130,6 +130,9 @@
   (set-face-background 'fringe "#333333")
   (set-face-foreground 'mode-line "#777777")
 
+  (set-face-background 'highlight-symbol-face "Gray30")
+  (set-face-background 'hl-line "Gray25")
+
   ;; UI items
   (scroll-bar-mode 0)
   (menu-bar-mode -1)

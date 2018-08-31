@@ -50,6 +50,9 @@
   (set-face-background 'fringe "#333333")
   (set-face-foreground 'mode-line "#777777")
 
+  (set-face-background 'highlight-symbol-face "Gray30")
+  (set-face-background 'hl-line "Gray25")
+
   ;; font
   (set-face-attribute 'default nil :family "MS Gothic" :height 100)
   ;; (set-fontset-font nil '(#x80 . #x10ffff) (font-spec :family "MS Gothic"))

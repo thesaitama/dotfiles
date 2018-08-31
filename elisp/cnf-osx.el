@@ -201,6 +201,11 @@
 (use-system-python3)
 
 ;; ------------------------------------------------------------------------
+;; plantuml-mode
+
+(setq plantuml-jar-path "/opt/local/share/java/plantuml.jar")  ;; depends on OS
+
+;; ------------------------------------------------------------------------
 
 (provide 'cnf-osx.el)
 ;;; cnf-osx.el ends here

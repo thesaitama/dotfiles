@@ -563,6 +563,16 @@
      ))
 
 ;; ------------------------------------------------------------------------
+;; plantuml-mode
+
+(setq auto-mode-alist
+      (append '(("\\.\\(pu\\)$" . plantuml-mode))  auto-mode-alist ))
+;; (setq plantuml-jar-path "")  ;; depends on OS
+(setq plantuml-java-options "")
+;; (setq plantuml-output-type "svg")
+(setq plantuml-options "-charset UTF-8")
+
+;; ------------------------------------------------------------------------
 ;; yasnippet
 
 (yas-global-mode 1)

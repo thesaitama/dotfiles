@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-01 23:24:40
+;; Last Update: 2018-09-02 00:40:49
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -864,7 +864,6 @@
  '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))
  '(link ((t (:foreground "cyan"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
- '(package ((t (:foreground "cyan"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
  '(magit-branch-remote ((t (:foreground "blue"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
@@ -903,6 +902,7 @@
  '(outline-5 ((t (:foreground "goldenrod" :weight bold))))
  '(outline-6 ((t (:foreground "orange"))))
  '(outline-7 ((t (:foreground "goldenrod"))))
+ '(package ((t (:foreground "cyan"))))
  '(package-name ((t (:foreground "blue"))))
  '(pulse-highlight-face ((t (:background "Gray35"))))
  '(pulse-highlight-start-face ((t (:background "Gray35"))))
@@ -957,7 +957,7 @@
     (helm-source-buffers-list helm-source-recentf helm-source-projectile-files-list)))
  '(package-selected-packages
    (quote
-    (plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
+    (ssh plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)

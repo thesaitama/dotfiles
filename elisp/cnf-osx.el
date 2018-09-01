@@ -120,6 +120,10 @@
   ;; key
   (setq ns-command-modifier (quote super))
   (setq ns-alternate-modifier (quote meta))
+
+  (when (functionp 'mac-auto-ascii-mode)
+    (mac-auto-ascii-mode 1))
+
   )
 
 ;; ------------------------------------------------------------------------

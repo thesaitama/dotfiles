@@ -407,6 +407,13 @@
   )
 
 ;; ------------------------------------------------------------------------
+;; Window System
+
+(cond (window-system
+  (setq x-select-enable-clipboard t)
+  ))
+
+;; ------------------------------------------------------------------------
 
 (provide 'cnf-basics.el)
 ;;; cnf-basics.el ends here

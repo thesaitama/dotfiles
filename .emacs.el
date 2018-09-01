@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-01 15:45:11
+;; Last Update: 2018-09-01 21:23:29
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -843,7 +843,6 @@
  '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
  '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
- '(fringe ((t (:background "Gray12" :foreground "blue"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-buffer-process ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "orange"))))
@@ -886,7 +885,7 @@
  '(markdown-header-face-6 ((t (:inherit outline-6))))
  '(markdown-pre-face ((t (:foreground "ivory"))))
  '(menu ((t (:background "Gray30"))))
- '(minibuffer-prompt ((t (:foreground "blue"))))
+ '(minibuffer-prompt ((t (:foreground "cyan"))))
  '(nxml-attribute-local-name ((t (:foreground "LightBlue"))))
  '(nxml-attribute-value ((t (:foreground "yellow"))))
  '(nxml-cdata-section-content ((t (:foreground "gray"))))

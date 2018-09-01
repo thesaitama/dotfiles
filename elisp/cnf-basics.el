@@ -118,7 +118,7 @@
 ;; (setq tool-bar-mode 0)
 
 ;; menu-bar
-(menu-bar-mode -1)
+(menu-bar-mode 0)
 
 ;; region display
 (setq transient-mark-mode t)
@@ -427,7 +427,7 @@
                  )
                 default-frame-alist))
 
-  (set-frame-parameter nil 'alpha 90)
+  (set-frame-parameter nil 'alpha 93)
 
   ;; GUI background
   (set-face-background 'default "#333333")
@@ -450,9 +450,9 @@
   (set-face-background 'isearch "#daa0b5")
   (set-face-foreground 'minibuffer-prompt "#69afde")
   (set-face-foreground 'fringe "#cccccc")
-  (set-face-background 'fringe "#333333")
-  (set-face-background 'mode-line "#434944")
+  (set-face-background 'fringe "#222222")
   (set-face-foreground 'mode-line "#777777")
+  (set-face-background 'mode-line "#434944")
 
   ;; (set-face-background 'highlight-symbol-face "Gray30")
   (set-face-background 'hl-line "Gray25")

@@ -9,15 +9,35 @@
 ;; ------------------------------------------------------------------------
 ;; GUI
 
-(if window-system (progn
+(if window-system
+    (progn
 
-  ;; font
-  (set-face-attribute 'default nil :family "MS Gothic" :height 100)
-  ;; (set-fontset-font nil '(#x80 . #x10ffff) (font-spec :family "MS Gothic"))
-  (setq use-default-font-for-symbols nil)
+      ;; font
 
-  )
-)
+      (set-face-attribute 'default nil :family "Consolas" :height 100)
+      ;; (set-face-attribute 'default nil :family "Inconsolata" :height 120)
+      ;; (set-face-attribute 'default nil :family "MS Gothic" :height 100)
+      (set-fontset-font nil 'cp932 (font-spec :family "MS Gothic"))
+      (setq use-default-font-for-symbols nil)
+      (setq-default line-spacing 0.1)
+
+      ;; IME setting
+      (add-hook 'minibuffer-setup-hook 'deactivate-input-method)
+      (add-hook
+       'isearch-mode-hook '(lambda ()
+                             (deactivate-input-method)
+                             (setq w32-ime-composition-window (minibuffer-window))))
+      (add-hook
+       'isearch-mode-end-hook '(lambda ()
+                             (setq w32-ime-composition-window nil)))
+      (advice-add
+       'helm :around '(lambda (orig-fun &rest args)
+                        (let ((select-window-functions nil)
+                              (w32-ime-composition-window (minibuffer-window)))
+                          (deactivate-input-method)
+                          (apply orig-fun args))))
+
+  ))
 
 ;; ------------------------------------------------------------------------
 ;; elpy (python-mode) for Windows
@@ -35,7 +55,7 @@
 (defun use-system-python3 ()
   "Use system python3 for `elpy-mode`."
   (interactive)
-  (setq python-shell-interpreter "ipython3")
+  (setq python-shell-interpreter "ipython")
   ;; (setq python-check-command "<path_to>/pyflakes")
   (setq elpy-rpc-python-command "C:/Python36/python")
   (setq elpy-rpc-pythonpath  "C:/Python36/Lib/site-packages")

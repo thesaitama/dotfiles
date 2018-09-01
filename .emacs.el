@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-01 14:07:38
+;; Last Update: 2018-09-01 15:45:11
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -863,8 +863,9 @@
  '(isearch ((t (:background "LightPink" :foreground "black"))))
  '(japanese-holiday-saturday ((t (:background "cyan" :foreground "black"))))
  '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))
- '(link ((t (:foreground "blue"))))
+ '(link ((t (:foreground "cyan"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
+ '(package ((t (:foreground "cyan"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
  '(magit-branch-remote ((t (:foreground "blue"))))
  '(magit-context-highlight ((t (:background "Gray23"))))

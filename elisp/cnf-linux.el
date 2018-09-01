@@ -33,6 +33,13 @@
 (use-system-python3)
 
 ;; ------------------------------------------------------------------------
+;; xclip
+
+(xclip-mode 1)
+
+;; > sudo apt-get install xclip
+
+;; ------------------------------------------------------------------------
 
 (provide 'cnf-linux.el)
 ;;; cnf-linux.el ends here

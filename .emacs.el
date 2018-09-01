@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-08-31 21:57:41
+;; Last Update: 2018-09-01 14:07:38
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -156,6 +156,7 @@
     howdoi
     qiita
     yagist
+    xclip
     )
   "Packages to be installed.")
 

@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-01 21:23:29
+;; Last Update: 2018-09-01 23:24:40
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -832,7 +832,7 @@
  '(diff-refine-added ((t (:foreground "white" :background "LimeGreen"))))
  '(diff-refine-removed ((t (:foreground "white" :background "red"))))
  '(diff-removed ((((type tty)) (:foreground "red"))))
- '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
+ '(dired-header ((t (:background "DarkCyan" :foreground "white"))))
  '(dired-subtree-depth-1-face ((t (:background "Gray19"))))
  '(dired-subtree-depth-2-face ((t (:background "Gray20"))))
  '(dired-subtree-depth-3-face ((t (:background "Gray21"))))
@@ -855,7 +855,7 @@
  '(helm-header ((t (:background "Gray40" :foreground "Gray80"))))
  '(helm-match ((t (:foreground "cyan"))))
  '(helm-selection ((t (:background "Gray30"))))
- '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
+ '(helm-source-header ((t (:background "DarkCyan" :foreground "white"))))
  '(highlight-symbol-face ((t (:background "Gray25"))))
  '(hl-line ((t (:background "color-236"))))
  '(holiday ((t (:background "pink"))))

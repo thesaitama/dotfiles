@@ -427,6 +427,8 @@
                  )
                 default-frame-alist))
 
+  (set-frame-parameter nil 'alpha 90)
+
   ;; GUI background
   (set-face-background 'default "#333333")
 

@@ -40,7 +40,7 @@
  ;; If there is more than one, they won't work right.
  '(diff-added ((((type tty)) (:foreground "green"))))
  '(diff-removed ((((type tty)) (:foreground "red"))))
- '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
+ '(dired-header ((t (:background "brightblue" :foreground "white"))))
  '(dired-subtree-depth-1-face ((t (:background "Gray19"))))
  '(dired-subtree-depth-2-face ((t (:background "Gray20"))))
  '(dired-subtree-depth-3-face ((t (:background "Gray21"))))

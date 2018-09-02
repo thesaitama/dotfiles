@@ -114,9 +114,6 @@
 ;; title-bar character
 (setq frame-title-format (concat "%b - emacs@" (system-name)))
 
-;; tool-bar
-;; (setq tool-bar-mode 0)
-
 ;; menu-bar
 (menu-bar-mode 0)
 
@@ -456,14 +453,14 @@
 
   ;; (set-face-background 'highlight-symbol-face "Gray30")
   (set-face-background 'hl-line "Gray25")
+  (set-face-background 'region "Gray50")
 
   ;; clipboard
   (setq x-select-enable-clipboard t)
 
   ;; UI items
+  (tool-bar-mode 0)
   (scroll-bar-mode 0)
-  (menu-bar-mode -1)
-  (tool-bar-mode -1)
 
   (global-set-key (kbd "C-x C-b") 'bs-show)
 

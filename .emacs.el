@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-02 00:40:49
+;; Last Update: 2018-09-02 12:01:13
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -903,7 +903,7 @@
  '(outline-6 ((t (:foreground "orange"))))
  '(outline-7 ((t (:foreground "goldenrod"))))
  '(package ((t (:foreground "cyan"))))
- '(package-name ((t (:foreground "blue"))))
+ '(package-name ((t (:foreground "cyan"))))
  '(pulse-highlight-face ((t (:background "Gray35"))))
  '(pulse-highlight-start-face ((t (:background "Gray35"))))
  '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))

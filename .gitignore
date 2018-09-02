@@ -2,3 +2,6 @@
 .vim/dein/*
 .vim/init.vim
 .vim/.vim
+
+elisp/.Rhistory
+elisp/cnf-user.el

@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-04-19 21:35:28
+;; Last Update: 2018-09-02 12:01:13
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -42,6 +42,7 @@
     import-popwin
     auto-complete
     fuzzy
+    org-ac
     pos-tip
     company
     company-quickhelp
@@ -73,6 +74,7 @@
     rbenv
     ruby-electric
     inf-ruby
+    ac-inf-ruby
     robe
     js2-mode
     js2-refactor
@@ -80,7 +82,6 @@
     tern
     json-mode
     typescript-mode
-    tss
     tide
     tern-auto-complete
     yaml-mode
@@ -98,6 +99,9 @@
     clojure-mode
     cider
     clj-refactor
+    ess
+    ess-R-data-view
+    vbasense
     emacsql
     emacsql-mysql
     emacsql-psql
@@ -118,6 +122,7 @@
     helm-dash
     ac-helm
     auto-complete-nxml
+    plantuml-mode
     bm
     helm-bm
     projectile
@@ -151,6 +156,7 @@
     howdoi
     qiita
     yagist
+    xclip
     )
   "Packages to be installed.")
 
@@ -209,6 +215,8 @@
     (shell-script-mode . "Sh")
     (js2-mode . "JS")
     (typescript-mode . "TS")
+    (R-mode . "R")
+    (visual-basic-mode . "VB")
     ))
 
 (defun clean-mode-line ()
@@ -240,7 +248,9 @@
 ;;(add-to-list 'exec-path "/opt/local/bin")
 ;;(add-to-list 'exec-path "/usr/bin")
 
-(exec-path-from-shell-initialize)
+(when (not (eq system-type 'windows-nt))
+  (exec-path-from-shell-initialize)
+  )
 
 ;; ------------------------------------------------------------------------
 ;; my-list-load
@@ -389,16 +399,26 @@
 (setq ac-max-width 35)
 (setq ac-ignore-case t)
 (setq ac-delay 0.1)
+(setq ac-auto-start 2)
 (setq ac-auto-show-menu 0.2)
 (setq ac-quick-help-prefer-x t)
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 
-(setq-default ac-sources 'ac-source-filename ac-source-words-in-same-mode-buffers)
+(if (<= emacs-major-version 25)
+    (setq-default ac-sources 'ac-source-filename ac-source-words-in-same-mode-buffers)
+  )
 (add-to-list 'ac-sources 'ac-source-yasnippet)
 
 ;; for filename completion (ac-source-filename should be earlier)
 (add-hook 'auto-complete-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-filename)))
+
+;; ------------------------------------------------------------------------
+;; org-ac
+
+(when (require 'org-ac nil t)
+  (org-ac/config-default)
+  )
 
 ;; ------------------------------------------------------------------------
 ;; company
@@ -602,17 +622,21 @@
 ;; os switch
 
 (cond ((equal system-type 'gnu/linux)
-       (load-if-exist "~/dotfiles/elisp/cnf-webservice.el")
+       (load-if-exist "~/dotfiles/elisp/cnf-linux.el")
        (load-if-exist "~/dotfiles/elisp/cnf-browser.el")
-       (load-if-exist "~/dotfiles/elisp/cnf-program.el"))
+       )
       ((equal system-type 'windows-nt)
-       (load-if-exist "~/dotfiles/elisp/cnf-program.el"))
+       (load-if-exist "~/dotfiles/elisp/cnf-windows-nt.el")
+       )
       ((equal system-type 'darwin)
        (load-if-exist "~/dotfiles/elisp/cnf-osx.el")
-       (load-if-exist "~/dotfiles/elisp/cnf-webservice.el")
-       (load-if-exist "~/dotfiles/elisp/cnf-program.el")
-       (load-if-exist "~/dotfiles/elisp/cnf-browser.el"))
-)
+       (load-if-exist "~/dotfiles/elisp/cnf-browser.el")
+       )
+      )
+
+(load-if-exist "~/dotfiles/elisp/cnf-webservice.el")
+(load-if-exist "~/dotfiles/elisp/cnf-program.el")
+(load-if-exist "~/dotfiles/elisp/cnf-user.el")
 
 ;; ------------------------------------------------------------------------
 ;; shell-mode
@@ -666,9 +690,9 @@
 (global-set-key (kbd "C-c n") 'multi-term-next)
 (global-set-key (kbd "C-c p") 'multi-term-prev)
 
-(with-eval-after-load "multi-term"
-  (setenv "TERMINFO" "~/.terminfo")
-  (setenv "HOSTTYPE" "intel-mac"))
+;; (with-eval-after-load "multi-term"
+;;   (setenv "TERMINFO" "~/.terminfo")
+;;   (setenv "HOSTTYPE" "intel-mac"))
 
 ;; ------------------------------------------------------------------------
 ;; popwin
@@ -682,6 +706,7 @@
 (push '("*compilation*" :height 15) popwin:special-display-config)
 (push '("*quickrun*" :height 15) popwin:special-display-config)
 (push '("*Flycheck errors*" :height 15) popwin:special-display-config)
+(push '("*Typescript*" :height 15) popwin:special-display-config)
 (push '("*ruby*" :height 15) popwin:special-display-config)
 (push '("*pry*" :height 15) popwin:special-display-config)
 (push '("\\*[Ii]?[Pp]ython.+" :regexp t :height 15) popwin:special-display-config)
@@ -807,7 +832,7 @@
  '(diff-refine-added ((t (:foreground "white" :background "LimeGreen"))))
  '(diff-refine-removed ((t (:foreground "white" :background "red"))))
  '(diff-removed ((((type tty)) (:foreground "red"))))
- '(dired-header ((t (:background "BrightBlue" :foreground "white"))))
+ '(dired-header ((t (:background "DarkCyan" :foreground "white"))))
  '(dired-subtree-depth-1-face ((t (:background "Gray19"))))
  '(dired-subtree-depth-2-face ((t (:background "Gray20"))))
  '(dired-subtree-depth-3-face ((t (:background "Gray21"))))
@@ -818,7 +843,6 @@
  '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
  '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
- '(fringe ((t (:background "Gray12" :foreground "blue"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-buffer-process ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "orange"))))
@@ -831,14 +855,14 @@
  '(helm-header ((t (:background "Gray40" :foreground "Gray80"))))
  '(helm-match ((t (:foreground "cyan"))))
  '(helm-selection ((t (:background "Gray30"))))
- '(helm-source-header ((t (:background "BrightBlue" :foreground "white"))))
+ '(helm-source-header ((t (:background "DarkCyan" :foreground "white"))))
  '(highlight-symbol-face ((t (:background "Gray25"))))
  '(hl-line ((t (:background "color-236"))))
  '(holiday ((t (:background "pink"))))
  '(isearch ((t (:background "LightPink" :foreground "black"))))
  '(japanese-holiday-saturday ((t (:background "cyan" :foreground "black"))))
  '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))
- '(link ((t (:foreground "blue"))))
+ '(link ((t (:foreground "cyan"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
  '(magit-branch-remote ((t (:foreground "blue"))))
@@ -859,7 +883,8 @@
  '(markdown-header-face-5 ((t (:inherit outline-5))))
  '(markdown-header-face-6 ((t (:inherit outline-6))))
  '(markdown-pre-face ((t (:foreground "ivory"))))
- '(minibuffer-prompt ((t (:foreground "blue"))))
+ '(menu ((t (:background "Gray30"))))
+ '(minibuffer-prompt ((t (:foreground "cyan"))))
  '(nxml-attribute-local-name ((t (:foreground "LightBlue"))))
  '(nxml-attribute-value ((t (:foreground "yellow"))))
  '(nxml-cdata-section-content ((t (:foreground "gray"))))
@@ -877,14 +902,20 @@
  '(outline-5 ((t (:foreground "goldenrod" :weight bold))))
  '(outline-6 ((t (:foreground "orange"))))
  '(outline-7 ((t (:foreground "goldenrod"))))
- '(package-name ((t (:foreground "blue"))))
+ '(package ((t (:foreground "cyan"))))
+ '(package-name ((t (:foreground "cyan"))))
  '(pulse-highlight-face ((t (:background "Gray35"))))
  '(pulse-highlight-start-face ((t (:background "Gray35"))))
  '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
  '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
  '(region ((t (:background "Gray40"))))
+ '(show-paren-match-face ((t (:background "black" :foreground "white"))))
+ '(show-paren-mismatch ((t (:background "red"))))
  '(tide-hl-identifier-face ((t (:background "Gray28"))))
  '(tool-bar ((t (:foreground "cyan"))))
+ '(tty-menu-disabled-face ((t (:background "Gray45" :foreground "Gray10"))))
+ '(tty-menu-enabled-face ((t (:background "Gray45" :foreground "White"))))
+ '(tty-menu-selected-face ((t (:background "SteelBlue" :foreground "White"))))
  '(web-mode-comment-face ((t (:foreground "green"))))
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
  '(web-mode-css-pseudo-class ((t (:foreground "blue"))))
@@ -915,6 +946,7 @@
  '(custom-safe-themes
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+ '(elpy-modules (quote (elpy-module-eldoc elpy-module-yasnippet)) t)
  '(emamux:completing-read-type (quote helm))
  '(foreign-regexp/regexp-type (quote perl))
  '(google-translate-default-source-language "ja")
@@ -923,10 +955,9 @@
  '(helm-mini-default-sources
    (quote
     (helm-source-buffers-list helm-source-recentf helm-source-projectile-files-list)))
- '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode tss typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
+    (ssh plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)
@@ -939,8 +970,7 @@
  '(shell-pop-window-position "bottom")
  '(shell-pop-window-size 30)
  '(show-paren-mode t)
- '(size-indication-mode t)
- '(tool-bar-mode nil))
+ '(size-indication-mode t))
 
 (put 'set-goal-column 'disabled nil)
 

@@ -7,7 +7,7 @@
 ;;; Code:
 
 ;; ------------------------------------------------------------------------
-;; editorconfig
+;; editorconfig-mode
 
 (editorconfig-mode 1)
 (setq editorconfig-get-properties-function
@@ -38,19 +38,11 @@
         comment-tags-lighter nil))
 
 (add-hook 'prog-mode-hook 'comment-tags-mode)
-;; (add-hook 'c++-mode-hook 'comment-tags-mode)
-;; (add-hook 'c-mode-hook  'comment-tags-mode)
-;; (add-hook 'go-mode-hook 'comment-tags-mode)
-;; (add-hook 'js2-mode-hook 'comment-tags-mode)
-;; (add-hook 'php-mode-hook 'comment-tags-mode)
-;; (add-hook 'python-mode-hook 'comment-tags-mode)
-;; (add-hook 'ruby-mode-hook 'comment-tags-mode)
-;; (add-hook 'typescript-mode-hook 'comment-tags-mode)
 
 ;; ------------------------------------------------------------------------
 ;; projectile
 
-(projectile-global-mode)
+(setq projectile-keymap-prefix (kbd "C-c p"))
 (setq projectile-completion-system 'helm)
 (setq projectile-switch-project-action 'helm-projectile)
 (setq projectile-mode-line
@@ -59,6 +51,8 @@
 (setq projectile-enable-caching t)
 (setq projectile-switch-project-action 'projectile-dired)
 (setq projectile-remember-window-configs t )
+
+(projectile-global-mode)
 
 ;; ------------------------------------------------------------------------
 ;; helm-projectile
@@ -128,16 +122,22 @@
 ;; php-mode
 
 (autoload 'php-mode "php-mode")
-(setq auto-mode-alist
-      (cons '("\\.php\\'" . php-mode) auto-mode-alist))
+(add-to-list 'auto-mode-alist '("\\(\\.php\\|\\.tpl\\)$" . php-mode))
 (setq php-mode-force-pear t)
 (add-hook 'php-mode-hook
   '(lambda ()
-     (setq php-manual-path "/usr/share/doc/php/html")
+     (setq php-manual-path "/usr/local/share/php/doc/php-chunked-xhtml")
      (setq php-search-url "http://www.phppro.jp/")
      (setq php-manual-url "http://www.phppro.jp/phpmanual")
    )
   )
+
+;; manual install
+;; > wget http://jp.php.net/get/php_manual_ja.tar.gz/from/this/mirror -O php_manual_ja.tar.gz
+;; > tar xfvz php_manual_ja.tar.gz
+;; > sudo mkdir -p /usr/local/share/php/doc/
+;; > sudo cp -r php-chunked-xhtml /usr/local/share/php/doc/
+;; > rm -rf php-chunked-xhtml
 
 ;; ------------------------------------------------------------------------
 ;; ac-php
@@ -272,13 +272,11 @@
 ;; ------------------------------------------------------------------------
 ;; json-mode
 
-(require 'json-mode)
 (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
 
 ;; ------------------------------------------------------------------------
 ;; yaml-mode
 
-(require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.y[a]?ml$" . yaml-mode))
 
 ;; ------------------------------------------------------------------------
@@ -287,7 +285,6 @@
 ;; > sudo npm install tslint typescript
 ;; > sudo npm install -g clausreinke/typescript-tools
 
-(require 'typescript)
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
 
 ;; ------------------------------------------------------------------------
@@ -328,8 +325,6 @@
 ;; inf-ruby, ruby-electric-mode
 
 (autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
-(add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
-
 (add-hook 'ruby-mode-hook
   (lambda ()
     (ruby-electric-mode t)
@@ -344,7 +339,13 @@
 (setq inf-ruby-first-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)> *")
 (setq inf-ruby-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)[>*\"'] *")
 
-(add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
+(eval-after-load 'auto-complete '(add-to-list 'ac-modes 'inf-ruby-mode))
+(add-hook 'inf-ruby-mode-hook
+          (lambda ()
+            (ansi-color-for-comint-mode-on)
+            (ac-inf-ruby-enable)
+            )
+          )
 
 ;; > gem install pry pry-doc method_source
 ;; > gem install ruby-lint
@@ -360,9 +361,9 @@
 ;; ------------------------------------------------------------------------
 ;; python-mode
 
-(setq auto-mode-alist
-      (cons '("\\.py$" . python-mode) auto-mode-alist))
 (autoload 'python-mode "python-mode" "Python editing mode." t)
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+(add-to-list 'interpreter-mode-alist '("python" . python-mode))
 
 ;; for Ipython
 (setq python-shell-interpreter-args "--simple-prompt --pprint")
@@ -386,34 +387,7 @@
 
 (add-hook 'python-mode-hook 'jedi:setup)
 
-(defun use-system-python2 ()
-  "Use system python2 for `elpy-mode`."
-  (interactive)
-  (setq python-shell-interpreter "ipython2")
-  (setq python-check-command
-        "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/pyflakes")
-  (setq elpy-rpc-python-command "python2")
-  (setq elpy-rpc-pythonpath
-        "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages")
-  (setq flycheck-python-flake8-executable
-        "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/flake8")
-  )
-
-(defun use-system-python3 ()
-  "Use system python3 for `elpy-mode`."
-  (interactive)
-  (setq python-shell-interpreter "ipython3")
-  (setq python-check-command
-        "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/bin/pyflakes")
-  (setq elpy-rpc-python-command "python3")
-  (setq elpy-rpc-pythonpath
-        "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages")
-  (setq flycheck-python-flake8-executable
-        "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/bin/flake8")
-  )
-
-;; set start python3
-(use-system-python3)
+;; see python special settings (cnf-osx.el)
 
 ;; disable flymake
 (remove-hook 'elpy-modules 'elpy-module-flymake)
@@ -426,6 +400,64 @@
 ;; > sudo port install py-rope py36-rope
 ;; > sudo pip install jedi elpy autopep8 flake8 importmagic
 ;; > sudo pip-3.6 install jedi elpy autopep8 flake8 importmagic
+
+;; ------------------------------------------------------------------------
+;; R
+;; see. https://y-mattu.hatenablog.com/entry/rstudio_emacs
+
+(when (require 'ess-site nil t))
+
+(autoload 'R-mode "ess-site" "Emacs Speaks Statistics mode" t)
+(autoload 'R "ess-site" "start R" t)
+
+(setq ess-loaded-p nil)
+
+(defun ess-load-hook (&optional from-iess-p)
+  (setq ess-indent-level 2)
+  (setq ess-arg-function-offset-new-line (list ess-indent-level))
+  (make-variable-buffer-local 'comment-add)
+  (setq comment-add 0)
+
+  (when (not ess-loaded-p)
+    (setq ess-use-auto-complete t)
+    ;; disable ido
+    (setq ess-use-ido nil)
+    (setq ess-eldoc-show-on-symbol t)
+    (setq ess-ask-for-ess-directory nil)
+    (setq ess-fancy-comments nil)
+    (setq ess-loaded-p t)
+    (unless from-iess-p
+      (when (one-window-p)
+        (split-window-below)
+        (let ((buf (current-buffer)))
+          (ess-switch-to-ESS nil)
+          (switch-to-buffer-other-window buf)))
+      (when (and ess-use-auto-complete (require 'auto-complete nil t))
+        (add-to-list 'ac-modes 'ess-mode)
+        (mapcar (lambda (el) (add-to-list 'ac-trigger-commands el))
+                '(ess-smart-comma smart-operator-comma skeleton-pair-insert-maybe))
+        ;; auto-complete source
+        (setq ac-sources '(ac-source-acr
+                           ac-source-R
+                           ac-source-filename
+                           ac-source-yasnippet)))))
+
+  (if from-iess-p
+      (if (> (length ess-process-name-list) 0)
+          (when (one-window-p)
+            (split-window-horizontally)
+            (other-window 1)))
+    (ess-force-buffer-current "Process to load into: ")))
+
+(add-hook 'R-mode-hook 'ess-load-hook)
+
+;; > sudo port install R
+;; > sudo port install ess
+
+;; ------------------------------------------------------------------------
+;; auto-complete-acr
+
+(when (require 'auto-complete-acr nil t))
 
 ;; ------------------------------------------------------------------------
 ;; go-mode
@@ -459,7 +491,7 @@
                              (company-mode)))
 
 ;; ------------------------------------------------------------------------
-;; clojure more
+;; clojure-mode
 
 (add-hook 'cider-mode-hook #'clj-refactor-mode)
 (add-hook 'cider-mode-hook #'company-mode)
@@ -476,6 +508,22 @@
 ;; (cider-repl-toggle-pretty-printing)
 
 ;; > sudo port install clojure leiningen
+
+;; ------------------------------------------------------------------------
+;; visual-basic-mode
+
+(when (require 'visual-basic-mode nil t)
+  (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
+  (add-to-list
+   'auto-mode-alist '("\\(\\.frm\\|\\.bas\\|\\.cls\\)$" . visual-basic-mode))
+  )
+(add-hook 'visual-basic-mode-hook
+            '(lambda ()
+               (auto-complete-mode t)
+               (require 'vbasense)
+               (vbasense-config-default)
+               )
+            )
 
 ;; ------------------------------------------------------------------------
 ;; helm-gtags
@@ -518,6 +566,16 @@
   '(progn
      (require 'auto-complete-nxml)
      ))
+
+;; ------------------------------------------------------------------------
+;; plantuml-mode
+
+(setq auto-mode-alist
+      (append '(("\\.\\(pu\\)$" . plantuml-mode))  auto-mode-alist ))
+;; (setq plantuml-jar-path "")  ;; depends on OS
+(setq plantuml-java-options "")
+;; (setq plantuml-output-type "svg")
+(setq plantuml-options "-charset UTF-8")
 
 ;; ------------------------------------------------------------------------
 ;; yasnippet

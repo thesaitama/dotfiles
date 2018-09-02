@@ -28,8 +28,9 @@ export DISPLAY=":0.0"
 test -d /usr/X11R6 && export PATH=/usr/X11R6/bin:$PATH &&
   export LD_LIBRARY_PATH=/usr/X11R6/lib
 
-# Editor
+# Editor (Emacs)
 export EDITOR='emacsclient -nw'
+export EMACS_TRUE_COLOR_SEPARATOR=';'
 
 # ------------------------------------------------------------------------
 # Programing languages

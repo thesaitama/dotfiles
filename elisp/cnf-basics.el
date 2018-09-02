@@ -9,9 +9,7 @@
 ;; ------------------------------------------------------------------------
 ;; add load-path
 
-(setq load-path
-      (append '("~/dotfiles/elisp")
-              load-path))
+(setq load-path (append '("~/dotfiles/elisp") load-path))
 
 ;; ------------------------------------------------------------------------
 ;; load-prefer-newer .elc or .el
@@ -44,7 +42,11 @@
 
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-t") 'other-window)
-(global-set-key (kbd "C-x C-b") 'bs-show) ;; replace list-buffers
+;; replace list-buffers
+(global-set-key (kbd "C-x C-b") 'bs-show)
+(if (>= emacs-major-version 25)
+    (global-set-key (kbd "C-x C-b") 'buffer-menu-open)
+)
 
 ;; ------------------------------------------------------------------------
 ;; ediff
@@ -112,11 +114,8 @@
 ;; title-bar character
 (setq frame-title-format (concat "%b - emacs@" (system-name)))
 
-;; tool-bar
-(setq tool-bar-mode 0)
-
 ;; menu-bar
-(menu-bar-mode -1)
+(menu-bar-mode 0)
 
 ;; region display
 (setq transient-mark-mode t)
@@ -203,9 +202,6 @@
 
 (show-paren-mode t)
 (setq show-paren-style 'mixed)
-(set-face-background 'show-paren-match-face "black")
-(set-face-foreground 'show-paren-match-face "white")
-(set-face-background 'show-paren-mismatch "red")
 
 ;; ------------------------------------------------------------------------
 ;; electric-pair
@@ -404,6 +400,72 @@
   (interactive)
   (message "%s" (get-char-property (point) 'face))
   )
+
+;; ------------------------------------------------------------------------
+;; Window System
+
+(cond
+ (window-system
+
+  (load-theme 'wombat t)
+
+  (setq initial-frame-alist
+        (append (list
+                 '(border-color . "#353535")
+                 '(mouse-color . "#f9f8f0")
+                 '(menu-bar-lines . 1)
+                 )
+                initial-frame-alist))
+  (setq default-frame-alist
+        (append (list
+                 '(background-color . "#272727")
+                 '(foreground-color . "#f9f8f0")
+                 '(cursor-color . "#f9f8f0")
+                 )
+                default-frame-alist))
+
+  (set-frame-parameter nil 'alpha 93)
+
+  ;; GUI background
+  (set-face-background 'default "#333333")
+
+  ;; font-lock
+  (set-face-foreground 'font-lock-type-face "#feb008")
+  (set-face-foreground 'font-lock-builtin-face "#b998d2")
+  (set-face-foreground 'font-lock-comment-face "#8ec46e")
+  (set-face-foreground 'font-lock-comment-delimiter-face "#8ec46e")
+  (set-face-foreground 'font-lock-string-face "#fd8507")
+  (set-face-foreground 'font-lock-keyword-face "#5faadc")
+  (set-face-foreground 'font-lock-function-name-face "#feb008")
+  (set-face-foreground 'font-lock-variable-name-face "#dcbb23")
+  (set-face-foreground 'font-lock-constant-face "#dcbb23")
+  (set-face-foreground 'font-lock-preprocessor-face "#dcbb23")
+  (set-face-foreground 'font-lock-warning-face "#daa0b5")
+  (set-face-foreground 'tool-bar "#50a3b1")
+  (set-face-background 'region "#b5dad9")
+  (set-face-foreground 'isearch "#f9f8f0")
+  (set-face-background 'isearch "#daa0b5")
+  (set-face-foreground 'minibuffer-prompt "#69afde")
+  (set-face-foreground 'fringe "#cccccc")
+  (set-face-background 'fringe "#222222")
+  (set-face-foreground 'mode-line "#777777")
+  (set-face-background 'mode-line "#434944")
+
+  ;; (set-face-background 'highlight-symbol-face "Gray30")
+  (set-face-background 'hl-line "Gray25")
+  (set-face-background 'region "Gray50")
+
+  ;; clipboard
+  (setq x-select-enable-clipboard t)
+
+  ;; UI items
+  (tool-bar-mode 0)
+  (scroll-bar-mode 0)
+
+  (global-set-key (kbd "C-x C-b") 'bs-show)
+
+  )
+)
 
 ;; ------------------------------------------------------------------------
 

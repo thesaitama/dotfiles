@@ -7,13 +7,17 @@
 ;;; Code:
 
 ;; ------------------------------------------------------------------------
+;; Windows coding
+
+(set-clipboard-coding-system 'utf-16le)
+
+;; ------------------------------------------------------------------------
 ;; GUI
 
 (if window-system
     (progn
 
       ;; font
-
       (set-face-attribute 'default nil :family "Consolas" :height 100)
       ;; (set-face-attribute 'default nil :family "Inconsolata" :height 120)
       ;; (set-face-attribute 'default nil :family "MS Gothic" :height 100)

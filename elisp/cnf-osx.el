@@ -104,9 +104,11 @@
   (set-face-attribute 'default nil :family "Menlo" :height 130)
   (set-fontset-font (frame-parameter nil 'font)
                     'japanese-jisx0208
-                    (font-spec :family "Hiragino Maru Gothic ProN"))
+                    (font-spec :family "Ricty Diminished for Powerline"))
   (add-to-list 'face-font-rescale-alist
-               '(".*Hiragino Maru Gothic ProN.*" . 1.2))
+               '(".*Ricty Diminished for Powerline.*" . 1.3))
+  ;; font list Snippet
+  ;; (dolist (x (x-list-fonts "*")) (print x))
 
   (setq-default line-spacing 0.3)
 

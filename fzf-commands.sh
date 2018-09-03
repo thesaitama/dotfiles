@@ -154,12 +154,16 @@ ftpane() {
 # ------------------------------------------------------------------------
 # fasd
 
-v() {
+av() {
     [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
     local file
     file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
 }
-unalias z
+
+z_alias="$(alias | grep "^z=")"
+if [ test $z_alias != '' ]; then
+  unalias z
+fi
 z() {
   if [[ -z "$*" ]]; then
     cd "$(fasd_cd -d | fzf -1 -0 --no-sort --tac +m | sed 's/^[0-9,.]* *//')"

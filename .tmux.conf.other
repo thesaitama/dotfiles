@@ -1,0 +1,37 @@
+
+#   ________  _____  ___  __
+#  /_  __/  |/  / / / / |/ /
+#   / / / /|_/ / / / /|   /
+#  / / / /  / / /_/ //   |
+# /_/ /_/  /_/\____//_/|_|
+
+# thesaitama@ .tmux.conf.other
+
+# other OS
+
+# ------------------------------------------------------------------------
+# key bind
+
+bind-key o run-shell "xdg-open '#{pane_current_path}'"
+
+# ------------------------------------------------------------------------
+# copy-mode
+
+unbind -T copy-mode 'C-w'
+unbind -T copy-mode 'M-w'
+unbind -T copy-mode Enter
+
+# older blow 1.8
+# bind C-p run-shell "tmux set-buffer \"$(xclip -o)\"; tmux paste-buffer"
+# bind C-y run-shell "tmux show-buffer | xclip -sel clip -i"
+
+# above 1.8
+bind -t vi-copy y copy-pipe "xclip -sel clip -i"
+
+# > sudo apt-get install xclip
+
+# ------------------------------------------------------------------------
+# status
+
+# set -g status-right " #(tmux-status-git)#(tmux-status-load)#(tmux-status-mac)#[bg=colour242,fg=white] %m/%d "
+

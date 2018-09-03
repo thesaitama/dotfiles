@@ -21,12 +21,9 @@ unbind -T copy-mode 'C-w'
 unbind -T copy-mode 'M-w'
 unbind -T copy-mode Enter
 
-# older blow 1.8
-# bind C-p run-shell "tmux set-buffer \"$(xclip -o)\"; tmux paste-buffer"
-# bind C-y run-shell "tmux show-buffer | xclip -sel clip -i"
-
-# above 1.8
-bind -t vi-copy y copy-pipe "xclip -sel clip -i"
+bind-key -n -T copy-mode 'C-w' send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c "
+bind-key -n -T copy-mode 'M-w' send -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
+bind-key -n C-y run "xclip -o | tmux load-buffer - ; tmux paste-buffer"
 
 # > sudo apt-get install xclip
 

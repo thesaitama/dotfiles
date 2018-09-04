@@ -123,6 +123,9 @@
   (setq ns-command-modifier (quote super))
   (setq ns-alternate-modifier (quote meta))
 
+  ;; menu-bar
+  (menu-bar-mode 1)
+
   (when (functionp 'mac-auto-ascii-mode)
     (mac-auto-ascii-mode 1))
 

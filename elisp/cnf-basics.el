@@ -413,7 +413,6 @@
         (append (list
                  '(border-color . "#353535")
                  '(mouse-color . "#f9f8f0")
-                 '(menu-bar-lines . 1)
                  )
                 initial-frame-alist))
   (setq default-frame-alist
@@ -424,6 +423,7 @@
                  )
                 default-frame-alist))
 
+  ;; window transparency
   (set-frame-parameter nil 'alpha 93)
 
   ;; GUI background

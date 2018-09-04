@@ -21,9 +21,12 @@ unbind -T copy-mode 'C-w'
 unbind -T copy-mode 'M-w'
 unbind -T copy-mode Enter
 
-bind-key -n -T copy-mode 'C-w' send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c "
-bind-key -n -T copy-mode 'M-w' send -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
-bind-key -n C-y run "xclip -o | tmux load-buffer - ; tmux paste-buffer"
+bind-key -T copy-mode 'C-w' send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c "
+bind-key -T copy-mode 'M-w' send -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
+bind-key -T copy-mode Enter send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c "
+
+# it seems needless
+# bind-key -n C-y run "xclip -o | tmux load-buffer - ; tmux paste-buffer"
 
 # > sudo apt-get install xclip
 

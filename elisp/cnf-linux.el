@@ -40,6 +40,11 @@
 ;; > sudo apt-get install xclip
 
 ;; ------------------------------------------------------------------------
+;; plantuml-mode
+
+(setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar")  ;; depends on OS
+
+;; ------------------------------------------------------------------------
 
 (provide 'cnf-linux.el)
 ;;; cnf-linux.el ends here

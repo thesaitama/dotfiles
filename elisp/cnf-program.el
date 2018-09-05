@@ -578,6 +578,14 @@
 (setq plantuml-options "-charset UTF-8")
 
 ;; ------------------------------------------------------------------------
+;; rst-mode
+
+(when (require 'rst-mode nil t)
+  (add-to-list
+   'auto-mode-alist '("\\(\\.rst\\|\\.rest\\)$" . rst-mode))
+  )
+
+;; ------------------------------------------------------------------------
 ;; yasnippet
 
 (yas-global-mode 1)

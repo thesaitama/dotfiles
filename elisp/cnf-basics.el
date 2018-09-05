@@ -96,6 +96,38 @@
       (font-lock-mode t))))
 
 ;; ------------------------------------------------------------------------
+;; my-make-scratch
+
+;; http://www.jaist.ac.jp/~n-yoshi/tips/elisp_tips.html#scratch
+
+(defun my-make-scratch (&optional arg)
+  (interactive)
+  (progn
+    ;; create "*scratch*" buffer
+    (set-buffer (get-buffer-create "*scratch*"))
+    (funcall initial-major-mode)
+    (erase-buffer)
+    (when (and initial-scratch-message (not inhibit-startup-message))
+      (insert initial-scratch-message))
+    (or arg (progn (setq arg 0)
+                   (switch-to-buffer "*scratch*")))
+    (cond ((= arg 0) (message "*scratch* is cleared up."))
+          ((= arg 1) (message "another *scratch* is created")))))
+
+(add-hook 'kill-buffer-query-functions
+          ;; when kill *scratch* kill-buffer, just content delete
+          (lambda ()
+            (if (string= "*scratch*" (buffer-name))
+                (progn (my-make-scratch 0) nil)
+              t)))
+
+(add-hook 'after-save-hook
+          ;; if user create *scratch* buffer and create new one
+          (lambda ()
+            (unless (member (get-buffer "*scratch*") (buffer-list))
+              (my-make-scratch 1))))
+
+;; ------------------------------------------------------------------------
 ;; UI / UX
 
 ;; startup message

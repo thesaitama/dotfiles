@@ -577,6 +577,11 @@
 ;; (setq plantuml-output-type "svg")
 (setq plantuml-options "-charset UTF-8")
 
+;; flycheck-plantuml
+(with-eval-after-load 'flycheck
+  (require 'flycheck-plantuml)
+  (flycheck-plantuml-setup))
+
 ;; ------------------------------------------------------------------------
 ;; rst-mode
 

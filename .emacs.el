@@ -96,6 +96,7 @@
     racer
     company-racer
     flycheck-rust
+    julia-mode
     clojure-mode
     cider
     clj-refactor

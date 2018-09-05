@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-02 12:01:13
+;; Last Update: 2018-09-05 22:04:23
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -884,6 +884,12 @@
  '(markdown-header-face-5 ((t (:inherit outline-5))))
  '(markdown-header-face-6 ((t (:inherit outline-6))))
  '(markdown-pre-face ((t (:foreground "ivory"))))
+ '(rst-level-1 ((t (:inherit outline-1))))
+ '(rst-level-2 ((t (:inherit outline-2))))
+ '(rst-level-3 ((t (:inherit outline-3))))
+ '(rst-level-4 ((t (:inherit outline-4))))
+ '(rst-level-5 ((t (:inherit outline-5))))
+ '(rst-level-6 ((t (:inherit outline-6))))
  '(menu ((t (:background "Gray30"))))
  '(minibuffer-prompt ((t (:foreground "cyan"))))
  '(nxml-attribute-local-name ((t (:foreground "LightBlue"))))

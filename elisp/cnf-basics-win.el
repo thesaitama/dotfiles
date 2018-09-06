@@ -10,21 +10,21 @@
 ;; server
 
 (require 'server)
-  (unless (eq (server-running-p) 't)
-    (server-start)
+(unless (eq (server-running-p) 't)
+  (server-start)
 
-    (defun iconify-emacs-when-server-is-done ()
-      (unless server-clients (iconify-frame)))
+  (defun iconify-emacs-when-server-is-done ()
+    (unless server-clients (iconify-frame)))
 
-    ;; change C-x C-c mapping
-    (global-set-key (kbd "C-x C-c") 'server-edit)
-    (defalias 'exit 'save-buffers-kill-emacs)
-    ;; when load Emacs and iconify
-    ;; (add-hook 'after-init-hook 'iconify-emacs-when-server-is-done)
+  ;; change C-x C-c mapping
+  (global-set-key (kbd "C-x C-c") 'server-edit)
+  (defalias 'exit 'save-buffers-kill-emacs)
+  ;; when load Emacs and iconify
+  ;; (add-hook 'after-init-hook 'iconify-emacs-when-server-is-done)
 
-    ;; confirm kill Emacs
-    (setq confirm-kill-emacs 'yes-or-no-p)
-    )
+  ;; confirm kill Emacs
+  (setq confirm-kill-emacs 'yes-or-no-p)
+  )
 
 ;; ------------------------------------------------------------------------
 ;; color scheme

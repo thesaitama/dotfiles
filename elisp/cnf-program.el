@@ -177,7 +177,8 @@
 ;; ------------------------------------------------------------------------
 ;; web-mode + emmet-mode, ac-emmet
 
-(require 'web-mode)
+;; (require 'web-mode)
+(autoload 'web-mode "web-mode" nil t)
 (setq auto-mode-alist
       (append
        '(
@@ -243,7 +244,8 @@
 ;; ------------------------------------------------------------------------
 ;; js2-mode
 
-(require 'js2-mode)
+;; (require 'js2-mode)
+(autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode))
 (add-hook 'js2-mode-hook

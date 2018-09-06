@@ -20,6 +20,9 @@
 
 (set-clipboard-coding-system 'utf-16le)
 
+;; speedup?
+(setq w32-get-true-file-attributes nil)
+
 ;; ------------------------------------------------------------------------
 ;; GUI
 

@@ -9,7 +9,6 @@
 ;; ------------------------------------------------------------------------
 ;; w3m
 
-(require 'w3m)
 (setq w3m-command "w3m")
 ;; (setq exec-path (cons "/opt/local/bin/w3m" exec-path))
 (eval-after-load "w3m-search"

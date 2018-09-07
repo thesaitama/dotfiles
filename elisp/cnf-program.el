@@ -543,6 +543,15 @@
 ;; M-x omnisharp-install-server
 
 ;; ------------------------------------------------------------------------
+;; bat-mode
+
+(when (require 'dostbat nil t)
+  (autoload 'bat-mode "bat-mode" "bat-mode." t)
+  (add-to-list
+   'auto-mode-alist '("\\(\\.bat\\|\\.cmd\\)$" . bat-mode))
+  )
+
+;; ------------------------------------------------------------------------
 ;; visual-basic-mode
 
 (when (require 'visual-basic-mode nil t)

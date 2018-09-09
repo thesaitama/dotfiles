@@ -201,7 +201,7 @@
   (setq web-mode-asp-offset 2)
   (setq indent-tabs-mode nil)
   (setq tab-width 2)
-  ;;(auto-complete-mode t)
+  ;; (auto-complete-mode t)
   (emmet-mode)
   (ac-emmet-html-setup))
 (add-hook 'web-mode-hook 'web-mode-hook)
@@ -210,7 +210,7 @@
 (setq web-mode-enable-auto-pairing nil)
 (setq web-mode-enable-current-element-highlight t)
 (setq web-mode-enable-current-column-highlight t)
-;;(setq web-mode-enable-css-colorization t)
+;; (setq web-mode-enable-css-colorization t)
 
 (setq web-mode-ac-sources-alist
       '(("php" . (ac-source-yasnippet ac-source-php-auto-yasnippets))
@@ -407,7 +407,7 @@
 ;; R
 ;; see. https://y-mattu.hatenablog.com/entry/rstudio_emacs
 
-(when (require 'ess-site nil t))
+;; (when (require 'ess-site nil t))
 
 (autoload 'R-mode "ess-site" "Emacs Speaks Statistics mode" t)
 (autoload 'R "ess-site" "start R" t)
@@ -460,6 +460,7 @@
 ;; auto-complete-acr
 
 (when (require 'auto-complete-acr nil t))
+(autoload 'auto-complete-acr "auto-complete-acr" nil t)
 
 ;; ------------------------------------------------------------------------
 ;; go-mode
@@ -545,32 +546,43 @@
 ;; ------------------------------------------------------------------------
 ;; bat-mode
 
-(when (require 'dostbat nil t)
-  (autoload 'bat-mode "bat-mode" "bat-mode." t)
-  (add-to-list
-   'auto-mode-alist '("\\(\\.bat\\|\\.cmd\\)$" . bat-mode))
-  )
+;; (when (require 'dostbat nil t)
+(autoload 'bat-mode "bat-mode" "bat-mode" t)
+(add-to-list 'auto-mode-alist '("\\(\\.bat\\|\\.cmd\\)$" . bat-mode))
+;; )
+
+;; ------------------------------------------------------------------------
+;; power-shell-mode
+
+(defun setup-powershell-mode ()
+  "Setup PowerShell Mode."
+  (interactive)
+  (company-mode +1))
+
+(add-hook 'powershell-mode-hook #'setup-powershell-mode)
 
 ;; ------------------------------------------------------------------------
 ;; visual-basic-mode
 
-(when (require 'visual-basic-mode nil t)
-  (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
-  (add-to-list
-   'auto-mode-alist '("\\(\\.frm\\|\\.bas\\|\\.cls\\)$" . visual-basic-mode))
-  )
+;; (when (require 'visual-basic-mode nil t)
+(autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
+(add-to-list
+ 'auto-mode-alist '("\\(\\.frm\\|\\.bas\\|\\.vb[as]\\|\\.cls\\)$" . visual-basic-mode))
+
 (add-hook 'visual-basic-mode-hook
-            '(lambda ()
-               (auto-complete-mode t)
-               (require 'vbasense)
-               (vbasense-config-default)
-               )
-            )
+          '(lambda ()
+             (auto-complete-mode t)
+             (require 'vbasense)
+             (vbasense-config-default)
+             )
+          )
+;; )
 
 ;; ------------------------------------------------------------------------
 ;; helm-gtags
 
-(require 'helm-gtags)
+;; (require 'helm-gtags)
+(autoload 'helm-gtags "helm-gtags" nil t)
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
 (add-hook 'c-mode-hook 'helm-gtags-mode)
 (add-hook 'go-mode-hook 'helm-gtags-mode)
@@ -627,10 +639,10 @@
 ;; ------------------------------------------------------------------------
 ;; rst-mode
 
-(when (require 'rst-mode nil t)
-  (add-to-list
-   'auto-mode-alist '("\\(\\.rst\\|\\.rest\\)$" . rst-mode))
-  )
+;; (when (require 'rst-mode nil t)
+(autoload 'rst-mode "rst-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\(\\.rst\\|\\.rest\\)$" . rst-mode))
+;; )
 
 ;; ------------------------------------------------------------------------
 ;; yasnippet
@@ -654,7 +666,8 @@
 ;; ------------------------------------------------------------------------
 ;; magit-find-file
 
-(require 'magit-find-file)
+;; (require 'magit-find-file)
+(autoload 'magit-find-file "magit-find-file" nil t)
 
 ;; ------------------------------------------------------------------------
 ;; quickrun
@@ -677,7 +690,8 @@
 ;; ------------------------------------------------------------------------
 ;; git-complete
 
-(require 'git-complete)
+;; (require 'git-complete)
+(autoload 'git-complete "git-complete" nil t)
 (global-set-key (kbd "M-g j") 'git-complete)
 
 ;; ------------------------------------------------------------------------

@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-09 22:04:33
+;; Last Update: 2018-09-09 23:37:00
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -90,6 +90,7 @@
     jedi
     elpy
     omnisharp
+    ensime
     go-mode
     go-eldoc
     go-autocomplete

@@ -177,6 +177,12 @@
 (use-system-python3)
 
 ;; ------------------------------------------------------------------------
+;; Java
+
+(setenv "JDK_HOME" "/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home")
+(setenv "JAVA_HOME" "/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home")
+
+;; ------------------------------------------------------------------------
 ;; plantuml-mode
 
 (setq plantuml-jar-path "/opt/local/share/java/plantuml.jar")  ;; depends on OS

@@ -92,6 +92,12 @@
 (use-anaconda-python3)
 
 ;; ------------------------------------------------------------------------
+;; Java
+
+;; (setenv "JDK_HOME" "<path_to_jdk>")
+;; (setenv "JAVA_HOME" "<path_to_jdk>")
+
+;; ------------------------------------------------------------------------
 ;; shell
 
 ;; (setq shell-file-name "C:/Program Files/Git/bin/bash.exe")

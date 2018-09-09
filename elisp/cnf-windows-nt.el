@@ -104,6 +104,26 @@
 ;;                 (replace-regexp-in-string "\\([A-Za-z]\\):" "/\\1"
 ;;                     (getenv "PATH"))))))
 
+
+(defun run-bash ()
+  "Run bash."
+  (interactive)
+  (let ((shell-file-name "C:/Program Files/Git/bin/bash.exe"))
+    (shell "*bash*")))
+
+(defun run-powershell ()
+  "Run PowerShell."
+  (interactive)
+  (async-shell-command "c:/windows/system32/WindowsPowerShell/v1.0/powershell.exe -Command -"
+                       nil
+                       nil))
+
+(defun run-cmdexe ()
+  "Run Windows cmd.exe."
+  (interactive)
+  (let ((shell-file-name "cmd.exe"))
+    (shell "*cmd.exe*")))
+
 ;; ------------------------------------------------------------------------
 
 (provide 'cnf-windows-nt.el)

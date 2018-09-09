@@ -459,7 +459,7 @@
 ;; ------------------------------------------------------------------------
 ;; auto-complete-acr
 
-(when (require 'auto-complete-acr nil t))
+;; (when (require 'auto-complete-acr nil t))
 (autoload 'auto-complete-acr "auto-complete-acr" nil t)
 
 ;; ------------------------------------------------------------------------
@@ -565,7 +565,7 @@
 ;; visual-basic-mode
 
 ;; (when (require 'visual-basic-mode nil t)
-(autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
+(autoload 'visual-basic-mode "visual-basic-mode" nil t)
 (add-to-list
  'auto-mode-alist '("\\(\\.frm\\|\\.bas\\|\\.vb[as]\\|\\.cls\\)$" . visual-basic-mode))
 

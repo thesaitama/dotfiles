@@ -7,6 +7,26 @@
 ;;; Code:
 
 ;; ------------------------------------------------------------------------
+;; linux dired
+
+(defun open-linux (path)
+  (start-process "xdg-open" nil "xdg-open" (expand-file-name path)))
+
+(defun my-dired-open-linux ()
+  "Open by dired (linux)."
+  (interactive)
+  (cond ((file-accessible-directory-p (dired-get-file-for-visit))
+         (call-interactively 'dired-find-alternate-file))
+        (t
+         (funcall 'open-linux (dired-get-file-for-visit)))
+        )
+  )
+
+(add-hook 'dired-mode-hook
+          '(lambda()
+             (define-key dired-mode-map "o" 'my-dired-open-linux)))
+
+;; ------------------------------------------------------------------------
 ;; elpy (python-mode) for Linux
 
 (defun use-system-python2 ()

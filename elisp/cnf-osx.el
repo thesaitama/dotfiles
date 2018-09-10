@@ -41,7 +41,7 @@
 (setq interprogram-paste-function 'copy-from-osx)
 
 ;; ------------------------------------------------------------------------
-;; mac quick-lock
+;; mac dired
 
 (defun open-mac (path)
   (start-process "dired-open-mac" nil "open" path))
@@ -55,8 +55,8 @@
   (setq cur (start-process "ql-file" nil "qlmanage" "-p" path))
   (when old (delete-process old)))
 
-(defun my-dired-open ()
-  "Open by dired."
+(defun my-dired-open-osx ()
+  "Open by dired (OSX)."
   (interactive)
   (let ((exts-ql   '("jpeg" "jpg" "png" "gif" "tiff"))
         (exts-open '("avi" "mkv" "mp4" "mts" "psd" "ai" "pdf")))
@@ -73,8 +73,8 @@
   )
 
 (add-hook 'dired-mode-hook
-          '(lambda ()
-             (define-key dired-mode-map "o" 'my-dired-open)))
+          '(lambda()
+             (define-key dired-mode-map "o" 'my-dired-open-osx)))
 
 ;; ------------------------------------------------------------------------
 ;; osx-trash

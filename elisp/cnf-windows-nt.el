@@ -53,7 +53,26 @@
                           (deactivate-input-method)
                           (apply orig-fun args))))
 
-  ))
+      ))
+
+;; ------------------------------------------------------------------------
+;; win dired
+
+(defun open-win (path)(w32-shell-execute "open" path))
+
+(defun my-dired-open-win ()
+  "Open by dired (win)."
+  (interactive)
+  (cond ((file-accessible-directory-p (dired-get-file-for-visit))
+         (call-interactively 'dired-find-alternate-file))
+        (t
+         (funcall 'open-win(dired-get-file-for-visit)))
+        )
+  )
+
+(add-hook 'dired-mode-hook
+          '(lambda()
+             (define-key dired-mode-map "o" 'my-dired-open-win)))
 
 ;; ------------------------------------------------------------------------
 ;; elpy (python-mode) for Windows

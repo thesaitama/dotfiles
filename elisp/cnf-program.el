@@ -650,10 +650,11 @@
 (yas-global-mode 1)
 (setq yas-prompt-functions '(yas-ido-prompt))
 
-(require 'helm-c-yasnippet)
+;; (require 'helm-c-yasnippet)
+(autoload 'helm-c-yasnippet "helm-c-yasnippet" nil t)
 (setq helm-yas-space-match-any-greedy t)
-(global-set-key (kbd "C-c y") 'helm-yas-complete)
 (push '("emacs.+/snippets/" . snippet-mode) auto-mode-alist)
+(global-set-key (kbd "C-c y") 'helm-yas-complete)
 
 ;; ------------------------------------------------------------------------
 ;; magit

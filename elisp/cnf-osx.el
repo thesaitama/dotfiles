@@ -44,6 +44,7 @@
 ;; mac dired
 
 (defun open-mac (path)
+  "Open specified PATH with open."
   (start-process "dired-open-mac" nil "open" path))
 
 (defun quicklook-file (path)

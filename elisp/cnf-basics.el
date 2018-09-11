@@ -346,6 +346,7 @@
 
 (require 'wdired)
 (define-key dired-mode-map "e" 'wdired-change-to-wdired-mode)
+(setq wdired-allow-to-change-permissions t)
 
 (add-hook 'dired-load-hook (lambda () (load "dired-x")))
 

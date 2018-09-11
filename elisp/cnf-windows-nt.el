@@ -58,7 +58,9 @@
 ;; ------------------------------------------------------------------------
 ;; win dired
 
-(defun open-win (path)(w32-shell-execute "open" path))
+(defun open-win (path)
+  "Open specified PATH with shell-execute."
+  (w32-shell-execute "open" path))
 
 (defun my-dired-open-win ()
   "Open by dired (win)."

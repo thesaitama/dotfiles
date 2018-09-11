@@ -10,7 +10,8 @@
 ;; linux dired
 
 (defun open-linux (path)
-  (start-process "xdg-open" nil "xdg-open" (expand-file-name path)))
+  "Open specified PATH with xdg-open."
+  (call-process "xdg-open" nil 0 nil path))
 
 (defun my-dired-open-linux ()
   "Open by dired (linux)."

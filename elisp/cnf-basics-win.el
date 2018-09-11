@@ -46,10 +46,10 @@
               default-frame-alist))
 
 ;; window transparency
-(set-frame-parameter nil 'alpha 93)
+(set-frame-parameter nil 'alpha 95)
 
 ;; GUI background
-(set-face-background 'default "#333333")
+(set-face-background 'default "#282828")
 
 ;; font-lock
 (set-face-foreground 'font-lock-type-face "#feb008")
@@ -64,18 +64,17 @@
 (set-face-foreground 'font-lock-preprocessor-face "#dcbb23")
 (set-face-foreground 'font-lock-warning-face "#daa0b5")
 (set-face-foreground 'tool-bar "#50a3b1")
-(set-face-background 'region "#b5dad9")
+(set-face-background 'region "#626262")
 (set-face-foreground 'isearch "#f9f8f0")
 (set-face-background 'isearch "#daa0b5")
 (set-face-foreground 'minibuffer-prompt "#69afde")
 (set-face-foreground 'fringe "#cccccc")
-(set-face-background 'fringe "#222222")
+(set-face-background 'fringe "#1a1a1a")
 (set-face-foreground 'mode-line "#777777")
 (set-face-background 'mode-line "#434944")
 
-;; (set-face-background 'highlight-symbol-face "Gray30")
-(set-face-background 'hl-line "Gray25")
-(set-face-background 'region "Gray50")
+;; (set-face-background 'highlight-symbol-face "Gray30)"
+(set-face-background 'hl-line "#303030")
 
 ;; ------------------------------------------------------------------------
 ;; clipboard

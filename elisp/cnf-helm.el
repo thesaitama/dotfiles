@@ -9,7 +9,7 @@
 ;; ------------------------------------------------------------------------
 ;; helm
 
-(require 'helm)
+;; (require 'helm)
 (require 'helm-config)
 (helm-mode +1)
 

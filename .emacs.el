@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-09 23:37:00
+;; Last Update: 2018-09-11 22:38:58
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -583,7 +583,8 @@
      (add-hook hook
                '(lambda () (flyspell-mode 1))))
    '(
-     markdown-mode-hook
+     ;; markdown-mode-hook
+     text-mode-hook
      ))
 
 ;; (add-hook 'find-file-hook 'flyspell-mode)

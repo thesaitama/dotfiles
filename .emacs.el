@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-12 22:07:56
+;; Last Update: 2018-09-12 22:10:27
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -709,6 +709,10 @@
 (push '(dired-mode :position top) popwin:special-display-config)
 (push '(compilation-mode :noselect t) popwin:special-display-config)
 (push '("*grep*" :noselect t) popwin:special-display-config)
+(push '("*shell" :height 15) popwin:special-display-config)
+(push '("*bash*" :height 15) popwin:special-display-config)
+(push '("*cmd.exe*" :height 15) popwin:special-display-config)
+(push '("*PowerShell*" :height 15) popwin:special-display-config)
 (push '("*compilation*" :height 15) popwin:special-display-config)
 (push '("*quickrun*" :height 15) popwin:special-display-config)
 (push '("*Flycheck errors*" :height 15) popwin:special-display-config)
@@ -716,7 +720,6 @@
 (push '("*ruby*" :height 15) popwin:special-display-config)
 (push '("*pry*" :height 15) popwin:special-display-config)
 (push '("\\*[Ii]?[Pp]ython.+" :regexp t :height 15) popwin:special-display-config)
-;; (push '("*Python*" :height 15) popwin:special-display-config)
 (push '("*SQL*" :height 15) popwin:special-display-config)
 (push '("*Ilist*" :height 15) popwin:special-display-config)
 (push '("*wclock*" :height 7) popwin:special-display-config)

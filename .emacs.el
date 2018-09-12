@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-11 22:38:58
+;; Last Update: 2018-09-12 22:07:56
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -668,7 +668,7 @@
 
 ;; (setq shell-pop-shell-type '("eshell" "*eshell*" (lambda () (eshell))))
 ;; (setq shell-pop-shell-type '("shell" "*shell*" (lambda () (shell))))
-;; (setq shell-pop-shell-type '("terminal" "*terminal*" (lambda () (term shell-pop-term-shell))))
+(setq shell-pop-shell-type '("terminal" "*terminal*" (lambda () (term shell-pop-term-shell))))
 ;; (setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
 
 (global-set-key (kbd "C-c s") 'shell-pop)

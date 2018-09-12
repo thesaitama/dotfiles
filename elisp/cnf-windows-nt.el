@@ -104,7 +104,7 @@
   (interactive)
   (setq python-shell-interpreter "C:/ProgramData/Anaconda3/Scripts/ipython")
   (setq python-check-command "C:/ProgramData/Anaconda3/Scripts/pyflakes")
-  (setq elpy-rpc-python-command "C:/ProgramData/Anaconda3/python3")
+  (setq elpy-rpc-python-command "C:/ProgramData/Anaconda3/python")
   (setq elpy-rpc-pythonpath  "C:/ProgramData/Anaconda3/Lib/site-packages")
   ;; (setq flycheck-python-flake8-executable "<path_to>/flake8")
   )

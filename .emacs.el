@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-12 22:10:27
+;; Last Update: 2018-09-13 21:22:35
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -666,12 +666,13 @@
 ;; ------------------------------------------------------------------------
 ;; shell-pop
 
-;; (setq shell-pop-shell-type '("eshell" "*eshell*" (lambda () (eshell))))
-;; (setq shell-pop-shell-type '("shell" "*shell*" (lambda () (shell))))
-(setq shell-pop-shell-type '("terminal" "*terminal*" (lambda () (term shell-pop-term-shell))))
-;; (setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
-
-(global-set-key (kbd "C-c s") 'shell-pop)
+(when (not (eq system-type 'windows-nt))
+  ;; (setq shell-pop-shell-type '("eshell" "*eshell*" (lambda () (eshell))))
+  ;; (setq shell-pop-shell-type '("shell" "*shell*" (lambda () (shell))))
+  (setq shell-pop-shell-type '("terminal" "*terminal*" (lambda () (term shell-pop-term-shell))))
+  ;; (setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
+  (global-set-key (kbd "C-c s") 'shell-pop)
+)
 
 ;; ------------------------------------------------------------------------
 ;; multi-term
@@ -709,7 +710,7 @@
 (push '(dired-mode :position top) popwin:special-display-config)
 (push '(compilation-mode :noselect t) popwin:special-display-config)
 (push '("*grep*" :noselect t) popwin:special-display-config)
-(push '("*shell" :height 15) popwin:special-display-config)
+(push '("\\*e?shell\\*" :regexp t :height 15) popwin:special-display-config)
 (push '("*bash*" :height 15) popwin:special-display-config)
 (push '("*cmd.exe*" :height 15) popwin:special-display-config)
 (push '("*PowerShell*" :height 15) popwin:special-display-config)
@@ -864,6 +865,8 @@
  '(helm-header ((t (:background "Gray40" :foreground "Gray80"))))
  '(helm-match ((t (:foreground "cyan"))))
  '(helm-selection ((t (:background "Gray30"))))
+ '(helm-selection-line ((t (:background "Gray20"))))
+ '(helm-visible-mark ((t (:background "Gray40"))))
  '(helm-source-header ((t (:background "DarkCyan" :foreground "white"))))
  '(highlight-symbol-face ((t (:background "Gray25"))))
  '(hl-line ((t (:background "color-236"))))

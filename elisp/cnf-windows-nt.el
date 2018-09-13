@@ -151,6 +151,8 @@
   (let ((shell-file-name "cmd.exe"))
     (shell "*cmd.exe*")))
 
+(global-set-key (kbd "C-c s") 'run-cmdexe)
+
 ;; ------------------------------------------------------------------------
 
 (provide 'cnf-windows-nt.el)

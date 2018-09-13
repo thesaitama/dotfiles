@@ -14,11 +14,18 @@
 ;; (add-to-list 'exec-path "C:/Program Files/Aspell/bin")
 
 ;; ------------------------------------------------------------------------
-;; Windows coding
+;; Windows confing
 
 (setq default-directory "~/../../Desktop/")
 
+;; clipboard
 (set-clipboard-coding-system 'utf-16le)
+
+;; special keys
+(setq w32-pass-lwindow-to-system nil)
+(setq w32-lwindow-modifier 'super)
+(setq w32-pass-apps-to-system nil)
+(setq w32-apps-modifier 'hyper)
 
 ;; speedup?
 (setq w32-get-true-file-attributes nil)

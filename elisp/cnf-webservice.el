@@ -23,6 +23,9 @@
 (setq google-translate-default-source-language "ja")
 (setq google-translate-default-target-language "en")
 
+(setq google-translate-base-url "https://translate.google.com/translate_a/single")
+(setq google-translate--tkk-url "https://translate.google.com/")
+
 (defvar google-translate-english-chars "[:ascii:]’“”–"
   "English characters list.")
 (defun google-translate-enja-or-jaen (&optional string)
@@ -62,6 +65,7 @@
 ;; howdoi
 
 (require 'howdoi)
+(autoload 'howdoi "howdoi" nil t)
 (setq howdoi-display-question t)
 (defun howdoi-show-url (&rest ignore)
   (interactive)
@@ -73,7 +77,8 @@
 ;; yagist
 
 (setq yagist-github-token (my-lisp-load "yagist-github-token"))
-(require 'yagist)
+;; (require 'yagist)
+(autoload 'yagist "yagist" nil t)
 
 ;; ------------------------------------------------------------------------
 

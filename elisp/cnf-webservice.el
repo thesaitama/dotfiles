@@ -19,6 +19,7 @@
 (setq google-translate-default-target-language "en")
 (setq google-translate-base-url "https://translate.google.com/translate_a/single")
 (setq google-translate--tkk-url "https://translate.google.com/")
+;; (setq google-translate--tkk-debug t)
 
 (defvar google-translate-english-chars "[:ascii:]’“”–"
   "English characters list.")

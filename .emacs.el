@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-13 21:22:35
+;; Last Update: 2018-09-15 09:06:11
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -868,8 +868,10 @@
  '(helm-selection-line ((t (:background "Gray20"))))
  '(helm-visible-mark ((t (:background "Gray40"))))
  '(helm-source-header ((t (:background "DarkCyan" :foreground "white"))))
+ '(header-line ((t (:background "Gray40" :foreground "Gray85"))))
  '(highlight-symbol-face ((t (:background "Gray25"))))
  '(hl-line ((t (:background "color-236"))))
+ '(show-paren-match-expression ((t (:background "Gray25"))))
  '(holiday ((t (:background "pink"))))
  '(isearch ((t (:background "LightPink" :foreground "black"))))
  '(japanese-holiday-saturday ((t (:background "cyan" :foreground "black"))))

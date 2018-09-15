@@ -88,14 +88,14 @@
   "Search with Weblio by STR."
   (interactive (list
                 (region-or-read-string "Weblio: ")))
-  (eww-browse-url (format "http://www.weblio.jp/content/%s"
+  (eww-browse-url (format "https://www.weblio.jp/content/%s"
                       (upcase (url-hexify-string str)))))
 ;;; wikipedia
 (defun wikipedia (str)
   "Search with Wikipedia by STR."
   (interactive (list
                 (region-or-read-string "Wikipedia: ")))
-  (eww-browse-url (format "http://ja.wikipedia.org/wiki/%s"
+  (eww-browse-url (format "https://ja.wikipedia.org/wiki/%s"
                       (upcase (url-hexify-string str)))))
 
 ;; ------------------------------------------------------------------------

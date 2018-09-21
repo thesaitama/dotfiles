@@ -207,6 +207,7 @@
     (undo-tree-mode . "")
     (volatile-highlights-mode . "")
     (smooth-scroll-mode . "")
+    (emmet-mode . " Em")
     ;; Major modes
     (fundamental-mode . "Fund")
     (generic-mode . "Gen")

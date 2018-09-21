@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-22 00:32:16
+;; Last Update: 2018-09-22 08:19:45
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -940,14 +940,14 @@
  '(tty-menu-disabled-face ((t (:background "Gray45" :foreground "Gray10"))))
  '(tty-menu-enabled-face ((t (:background "Gray45" :foreground "White"))))
  '(tty-menu-selected-face ((t (:background "SteelBlue" :foreground "White"))))
- '(web-mode-comment-face ((t (:foreground "green"))))
+ '(web-mode-comment-face ((t (:inherit font-lock-comment-face))))
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
  '(web-mode-css-pseudo-class ((t (:foreground "DodgerBlue"))))
  '(web-mode-css-selector-face ((t (:foreground "DodgerBlue"))))
- '(web-mode-doctype-face ((t (:foreground "White"))))
+ '(web-mode-doctype-face ((t (:inherit font-lock-doc-face))))
  '(web-mode-html-attr-equal-face ((t (:foreground "white"))))
  '(web-mode-html-attr-name-face ((t (:foreground "LightBlue"))))
- '(web-mode-html-attr-value-face ((t (:foreground "yellow"))))
+ '(web-mode-html-attr-value-face ((t (:inherit font-lock-string-face))))
  '(web-mode-html-tag-bracket-face ((t (:foreground "LightBlue"))))
  '(web-mode-html-tag-face ((t (:foreground "cyan"))))
  '(web-mode-server-comment-face ((t (:foreground "green"))))

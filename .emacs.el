@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-15 09:28:36
+;; Last Update: 2018-09-22 00:32:16
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -880,7 +880,7 @@
  '(link ((t (:foreground "cyan"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
- '(magit-branch-remote ((t (:foreground "blue"))))
+ '(magit-branch-remote ((t (:foreground "Cornflower"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
  '(magit-diff-added ((((type tty)) (:foreground "green"))))
  '(magit-diff-added-highlight ((((type tty)) (:foreground "LimeGreen"))))
@@ -905,7 +905,7 @@
  '(nxml-cdata-section-content ((t (:foreground "gray"))))
  '(nxml-comment-content ((t (:foreground "gree"))))
  '(nxml-comment-delimiter ((t (:foreground "green"))))
- '(nxml-element-local-name ((t (:foreground "blue"))))
+ '(nxml-element-local-name ((t (:foreground "DodgerBlue"))))
  '(nxml-entity-ref-delimiter ((t (:foreground "red"))))
  '(nxml-entity-ref-name ((t (:foreground "red"))))
  '(nxml-name-face ((t (:foreground "cyan"))))
@@ -917,8 +917,8 @@
  '(outline-5 ((t (:foreground "goldenrod" :weight bold))))
  '(outline-6 ((t (:foreground "orange"))))
  '(outline-7 ((t (:foreground "goldenrod"))))
- '(package ((t (:foreground "cyan"))))
- '(package-name ((t (:foreground "cyan"))))
+ '(package ((t (:foreground "DodgerBlue"))))
+ '(package-name ((t (:foreground "DodgerBlue"))))
  '(pulse-highlight-face ((t (:background "Gray35"))))
  '(pulse-highlight-start-face ((t (:background "Gray35"))))
  '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
@@ -939,15 +939,16 @@
  '(tty-menu-selected-face ((t (:background "SteelBlue" :foreground "White"))))
  '(web-mode-comment-face ((t (:foreground "green"))))
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
- '(web-mode-css-pseudo-class ((t (:foreground "blue"))))
- '(web-mode-css-selector-face ((t (:foreground "blue"))))
- '(web-mode-doctype-face ((t (:foreground "glay"))))
+ '(web-mode-css-pseudo-class ((t (:foreground "DodgerBlue"))))
+ '(web-mode-css-selector-face ((t (:foreground "DodgerBlue"))))
+ '(web-mode-doctype-face ((t (:foreground "White"))))
  '(web-mode-html-attr-equal-face ((t (:foreground "white"))))
  '(web-mode-html-attr-name-face ((t (:foreground "LightBlue"))))
  '(web-mode-html-attr-value-face ((t (:foreground "yellow"))))
  '(web-mode-html-tag-bracket-face ((t (:foreground "LightBlue"))))
- '(web-mode-html-tag-face ((t (:foreground "blue"))))
+ '(web-mode-html-tag-face ((t (:foreground "cyan"))))
  '(web-mode-server-comment-face ((t (:foreground "green"))))
+ '(web-mode-current-element-highlight-face ((t (:background "Gray25"))))
  '(which-func ((t (:foreground "ivory"))))
  '(which-key-command-description-face ((t (:foreground "white")))))
 

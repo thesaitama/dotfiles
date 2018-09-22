@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-22 08:19:45
+;; Last Update: 2018-09-22 19:35:48
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -873,7 +873,6 @@
  '(header-line ((t (:background "Gray40" :foreground "Gray85"))))
  '(highlight-symbol-face ((t (:background "Gray25"))))
  '(hl-line ((t (:background "color-236"))))
- '(show-paren-match-expression ((t (:background "Gray25"))))
  '(holiday ((t (:background "pink"))))
  '(isearch ((t (:background "LightPink" :foreground "black"))))
  '(japanese-holiday-saturday ((t (:background "cyan" :foreground "black"))))
@@ -889,8 +888,9 @@
  '(magit-diff-file-heading ((((type tty)) nil)))
  '(magit-diff-removed ((((type tty)) (:foreground "red"))))
  '(magit-diff-removed-highlight ((((type tty)) (:foreground "IndianRed"))))
- '(magit-log-author ((t (:foreground "magenta"))))
+ '(magit-log-author ((t (:foreground "magentap"))))
  '(magit-section-highlight ((t (:background "Gray23"))))
+ '(magit-section-heading ((t (:foreground "cyan" :weight bold))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1))))
  '(markdown-header-face-2 ((t (:inherit outline-2))))
@@ -933,8 +933,10 @@
  '(rst-level-4 ((t (:inherit outline-4))))
  '(rst-level-5 ((t (:inherit outline-5))))
  '(rst-level-6 ((t (:inherit outline-6))))
+ '(show-paren-match ((t (:background "DodgerBlue" :foreground "white"))))
  '(show-paren-match-face ((t (:background "black" :foreground "white"))))
  '(show-paren-mismatch ((t (:background "red"))))
+ '(show-paren-match-expression ((t (:background "Gray25"))))
  '(tide-hl-identifier-face ((t (:background "Gray28"))))
  '(tool-bar ((t (:foreground "cyan"))))
  '(tty-menu-disabled-face ((t (:background "Gray45" :foreground "Gray10"))))
@@ -950,6 +952,7 @@
  '(web-mode-html-attr-value-face ((t (:inherit font-lock-string-face))))
  '(web-mode-html-tag-bracket-face ((t (:foreground "LightBlue"))))
  '(web-mode-html-tag-face ((t (:foreground "cyan"))))
+ '(web-mode-html-entity-face ((t (:foreground "DodgerBlue"))))
  '(web-mode-server-comment-face ((t (:foreground "green"))))
  '(web-mode-current-element-highlight-face ((t (:background "Gray25"))))
  '(which-func ((t (:foreground "ivory"))))

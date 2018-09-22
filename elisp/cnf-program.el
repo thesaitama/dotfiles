@@ -184,8 +184,9 @@
        '(
          ("\\.as[cp]x$" . web-mode)
          ("\\.iht$" . web-mode)
-         ("\\.jsp$" . web-mode)
-         ("\\.x?html?$" . web-mode)
+         ("\\.[agj]sp$" . web-mode)
+         ("\\.erb$" . web-mode)
+         ("\\.[xp]?html?$" . web-mode)
          ("\\(\\.sass\\|\\.s?css\\)$" . web-mode)
          )
        auto-mode-alist))

@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-22 19:35:48
+;; Last Update: 2018-09-23 22:33:47
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -281,11 +281,16 @@
 
 (require 'elscreen)
 (elscreen-start)
-(elscreen-create)
 (setq elscreen-prefix-key (kbd "C-z"))
-(setq elscreen-display-tab nil)
-(setq elscreen-tab-display-kill-screen nil)
+(setq elscreen-display-tab 20)
+(if (not window-system)
+    (progn
+      (setq elscreen-display-tab nil)
+      ;; (elscreen-create)
+      )
+  )
 (setq elscreen-tab-display-control nil)
+(setq elscreen-tab-display-kill-screen nil)
 (setq elscreen-buffer-to-nickname-alist
       '(("^dired-mode$" .
          (lambda ()

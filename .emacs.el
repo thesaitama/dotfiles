@@ -873,7 +873,7 @@
  '(header-line ((t (:background "Gray40" :foreground "Gray85"))))
  '(highlight-symbol-face ((t (:background "Gray25"))))
  '(hl-line ((t (:background "color-236"))))
- '(holiday ((t (:background "pink"))))
+ '(holiday ((t (:background "pink" :foreground "black"))))
  '(isearch ((t (:background "LightPink" :foreground "black"))))
  '(japanese-holiday-saturday ((t (:background "cyan" :foreground "black"))))
  '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))

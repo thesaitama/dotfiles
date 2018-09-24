@@ -6,7 +6,7 @@
 #  \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
 
 # thesaitama@ .bashrc
-# Last Update: 2018-09-24 11:02:24
+# Last Update: 2018-09-24 11:17:33
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -273,16 +273,13 @@ if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
 fi
 
 # ------------------------------------------------------------------------
-# autojump
-# > sudo port install autojump
-
-# if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
-#   . /opt/local/etc/profile.d/autojump.sh
-# fi
-
-# ------------------------------------------------------------------------
 # fasd
 # > sudo port install fasd
+# or
+# > mkdir ~/src/
+# > git clone https://github.com/clvv/fasd.git
+# > cd fasd
+# > sudo make install
 
 if type fasd >/dev/null 2>&1; then
   eval "$(fasd --init auto)"

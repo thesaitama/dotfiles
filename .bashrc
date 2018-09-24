@@ -6,7 +6,7 @@
 #  \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
 
 # thesaitama@ .bashrc
-# Last Update: 2018-09-24 08:44:18
+# Last Update: 2018-09-24 11:02:24
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -62,7 +62,7 @@ alias cleanupDS="find . -type f -name '*.DS_Store' -ls -delete"
 
 # macOS Only
 if [ "$(uname)" == 'Darwin' ]; then
-  alias ls='ls -avhplGF'  
+  alias ls='ls -avhplGF'
   # /Applications Alias (Mac OSX)
   alias ee='open -a /Applications/Emacs.app $1'
   alias syspref='open -a "System Preferences"'
@@ -132,10 +132,20 @@ c_reset="\[\033[00m\]"
 # ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
 # echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
 # ${c_blue}\\\$${c_reset} "
-export PS1="${c_reset}${c_green}\W/ \
+
+# default
+export PS1="${c_reset}${c_green}\u@\h: ${c_reset}${c_cyan}\W/ \
 ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
 echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
 ${c_blue}\\\$${c_reset} "
+
+# mac prompt
+if [ "$(uname)" == 'Darwin' ]; then
+  export PS1="${c_reset}${c_green}\W/ \
+${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
+echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
+${c_blue}\\\$${c_reset} "
+fi
 
 # ------------------------------------------------------------------------
 # git-completion

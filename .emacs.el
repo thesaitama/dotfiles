@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-02 12:01:13
+;; Last Update: 2018-09-23 22:33:47
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;;; Code:
@@ -89,6 +89,8 @@
     python-mode
     jedi
     elpy
+    omnisharp
+    ensime
     go-mode
     go-eldoc
     go-autocomplete
@@ -96,11 +98,13 @@
     racer
     company-racer
     flycheck-rust
+    julia-mode
     clojure-mode
     cider
     clj-refactor
     ess
     ess-R-data-view
+    powershell
     vbasense
     emacsql
     emacsql-mysql
@@ -123,6 +127,7 @@
     ac-helm
     auto-complete-nxml
     plantuml-mode
+    flycheck-plantuml
     bm
     helm-bm
     projectile
@@ -202,6 +207,7 @@
     (undo-tree-mode . "")
     (volatile-highlights-mode . "")
     (smooth-scroll-mode . "")
+    (emmet-mode . " Em")
     ;; Major modes
     (fundamental-mode . "Fund")
     (generic-mode . "Gen")
@@ -275,11 +281,16 @@
 
 (require 'elscreen)
 (elscreen-start)
-(elscreen-create)
 (setq elscreen-prefix-key (kbd "C-z"))
-(setq elscreen-display-tab nil)
-(setq elscreen-tab-display-kill-screen nil)
+(setq elscreen-display-tab 20)
+(if (not window-system)
+    (progn
+      (setq elscreen-display-tab nil)
+      ;; (elscreen-create)
+      )
+  )
 (setq elscreen-tab-display-control nil)
+(setq elscreen-tab-display-kill-screen nil)
 (setq elscreen-buffer-to-nickname-alist
       '(("^dired-mode$" .
          (lambda ()
@@ -578,7 +589,8 @@
      (add-hook hook
                '(lambda () (flyspell-mode 1))))
    '(
-     markdown-mode-hook
+     ;; markdown-mode-hook
+     text-mode-hook
      ))
 
 ;; (add-hook 'find-file-hook 'flyspell-mode)
@@ -660,12 +672,13 @@
 ;; ------------------------------------------------------------------------
 ;; shell-pop
 
-;; (setq shell-pop-shell-type '("eshell" "*eshell*" (lambda () (eshell))))
-;; (setq shell-pop-shell-type '("shell" "*shell*" (lambda () (shell))))
-;; (setq shell-pop-shell-type '("terminal" "*terminal*" (lambda () (term shell-pop-term-shell))))
-;; (setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
-
-(global-set-key (kbd "C-c s") 'shell-pop)
+(when (not (eq system-type 'windows-nt))
+  ;; (setq shell-pop-shell-type '("eshell" "*eshell*" (lambda () (eshell))))
+  ;; (setq shell-pop-shell-type '("shell" "*shell*" (lambda () (shell))))
+  (setq shell-pop-shell-type '("terminal" "*terminal*" (lambda () (term shell-pop-term-shell))))
+  ;; (setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
+  (global-set-key (kbd "C-c s") 'shell-pop)
+)
 
 ;; ------------------------------------------------------------------------
 ;; multi-term
@@ -703,6 +716,10 @@
 (push '(dired-mode :position top) popwin:special-display-config)
 (push '(compilation-mode :noselect t) popwin:special-display-config)
 (push '("*grep*" :noselect t) popwin:special-display-config)
+(push '("\\*e?shell\\*" :regexp t :height 15) popwin:special-display-config)
+(push '("*bash*" :height 15) popwin:special-display-config)
+(push '("*cmd.exe*" :height 15) popwin:special-display-config)
+(push '("*PowerShell*" :height 15) popwin:special-display-config)
 (push '("*compilation*" :height 15) popwin:special-display-config)
 (push '("*quickrun*" :height 15) popwin:special-display-config)
 (push '("*Flycheck errors*" :height 15) popwin:special-display-config)
@@ -710,9 +727,9 @@
 (push '("*ruby*" :height 15) popwin:special-display-config)
 (push '("*pry*" :height 15) popwin:special-display-config)
 (push '("\\*[Ii]?[Pp]ython.+" :regexp t :height 15) popwin:special-display-config)
-;; (push '("*Python*" :height 15) popwin:special-display-config)
 (push '("*SQL*" :height 15) popwin:special-display-config)
 (push '("*Ilist*" :height 15) popwin:special-display-config)
+(push '("*eww*" :height 20 :noselect t) popwin:special-display-config)
 (push '("*wclock*" :height 7) popwin:special-display-config)
 (push '(" *undo-tree*" :width 0.2 :position right) popwin:special-display-config)
 (push '("\\*docker\\-.+" :regexp t :height 15) popwin:special-display-config)
@@ -855,17 +872,20 @@
  '(helm-header ((t (:background "Gray40" :foreground "Gray80"))))
  '(helm-match ((t (:foreground "cyan"))))
  '(helm-selection ((t (:background "Gray30"))))
+ '(helm-selection-line ((t (:background "Gray20"))))
+ '(helm-visible-mark ((t (:background "Gray40"))))
  '(helm-source-header ((t (:background "DarkCyan" :foreground "white"))))
+ '(header-line ((t (:background "Gray40" :foreground "Gray85"))))
  '(highlight-symbol-face ((t (:background "Gray25"))))
  '(hl-line ((t (:background "color-236"))))
- '(holiday ((t (:background "pink"))))
+ '(holiday ((t (:background "pink" :foreground "black"))))
  '(isearch ((t (:background "LightPink" :foreground "black"))))
  '(japanese-holiday-saturday ((t (:background "cyan" :foreground "black"))))
  '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))
  '(link ((t (:foreground "cyan"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
- '(magit-branch-remote ((t (:foreground "blue"))))
+ '(magit-branch-remote ((t (:foreground "Cornflower"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
  '(magit-diff-added ((((type tty)) (:foreground "green"))))
  '(magit-diff-added-highlight ((((type tty)) (:foreground "LimeGreen"))))
@@ -873,8 +893,9 @@
  '(magit-diff-file-heading ((((type tty)) nil)))
  '(magit-diff-removed ((((type tty)) (:foreground "red"))))
  '(magit-diff-removed-highlight ((((type tty)) (:foreground "IndianRed"))))
- '(magit-log-author ((t (:foreground "magenta"))))
+ '(magit-log-author ((t (:foreground "magentap"))))
  '(magit-section-highlight ((t (:background "Gray23"))))
+ '(magit-section-heading ((t (:foreground "cyan" :weight bold))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1))))
  '(markdown-header-face-2 ((t (:inherit outline-2))))
@@ -882,15 +903,17 @@
  '(markdown-header-face-4 ((t (:inherit outline-4))))
  '(markdown-header-face-5 ((t (:inherit outline-5))))
  '(markdown-header-face-6 ((t (:inherit outline-6))))
- '(markdown-pre-face ((t (:foreground "ivory"))))
+ '(markdown-code-face ((t (:inherit default :background "Gray20"))))
+ '(markdown-pre-face ((t (:inherit font-lock-constant-face))))
+ '(markdown-inline-code-face ((t (:inherit font-lock-constant-face))))
  '(menu ((t (:background "Gray30"))))
  '(minibuffer-prompt ((t (:foreground "cyan"))))
  '(nxml-attribute-local-name ((t (:foreground "LightBlue"))))
- '(nxml-attribute-value ((t (:foreground "yellow"))))
+ '(nxml-attribute-value ((t (:foreground "Goldenrod"))))
  '(nxml-cdata-section-content ((t (:foreground "gray"))))
- '(nxml-comment-content ((t (:foreground "gree"))))
+ '(nxml-comment-content ((t (:inherit font-lock-comment-face))))
  '(nxml-comment-delimiter ((t (:foreground "green"))))
- '(nxml-element-local-name ((t (:foreground "blue"))))
+ '(nxml-element-local-name ((t (:foreground "cyan"))))
  '(nxml-entity-ref-delimiter ((t (:foreground "red"))))
  '(nxml-entity-ref-name ((t (:foreground "red"))))
  '(nxml-name-face ((t (:foreground "cyan"))))
@@ -902,31 +925,41 @@
  '(outline-5 ((t (:foreground "goldenrod" :weight bold))))
  '(outline-6 ((t (:foreground "orange"))))
  '(outline-7 ((t (:foreground "goldenrod"))))
- '(package ((t (:foreground "cyan"))))
- '(package-name ((t (:foreground "cyan"))))
+ '(package ((t (:foreground "DodgerBlue"))))
+ '(package-name ((t (:foreground "DodgerBlue"))))
  '(pulse-highlight-face ((t (:background "Gray35"))))
  '(pulse-highlight-start-face ((t (:background "Gray35"))))
  '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
  '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
  '(region ((t (:background "Gray40"))))
+ '(rst-level-1 ((t (:inherit outline-1))))
+ '(rst-level-2 ((t (:inherit outline-2))))
+ '(rst-level-3 ((t (:inherit outline-3))))
+ '(rst-level-4 ((t (:inherit outline-4))))
+ '(rst-level-5 ((t (:inherit outline-5))))
+ '(rst-level-6 ((t (:inherit outline-6))))
+ '(show-paren-match ((t (:background "DodgerBlue" :foreground "white"))))
  '(show-paren-match-face ((t (:background "black" :foreground "white"))))
  '(show-paren-mismatch ((t (:background "red"))))
+ '(show-paren-match-expression ((t (:background "Gray25"))))
  '(tide-hl-identifier-face ((t (:background "Gray28"))))
  '(tool-bar ((t (:foreground "cyan"))))
  '(tty-menu-disabled-face ((t (:background "Gray45" :foreground "Gray10"))))
  '(tty-menu-enabled-face ((t (:background "Gray45" :foreground "White"))))
  '(tty-menu-selected-face ((t (:background "SteelBlue" :foreground "White"))))
- '(web-mode-comment-face ((t (:foreground "green"))))
+ '(web-mode-comment-face ((t (:inherit font-lock-comment-face))))
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
- '(web-mode-css-pseudo-class ((t (:foreground "blue"))))
- '(web-mode-css-selector-face ((t (:foreground "blue"))))
- '(web-mode-doctype-face ((t (:foreground "glay"))))
+ '(web-mode-css-pseudo-class ((t (:foreground "DodgerBlue"))))
+ '(web-mode-css-selector-face ((t (:foreground "DodgerBlue"))))
+ '(web-mode-doctype-face ((t (:inherit font-lock-doc-face))))
  '(web-mode-html-attr-equal-face ((t (:foreground "white"))))
  '(web-mode-html-attr-name-face ((t (:foreground "LightBlue"))))
- '(web-mode-html-attr-value-face ((t (:foreground "yellow"))))
+ '(web-mode-html-attr-value-face ((t (:inherit font-lock-string-face))))
  '(web-mode-html-tag-bracket-face ((t (:foreground "LightBlue"))))
- '(web-mode-html-tag-face ((t (:foreground "blue"))))
+ '(web-mode-html-tag-face ((t (:foreground "cyan"))))
+ '(web-mode-html-entity-face ((t (:foreground "DodgerBlue"))))
  '(web-mode-server-comment-face ((t (:foreground "green"))))
+ '(web-mode-current-element-highlight-face ((t (:background "Gray25"))))
  '(which-func ((t (:foreground "ivory"))))
  '(which-key-command-description-face ((t (:foreground "white")))))
 
@@ -957,7 +990,7 @@
     (helm-source-buffers-list helm-source-recentf helm-source-projectile-files-list)))
  '(package-selected-packages
    (quote
-    (ssh plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
+    (powershell flycheck-plantuml ssh plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
  '(popwin-mode t)
  '(reb-re-syntax (quote foreign-regexp))
  '(shell-pop-full-span t)

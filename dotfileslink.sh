@@ -38,6 +38,9 @@ ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
 ln -s ~/dotfiles/pip.conf ~/pip.conf
 ln -s ~/dotfiles/.flake8 ~/.flake8
 
+# java
+ln -s ~/dotfiles/sbt ~/.sbt
+
 # javascript
 ln -s ~/dotfiles/.eslintrc ~/.eslintrc
 ln -s ~/dotfiles/.tern-config ~/.tern-config

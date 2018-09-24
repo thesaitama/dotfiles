@@ -13,7 +13,7 @@
 (setq editorconfig-get-properties-function
       'editorconfig-core-get-properties-hash)
 
-;; if you need editorconfig excutables
+;; if you need editorconfig executable
 ;; > sudo port install editorconfig-core-c
 ;; (setq edconf-exec-path "/opt/local/bin/editorconfig")
 
@@ -177,14 +177,16 @@
 ;; ------------------------------------------------------------------------
 ;; web-mode + emmet-mode, ac-emmet
 
-(require 'web-mode)
+;; (require 'web-mode)
+(autoload 'web-mode "web-mode" nil t)
 (setq auto-mode-alist
       (append
        '(
          ("\\.as[cp]x$" . web-mode)
          ("\\.iht$" . web-mode)
-         ("\\.jsp$" . web-mode)
-         ("\\.x?html?$" . web-mode)
+         ("\\.[agj]sp$" . web-mode)
+         ("\\.erb$" . web-mode)
+         ("\\.[xp]?html?$" . web-mode)
          ("\\(\\.sass\\|\\.s?css\\)$" . web-mode)
          )
        auto-mode-alist))
@@ -200,7 +202,7 @@
   (setq web-mode-asp-offset 2)
   (setq indent-tabs-mode nil)
   (setq tab-width 2)
-  ;;(auto-complete-mode t)
+  ;; (auto-complete-mode t)
   (emmet-mode)
   (ac-emmet-html-setup))
 (add-hook 'web-mode-hook 'web-mode-hook)
@@ -209,7 +211,7 @@
 (setq web-mode-enable-auto-pairing nil)
 (setq web-mode-enable-current-element-highlight t)
 (setq web-mode-enable-current-column-highlight t)
-;;(setq web-mode-enable-css-colorization t)
+;; (setq web-mode-enable-css-colorization t)
 
 (setq web-mode-ac-sources-alist
       '(("php" . (ac-source-yasnippet ac-source-php-auto-yasnippets))
@@ -243,7 +245,8 @@
 ;; ------------------------------------------------------------------------
 ;; js2-mode
 
-(require 'js2-mode)
+;; (require 'js2-mode)
+(autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode))
 (add-hook 'js2-mode-hook
@@ -405,7 +408,7 @@
 ;; R
 ;; see. https://y-mattu.hatenablog.com/entry/rstudio_emacs
 
-(when (require 'ess-site nil t))
+;; (when (require 'ess-site nil t))
 
 (autoload 'R-mode "ess-site" "Emacs Speaks Statistics mode" t)
 (autoload 'R "ess-site" "start R" t)
@@ -457,7 +460,8 @@
 ;; ------------------------------------------------------------------------
 ;; auto-complete-acr
 
-(when (require 'auto-complete-acr nil t))
+;; (when (require 'auto-complete-acr nil t))
+(autoload 'auto-complete-acr "auto-complete-acr" nil t)
 
 ;; ------------------------------------------------------------------------
 ;; go-mode
@@ -510,25 +514,76 @@
 ;; > sudo port install clojure leiningen
 
 ;; ------------------------------------------------------------------------
+;; omnisharp-mode
+
+(eval-after-load
+  'company
+  '(add-to-list 'company-backends #'company-omnisharp))
+
+(defun my-csharp-mode-setup ()
+  (omnisharp-mode)
+  (company-mode)
+  (flycheck-mode)
+
+  (setq indent-tabs-mode nil)
+  (setq c-syntactic-indentation t)
+  (c-set-style "ellemtel")
+  (setq c-basic-offset 4)
+  (setq truncate-lines t)
+  (setq tab-width 4)
+  (setq evil-shift-width 4)
+
+  ;csharp-mode README.md recommends this too
+  ;(electric-pair-mode 1)       ;; Emacs 24
+  ;(electric-pair-local-mode 1) ;; Emacs 25
+
+  (local-set-key (kbd "C-c r r") 'omnisharp-run-code-action-refactoring)
+  (local-set-key (kbd "C-c C-c") 'recompile))
+
+(add-hook 'csharp-mode-hook 'my-csharp-mode-setup t)
+
+;; M-x omnisharp-install-server
+
+;; ------------------------------------------------------------------------
+;; bat-mode
+
+;; (when (require 'dostbat nil t)
+(autoload 'bat-mode "bat-mode" "bat-mode" t)
+(add-to-list 'auto-mode-alist '("\\(\\.bat\\|\\.cmd\\)$" . bat-mode))
+;; )
+
+;; ------------------------------------------------------------------------
+;; power-shell-mode
+
+(defun setup-powershell-mode ()
+  "Setup PowerShell Mode."
+  (interactive)
+  (company-mode +1))
+
+(add-hook 'powershell-mode-hook #'setup-powershell-mode)
+
+;; ------------------------------------------------------------------------
 ;; visual-basic-mode
 
-(when (require 'visual-basic-mode nil t)
-  (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
-  (add-to-list
-   'auto-mode-alist '("\\(\\.frm\\|\\.bas\\|\\.cls\\)$" . visual-basic-mode))
-  )
+;; (when (require 'visual-basic-mode nil t)
+(autoload 'visual-basic-mode "visual-basic-mode" nil t)
+(add-to-list
+ 'auto-mode-alist '("\\(\\.frm\\|\\.bas\\|\\.vb[as]\\|\\.cls\\)$" . visual-basic-mode))
+
 (add-hook 'visual-basic-mode-hook
-            '(lambda ()
-               (auto-complete-mode t)
-               (require 'vbasense)
-               (vbasense-config-default)
-               )
-            )
+          '(lambda ()
+             (auto-complete-mode t)
+             (require 'vbasense)
+             (vbasense-config-default)
+             )
+          )
+;; )
 
 ;; ------------------------------------------------------------------------
 ;; helm-gtags
 
-(require 'helm-gtags)
+;; (require 'helm-gtags)
+(autoload 'helm-gtags "helm-gtags" nil t)
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
 (add-hook 'c-mode-hook 'helm-gtags-mode)
 (add-hook 'go-mode-hook 'helm-gtags-mode)
@@ -577,16 +632,30 @@
 ;; (setq plantuml-output-type "svg")
 (setq plantuml-options "-charset UTF-8")
 
+;; flycheck-plantuml
+(with-eval-after-load 'flycheck
+  (require 'flycheck-plantuml)
+  (flycheck-plantuml-setup))
+
+;; ------------------------------------------------------------------------
+;; rst-mode
+
+;; (when (require 'rst-mode nil t)
+(autoload 'rst-mode "rst-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\(\\.rst\\|\\.rest\\)$" . rst-mode))
+;; )
+
 ;; ------------------------------------------------------------------------
 ;; yasnippet
 
 (yas-global-mode 1)
 (setq yas-prompt-functions '(yas-ido-prompt))
 
-(require 'helm-c-yasnippet)
+;; (require 'helm-c-yasnippet)
+(autoload 'helm-c-yasnippet "helm-c-yasnippet" nil t)
 (setq helm-yas-space-match-any-greedy t)
-(global-set-key (kbd "C-c y") 'helm-yas-complete)
 (push '("emacs.+/snippets/" . snippet-mode) auto-mode-alist)
+(global-set-key (kbd "C-c y") 'helm-yas-complete)
 
 ;; ------------------------------------------------------------------------
 ;; magit
@@ -599,7 +668,8 @@
 ;; ------------------------------------------------------------------------
 ;; magit-find-file
 
-(require 'magit-find-file)
+;; (require 'magit-find-file)
+(autoload 'magit-find-file "magit-find-file" nil t)
 
 ;; ------------------------------------------------------------------------
 ;; quickrun
@@ -622,7 +692,8 @@
 ;; ------------------------------------------------------------------------
 ;; git-complete
 
-(require 'git-complete)
+;; (require 'git-complete)
+(autoload 'git-complete "git-complete" nil t)
 (global-set-key (kbd "M-g j") 'git-complete)
 
 ;; ------------------------------------------------------------------------

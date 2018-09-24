@@ -1,0 +1,17 @@
+
+#   ________  _____  ___  __
+#  /_  __/  |/  / / / / |/ /
+#   / / / /|_/ / / / /|   /
+#  / / / /  / / /_/ //   |
+# /_/ /_/  /_/\____//_/|_|
+
+# thesaitama@ .tmux.conf.pbs
+
+# other OS
+
+# ------------------------------------------------------------------------
+# pane-border-status
+
+set -g pane-border-status top
+set -g pane-border-format "#[fg=default,fg=blue]#{?pane_active,#[reverse],} #P #[default]"
+set -ag pane-border-format "#(tmux-pane-border #{pane_current_path})"

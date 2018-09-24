@@ -42,11 +42,12 @@
 
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-t") 'other-window)
+(global-set-key (kbd "C-x C-o") 'other-window)
 ;; replace list-buffers
 (global-set-key (kbd "C-x C-b") 'bs-show)
-(if (>= emacs-major-version 25)
-    (global-set-key (kbd "C-x C-b") 'buffer-menu-open)
-)
+;; (if (>= emacs-major-version 25)
+;;     (global-set-key (kbd "C-x C-b") 'buffer-menu-open)
+;; )
 
 ;; ------------------------------------------------------------------------
 ;; ediff
@@ -94,6 +95,38 @@
     (if font-lock-mode
         nil
       (font-lock-mode t))))
+
+;; ------------------------------------------------------------------------
+;; my-make-scratch
+
+;; http://www.jaist.ac.jp/~n-yoshi/tips/elisp_tips.html#scratch
+
+(defun my-make-scratch (&optional arg)
+  (interactive)
+  (progn
+    ;; create "*scratch*" buffer
+    (set-buffer (get-buffer-create "*scratch*"))
+    (funcall initial-major-mode)
+    (erase-buffer)
+    (when (and initial-scratch-message (not inhibit-startup-message))
+      (insert initial-scratch-message))
+    (or arg (progn (setq arg 0)
+                   (switch-to-buffer "*scratch*")))
+    (cond ((= arg 0) (message "*scratch* is cleared up."))
+          ((= arg 1) (message "another *scratch* is created")))))
+
+(add-hook 'kill-buffer-query-functions
+          ;; when kill *scratch* kill-buffer, just content delete
+          (lambda ()
+            (if (string= "*scratch*" (buffer-name))
+                (progn (my-make-scratch 0) nil)
+              t)))
+
+(add-hook 'after-save-hook
+          ;; if user create *scratch* buffer and create new one
+          (lambda ()
+            (unless (member (get-buffer "*scratch*") (buffer-list))
+              (my-make-scratch 1))))
 
 ;; ------------------------------------------------------------------------
 ;; UI / UX
@@ -314,6 +347,7 @@
 
 (require 'wdired)
 (define-key dired-mode-map "e" 'wdired-change-to-wdired-mode)
+(setq wdired-allow-to-change-permissions t)
 
 (add-hook 'dired-load-hook (lambda () (load "dired-x")))
 
@@ -404,67 +438,9 @@
 ;; ------------------------------------------------------------------------
 ;; Window System
 
-(cond
- (window-system
-
-  (load-theme 'wombat t)
-
-  (setq initial-frame-alist
-        (append (list
-                 '(border-color . "#353535")
-                 '(mouse-color . "#f9f8f0")
-                 '(menu-bar-lines . 1)
-                 )
-                initial-frame-alist))
-  (setq default-frame-alist
-        (append (list
-                 '(background-color . "#272727")
-                 '(foreground-color . "#f9f8f0")
-                 '(cursor-color . "#f9f8f0")
-                 )
-                default-frame-alist))
-
-  (set-frame-parameter nil 'alpha 93)
-
-  ;; GUI background
-  (set-face-background 'default "#333333")
-
-  ;; font-lock
-  (set-face-foreground 'font-lock-type-face "#feb008")
-  (set-face-foreground 'font-lock-builtin-face "#b998d2")
-  (set-face-foreground 'font-lock-comment-face "#8ec46e")
-  (set-face-foreground 'font-lock-comment-delimiter-face "#8ec46e")
-  (set-face-foreground 'font-lock-string-face "#fd8507")
-  (set-face-foreground 'font-lock-keyword-face "#5faadc")
-  (set-face-foreground 'font-lock-function-name-face "#feb008")
-  (set-face-foreground 'font-lock-variable-name-face "#dcbb23")
-  (set-face-foreground 'font-lock-constant-face "#dcbb23")
-  (set-face-foreground 'font-lock-preprocessor-face "#dcbb23")
-  (set-face-foreground 'font-lock-warning-face "#daa0b5")
-  (set-face-foreground 'tool-bar "#50a3b1")
-  (set-face-background 'region "#b5dad9")
-  (set-face-foreground 'isearch "#f9f8f0")
-  (set-face-background 'isearch "#daa0b5")
-  (set-face-foreground 'minibuffer-prompt "#69afde")
-  (set-face-foreground 'fringe "#cccccc")
-  (set-face-background 'fringe "#222222")
-  (set-face-foreground 'mode-line "#777777")
-  (set-face-background 'mode-line "#434944")
-
-  ;; (set-face-background 'highlight-symbol-face "Gray30")
-  (set-face-background 'hl-line "Gray25")
-  (set-face-background 'region "Gray50")
-
-  ;; clipboard
-  (setq x-select-enable-clipboard t)
-
-  ;; UI items
-  (tool-bar-mode 0)
-  (scroll-bar-mode 0)
-
-  (global-set-key (kbd "C-x C-b") 'bs-show)
-
-  )
+;; if user run window system
+(cond (window-system
+  (load-if-exist "~/dotfiles/elisp/cnf-basics-win.el"))
 )
 
 ;; ------------------------------------------------------------------------

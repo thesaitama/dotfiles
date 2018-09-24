@@ -89,9 +89,9 @@
 
 (require 'tabbar)
 (tabbar-mode 0)
-(tabbar-mwheel-mode nil)                  ;; マウスホイール無効
-(setq tabbar-buffer-groups-function nil)  ;; グループ無効
-(setq tabbar-use-images nil)              ;; 画像を使わない
+(tabbar-mwheel-mode nil)                  ;; disable mouse wheel
+(setq tabbar-buffer-groups-function nil)  ;; disable groups
+(setq tabbar-use-images nil)              ;; do not use images
 (global-set-key (kbd "<f7>") 'tabbar-backward-tab)
 (global-set-key (kbd "<f8>") 'tabbar-forward-tab)
 (dolist (btn '(tabbar-buffer-home-button
@@ -119,8 +119,8 @@
                      ((eq (current-buffer) b) b)
                      ((buffer-file-name b) b)
                      ((char-equal ?\  (aref (buffer-name b) 0)) nil)
-                     ((equal "*scratch*" (buffer-name b)) b) ; *scratch*バッファは表示する
-                     ((char-equal ?* (aref (buffer-name b) 0)) nil) ; それ以外の * で始まるバッファは表示しない
+                     ((equal "*scratch*" (buffer-name b)) b) ; show *scratch*
+                     ((char-equal ?* (aref (buffer-name b) 0)) nil) ; hide other * buffer
                      ((buffer-live-p b) b)))
                 (buffer-list))))
 (setq tabbar-buffer-list-function 'my-tabbar-buffer-list)

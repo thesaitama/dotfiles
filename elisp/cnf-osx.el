@@ -41,9 +41,10 @@
 (setq interprogram-paste-function 'copy-from-osx)
 
 ;; ------------------------------------------------------------------------
-;; mac quick-lock
+;; mac dired
 
 (defun open-mac (path)
+  "Open specified PATH with open."
   (start-process "dired-open-mac" nil "open" path))
 
 (defun quicklook-file (path)
@@ -55,8 +56,8 @@
   (setq cur (start-process "ql-file" nil "qlmanage" "-p" path))
   (when old (delete-process old)))
 
-(defun my-dired-open ()
-  "Open by dired."
+(defun my-dired-open-osx ()
+  "Open by dired (OSX)."
   (interactive)
   (let ((exts-ql   '("jpeg" "jpg" "png" "gif" "tiff"))
         (exts-open '("avi" "mkv" "mp4" "mts" "psd" "ai" "pdf")))
@@ -73,8 +74,8 @@
   )
 
 (add-hook 'dired-mode-hook
-          '(lambda ()
-             (define-key dired-mode-map "o" 'my-dired-open)))
+          '(lambda()
+             (define-key dired-mode-map "o" 'my-dired-open-osx)))
 
 ;; ------------------------------------------------------------------------
 ;; osx-trash
@@ -104,9 +105,11 @@
   (set-face-attribute 'default nil :family "Menlo" :height 130)
   (set-fontset-font (frame-parameter nil 'font)
                     'japanese-jisx0208
-                    (font-spec :family "Hiragino Maru Gothic ProN"))
+                    (font-spec :family "Ricty Diminished for Powerline"))
   (add-to-list 'face-font-rescale-alist
-               '(".*Hiragino Maru Gothic ProN.*" . 1.2))
+               '(".*Ricty Diminished for Powerline.*" . 1.3))
+  ;; font list Snippet
+  ;; (dolist (x (x-list-fonts "*")) (print x))
 
   (setq-default line-spacing 0.3)
 
@@ -120,6 +123,9 @@
   ;; key
   (setq ns-command-modifier (quote super))
   (setq ns-alternate-modifier (quote meta))
+
+  ;; menu-bar
+  (menu-bar-mode 1)
 
   (when (functionp 'mac-auto-ascii-mode)
     (mac-auto-ascii-mode 1))
@@ -170,6 +176,12 @@
 
 ;; set start python3
 (use-system-python3)
+
+;; ------------------------------------------------------------------------
+;; Java
+
+(setenv "JDK_HOME" "/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home")
+(setenv "JAVA_HOME" "/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home")
 
 ;; ------------------------------------------------------------------------
 ;; plantuml-mode

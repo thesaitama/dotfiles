@@ -6,7 +6,7 @@
 #  \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
 
 # thesaitama@ .bashrc
-# Last Update: 2018-04-05 22:23:43
+# Last Update: 2018-09-24 11:17:33
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -38,13 +38,19 @@ alias e='emacsclient -nw -a ""'
 alias e256='TERM=screen-256color emacsclient -nw -a ""'
 alias emacs='emacsclient -nw -a ""'
 alias minimacs='\emacs -q -l ~/dotfiles/elisp/minimacs.el'
+alias ekill='emacsclient -e "(kill-emacs)"'
 
-alias ls='ls -avhplGF'
+alias ls='ls -avhpl --color'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 
 alias g='git'
 alias ..='cd ..'
+
+alias j='jobs -l'
+
+alias javac='javac -J-Dfile.encoding=UTF-8'
+alias java='java -Dfile.encoding=UTF-8'
 
 alias c='pygmentize -O encoding=utf-8 -O style=monokai -f terminal256 -g'
 cl() {
@@ -56,7 +62,9 @@ alias cleanupDS="find . -type f -name '*.DS_Store' -ls -delete"
 
 # macOS Only
 if [ "$(uname)" == 'Darwin' ]; then
+  alias ls='ls -avhplGF'
   # /Applications Alias (Mac OSX)
+  alias ee='open -a /Applications/Emacs.app $1'
   alias syspref='open -a "System Preferences"'
   alias reminders='open -a reminders'
   alias chrome='open -a google\ chrome'
@@ -124,10 +132,20 @@ c_reset="\[\033[00m\]"
 # ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
 # echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
 # ${c_blue}\\\$${c_reset} "
-export PS1="${c_reset}${c_green}\W/ \
+
+# default
+export PS1="${c_reset}${c_green}\u@\h: ${c_reset}${c_cyan}\W/ \
 ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
 echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
 ${c_blue}\\\$${c_reset} "
+
+# mac prompt
+if [ "$(uname)" == 'Darwin' ]; then
+  export PS1="${c_reset}${c_green}\W/ \
+${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
+echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
+${c_blue}\\\$${c_reset} "
+fi
 
 # ------------------------------------------------------------------------
 # git-completion
@@ -232,6 +250,18 @@ wikitionary() {
   w3m https://en.wiktionary.org/wiki/$opt
 }
 
+weblio() {
+  local str opt
+  if [ $# != 0 ]; then
+    for i in $*; do
+      str="$str+$i"
+    done
+    str=`echo $str | sed 's/^\+//'`
+    opt="${str}"
+  fi
+  w3m https://ejje.weblio.jp/content/$opt
+}
+
 # ------------------------------------------------------------------------
 # bash-completion
 # > sudo port install bash-completion
@@ -243,16 +273,13 @@ if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
 fi
 
 # ------------------------------------------------------------------------
-# autojump
-# > sudo port install autojump
-
-# if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
-#   . /opt/local/etc/profile.d/autojump.sh
-# fi
-
-# ------------------------------------------------------------------------
 # fasd
 # > sudo port install fasd
+# or
+# > mkdir ~/src/
+# > git clone https://github.com/clvv/fasd.git
+# > cd fasd
+# > sudo make install
 
 if type fasd >/dev/null 2>&1; then
   eval "$(fasd --init auto)"

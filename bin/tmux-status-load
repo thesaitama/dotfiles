@@ -1,6 +1,10 @@
 #!/bin/bash
 
 # load-average
-load_avg="#[default]#[bg=colour242] $(uptime | awk '{print $(NF-2)}') #[default]"
+if [ "$(uname)" == "Darwin" ]; then
+  load_avg="#[default]#[bg=colour242] $(uptime | awk '{print $(NF-2)}') #[default]"
+else
+  load_avg="#[default]#[bg=colour242] $(uptime | sed -E 's/.*load average: ([0-9]{1,3}\.[0-9][0-9]).*/\1/g') #[default]"
+fi
 
 echo "${load_avg}"

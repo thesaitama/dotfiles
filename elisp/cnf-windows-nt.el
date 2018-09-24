@@ -7,13 +7,36 @@
 ;;; Code:
 
 ;; ------------------------------------------------------------------------
+;; path
+
+(add-to-list 'exec-path "C:/Program Files/Git/usr/bin")
+;; (add-to-list 'exec-path "C:/Program Filee/PuTTY")
+;; (add-to-list 'exec-path "C:/Program Files/Aspell/bin")
+
+;; ------------------------------------------------------------------------
+;; Windows confing
+
+(setq default-directory "~/../../Desktop/")
+
+;; clipboard
+(set-clipboard-coding-system 'utf-16le)
+
+;; special keys
+(setq w32-pass-lwindow-to-system nil)
+(setq w32-lwindow-modifier 'super)
+(setq w32-pass-apps-to-system nil)
+(setq w32-apps-modifier 'hyper)
+
+;; speedup?
+(setq w32-get-true-file-attributes nil)
+
+;; ------------------------------------------------------------------------
 ;; GUI
 
 (if window-system
     (progn
 
       ;; font
-
       (set-face-attribute 'default nil :family "Consolas" :height 100)
       ;; (set-face-attribute 'default nil :family "Inconsolata" :height 120)
       ;; (set-face-attribute 'default nil :family "MS Gothic" :height 100)
@@ -37,7 +60,28 @@
                           (deactivate-input-method)
                           (apply orig-fun args))))
 
-  ))
+      ))
+
+;; ------------------------------------------------------------------------
+;; win dired
+
+(defun open-win (path)
+  "Open specified PATH with shell-execute."
+  (w32-shell-execute "open" path))
+
+(defun my-dired-open-win ()
+  "Open by dired (win)."
+  (interactive)
+  (cond ((file-accessible-directory-p (dired-get-file-for-visit))
+         (call-interactively 'dired-find-alternate-file))
+        (t
+         (funcall 'open-win(dired-get-file-for-visit)))
+        )
+  )
+
+(add-hook 'dired-mode-hook
+          '(lambda()
+             (define-key dired-mode-map "o" 'my-dired-open-win)))
 
 ;; ------------------------------------------------------------------------
 ;; elpy (python-mode) for Windows
@@ -67,7 +111,7 @@
   (interactive)
   (setq python-shell-interpreter "C:/ProgramData/Anaconda3/Scripts/ipython")
   (setq python-check-command "C:/ProgramData/Anaconda3/Scripts/pyflakes")
-  (setq elpy-rpc-python-command "C:/ProgramData/Anaconda3/python3")
+  (setq elpy-rpc-python-command "C:/ProgramData/Anaconda3/python")
   (setq elpy-rpc-pythonpath  "C:/ProgramData/Anaconda3/Lib/site-packages")
   ;; (setq flycheck-python-flake8-executable "<path_to>/flake8")
   )
@@ -76,11 +120,10 @@
 (use-anaconda-python3)
 
 ;; ------------------------------------------------------------------------
-;; path
+;; Java
 
-(add-to-list 'exec-path "C:/Program Files/Git/usr/bin")
-;; (add-to-list 'exec-path "C:/Program Filee/PuTTY")
-;; (add-to-list 'exec-path "C:/Program Files/Aspell/bin")
+;; (setenv "JDK_HOME" "<path_to_jdk>")
+;; (setenv "JAVA_HOME" "<path_to_jdk>")
 
 ;; ------------------------------------------------------------------------
 ;; shell
@@ -94,6 +137,28 @@
 ;;             (replace-regexp-in-string "\\\\" "/"
 ;;                 (replace-regexp-in-string "\\([A-Za-z]\\):" "/\\1"
 ;;                     (getenv "PATH"))))))
+
+
+(defun run-bash ()
+  "Run bash."
+  (interactive)
+  (let ((shell-file-name "C:/Program Files/Git/bin/bash.exe"))
+    (shell "*bash*")))
+
+(defun run-powershell ()
+  "Run PowerShell."
+  (interactive)
+  (async-shell-command "c:/windows/system32/WindowsPowerShell/v1.0/powershell.exe -Command -"
+                       nil
+                       nil))
+
+(defun run-cmdexe ()
+  "Run Windows cmd.exe."
+  (interactive)
+  (let ((shell-file-name "cmd.exe"))
+    (shell "*cmd.exe*")))
+
+(global-set-key (kbd "C-c s") 'run-cmdexe)
 
 ;; ------------------------------------------------------------------------
 

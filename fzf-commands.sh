@@ -154,11 +154,12 @@ ftpane() {
 # ------------------------------------------------------------------------
 # fasd
 
-v() {
+av() {
     [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
     local file
     file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
 }
+
 unalias z
 z() {
   if [[ -z "$*" ]]; then

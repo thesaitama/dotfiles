@@ -268,6 +268,22 @@ weblio() {
 }
 
 # ------------------------------------------------------------------------
+# color-test
+
+colortest_256() {
+  for i in {0..255} ; do
+    printf "\x1b[48;5;%sm%3d\e[0m " "$i" "$i"
+    if (( i == 15 )) || (( i > 15 )) && (( (i - 15) % 12 == 0 )); then
+      printf "\n";
+    fi
+  done
+}
+
+colortest_tc() {
+  ~/dotfiles/terminfo/true_color_test.sh
+}
+
+# ------------------------------------------------------------------------
 # bash-completion
 # > sudo port install bash-completion
 # path: /opt/local/etc/bash_completion.d

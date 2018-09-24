@@ -10,6 +10,12 @@
 # other OS
 
 # ------------------------------------------------------------------------
+# window-status (override)
+
+setw -g window-status-format "#[bg=colour242] #I:#P #W #[default]"
+setw -g window-status-current-format "#[bg=colour064] #I:#P #W#F #[default]"
+
+# ------------------------------------------------------------------------
 # key bind
 
 bind-key o run-shell "xdg-open '#{pane_current_path}'"

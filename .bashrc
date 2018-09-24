@@ -61,7 +61,7 @@ alias cl=cl
 alias cleanupDS="find . -type f -name '*.DS_Store' -ls -delete"
 
 # macOS Only
-if [ "$(uname)" == 'Darwin' ]; then
+if [ "$PLATFORM" = "osx" ]; then
   alias ls='ls -avhplGF'
   # /Applications Alias (Mac OSX)
   alias ee='open -a /Applications/Emacs.app $1'
@@ -72,6 +72,11 @@ if [ "$(uname)" == 'Darwin' ]; then
   # macOS Finder
   alias finderShowH='defaults write com.apple.finder ShowAllFiles TRUE'
   alias finderHideH='defaults write com.apple.finder ShowAllFiles FALSE'
+fi
+
+# Linux Only
+if [ "$PLATFORM" = "linux" ]; then
+  eval `dircolors ~/.colorrc`
 fi
 
 # ------------------------------------------------------------------------
@@ -140,7 +145,7 @@ echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
 ${c_blue}\\\$${c_reset} "
 
 # mac prompt
-if [ "$(uname)" == 'Darwin' ]; then
+if [ "$PLATFORM" = "osx" ]; then
   export PS1="${c_reset}${c_green}\W/ \
 ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
 echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
@@ -150,7 +155,7 @@ fi
 # ------------------------------------------------------------------------
 # git-completion
 
-if [ "$(uname)" == 'Darwin' ]; then
+if [ "$PLATFORM" = "osx" ]; then
   if [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ]; then
     source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
   fi

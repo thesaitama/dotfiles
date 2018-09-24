@@ -6,7 +6,7 @@
 #  \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
 
 # thesaitama@ .bashrc
-# Last Update: 2018-09-24 22:08:02
+# Last Update: 2018-09-24 22:25:01
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -69,7 +69,7 @@ alias sshx="TERM=xterm-256color ssh"
 alias e='emacsclient -nw -a ""'
 alias e256='TERM=screen-256color emacsclient -nw -a ""'
 alias emacs='emacsclient -nw -a ""'
-alias minimacs='emacs -q -l ~/dotfiles/elisp/minimacs.el'
+alias minimacs='\emacs -q -l ~/dotfiles/elisp/minimacs.el'
 alias ekill='emacsclient -e "(kill-emacs)"'
 
 alias ls='ls -avhpl --color'

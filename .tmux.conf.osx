@@ -17,7 +17,7 @@ bind-key o run-shell "open '#{pane_current_path}'"
 # ------------------------------------------------------------------------
 # copy-mode
 
-set -g default-command "reattach-to-user-namespace -l ${SHELL}"
+# set -g default-command "reattach-to-user-namespace -l ${SHELL}"
 
 unbind -T copy-mode 'C-w'
 unbind -T copy-mode 'M-w'

@@ -43,6 +43,7 @@
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-t") 'other-window)
 (global-set-key (kbd "C-x C-o") 'other-window)
+(global-set-key (kbd "C-x p") (lambda () (interactive) (other-window -1)))
 ;; replace list-buffers
 (global-set-key (kbd "C-x C-b") 'bs-show)
 ;; (if (>= emacs-major-version 25)

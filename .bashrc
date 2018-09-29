@@ -6,7 +6,7 @@
 #  \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
 
 # thesaitama@ .bashrc
-# Last Update: 2018-09-24 22:25:01
+# Last Update: 2018-09-29 15:29:06
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -23,11 +23,8 @@ export LESS='-g -i -M -R -S -W -z-4 -x4'
 export LESSOPEN='|lessfilter %s'
 export PAGER=less
 
-# Make bash check it's window size after a process completes
+# bash options
 shopt -s checkwinsize
-
-# noblobber (disable overwirte)
-set noblobber
 
 # ------------------------------------------------------------------------
 # platform check

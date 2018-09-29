@@ -9,11 +9,11 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-27 23:32:45
+;; Last Update: 2018-09-29 21:59:23
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;; install
-;; > sudo apt-get install libncurses5-dev libgnutls-openssl27 libgnutls28-dev gnutls-bin
+;; > sudo apt-get install libncurses5-dev libgnutls-openssl27 libgnutls28-dev
 ;; > wget http://ftpmirror.gnu.org/emacs/emacs-26.1.tar.gz
 ;; > tar xzvf emacs-26.1.tar.gz
 ;; > cd emacs-26.1

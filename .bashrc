@@ -6,7 +6,7 @@
 #  \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
 
 # thesaitama@ .bashrc
-# Last Update: 2018-09-29 15:29:06
+# Last Update: 2018-09-29 23:57:28
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -158,17 +158,16 @@ c_yellow="\[\033[33m\]"
 c_blue="\[\033[34m\]"
 c_purple="\[\033[35m\]"
 c_cyan="\[\033[36m\]"
+c_gray="\[\033[37m\]"
 c_reset="\[\033[00m\]"
 
 # PS1
-# default
-export PS1="${c_reset}${c_green}\u@\h: ${c_reset}${c_cyan}\W/ \
+if [ "${SSH_CONNECTION}" ] ; then
+  export PS1="${c_reset}${c_green}\u@\h: ${c_reset}${c_cyan}\W/ \
 ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
 echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
 ${c_blue}\\\$${c_reset} "
-
-# mac prompt
-if [ "$PLATFORM" = "osx" ]; then
+else
   export PS1="${c_reset}${c_green}\W/ \
 ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
 echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \

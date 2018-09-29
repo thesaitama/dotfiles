@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#[default]#[bg=colour242]
+if [ "${SSH_CONNECTION}" ] ; then
+  tmux_date=""
+else
+  tmux_date="#[default]#[bg=colour242] $(date +"%m/%d") #[default]"
+fi
+
+echo "${tmux_date}"

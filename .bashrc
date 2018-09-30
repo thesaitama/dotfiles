@@ -6,7 +6,7 @@
 #  \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
 
 # thesaitama@ .bashrc
-# Last Update: 2018-09-24 11:17:33
+# Last Update: 2018-09-29 23:57:28
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -23,11 +23,40 @@ export LESS='-g -i -M -R -S -W -z-4 -x4'
 export LESSOPEN='|lessfilter %s'
 export PAGER=less
 
-# Make bash check it's window size after a process completes
+# bash options
 shopt -s checkwinsize
 
-# noblobber (disable overwirte)
-set noblobber
+# ------------------------------------------------------------------------
+# platform check
+# https://qiita.com/b4b4r07/items/09815eda8ef72e0b472e
+
+# ostype returns the lowercase OS name
+ostype() {
+  uname | tr "[:upper:]" "[:lower:]"
+}
+
+# os_detect export the PLATFORM variable as you see fit
+os_detect() {
+  case "$(ostype)" in
+    *'linux'*)  PLATFORM='linux'   ;;
+    *'darwin'*) PLATFORM='osx'     ;;
+    *'bsd'*)    PLATFORM='bsd'     ;;
+    *)          PLATFORM='unknown' ;;
+  esac
+  export PLATFORM
+}
+
+# is_osx returns true if running OS is Macintosh
+is_osx() {
+  os_detect
+  if [ "$PLATFORM" = "osx" ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+os_detect
 
 # ------------------------------------------------------------------------
 # Alias
@@ -61,7 +90,7 @@ alias cl=cl
 alias cleanupDS="find . -type f -name '*.DS_Store' -ls -delete"
 
 # macOS Only
-if [ "$(uname)" == 'Darwin' ]; then
+if [ "$PLATFORM" = "osx" ]; then
   alias ls='ls -avhplGF'
   # /Applications Alias (Mac OSX)
   alias ee='open -a /Applications/Emacs.app $1'
@@ -72,6 +101,11 @@ if [ "$(uname)" == 'Darwin' ]; then
   # macOS Finder
   alias finderShowH='defaults write com.apple.finder ShowAllFiles TRUE'
   alias finderHideH='defaults write com.apple.finder ShowAllFiles FALSE'
+fi
+
+# Linux Only
+if [ "$PLATFORM" = "linux" ]; then
+  eval `dircolors ~/.colorrc`
 fi
 
 # ------------------------------------------------------------------------
@@ -124,23 +158,16 @@ c_yellow="\[\033[33m\]"
 c_blue="\[\033[34m\]"
 c_purple="\[\033[35m\]"
 c_cyan="\[\033[36m\]"
+c_gray="\[\033[37m\]"
 c_reset="\[\033[00m\]"
 
 # PS1
-# export PS1="${c_purple}\u@:${c_reset}${c_cyan}\W:${c_reset}$(_ps1_result)$ "
-# export PS1="${c_reset}${c_green} \
-# ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
-# echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
-# ${c_blue}\\\$${c_reset} "
-
-# default
-export PS1="${c_reset}${c_green}\u@\h: ${c_reset}${c_cyan}\W/ \
+if [ "${SSH_CONNECTION}" ] ; then
+  export PS1="${c_reset}${c_green}\u@\h: ${c_reset}${c_cyan}\W/ \
 ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
 echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
 ${c_blue}\\\$${c_reset} "
-
-# mac prompt
-if [ "$(uname)" == 'Darwin' ]; then
+else
   export PS1="${c_reset}${c_green}\W/ \
 ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
 echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
@@ -150,7 +177,7 @@ fi
 # ------------------------------------------------------------------------
 # git-completion
 
-if [ "$(uname)" == 'Darwin' ]; then
+if [ "$PLATFORM" = "osx" ]; then
   if [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ]; then
     source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
   fi
@@ -260,6 +287,22 @@ weblio() {
     opt="${str}"
   fi
   w3m https://ejje.weblio.jp/content/$opt
+}
+
+# ------------------------------------------------------------------------
+# color-test
+
+colortest_256() {
+  for i in {0..255} ; do
+    printf "\x1b[48;5;%sm%3d\e[0m " "$i" "$i"
+    if (( i == 15 )) || (( i > 15 )) && (( (i - 15) % 12 == 0 )); then
+      printf "\n";
+    fi
+  done
+}
+
+colortest_tc() {
+  ~/dotfiles/terminfo/true_color_test.sh
 }
 
 # ------------------------------------------------------------------------

@@ -17,7 +17,7 @@ bind-key o run-shell "open '#{pane_current_path}'"
 # ------------------------------------------------------------------------
 # copy-mode
 
-set -g default-command "reattach-to-user-namespace -l ${SHELL}"
+# set -g default-command "reattach-to-user-namespace -l ${SHELL}"
 
 unbind -T copy-mode 'C-w'
 unbind -T copy-mode 'M-w'
@@ -36,5 +36,5 @@ bind-key -T copy-mode Enter send -X copy-pipe "pbcopy"
 # ------------------------------------------------------------------------
 # status
 
-set -g status-right " #(tmux-status-git)#(tmux-status-load)#(tmux-status-mac)#[bg=colour242,fg=white] %m/%d "
+set -g status-right " #(tmux-status-git)#(tmux-status-load)#(tmux-status-mac)#(tmux-status-date)"
 

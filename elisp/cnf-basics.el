@@ -38,11 +38,23 @@
 (setq make-backup-files nil)
 
 ;; ------------------------------------------------------------------------
+;; other-window (extension)
+
+(defun other-window-or-split ()
+  "Other window or split vertically."
+  (interactive)
+  (when (one-window-p)
+    (split-window-vertically))
+  (other-window 1))
+
+;; ------------------------------------------------------------------------
 ;; key bind
 
 (global-set-key (kbd "C-h") 'delete-backward-char)
-(global-set-key (kbd "M-t") 'other-window)
-(global-set-key (kbd "C-x C-o") 'other-window)
+(global-set-key (kbd "M-t") 'other-window-or-split)
+(global-set-key (kbd "C-x o") 'other-window-or-split)
+(global-set-key (kbd "C-x C-o") 'other-window-or-split)
+(global-set-key (kbd "C-x p") (lambda () (interactive) (other-window -1)))
 ;; replace list-buffers
 (global-set-key (kbd "C-x C-b") 'bs-show)
 ;; (if (>= emacs-major-version 25)

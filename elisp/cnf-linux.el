@@ -56,7 +56,11 @@
 ;; ------------------------------------------------------------------------
 ;; xclip
 
-(xclip-mode 1)
+(if (or (display-graphic-p)
+  (eq (getenv "SSH_CONNECTION") nil)
+ )
+    (xclip-mode 1)
+)
 
 ;; > sudo apt-get install xclip
 

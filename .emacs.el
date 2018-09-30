@@ -9,8 +9,17 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-23 22:33:47
+;; Last Update: 2018-09-29 21:59:23
 ;; tested with: Emacs 25.3, macOS 10.13
+
+;; install
+;; > sudo apt-get install libncurses5-dev libgnutls-openssl27 libgnutls28-dev
+;; > wget http://ftpmirror.gnu.org/emacs/emacs-26.1.tar.gz
+;; > tar xzvf emacs-26.1.tar.gz
+;; > cd emacs-26.1
+;; > ./configure --without-x
+;; > make
+;; > sudo make install
 
 ;;; Code:
 
@@ -152,6 +161,7 @@
     japanese-holidays
     osx-trash
     vimrc-mode
+    x509-mode
     w3m
     mew
     docker
@@ -860,6 +870,7 @@
  '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
  '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
+ '(header-line ((t (:background "Gray40" :foreground "Gray85"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-buffer-process ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "orange"))))
@@ -873,9 +884,8 @@
  '(helm-match ((t (:foreground "cyan"))))
  '(helm-selection ((t (:background "Gray30"))))
  '(helm-selection-line ((t (:background "Gray20"))))
- '(helm-visible-mark ((t (:background "Gray40"))))
  '(helm-source-header ((t (:background "DarkCyan" :foreground "white"))))
- '(header-line ((t (:background "Gray40" :foreground "Gray85"))))
+ '(helm-visible-mark ((t (:background "Gray40"))))
  '(highlight-symbol-face ((t (:background "Gray25"))))
  '(hl-line ((t (:background "color-236"))))
  '(holiday ((t (:background "pink" :foreground "black"))))
@@ -894,8 +904,9 @@
  '(magit-diff-removed ((((type tty)) (:foreground "red"))))
  '(magit-diff-removed-highlight ((((type tty)) (:foreground "IndianRed"))))
  '(magit-log-author ((t (:foreground "magentap"))))
- '(magit-section-highlight ((t (:background "Gray23"))))
  '(magit-section-heading ((t (:foreground "cyan" :weight bold))))
+ '(magit-section-highlight ((t (:background "Gray23"))))
+ '(markdown-code-face ((t (:inherit default :background "Gray20"))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1))))
  '(markdown-header-face-2 ((t (:inherit outline-2))))
@@ -903,9 +914,8 @@
  '(markdown-header-face-4 ((t (:inherit outline-4))))
  '(markdown-header-face-5 ((t (:inherit outline-5))))
  '(markdown-header-face-6 ((t (:inherit outline-6))))
- '(markdown-code-face ((t (:inherit default :background "Gray20"))))
- '(markdown-pre-face ((t (:inherit font-lock-constant-face))))
  '(markdown-inline-code-face ((t (:inherit font-lock-constant-face))))
+ '(markdown-pre-face ((t (:inherit font-lock-constant-face))))
  '(menu ((t (:background "Gray30"))))
  '(minibuffer-prompt ((t (:foreground "cyan"))))
  '(nxml-attribute-local-name ((t (:foreground "LightBlue"))))
@@ -939,9 +949,9 @@
  '(rst-level-5 ((t (:inherit outline-5))))
  '(rst-level-6 ((t (:inherit outline-6))))
  '(show-paren-match ((t (:background "DodgerBlue" :foreground "white"))))
+ '(show-paren-match-expression ((t (:background "Gray25"))))
  '(show-paren-match-face ((t (:background "black" :foreground "white"))))
  '(show-paren-mismatch ((t (:background "red"))))
- '(show-paren-match-expression ((t (:background "Gray25"))))
  '(tide-hl-identifier-face ((t (:background "Gray28"))))
  '(tool-bar ((t (:foreground "cyan"))))
  '(tty-menu-disabled-face ((t (:background "Gray45" :foreground "Gray10"))))
@@ -951,15 +961,15 @@
  '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
  '(web-mode-css-pseudo-class ((t (:foreground "DodgerBlue"))))
  '(web-mode-css-selector-face ((t (:foreground "DodgerBlue"))))
+ '(web-mode-current-element-highlight-face ((t (:background "Gray25"))))
  '(web-mode-doctype-face ((t (:inherit font-lock-doc-face))))
  '(web-mode-html-attr-equal-face ((t (:foreground "white"))))
  '(web-mode-html-attr-name-face ((t (:foreground "LightBlue"))))
  '(web-mode-html-attr-value-face ((t (:inherit font-lock-string-face))))
+ '(web-mode-html-entity-face ((t (:foreground "DodgerBlue"))))
  '(web-mode-html-tag-bracket-face ((t (:foreground "LightBlue"))))
  '(web-mode-html-tag-face ((t (:foreground "cyan"))))
- '(web-mode-html-entity-face ((t (:foreground "DodgerBlue"))))
  '(web-mode-server-comment-face ((t (:foreground "green"))))
- '(web-mode-current-element-highlight-face ((t (:background "Gray25"))))
  '(which-func ((t (:foreground "ivory"))))
  '(which-key-command-description-face ((t (:foreground "white")))))
 
@@ -999,7 +1009,7 @@
     ("multi-term" "*terminal<1>*"
      (quote
       (lambda nil
-        (multi-term))))))
+        (multi-term))))) t)
  '(shell-pop-window-position "bottom")
  '(shell-pop-window-size 30)
  '(show-paren-mode t)

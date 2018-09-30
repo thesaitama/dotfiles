@@ -9,8 +9,9 @@
 " ------------------------------------------------------------------------
 " install
 
-"sudo port install vim +huge +python36
-"sudo pip-3.6 install neovim
+" for mac
+" > sudo port install vim +huge +python36
+" > sudo pip-3.6 install neovim
 
 if !1 | finish | endif
 
@@ -35,8 +36,8 @@ set fileencodings=ucs-boms,utf-8,cp932,euc-jp
 set fileformats=unix,dos,mac
 
 set laststatus=2
-"set statusline=%F%m%r%h%w\ %{&ff}\ %Y\ \%02.2B\ %04l,%04v\
-"set statusline+=%{has('multi_byte')&&\&fileencoding!=''?&fileencoding:&encoding}
+" set statusline=%F%m%r%h%w\ %{&ff}\ %Y\ \%02.2B\ %04l,%04v\
+" set statusline+=%{has('multi_byte')&&\&fileencoding!=''?&fileencoding:&encoding}
 
 if has('mouse')
   set mouse=a
@@ -87,9 +88,9 @@ set virtualedit=block
 set whichwrap=b,s,[,],<,>
 set wildmenu
 set wrapscan
-"set paste "this option should be disable
+" set paste "this option should be disable
 
-"set nocursorline
+" set nocursorline
 autocmd InsertEnter * set cursorline
 autocmd InsertLeave * set nocursorline
 
@@ -182,7 +183,7 @@ source ~/dotfiles/.vim/cnf-fzf.vim
 "autocmd ColorScheme * highlight Comment ctermfg=2
 autocmd ColorScheme * highlight Normal ctermbg=none
 autocmd ColorScheme * highlight nonText ctermbg=none
-
+autocmd ColorScheme * highlight cursorline ctermbg=236
 set background=dark
 colorscheme kalisi
 syntax enable

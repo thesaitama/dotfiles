@@ -54,6 +54,7 @@
 (global-set-key (kbd "M-t") 'other-window-or-split)
 (global-set-key (kbd "C-x o") 'other-window-or-split)
 (global-set-key (kbd "C-x C-o") 'other-window-or-split)
+(global-set-key (kbd "C-x 9") 'delete-other-windows-vertically)
 (global-set-key (kbd "C-x p") (lambda () (interactive) (other-window -1)))
 ;; replace list-buffers
 (global-set-key (kbd "C-x C-b") 'bs-show)

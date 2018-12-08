@@ -575,6 +575,7 @@
              (auto-complete-mode t)
              (require 'vbasense)
              (vbasense-config-default)
+             (setq visual-basic-mode-indent 4)
              )
           )
 ;; )

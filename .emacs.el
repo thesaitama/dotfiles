@@ -9,8 +9,8 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-12-08 21:51:41
-;; tested with: Emacs 25.3, macOS 10.13
+;; Last Update: 2018-12-08 22:31:14
+;; tested with: Emacs 26.1, macOS 10.14, Windows 10
 
 ;; install
 ;; > sudo apt-get install libncurses5-dev libgnutls-openssl27 libgnutls28-dev

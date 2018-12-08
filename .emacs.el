@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-30 23:12:39
+;; Last Update: 2018-12-08 21:51:41
 ;; tested with: Emacs 25.3, macOS 10.13
 
 ;; install
@@ -723,7 +723,7 @@
 (require 'popwin)
 (popwin-mode 1)
 (setq special-display-function 'popwin:special-display-popup-window)
-(push '(dired-mode :position top) popwin:special-display-config)
+;; (push '(dired-mode :position top) popwin:special-display-config)
 (push '(compilation-mode :noselect t) popwin:special-display-config)
 (push '("*grep*" :noselect t) popwin:special-display-config)
 (push '("\\*e?shell\\*" :regexp t :height 15) popwin:special-display-config)

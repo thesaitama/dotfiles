@@ -63,6 +63,29 @@
       ))
 
 ;; ------------------------------------------------------------------------
+;; for IME patched version
+
+;; download: https://github.com/mhatta/emacs-26-x86_64-win-ime/blob/master
+
+(defun enable-ime ()
+  (if (fboundp 'w32-ime-initialize)
+      '(lambda ()
+         ;; Windows IME
+         (setq default-input-method "W32-IME")
+         (setq-default w32-ime-mode-line-state-indicator "[--]")
+         (setq w32-ime-mode-line-state-indicator-list '("[--]" "[あ]" "[--]"))
+         (w32-ime-initialize)
+         ;; change cursor-color depend on IME status
+         (add-hook 'w32-ime-on-hook '(lambda () (set-cursor-color "Coral4")))
+         (add-hook 'w32-ime-off-hook '(lambda () (set-cursor-color "Black")))
+         (setq w32-ime-composition-window nil)
+         )
+    nil)
+  )
+
+(enable-ime)
+
+;; ------------------------------------------------------------------------
 ;; win dired
 
 (defun open-win (path)

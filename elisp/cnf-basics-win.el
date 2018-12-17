@@ -35,6 +35,7 @@
       (append (list
                '(border-color . "#353535")
                '(mouse-color . "#f9f8f0")
+               '(internal-border-width . 0)
                )
               initial-frame-alist))
 (setq default-frame-alist

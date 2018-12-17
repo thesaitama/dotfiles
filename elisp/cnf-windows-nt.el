@@ -41,6 +41,7 @@
       ;; (set-face-attribute 'default nil :family "Inconsolata" :height 120)
       ;; (set-face-attribute 'default nil :family "MS Gothic" :height 100)
       (set-fontset-font nil 'cp932 (font-spec :family "MS Gothic"))
+      (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "MS Gothic"))
       (setq use-default-font-for-symbols nil)
       (setq-default line-spacing 0.1)
 

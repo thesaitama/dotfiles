@@ -45,28 +45,13 @@
       (setq use-default-font-for-symbols nil)
       (setq-default line-spacing 0.1)
 
-      ;; IME setting
-      (add-hook 'minibuffer-setup-hook 'deactivate-input-method)
-      (add-hook
-       'isearch-mode-hook '(lambda ()
-                             (deactivate-input-method)
-                             (setq w32-ime-composition-window (minibuffer-window))))
-      (add-hook
-       'isearch-mode-end-hook '(lambda ()
-                             (setq w32-ime-composition-window nil)))
-      (advice-add
-       'helm :around '(lambda (orig-fun &rest args)
-                        (let ((select-window-functions nil)
-                              (w32-ime-composition-window (minibuffer-window)))
-                          (deactivate-input-method)
-                          (apply orig-fun args))))
-
-      ))
+      )
+  )
 
 ;; ------------------------------------------------------------------------
 ;; for IME patched version
 
-;; download: https://github.com/mhatta/emacs-26-x86_64-win-ime/blob/master
+;; download: https://github.com/mhatta/emacs-26-x86_64-win-ime
 
 (defun enable-ime ()
   (if (fboundp 'w32-ime-initialize)
@@ -80,6 +65,22 @@
          (add-hook 'w32-ime-on-hook '(lambda () (set-cursor-color "Coral4")))
          (add-hook 'w32-ime-off-hook '(lambda () (set-cursor-color "Black")))
          (setq w32-ime-composition-window nil)
+
+         ;; IME setting
+         (add-hook 'minibuffer-setup-hook 'deactivate-input-method)
+         (add-hook
+          'isearch-mode-hook '(lambda ()
+                             (deactivate-input-method)
+                             (setq w32-ime-composition-window (minibuffer-window))))
+         (add-hook
+          'isearch-mode-end-hook '(lambda ()
+                             (setq w32-ime-composition-window nil)))
+         (advice-add
+          'helm :around '(lambda (orig-fun &rest args)
+                           (let ((select-window-functions nil)
+                                 (w32-ime-composition-window (minibuffer-window)))
+                             (deactivate-input-method)
+                             (apply orig-fun args))))
          )
     nil)
   )

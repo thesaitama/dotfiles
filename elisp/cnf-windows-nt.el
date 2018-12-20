@@ -14,12 +14,13 @@
 ;; (add-to-list 'exec-path "C:/Program Files/Aspell/bin")
 
 ;; ------------------------------------------------------------------------
-;; Windows confing
+;; Windows configure
 
 (setq default-directory "~/../../Desktop/")
 
-;; clipboard
-(set-clipboard-coding-system 'utf-16le)
+;; coding
+(set-file-name-coding-system 'cp932)    ;; file system
+(set-clipboard-coding-system 'utf-16le) ;; clipboard
 
 ;; special keys
 (setq w32-pass-lwindow-to-system nil)

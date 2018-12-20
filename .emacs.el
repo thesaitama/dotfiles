@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-12-08 22:31:14
+;; Last Update: 2018-12-20 22:31:17
 ;; tested with: Emacs 26.1, macOS 10.14, Windows 10
 
 ;; install
@@ -728,7 +728,7 @@
 (push '("*grep*" :noselect t) popwin:special-display-config)
 (push '("\\*e?shell\\*" :regexp t :height 15) popwin:special-display-config)
 (push '("*bash*" :height 15) popwin:special-display-config)
-(push '("*cmd.exe*" :height 15) popwin:special-display-config)
+(push '("*cmd*" :height 15) popwin:special-display-config)
 (push '("*PowerShell*" :height 15) popwin:special-display-config)
 (push '("*compilation*" :height 15) popwin:special-display-config)
 (push '("*quickrun*" :height 15) popwin:special-display-config)

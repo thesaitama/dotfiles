@@ -164,7 +164,6 @@
 ;;                 (replace-regexp-in-string "\\([A-Za-z]\\):" "/\\1"
 ;;                     (getenv "PATH"))))))
 
-
 (defun run-bash ()
   "Run bash."
   (interactive)
@@ -178,13 +177,61 @@
                        nil
                        nil))
 
+(push '("cmdproxy\\.exe$" sjis-dos . sjis-dos) process-coding-system-alist)
 (defun run-cmdexe ()
-  "Run Windows cmd.exe."
+  "Set up an environment for cmd.exe, execute it, and swith to buffer *cmd*."
   (interactive)
-  (let ((shell-file-name "cmd.exe"))
-    (shell "*cmd.exe*")))
+  (let ((process-environment (copy-sequence process-environment)))
+    (setenv "PATH" (replace-regexp-in-string "[^;]+cygwin[^;]+;" "" (getenv "PATH")))
+    (set-buffer (get-buffer-create "*cmd*"))
+    (shell (get-buffer "*cmd*"))
+    (set (make-local-variable 'shell-file-name) "cmdproxy.exe")
+    (set (make-local-variable 'explicit-shell-file-name) "cmdproxy.exe")
+    (set (make-local-variable 'shell-name) "cmdproxy.exe")
+    (set (make-local-variable 'shell-command-switch) "/c")
+    (set (make-local-variable 'w32-quote-process-args) nil)
+    (set (make-local-variable 'file-name-coding-system) 'sjis-dos)
+    (set-buffer-file-coding-system 'sjis-dos)
+    (set-buffer-process-coding-system 'sjis-dos 'sjis-dos)
+    (auto-complete-mode t)))
 
 (global-set-key (kbd "C-c s") 'run-cmdexe)
+
+;; ------------------------------------------------------------------------
+;; elpy (python-mode) for Windows
+
+(defun use-system-python2 ()
+  "Use system python2 for `elpy-mode`."
+  (interactive)
+  (setq python-shell-interpreter "ipython2")
+  ;; (setq python-check-command "<path_to>/pyflakes")
+  (setq elpy-rpc-python-command "python2")
+  ;; (setq elpy-rpc-pythonpath  "<path_to>/site-packages")
+  ;; (setq flycheck-python-flake8-executable "<path_to>/flake8")
+  )
+
+(defun use-system-python3 ()
+  "Use system python3 for `elpy-mode`."
+  (interactive)
+  (setq python-shell-interpreter "ipython")
+  ;; (setq python-check-command "<path_to>/pyflakes")
+  (setq elpy-rpc-python-command "C:/Python36/python")
+  (setq elpy-rpc-pythonpath  "C:/Python36/Lib/site-packages")
+  ;; (setq flycheck-python-flake8-executable "<path_to>/flake8")
+  )
+
+(defun use-anaconda-python3 ()
+  "Use Anaconda python3 for `elpy-mode`."
+  (interactive)
+  (setq python-shell-interpreter "C:/ProgramData/Anaconda3/Scripts/ipython")
+  (setq python-check-command "C:/ProgramData/Anaconda3/Scripts/pyflakes")
+  (setq elpy-rpc-python-command "C:/ProgramData/Anaconda3/python")
+  (setq elpy-rpc-pythonpath  "C:/ProgramData/Anaconda3/Lib/site-packages")
+  ;; (setq flycheck-python-flake8-executable "<path_to>/flake8")
+  )
+
+;; set start python3
+(use-anaconda-python3)
 
 ;; ------------------------------------------------------------------------
 

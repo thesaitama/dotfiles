@@ -495,6 +495,23 @@
                              (company-mode)))
 
 ;; ------------------------------------------------------------------------
+;; haskell-mode
+
+(add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
+(add-to-list 'auto-mode-alist '("\\.lhs$" . literate-haskell-mode))
+(add-to-list 'auto-mode-alist '("\\.cabal$" . haskell-cabal-mode))
+
+(add-hook 'haskell-mode-hook (lambda ()
+                               (turn-on-haskell-indentation)
+                               (turn-on-haskell-doc-mode)
+                               (font-lock-mode)
+                               (imenu-add-menubar-index)
+                               (setq haskell-program-name "/usr/bin/stack ghci") ;; stack
+                               (inf-haskell-mode)
+                               (ghc-init)
+                               (flycheck-mode)))
+
+;; ------------------------------------------------------------------------
 ;; clojure-mode
 
 (add-hook 'cider-mode-hook #'clj-refactor-mode)

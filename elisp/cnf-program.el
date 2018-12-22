@@ -573,7 +573,10 @@
 (add-hook 'visual-basic-mode-hook
           '(lambda ()
              (auto-complete-mode t)
+             (setq visual-basic-mode-indent 4)
              (require 'vbasense)
+             ;; (add-to-list 'vbasense-tli-files "C:/Program Files/Common Files/System/ado/msado21.tlb")
+             ;; (add-to-list 'vbasense-tli-files "C:/Program Files/Common Files/Microsoft Shared/DAO/dao360.dll")
              (vbasense-config-default)
              )
           )

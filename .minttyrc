@@ -1,0 +1,11 @@
+BoldAsFont=-1
+ThemeFile=thesaitama
+Font=Consolas
+FontHeight=10
+ForegroundColour=249,248,240
+Locale=ja_JP
+Charset=UTF-8
+BackgroundColour=40,40,40
+Transparency=low
+Term=xterm-256color
+BellType=0

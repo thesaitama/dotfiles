@@ -9,8 +9,8 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-09-29 21:59:23
-;; tested with: Emacs 25.3, macOS 10.13
+;; Last Update: 2018-12-20 22:31:17
+;; tested with: Emacs 26.1, macOS 10.14, Windows 10
 
 ;; install
 ;; > sudo apt-get install libncurses5-dev libgnutls-openssl27 libgnutls28-dev
@@ -723,12 +723,12 @@
 (require 'popwin)
 (popwin-mode 1)
 (setq special-display-function 'popwin:special-display-popup-window)
-(push '(dired-mode :position top) popwin:special-display-config)
+;; (push '(dired-mode :position top) popwin:special-display-config)
 (push '(compilation-mode :noselect t) popwin:special-display-config)
 (push '("*grep*" :noselect t) popwin:special-display-config)
 (push '("\\*e?shell\\*" :regexp t :height 15) popwin:special-display-config)
 (push '("*bash*" :height 15) popwin:special-display-config)
-(push '("*cmd.exe*" :height 15) popwin:special-display-config)
+(push '("*cmd*" :height 15) popwin:special-display-config)
 (push '("*PowerShell*" :height 15) popwin:special-display-config)
 (push '("*compilation*" :height 15) popwin:special-display-config)
 (push '("*quickrun*" :height 15) popwin:special-display-config)

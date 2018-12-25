@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-12-22 23:33:30
+;; Last Update: 2018-12-26 07:40:21
 ;; tested with: Emacs 26.1, macOS 10.14, Windows 10
 
 ;; install
@@ -724,6 +724,7 @@
 
 (require 'popwin)
 (popwin-mode 1)
+(setq pop-up-windows t)
 (setq special-display-function 'popwin:special-display-popup-window)
 ;; (push '(dired-mode :position top) popwin:special-display-config)
 (push '(compilation-mode :noselect t) popwin:special-display-config)
@@ -734,6 +735,7 @@
 (push '("*PowerShell*" :height 15) popwin:special-display-config)
 (push '("*compilation*" :height 15) popwin:special-display-config)
 (push '("*quickrun*" :height 15) popwin:special-display-config)
+;; (push '("*comment-tags*" :height 15) popwin:special-display-config)
 (push '("*Flycheck errors*" :height 15) popwin:special-display-config)
 (push '("*Typescript*" :height 15) popwin:special-display-config)
 (push '("*ruby*" :height 15) popwin:special-display-config)
@@ -747,6 +749,8 @@
 (push '("\\*docker\\-.+" :regexp t :height 15) popwin:special-display-config)
 (push '("*HTTP Response*" :height 15) popwin:special-display-config)
 (push '("COMMIT_EDITMSG" :height 15) popwin:special-display-config)
+
+(setq browse-url-browser-function 'popwin:w3m-browse-url)
 
 ;; ------------------------------------------------------------------------
 ;; import-popwin

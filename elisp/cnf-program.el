@@ -695,8 +695,9 @@
 ;; ------------------------------------------------------------------------
 ;; quickrun
 
-(when (require 'quickrun nil t)) ;; important
-(global-set-key (kbd "<f5>") 'quickrun)
+(when (require 'quickrun nil t)
+  (global-set-key (kbd "<f5>") 'quickrun)
+  )
 
 ;; ------------------------------------------------------------------------
 ;; electric-operator

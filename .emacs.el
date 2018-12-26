@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-12-26 10:01:23
+;; Last Update: 2018-12-26 11:05:36
 ;; tested with: Emacs 26.1, macOS 10.14, Windows 10
 
 ;; install
@@ -902,7 +902,7 @@
  '(link ((t (:foreground "cyan"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
  '(magit-branch-local ((t (:foreground "magenta"))))
- '(magit-branch-remote ((t (:foreground "Cornflower"))))
+ '(magit-branch-remote ((t (:foreground "cyan"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
  '(magit-diff-added ((((type tty)) (:foreground "green"))))
  '(magit-diff-added-highlight ((((type tty)) (:foreground "LimeGreen"))))

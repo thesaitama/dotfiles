@@ -147,7 +147,7 @@
 (add-hook 'php-mode-hook
             '(lambda ()
                (auto-complete-mode t)
-               (require 'ac-php)
+               (when (require 'ac-php nil t))
                (setq ac-sources  '(ac-source-php
                                    ac-source-php-completion
                                    ac-source-filename))
@@ -177,7 +177,7 @@
 ;; ------------------------------------------------------------------------
 ;; web-mode + emmet-mode, ac-emmet
 
-;; (require 'web-mode)
+;; (when (require 'web-mode nil t))
 (autoload 'web-mode "web-mode" nil t)
 (setq auto-mode-alist
       (append
@@ -245,7 +245,7 @@
 ;; ------------------------------------------------------------------------
 ;; js2-mode
 
-;; (require 'js2-mode)
+;; (when (require 'js2-mode nil t))
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode))
@@ -266,9 +266,9 @@
 (add-hook 'js2-mode-hook (lambda ()(tern-mode t)))
 
 (eval-after-load 'tern
-   '(progn
-      (require 'tern-auto-complete)
-      (tern-ac-setup)))
+  '(progn
+     (require 'tern-auto-complete)
+     (tern-ac-setup)))
 
 ;; > sudo npm install -g tern
 
@@ -602,7 +602,7 @@
 ;; ------------------------------------------------------------------------
 ;; helm-gtags
 
-;; (require 'helm-gtags)
+;; (when (require 'helm-gtags nil t))
 (autoload 'helm-gtags "helm-gtags" nil t)
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
 (add-hook 'c-mode-hook 'helm-gtags-mode)
@@ -639,7 +639,7 @@
 
 (eval-after-load 'nxml-mode
   '(progn
-     (require 'auto-complete-nxml)
+     (when (require 'auto-complete-nxml nil t))
      ))
 
 ;; ------------------------------------------------------------------------
@@ -671,7 +671,7 @@
 (yas-global-mode 1)
 (setq yas-prompt-functions '(yas-ido-prompt))
 
-;; (require 'helm-c-yasnippet)
+;; (when (require 'helm-c-yasnippet nil t))
 (autoload 'helm-c-yasnippet "helm-c-yasnippet" nil t)
 (setq helm-yas-space-match-any-greedy t)
 (push '("emacs.+/snippets/" . snippet-mode) auto-mode-alist)
@@ -688,13 +688,13 @@
 ;; ------------------------------------------------------------------------
 ;; magit-find-file
 
-;; (require 'magit-find-file)
+;; (when (require 'magit-find-file nil t))
 (autoload 'magit-find-file "magit-find-file" nil t)
 
 ;; ------------------------------------------------------------------------
 ;; quickrun
 
-(require 'quickrun)
+(when (require 'quickrun nil t)) ;; important
 (global-set-key (kbd "<f5>") 'quickrun)
 
 ;; ------------------------------------------------------------------------
@@ -712,7 +712,7 @@
 ;; ------------------------------------------------------------------------
 ;; git-complete
 
-;; (require 'git-complete)
+;; (when (require 'git-complete nil t))
 (autoload 'git-complete "git-complete" nil t)
 (global-set-key (kbd "M-g j") 'git-complete)
 

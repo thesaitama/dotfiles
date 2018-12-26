@@ -19,16 +19,23 @@
 (setq initial-scratch-message ";; minimacs\n")
 
 ;; ------------------------------------------------------------------------
+;; load basic settings
+
+(load "~/dotfiles/elisp/cnf-basics.el")
+
+;; ------------------------------------------------------------------------
 ;; ido
 
 (ido-mode t)
 (ido-everywhere t)
 (setq ido-enable-flex-matching t)
 
-;; ------------------------------------------------------------------------
-;; load basic settings
-
-(load "~/dotfiles/elisp/cnf-basics.el")
+(add-hook 'minibuffer-exit-hook
+          '(lambda ()
+             (let ((buffer "*Completions*"))
+               (and (get-buffer buffer)
+                    (kill-buffer buffer)))
+))
 
 ;; ------------------------------------------------------------------------
 ;; custom-set-faces

@@ -808,7 +808,7 @@
 
 (require 'smart-mode-line)
 ;; bug hack
-(setq sml/active-background-color "Gray60")
+(setq sml/active-background-color "Gray30")
 (setq sml/read-only-char "%%")
 (setq sml/modified-char "*")
 ;; hide Helm and auto-complete

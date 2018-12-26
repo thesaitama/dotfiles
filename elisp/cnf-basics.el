@@ -86,6 +86,12 @@
 (set-face-foreground 'font-lock-variable-name-face "goldenrod")
 (set-face-foreground 'font-lock-warning-face "pink")
 
+(set-face-foreground 'mode-line "White")
+(set-face-background 'mode-line "Grey30")
+(set-face-foreground 'mode-line-buffer-id "Gray80")
+(set-face-foreground 'mode-line-inactive "Gray60")
+(set-face-background 'mode-line-inactive "Gray25")
+
 ;; ------------------------------------------------------------------------
 ;; color white spaces
 

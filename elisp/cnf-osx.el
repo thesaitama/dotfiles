@@ -136,31 +136,25 @@
   (set-face-attribute 'default nil :family asciifont :height h)
   (set-fontset-font nil 'japanese-jisx0213.2004-1 jp-fontspec)
   (set-fontset-font nil 'japanese-jisx0213-2 jp-fontspec)
-  (set-fontset-font nil 'katakana-jisx0201 jp-fontspec)
-  (set-fontset-font nil '(#x0080 . #x024F) fontspec)
-  (set-fontset-font nil '(#x0370 . #x03FF) jp-fontspec)
-  (set-fontset-font nil '#xFF0B jp-fontspec-hira)
-  (set-fontset-font nil '#x2212 jp-fontspec-hira)
-  (set-fontset-font nil '#x00B1 jp-fontspec-hira)
-  (set-fontset-font nil '#x00D7 jp-fontspec-hira)
-  (set-fontset-font nil '#x00F7 jp-fontspec-hira)
+  (set-fontset-font nil 'katakana-jisx0201 jp-fontspec) ; half-width
+  (set-fontset-font nil '(#x0080 . #x024F) fontspec) ; ext-Latin
+  (set-fontset-font nil '(#x0370 . #x03FF) jp-fontspec) ; Greek
+  (set-fontset-font nil '#xFF0B osaka-fontspec) ; ＋
+  (set-fontset-font nil '#x2212 osaka-fontspec) ; −
+  (set-fontset-font nil '#x00B1 osaka-fontspec) ; ±
+  (set-fontset-font nil '#x00D7 osaka-fontspec) ; ×
+  (set-fontset-font nil '#x00F7 osaka-fontspec) ; ÷
   )
 
   (dolist (elt '(("^-apple-hiragino.*" . 1.3)
                  (".*Ricty Diminished for Powerline.*" . 1.3)
-                 (".*osaka-bold.*" . 1.3)
-                 (".*osaka-medium.*" . 1.3)
+                 (".*osaka-bold.*" . 1.4)
+                 (".*osaka-medium.*" . 1.4)
                  (".*courier-bold-.*-mac-roman" . 1.0)
                  (".*monaco cy-bold-.*-mac-cyrillic" . 0.9)
                  (".*monaco-bold-.*-mac-roman" . 0.9)))
     (add-to-list 'face-font-rescale-alist elt))
 
-  ;; (set-face-attribute 'default nil :family "Menlo" :height 130)
-  ;; (set-fontset-font (frame-parameter nil 'font)
-  ;;                   'japanese-jisx0208
-  ;;                   (font-spec :family "Ricty Diminished for Powerline"))
-  ;; (add-to-list 'face-font-rescale-alist
-  ;;              '(".*Ricty Diminished for Powerline.*" . 1.3))
   ;; font list Snippet
   ;; (dolist (x (x-list-fonts "*")) (print x))
 

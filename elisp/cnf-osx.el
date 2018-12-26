@@ -22,23 +22,42 @@
 ;; (defun copy-from-osx ()
 ;;   (shell-command-to-string "pbpaste"))
 
-(defun copy-from-osx ()
-  "Handle copy/paste intelligently on osx."
+;; for Terminal
+(defun copy-from-osx-term ()
+  "Handle copy intelligently on osx term."
   (let ((pbpaste (purecopy "/usr/bin/pbpaste")))
-    (if (and (eq system-type 'darwin)
-             (file-exists-p pbpaste))
+    (if (file-exists-p pbpaste)
         (let ((tramp-mode nil)
               (default-directory "~"))
           (shell-command-to-string pbpaste)))))
 
-(defun paste-to-osx (text &optional push)
+(defun paste-to-osx-term (text &optional push)
+  "Handle paste TEXT (PUSH will ignore) intelligently on osx term."
   (let ((process-connection-type nil))
     (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
       (process-send-string proc text)
       (process-send-eof proc))))
 
-(setq interprogram-cut-function 'paste-to-osx)
-(setq interprogram-paste-function 'copy-from-osx)
+;; for GUI
+(defun paste-to-osx-gui (text &rest push)
+  "Handle paste TEXT (PUSH will ignore) intelligently on osx."
+  (if (display-graphic-p)
+      (gui-select-text text)
+    (osx-clipboard-cut-function text)))
+
+(defun copy-from-osx-gui ()
+  "Handle copy intelligently on osx."
+  (if (display-graphic-p)
+      (gui-selection-value)
+    (osx-clipboard-paste-function)))
+
+(setq interprogram-cut-function 'paste-to-osx-term)
+(setq interprogram-paste-function 'copy-from-osx-term)
+
+(when (eq window-system 'ns)
+  (setq interprogram-cut-function 'paste-to-osx-gui)
+  (setq interprogram-paste-function 'copy-from-osx-gui)
+  )
 
 ;; ------------------------------------------------------------------------
 ;; mac dired
@@ -100,6 +119,8 @@
 ;; NS Window System (Mac Cocoa)
 
 (when (eq window-system 'ns)
+
+  (set-clipboard-coding-system 'utf-8) ;; clip board
 
   ;; font
   (let* ((size 13)

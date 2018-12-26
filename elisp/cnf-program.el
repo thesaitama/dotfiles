@@ -57,7 +57,7 @@
 ;; ------------------------------------------------------------------------
 ;; helm-projectile
 
-(when (and (require 'helm-projectile))
+(when (require 'helm-projectile nil t)
   (helm-projectile-on)
   (custom-set-variables
    '(helm-mini-default-sources '(helm-source-buffers-list
@@ -379,6 +379,7 @@
              (package-initialize)
              (elpy-enable)
              (elpy-mode)
+             (setq elpy-modules (quote (elpy-module-eldoc elpy-module-yasnippet)) t)
              ;; auto-complete
              (setq ac-sources (delete 'ac-source-words-in-same-mode-buffers ac-sources))
              (add-to-list 'ac-sources 'ac-source-jedi-direct)

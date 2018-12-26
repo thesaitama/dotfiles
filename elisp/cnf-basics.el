@@ -86,9 +86,9 @@
 (set-face-foreground 'font-lock-variable-name-face "goldenrod")
 (set-face-foreground 'font-lock-warning-face "pink")
 
-(set-face-foreground 'mode-line "White")
+(set-face-foreground 'mode-line "Skyblue")
 (set-face-background 'mode-line "Grey30")
-(set-face-foreground 'mode-line-buffer-id "Gray80")
+(set-face-foreground 'mode-line-buffer-id "orange")
 (set-face-foreground 'mode-line-inactive "Gray60")
 (set-face-background 'mode-line-inactive "Gray25")
 
@@ -175,13 +175,16 @@
 ;; mark comamnd repeat (C-u C-SPC ...)
 (setq set-mark-command-repeat-pop t)
 
-;; line number
+;; linum
 (if (fboundp 'global-linum-mode)
     (progn
       (global-linum-mode 0)
       (setq linum-format "%4d ")
       )
   )
+
+(column-number-mode t)
+(line-number-mode t)
 
 ;; highlight editing line
 (global-hl-line-mode t)
@@ -209,9 +212,17 @@
 ;; which function
 (which-function-mode 1)
 
+(size-indication-mode t)
+
 ;; ignore case
 (setq read-buffer-completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
+
+;; disable set-goal-column
+(put 'set-goal-column 'disabled nil)
+
+;; disable text-mode auto-fill
+(add-hook 'text-mode-hook 'turn-off-auto-fill)
 
 ;; ------------------------------------------------------------------------
 ;; isearch

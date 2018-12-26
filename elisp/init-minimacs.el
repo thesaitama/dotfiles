@@ -8,7 +8,7 @@
 
 ;;; Commentary:
 ;;
-;; thesaitama@ minimacs.el
+;; thesaitama@ init-minimacs.el
 ;; light weight and legacy Emacs setting
 ;;
 

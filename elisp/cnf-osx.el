@@ -122,6 +122,10 @@
 
   (set-clipboard-coding-system 'utf-8) ;; clip board
 
+  ;; mode line
+  (set-face-attribute 'mode-line nil :box '(:line-width 1 :color "Gray30"))
+  (set-face-attribute 'mode-line-inactive nil :box '(:line-width 1 :color "Gray25"))
+
   ;; font
   (let* ((size 13)
          (asciifont "Menlo")

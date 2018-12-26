@@ -87,7 +87,7 @@
 (set-face-foreground 'font-lock-warning-face "pink")
 
 (set-face-foreground 'mode-line "Skyblue")
-(set-face-background 'mode-line "Grey30")
+(set-face-background 'mode-line "Gray30")
 (set-face-foreground 'mode-line-buffer-id "orange")
 (set-face-foreground 'mode-line-inactive "Gray60")
 (set-face-background 'mode-line-inactive "Gray25")

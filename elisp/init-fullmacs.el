@@ -735,8 +735,6 @@
 (push '("*HTTP Response*" :height 15) popwin:special-display-config)
 (push '("COMMIT_EDITMSG" :height 15) popwin:special-display-config)
 
-(setq browse-url-browser-function 'popwin:w3m-browse-url)
-
 ;; ------------------------------------------------------------------------
 ;; import-popwin
 

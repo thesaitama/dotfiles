@@ -1,4 +1,4 @@
-;;; minimancs.el --- thesaitama Emacs configuration
+;;; init-minimancs.el --- thesaitama Emacs configuration
 
 ;;  _   _                     _ _
 ;; | |_| |__   ___  ___  __ _(_) |_ __ _ _ __ ___   __ _
@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ minimacs.el
-;; light weight Emacs setting
+;; light weight and legacy Emacs setting
 ;;
 
 ;;; Code:
@@ -79,5 +79,5 @@
 
 ;; ------------------------------------------------------------------------
 
-(provide 'minimacs.el)
-;;; minimacs.el ends here
+(provide 'init-minimacs.el)
+;;; init-minimacs.el ends here

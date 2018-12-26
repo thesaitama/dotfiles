@@ -170,8 +170,12 @@
 (setq set-mark-command-repeat-pop t)
 
 ;; line number
-(global-linum-mode 0)
-(setq linum-format "%4d ")
+(if (fboundp 'global-linum-mode)
+    (progn
+      (global-linum-mode 0)
+      (setq linum-format "%4d ")
+      )
+  )
 
 ;; highlight editing line
 (global-hl-line-mode t)
@@ -254,12 +258,16 @@
 
 ;; https://abicky.net/2013/12/21/195058/
 
-(electric-pair-mode 1)
-(defadvice electric-pair-post-self-insert-function
-  (around electric-pair-post-self-insert-function-around activate)
-  "Don't insert the closing pair in comments or strings."
-  (unless (nth 8 (save-excursion (syntax-ppss (1- (point)))))
-    ad-do-it))
+(if (fboundp 'electric-pair-mode)
+    (progn
+      (electric-pair-mode 1)
+      (defadvice electric-pair-post-self-insert-function
+          (around electric-pair-post-self-insert-function-around activate)
+        "Don't insert the closing pair in comments or strings."
+        (unless (nth 8 (save-excursion (syntax-ppss (1- (point)))))
+          ad-do-it))
+      )
+  )
 
 ;; ------------------------------------------------------------------------
 ;; indent-tabs
@@ -301,8 +309,13 @@
   (apply orig-func args)
   (setq inhibit-message nil)
   'around)
-(advice-add 'recentf-cleanup :around 'recentf-save-list-inhibit-message:around)
-(advice-add 'recentf-save-list :around 'recentf-save-list-inhibit-message:around)
+
+(if (fboundp 'advice-add)
+    (progn
+      (advice-add 'recentf-cleanup :around 'recentf-save-list-inhibit-message:around)
+      (advice-add 'recentf-save-list :around 'recentf-save-list-inhibit-message:around)
+      )
+  )
 
 ;; (defadvice recentf-cleanup
 ;;   (around no-message activate)
@@ -375,11 +388,11 @@
 
 (require 'time-stamp)
 (add-hook 'before-save-hook 'time-stamp)
-(with-eval-after-load "time-stamp"
-  (setq time-stamp-start "Last Update:")
-  (setq time-stamp-format " %04y-%02m-%02d %02H:%02M:%02S")
-  (setq time-stamp-end "$")
-  (setq time-stamp-line-limit 15)) ; def=8
+
+(setq time-stamp-start "Last Update:")
+(setq time-stamp-format " %04y-%02m-%02d %02H:%02M:%02S")
+(setq time-stamp-end "$")
+(setq time-stamp-line-limit 15) ; def=8
 
 ;; ------------------------------------------------------------------------
 ;; display-time-world
@@ -420,8 +433,12 @@
     (funcall orig start end fg))
   )
 
-(advice-add 'shr-colorize-region :around 'shr-colorize-region--disable)
-(advice-add 'eww-colorize-region :around 'shr-colorize-region--disable)
+(if (fboundp 'advice-add)
+    (progn
+      (advice-add 'shr-colorize-region :around 'shr-colorize-region--disable)
+      (advice-add 'eww-colorize-region :around 'shr-colorize-region--disable)
+      )
+  )
 
 (defun eww-disable-color ()
   "When eww disable flip colorize."

@@ -379,7 +379,7 @@
              (package-initialize)
              (elpy-enable)
              (elpy-mode)
-             (setq elpy-modules (quote (elpy-module-eldoc elpy-module-yasnippet)) t)
+             (setq elpy-modules (quote (elpy-module-eldoc elpy-module-yasnippet)))
              ;; auto-complete
              (setq ac-sources (delete 'ac-source-words-in-same-mode-buffers ac-sources))
              (add-to-list 'ac-sources 'ac-source-jedi-direct)

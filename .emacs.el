@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-12-26 22:45:38
+;; Last Update: 2018-12-27 19:05:32
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -154,6 +154,12 @@
  '(show-paren-match-expression ((t (:background "Gray25"))))
  '(show-paren-match-face ((t (:background "black" :foreground "white"))))
  '(show-paren-mismatch ((t (:background "red"))))
+ '(sml/minor-modes ((t (:foreground "Gray75"))))
+ '(sml/folder ((t (:foreground "White"))))
+ '(sml/git ((t (:foreground "LightBlue"))))
+ '(sml/col-number ((t (:foreground "Gray75"))))
+ '(sml/mule-info ((t (:foreground "Skyblue"))))
+ '(sml/prefix ((t (:foreground "orange"))))
  '(tide-hl-identifier-face ((t (:background "Gray28"))))
  '(tool-bar ((t (:foreground "cyan"))))
  '(tty-menu-disabled-face ((t (:background "Gray45" :foreground "Gray10"))))
@@ -173,7 +179,8 @@
  '(web-mode-html-tag-face ((t (:foreground "cyan"))))
  '(web-mode-server-comment-face ((t (:foreground "green"))))
  '(which-func ((t (:foreground "ivory"))))
- '(which-key-command-description-face ((t (:foreground "white")))))
+ '(which-key-command-description-face ((t (:foreground "white"))))
+ )
 
 ;; ------------------------------------------------------------------------
 ;; custom-set-variables
@@ -192,5 +199,4 @@
 
 (provide '.emacs.el)
 ;;; .emacs.el ends here
-
 

@@ -24,18 +24,40 @@
 (load "~/dotfiles/elisp/cnf-basics.el")
 
 ;; ------------------------------------------------------------------------
+;; load lisp for legacy Emacs
+
+(setq load-path (append '("~/dotfiles/elisp/legacy") load-path))
+
+;; ------------------------------------------------------------------------
 ;; ido
 
 (ido-mode t)
 (ido-everywhere t)
 (setq ido-enable-flex-matching t)
+(setq ido-use-faces t)
+(setq ido-confirm-unique-completion t)
+
+(global-set-key (kbd "C-x C-f") 'ido-find-file)
+
+;; (when (require 'ido-ubiquitous nil t)
+;;   (ido-ubiquitous-mode 1)
+;;   )
 
 (add-hook 'minibuffer-exit-hook
           '(lambda ()
              (let ((buffer "*Completions*"))
                (and (get-buffer buffer)
                     (kill-buffer buffer)))
-))
+             ))
+
+;; ------------------------------------------------------------------------
+;; smex
+
+(when (require 'smex nil t)
+  (smex-initialize)
+  (global-set-key (kbd "M-x") 'smex)
+  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+  )
 
 ;; ------------------------------------------------------------------------
 ;; custom-set-faces
@@ -71,7 +93,7 @@
  '(package-name ((t (:foreground "blue"))))
  '(region ((t (:background "Gray40"))))
  '(tool-bar ((t (:foreground "cyan"))))
- '(minibuffer-prompt ((t (:foreground "blue"))))
+ '(minibuffer-prompt ((t (:foreground "cyan"))))
  '(nxml-name-face ((t (:foreground "cyan"))))
  '(nxml-tag-delimiter ((t (:foreground "LightBlue"))))
  '(nxml-element-local-name ((t (:foreground "blue"))))

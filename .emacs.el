@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-12-27 19:05:32
+;; Last Update: 2018-12-27 19:34:30
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -154,10 +154,10 @@
  '(show-paren-match-expression ((t (:background "Gray25"))))
  '(show-paren-match-face ((t (:background "black" :foreground "white"))))
  '(show-paren-mismatch ((t (:background "red"))))
- '(sml/minor-modes ((t (:foreground "Gray75"))))
+ '(sml/col-number ((t (:foreground "Gray75"))))
  '(sml/folder ((t (:foreground "White"))))
  '(sml/git ((t (:foreground "LightBlue"))))
- '(sml/col-number ((t (:foreground "Gray75"))))
+ '(sml/minor-modes ((t (:foreground "Gray75"))))
  '(sml/mule-info ((t (:foreground "Skyblue"))))
  '(sml/prefix ((t (:foreground "orange"))))
  '(tide-hl-identifier-face ((t (:background "Gray28"))))
@@ -179,8 +179,7 @@
  '(web-mode-html-tag-face ((t (:foreground "cyan"))))
  '(web-mode-server-comment-face ((t (:foreground "green"))))
  '(which-func ((t (:foreground "ivory"))))
- '(which-key-command-description-face ((t (:foreground "white"))))
- )
+ '(which-key-command-description-face ((t (:foreground "white")))))
 
 ;; ------------------------------------------------------------------------
 ;; custom-set-variables
@@ -190,10 +189,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(helm-mini-default-sources
+   (quote
+    (helm-source-buffers-list helm-source-recentf helm-source-projectile-files-list)))
  '(package-selected-packages
    (quote
-    (osx-clipboard pippel powershell flycheck-plantuml ssh plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
- )
+    (textile-mode osx-clipboard pippel powershell flycheck-plantuml ssh plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc))))
 
 ;; ------------------------------------------------------------------------
 

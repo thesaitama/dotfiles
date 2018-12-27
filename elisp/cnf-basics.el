@@ -99,7 +99,7 @@
 
 (defface my-face-b-1 '((t :background "Gray40"))
   "Face for Double width space" :group 'my-face)
-(defface my-face-b-2 '((t :background "Gray30"))
+(defface my-face-b-2 '((t :background "Gray23"))
   "Face for Tab char" :group 'my-face)
 (defface my-face-b-3 '((t :background "Gray80"))
   "Face for redundant spaces" :group 'my-face)

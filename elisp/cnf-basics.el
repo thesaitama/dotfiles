@@ -444,34 +444,43 @@
 (add-hook 'org-mode-hook 'turn-on-font-lock)
 
 ;; ------------------------------------------------------------------------
+;; eshell
+
+(setq eshell-command-aliases-list
+      (append
+       (list
+        (list "ls" "ls -a")
+        (list "o" "xdg-open")
+        (list "emacs" "find-file $1")
+        (list "e" "find-file $1")
+        (list "d" "dired .")
+        )))
+(setq eshell-path-env (getenv "PATH"))
+
+;; ------------------------------------------------------------------------
 ;; eww
 
-(defvar eww-disable-colorize t)
+(when (require 'eww nil t)
+  (defvar eww-disable-colorize t)
+  (defun shr-colorize-region--disable (orig start end fg &optional bg &rest _)
+    (unless eww-disable-colorize
+      (funcall orig start end fg))
+    )
+  (advice-add 'shr-colorize-region :around 'shr-colorize-region--disable)
+  (advice-add 'eww-colorize-region :around 'shr-colorize-region--disable)
 
-(defun shr-colorize-region--disable (orig start end fg &optional bg &rest _)
-  (unless eww-disable-colorize
-    (funcall orig start end fg))
-  )
-
-(if (fboundp 'advice-add)
-    (progn
-      (advice-add 'shr-colorize-region :around 'shr-colorize-region--disable)
-      (advice-add 'eww-colorize-region :around 'shr-colorize-region--disable)
-      )
-  )
-
-(defun eww-disable-color ()
-  "When eww disable flip colorize."
-  (interactive)
-  (setq-local eww-disable-colorize t)
-  (eww-reload)
-  )
-
-(defun eww-enable-color ()
-  "When eww enaboe color rize."
-  (interactive)
-  (setq-local eww-disable-colorize nil)
-  (eww-reload)
+  (defun eww-disable-color ()
+    "When eww disable flip colorize."
+    (interactive)
+    (setq-local eww-disable-colorize t)
+    (eww-reload)
+    )
+  (defun eww-enable-color ()
+    "When eww enaboe color rize."
+    (interactive)
+    (setq-local eww-disable-colorize nil)
+    (eww-reload)
+    )
   )
 
 ;; ------------------------------------------------------------------------

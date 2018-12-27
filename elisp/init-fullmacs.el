@@ -786,6 +786,14 @@
 (load-if-exist "~/dotfiles/elisp/cnf-calendar.el")
 
 ;; ------------------------------------------------------------------------
+;; show load time
+
+(add-hook 'after-init-hook
+          (lambda ()
+            (message "init time: %.3f sec"
+                     (float-time (time-subtract after-init-time before-init-time)))))
+
+;; ------------------------------------------------------------------------
 
 (setq initial-scratch-message ";; saitamacs ok\n")
 

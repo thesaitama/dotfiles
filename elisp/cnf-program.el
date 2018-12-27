@@ -461,8 +461,8 @@
 ;; ------------------------------------------------------------------------
 ;; auto-complete-acr
 
-;; (when (require 'auto-complete-acr nil t))
-(autoload 'auto-complete-acr "auto-complete-acr" nil t)
+(when (require 'auto-complete-acr nil t))
+;; (autoload 'auto-complete-acr "auto-complete-acr" nil t)
 
 ;; ------------------------------------------------------------------------
 ;; go-mode

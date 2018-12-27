@@ -95,25 +95,28 @@
 ;; ------------------------------------------------------------------------
 ;; color white spaces
 
-(defface my-face-b-1 '((t (:background "Gray40"))) nil)
-(defface my-face-b-2 '((t (:background "Gray20"))) nil)
-(defface my-face-b-3 '((t (:background "Gray80"))) nil)
+(defface my-face-b-1 '((t :background "Gray40"))
+  "Face for Double width space" :group 'my-face)
+(defface my-face-b-2 '((t :background "Gray30"))
+  "Face for Tab char" :group 'my-face)
+(defface my-face-b-3 '((t :background "Gray80"))
+  "Face for redundant spaces" :group 'my-face)
 (defvar my-face-u-1 'my-face-b-1)
 (defvar my-face-u-2 'my-face-b-2)
 (defvar my-face-u-3 'my-face-b-3)
-(defadvice font-lock-mode(before my-font-lock-mode ())
+(defadvice font-lock-mode (before my-font-lock-mode ())
   (font-lock-add-keywords
    major-mode '(
                 ("　" 0 my-face-u-1 append)
                 ("\t" 0 my-face-u-2 append)
                 ("[ 　\t]+$" 0 my-face-u-3 append)
-              )))
+                )))
 (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
 (ad-activate 'font-lock-mode)
 (add-hook 'find-file-hooks '(lambda ()
-    (if font-lock-mode
-        nil
-      (font-lock-mode t))))
+                              (if font-lock-mode
+                                  nil
+                                (font-lock-mode t))))
 
 ;; ------------------------------------------------------------------------
 ;; my-make-scratch

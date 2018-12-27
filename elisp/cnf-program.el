@@ -659,12 +659,18 @@
   (flycheck-plantuml-setup))
 
 ;; ------------------------------------------------------------------------
+;; textile-mode
+
+;; (when (require 'textile-mode) nil t))
+(autoload 'textile-mode "textile-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
+
+;; ------------------------------------------------------------------------
 ;; rst-mode
 
-;; (when (require 'rst-mode nil t)
+;; (when (require 'rst-mode nil t))
 (autoload 'rst-mode "rst-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\(\\.rst\\|\\.rest\\)$" . rst-mode))
-;; )
 
 ;; ------------------------------------------------------------------------
 ;; yasnippet

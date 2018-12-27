@@ -138,6 +138,8 @@
     helm-projectile
     magit
     magit-find-file
+    markdown-mode
+    textile-mode
     restclient
     restclient-helm
     yasnippet

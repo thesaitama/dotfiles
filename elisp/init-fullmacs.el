@@ -163,7 +163,9 @@
     mew
     docker
     ac-ispell
+    google-this
     google-translate
+    helm-google
     xah-lookup
     howdoi
     qiita

@@ -92,6 +92,7 @@
 ;; flycheck
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
+(setq flycheck-idle-change-delay 3)  ; important
 
 ;; ------------------------------------------------------------------------
 ;; cc-mode (built-in)

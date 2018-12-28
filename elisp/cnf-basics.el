@@ -9,7 +9,9 @@
 ;; ------------------------------------------------------------------------
 ;; add load-path
 
-(setq load-path (append '("~/dotfiles/elisp") load-path))
+(setq load-path (append '("~/dotfiles/elisp"
+                          "~/dotfiles/elisp/ext"
+                          ) load-path))
 
 ;; ------------------------------------------------------------------------
 ;; load-prefer-newer .elc or .el
@@ -86,28 +88,37 @@
 (set-face-foreground 'font-lock-variable-name-face "goldenrod")
 (set-face-foreground 'font-lock-warning-face "pink")
 
+(set-face-foreground 'mode-line "Skyblue")
+(set-face-background 'mode-line "Gray30")
+(set-face-foreground 'mode-line-buffer-id "orange")
+(set-face-foreground 'mode-line-inactive "Gray60")
+(set-face-background 'mode-line-inactive "Gray25")
+
 ;; ------------------------------------------------------------------------
 ;; color white spaces
 
-(defface my-face-b-1 '((t (:background "Gray40"))) nil)
-(defface my-face-b-2 '((t (:background "Gray20"))) nil)
-(defface my-face-b-3 '((t (:background "Gray80"))) nil)
+(defface my-face-b-1 '((t :background "Gray40"))
+  "Face for Double width space" :group 'my-face)
+(defface my-face-b-2 '((t :background "Gray23"))
+  "Face for Tab char" :group 'my-face)
+(defface my-face-b-3 '((t :background "Gray80"))
+  "Face for redundant spaces" :group 'my-face)
 (defvar my-face-u-1 'my-face-b-1)
 (defvar my-face-u-2 'my-face-b-2)
 (defvar my-face-u-3 'my-face-b-3)
-(defadvice font-lock-mode(before my-font-lock-mode ())
+(defadvice font-lock-mode (before my-font-lock-mode ())
   (font-lock-add-keywords
    major-mode '(
                 ("　" 0 my-face-u-1 append)
                 ("\t" 0 my-face-u-2 append)
                 ("[ 　\t]+$" 0 my-face-u-3 append)
-              )))
+                )))
 (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
 (ad-activate 'font-lock-mode)
 (add-hook 'find-file-hooks '(lambda ()
-    (if font-lock-mode
-        nil
-      (font-lock-mode t))))
+                              (if font-lock-mode
+                                  nil
+                                (font-lock-mode t))))
 
 ;; ------------------------------------------------------------------------
 ;; my-make-scratch
@@ -169,9 +180,16 @@
 ;; mark comamnd repeat (C-u C-SPC ...)
 (setq set-mark-command-repeat-pop t)
 
-;; line number
-(global-linum-mode 0)
-(setq linum-format "%4d ")
+;; linum
+(if (fboundp 'global-linum-mode)
+    (progn
+      (global-linum-mode 0)
+      (setq linum-format "%4d ")
+      )
+  )
+
+(column-number-mode t)
+(line-number-mode t)
 
 ;; highlight editing line
 (global-hl-line-mode t)
@@ -199,9 +217,17 @@
 ;; which function
 (which-function-mode 1)
 
+(size-indication-mode t)
+
 ;; ignore case
 (setq read-buffer-completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
+
+;; disable set-goal-column
+(put 'set-goal-column 'disabled nil)
+
+;; disable text-mode auto-fill
+(add-hook 'text-mode-hook 'turn-off-auto-fill)
 
 ;; ------------------------------------------------------------------------
 ;; isearch
@@ -254,12 +280,16 @@
 
 ;; https://abicky.net/2013/12/21/195058/
 
-(electric-pair-mode 1)
-(defadvice electric-pair-post-self-insert-function
-  (around electric-pair-post-self-insert-function-around activate)
-  "Don't insert the closing pair in comments or strings."
-  (unless (nth 8 (save-excursion (syntax-ppss (1- (point)))))
-    ad-do-it))
+(if (fboundp 'electric-pair-mode)
+    (progn
+      (electric-pair-mode 1)
+      (defadvice electric-pair-post-self-insert-function
+          (around electric-pair-post-self-insert-function-around activate)
+        "Don't insert the closing pair in comments or strings."
+        (unless (nth 8 (save-excursion (syntax-ppss (1- (point)))))
+          ad-do-it))
+      )
+  )
 
 ;; ------------------------------------------------------------------------
 ;; indent-tabs
@@ -301,8 +331,13 @@
   (apply orig-func args)
   (setq inhibit-message nil)
   'around)
-(advice-add 'recentf-cleanup :around 'recentf-save-list-inhibit-message:around)
-(advice-add 'recentf-save-list :around 'recentf-save-list-inhibit-message:around)
+
+(if (fboundp 'advice-add)
+    (progn
+      (advice-add 'recentf-cleanup :around 'recentf-save-list-inhibit-message:around)
+      (advice-add 'recentf-save-list :around 'recentf-save-list-inhibit-message:around)
+      )
+  )
 
 ;; (defadvice recentf-cleanup
 ;;   (around no-message activate)
@@ -365,6 +400,27 @@
 (add-hook 'dired-load-hook (lambda () (load "dired-x")))
 
 ;; ------------------------------------------------------------------------
+;; return-current-working-directory
+
+;; https://uwabami.github.io/cc-env/Emacs.html
+
+(defun return-current-working-directory-to-shell ()
+  (expand-file-name
+   (with-current-buffer
+       (if (featurep 'elscreen)
+           (let* ((frame-confs (elscreen-get-frame-confs (selected-frame)))
+                  (num (nth 1 (assoc 'screen-history frame-confs)))
+                  (cur-window-conf
+                   (assoc 'window-configuration
+                          (assoc num (assoc 'screen-property frame-confs))))
+                  (marker (nth 2 cur-window-conf)))
+             (marker-buffer marker))
+         (nth 1
+              (assoc 'buffer-list
+                     (nth 1 (nth 1 (current-frame-configuration))))))
+     default-directory)))
+
+;; ------------------------------------------------------------------------
 ;; executable make buffer
 
 (add-hook 'after-save-hook
@@ -375,11 +431,11 @@
 
 (require 'time-stamp)
 (add-hook 'before-save-hook 'time-stamp)
-(with-eval-after-load "time-stamp"
-  (setq time-stamp-start "Last Update:")
-  (setq time-stamp-format " %04y-%02m-%02d %02H:%02M:%02S")
-  (setq time-stamp-end "$")
-  (setq time-stamp-line-limit 15)) ; def=8
+
+(setq time-stamp-start "Last Update:")
+(setq time-stamp-format " %04y-%02m-%02d %02H:%02M:%02S")
+(setq time-stamp-end "$")
+(setq time-stamp-line-limit 15) ; def=8
 
 ;; ------------------------------------------------------------------------
 ;; display-time-world
@@ -411,30 +467,43 @@
 (add-hook 'org-mode-hook 'turn-on-font-lock)
 
 ;; ------------------------------------------------------------------------
+;; eshell
+
+(setq eshell-command-aliases-list
+      (append
+       (list
+        (list "ls" "ls -a")
+        (list "o" "xdg-open")
+        (list "emacs" "find-file $1")
+        (list "e" "find-file $1")
+        (list "d" "dired .")
+        )))
+(setq eshell-path-env (getenv "PATH"))
+
+;; ------------------------------------------------------------------------
 ;; eww
 
-(defvar eww-disable-colorize t)
+(when (require 'eww nil t)
+  (defvar eww-disable-colorize t)
+  (defun shr-colorize-region--disable (orig start end fg &optional bg &rest _)
+    (unless eww-disable-colorize
+      (funcall orig start end fg))
+    )
+  (advice-add 'shr-colorize-region :around 'shr-colorize-region--disable)
+  (advice-add 'eww-colorize-region :around 'shr-colorize-region--disable)
 
-(defun shr-colorize-region--disable (orig start end fg &optional bg &rest _)
-  (unless eww-disable-colorize
-    (funcall orig start end fg))
-  )
-
-(advice-add 'shr-colorize-region :around 'shr-colorize-region--disable)
-(advice-add 'eww-colorize-region :around 'shr-colorize-region--disable)
-
-(defun eww-disable-color ()
-  "When eww disable flip colorize."
-  (interactive)
-  (setq-local eww-disable-colorize t)
-  (eww-reload)
-  )
-
-(defun eww-enable-color ()
-  "When eww enaboe color rize."
-  (interactive)
-  (setq-local eww-disable-colorize nil)
-  (eww-reload)
+  (defun eww-disable-color ()
+    "When eww disable flip colorize."
+    (interactive)
+    (setq-local eww-disable-colorize t)
+    (eww-reload)
+    )
+  (defun eww-enable-color ()
+    "When eww enaboe color rize."
+    (interactive)
+    (setq-local eww-disable-colorize nil)
+    (eww-reload)
+    )
   )
 
 ;; ------------------------------------------------------------------------

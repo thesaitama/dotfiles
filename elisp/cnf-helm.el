@@ -44,6 +44,10 @@
                   (unless (string-match "\\(?:/\\|\\`\\)\\.\\{2\\}\\'" file)
                     (funcall fcn file))))
 
+(setq helm-mini-default-sources '(helm-source-buffers-list
+                                  helm-source-recentf
+                                  helm-source-projectile-files-list))
+
 ;; fuzzy match
 (setq helm-M-x-fuzzy-match t)
 (setq helm-locate-fuzzy-match t)

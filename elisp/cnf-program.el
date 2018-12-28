@@ -57,7 +57,7 @@
 ;; ------------------------------------------------------------------------
 ;; helm-projectile
 
-(when (and (require 'helm-projectile))
+(when (require 'helm-projectile nil t)
   (helm-projectile-on)
   (custom-set-variables
    '(helm-mini-default-sources '(helm-source-buffers-list
@@ -147,7 +147,7 @@
 (add-hook 'php-mode-hook
             '(lambda ()
                (auto-complete-mode t)
-               (require 'ac-php)
+               (when (require 'ac-php nil t))
                (setq ac-sources  '(ac-source-php
                                    ac-source-php-completion
                                    ac-source-filename))
@@ -177,7 +177,7 @@
 ;; ------------------------------------------------------------------------
 ;; web-mode + emmet-mode, ac-emmet
 
-;; (require 'web-mode)
+;; (when (require 'web-mode nil t))
 (autoload 'web-mode "web-mode" nil t)
 (setq auto-mode-alist
       (append
@@ -245,7 +245,7 @@
 ;; ------------------------------------------------------------------------
 ;; js2-mode
 
-;; (require 'js2-mode)
+;; (when (require 'js2-mode nil t))
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode))
@@ -266,9 +266,9 @@
 (add-hook 'js2-mode-hook (lambda ()(tern-mode t)))
 
 (eval-after-load 'tern
-   '(progn
-      (require 'tern-auto-complete)
-      (tern-ac-setup)))
+  '(progn
+     (require 'tern-auto-complete)
+     (tern-ac-setup)))
 
 ;; > sudo npm install -g tern
 
@@ -379,6 +379,7 @@
              (package-initialize)
              (elpy-enable)
              (elpy-mode)
+             (setq elpy-modules (quote (elpy-module-eldoc elpy-module-yasnippet)))
              ;; auto-complete
              (setq ac-sources (delete 'ac-source-words-in-same-mode-buffers ac-sources))
              (add-to-list 'ac-sources 'ac-source-jedi-direct)
@@ -460,8 +461,8 @@
 ;; ------------------------------------------------------------------------
 ;; auto-complete-acr
 
-;; (when (require 'auto-complete-acr nil t))
-(autoload 'auto-complete-acr "auto-complete-acr" nil t)
+(when (require 'auto-complete-acr nil t))
+;; (autoload 'auto-complete-acr "auto-complete-acr" nil t)
 
 ;; ------------------------------------------------------------------------
 ;; go-mode
@@ -493,6 +494,47 @@
 (add-hook 'racer-mode-hook #'eldoc-mode)
 (add-hook 'racer-mode-hook (lambda ()
                              (company-mode)))
+
+;; ------------------------------------------------------------------------
+;; haskell-mode
+
+(add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
+(add-to-list 'auto-mode-alist '("\\.lhs$" . literate-haskell-mode))
+(add-to-list 'auto-mode-alist '("\\.cabal$" . haskell-cabal-mode))
+
+(add-hook 'haskell-mode-hook (lambda ()
+                               (turn-on-haskell-indentation)
+                               (turn-on-haskell-doc-mode)
+                               (font-lock-mode)
+                               (imenu-add-menubar-index)
+                               (setq haskell-program-name "/usr/bin/stack ghci") ;; stack
+                               (inf-haskell-mode)
+                               (ghc-init)
+                               (flycheck-mode)))
+
+;; ------------------------------------------------------------------------
+;; scheme
+
+(setq process-coding-system-alist
+      (cons '("gosh" utf-8 . utf-8) process-coding-system-alist))
+(setq scheme-program-name "/opt/local/bin/gosh -i")
+
+(autoload 'scheme-mode "cmuscheme" "Major mode for Scheme." t)
+(autoload 'run-scheme "cmuscheme" "Run an inferior Scheme process." t)
+
+(defun scheme-other-window ()
+  "Run Gauche on other window."
+  (interactive)
+  (split-window-below (/ (frame-width) 2))
+  (let ((buf-name (buffer-name (current-buffer))))
+    (scheme-mode)
+    (switch-to-buffer-other-window
+     (get-buffer-create "*scheme*"))
+    (run-scheme scheme-program-name)
+    (switch-to-buffer-other-window
+     (get-buffer-create buf-name))))
+
+;; > sudo port install gauche
 
 ;; ------------------------------------------------------------------------
 ;; clojure-mode
@@ -585,7 +627,7 @@
 ;; ------------------------------------------------------------------------
 ;; helm-gtags
 
-;; (require 'helm-gtags)
+;; (when (require 'helm-gtags nil t))
 (autoload 'helm-gtags "helm-gtags" nil t)
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
 (add-hook 'c-mode-hook 'helm-gtags-mode)
@@ -622,7 +664,7 @@
 
 (eval-after-load 'nxml-mode
   '(progn
-     (require 'auto-complete-nxml)
+     (when (require 'auto-complete-nxml nil t))
      ))
 
 ;; ------------------------------------------------------------------------
@@ -641,12 +683,18 @@
   (flycheck-plantuml-setup))
 
 ;; ------------------------------------------------------------------------
+;; textile-mode
+
+;; (when (require 'textile-mode) nil t))
+(autoload 'textile-mode "textile-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
+
+;; ------------------------------------------------------------------------
 ;; rst-mode
 
-;; (when (require 'rst-mode nil t)
+;; (when (require 'rst-mode nil t))
 (autoload 'rst-mode "rst-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\(\\.rst\\|\\.rest\\)$" . rst-mode))
-;; )
 
 ;; ------------------------------------------------------------------------
 ;; yasnippet
@@ -654,7 +702,7 @@
 (yas-global-mode 1)
 (setq yas-prompt-functions '(yas-ido-prompt))
 
-;; (require 'helm-c-yasnippet)
+;; (when (require 'helm-c-yasnippet nil t))
 (autoload 'helm-c-yasnippet "helm-c-yasnippet" nil t)
 (setq helm-yas-space-match-any-greedy t)
 (push '("emacs.+/snippets/" . snippet-mode) auto-mode-alist)
@@ -671,14 +719,15 @@
 ;; ------------------------------------------------------------------------
 ;; magit-find-file
 
-;; (require 'magit-find-file)
+;; (when (require 'magit-find-file nil t))
 (autoload 'magit-find-file "magit-find-file" nil t)
 
 ;; ------------------------------------------------------------------------
 ;; quickrun
 
-(require 'quickrun)
-(global-set-key (kbd "<f5>") 'quickrun)
+(when (require 'quickrun nil t)
+  (global-set-key (kbd "<f5>") 'quickrun)
+  )
 
 ;; ------------------------------------------------------------------------
 ;; electric-operator
@@ -695,7 +744,7 @@
 ;; ------------------------------------------------------------------------
 ;; git-complete
 
-;; (require 'git-complete)
+;; (when (require 'git-complete nil t))
 (autoload 'git-complete "git-complete" nil t)
 (global-set-key (kbd "M-g j") 'git-complete)
 

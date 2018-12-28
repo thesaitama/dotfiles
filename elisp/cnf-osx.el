@@ -22,23 +22,42 @@
 ;; (defun copy-from-osx ()
 ;;   (shell-command-to-string "pbpaste"))
 
-(defun copy-from-osx ()
-  "Handle copy/paste intelligently on osx."
+;; for Terminal
+(defun copy-from-osx-term ()
+  "Handle copy intelligently on osx term."
   (let ((pbpaste (purecopy "/usr/bin/pbpaste")))
-    (if (and (eq system-type 'darwin)
-             (file-exists-p pbpaste))
+    (if (file-exists-p pbpaste)
         (let ((tramp-mode nil)
               (default-directory "~"))
           (shell-command-to-string pbpaste)))))
 
-(defun paste-to-osx (text &optional push)
+(defun paste-to-osx-term (text &optional push)
+  "Handle paste TEXT (PUSH will ignore) intelligently on osx term."
   (let ((process-connection-type nil))
     (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
       (process-send-string proc text)
       (process-send-eof proc))))
 
-(setq interprogram-cut-function 'paste-to-osx)
-(setq interprogram-paste-function 'copy-from-osx)
+;; for GUI
+(defun paste-to-osx-gui (text &rest push)
+  "Handle paste TEXT (PUSH will ignore) intelligently on osx."
+  (if (display-graphic-p)
+      (gui-select-text text)
+    (osx-clipboard-cut-function text)))
+
+(defun copy-from-osx-gui ()
+  "Handle copy intelligently on osx."
+  (if (display-graphic-p)
+      (gui-selection-value)
+    (osx-clipboard-paste-function)))
+
+(setq interprogram-cut-function 'paste-to-osx-term)
+(setq interprogram-paste-function 'copy-from-osx-term)
+
+(when (eq window-system 'ns)
+  (setq interprogram-cut-function 'paste-to-osx-gui)
+  (setq interprogram-paste-function 'copy-from-osx-gui)
+  )
 
 ;; ------------------------------------------------------------------------
 ;; mac dired
@@ -101,15 +120,55 @@
 
 (when (eq window-system 'ns)
 
+  (set-clipboard-coding-system 'utf-8) ;; clip board
+
+  ;; mode line
+  (set-face-attribute 'mode-line nil :box '(:line-width 1 :color "Gray30"))
+  (set-face-attribute 'mode-line-inactive nil :box '(:line-width 1 :color "Gray25"))
+
   ;; font
-  (set-face-attribute 'default nil :family "Menlo" :height 130)
-  (set-fontset-font (frame-parameter nil 'font)
-                    'japanese-jisx0208
-                    (font-spec :family "Ricty Diminished for Powerline"))
-  (add-to-list 'face-font-rescale-alist
-               '(".*Ricty Diminished for Powerline.*" . 1.3))
+  (let* ((size 13)
+         (asciifont "Menlo")
+         (jpfont "Ricty Diminished for Powerline")
+         (jpfont-hira "Hiragino Maru Gothic Pro")
+         (h (* size 10))
+         (fontspec (font-spec :family asciifont))
+         (jp-fontspec (font-spec :family jpfont))
+         (jp-fontspec-hira (font-spec :family jpfont-hira))
+         (osaka-fontspec (font-spec :family "Osaka"))
+         )
+  (set-face-attribute 'default nil :family asciifont :height h)
+  (set-fontset-font nil 'japanese-jisx0213.2004-1 jp-fontspec)
+  (set-fontset-font nil 'japanese-jisx0213-2 jp-fontspec)
+  (set-fontset-font nil 'katakana-jisx0201 jp-fontspec) ; half-width
+  (set-fontset-font nil '(#x0080 . #x024F) fontspec) ; ext-Latin
+  (set-fontset-font nil '(#x0370 . #x03FF) jp-fontspec) ; Greek
+  (set-fontset-font nil '#xFF0B osaka-fontspec) ; ＋
+  (set-fontset-font nil '#x2212 osaka-fontspec) ; −
+  (set-fontset-font nil '#x00B1 osaka-fontspec) ; ±
+  (set-fontset-font nil '#x00D7 osaka-fontspec) ; ×
+  (set-fontset-font nil '#x00F7 osaka-fontspec) ; ÷
+  )
+
+  (dolist (elt '(("^-apple-hiragino.*" . 1.3)
+                 (".*Ricty Diminished for Powerline.*" . 1.3)
+                 (".*osaka-bold.*" . 1.4)
+                 (".*osaka-medium.*" . 1.4)
+                 (".*courier-bold-.*-mac-roman" . 1.0)
+                 (".*monaco cy-bold-.*-mac-cyrillic" . 0.9)
+                 (".*monaco-bold-.*-mac-roman" . 0.9)))
+    (add-to-list 'face-font-rescale-alist elt))
+
   ;; font list Snippet
   ;; (dolist (x (x-list-fonts "*")) (print x))
+
+  ;; 123456789012345678901234567890
+  ;; ABCDEFGHIJKLMNOPQRSTUVWXYZabcd
+  ;; あいうえおかきくけこさしすせそ
+  ;; ◎○●▲■◎○●▲■◎○●▲■
+  ;; ×÷±＋−×÷±＋−×÷±＋−
+  ;; 123456789012345678901234567890
+  ;; ΑΒΓαβγΑΒΓαβγΑΒΓαβγΑΒΓαβγΑΒΓαβγ
 
   (setq-default line-spacing 0.3)
 

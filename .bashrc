@@ -6,7 +6,7 @@
 #  \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
 
 # thesaitama@ .bashrc
-# Last Update: 2018-09-29 23:57:28
+# Last Update: 2018-12-27 19:04:34
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -107,6 +107,23 @@ fi
 if [ "$PLATFORM" = "linux" ]; then
   eval `dircolors ~/.colorrc`
 fi
+
+# ------------------------------------------------------------------------
+# Emacs integration
+
+# https://masutaka.net/chalow/2011-09-28-1.html
+
+## Invoke the ``dired'' of current working directory in Emacs buffer.
+function dired () {
+  emacsclient -nw -e "(dired \"$PWD\")"
+}
+
+## Chdir to the ``default-directory'' of currently opened in Emacs buffer.
+function cde () {
+  EMACS_CWD=`emacsclient -e "(return-current-working-directory-to-shell)" | sed 's/^"\(.*\)"$/\1/'`
+  echo "chdir to $EMACS_CWD"
+  cd "$EMACS_CWD"
+}
 
 # ------------------------------------------------------------------------
 # History

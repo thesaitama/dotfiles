@@ -747,6 +747,8 @@
 ;; dumb-jump-mode
 
 (setq dumb-jump-mode t)
+(setq dumb-jump-default-project "") ; prevent search in home
+(setq dumb-jump-selector 'helm)
 
 ;; ------------------------------------------------------------------------
 ;; git-complete

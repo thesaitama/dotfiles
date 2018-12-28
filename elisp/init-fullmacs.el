@@ -116,6 +116,7 @@
     emacsql-sqlite
     flycheck
     flycheck-popup-tip
+    dumb-jump
     imenus
     imenu-anywhere
     imenu-list

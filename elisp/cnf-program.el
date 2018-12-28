@@ -742,6 +742,11 @@
 (add-hook 'typescript-mode-hook #'electric-operator-mode)
 
 ;; ------------------------------------------------------------------------
+;; dumb-jump-mode
+
+(setq dumb-jump-mode t)
+
+;; ------------------------------------------------------------------------
 ;; git-complete
 
 ;; (when (require 'git-complete nil t))

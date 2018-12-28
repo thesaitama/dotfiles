@@ -751,7 +751,7 @@
 
 ;; (when (require 'git-complete nil t))
 (autoload 'git-complete "git-complete" nil t)
-(global-set-key (kbd "M-g j") 'git-complete)
+(global-set-key (kbd "M-g y") 'git-complete)
 
 ;; ------------------------------------------------------------------------
 

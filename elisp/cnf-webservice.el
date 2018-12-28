@@ -58,6 +58,18 @@
 (global-set-key (kbd "M-g a") 'helm-google-suggest)
 
 ;; ------------------------------------------------------------------------
+;; [google] google-this
+
+(global-set-key (kbd "M-g o") 'google-this)
+(setq google-this-location-suffix "co.jp")
+
+(defun google-this-url ()
+  "URL for google search."
+  ;; search within 5 years
+  (concat google-this-base-url google-this-location-suffix
+          "/search?q=%s&as_qdr=y5&lr=lang_ja"))
+
+;; ------------------------------------------------------------------------
 ;; web dictionary
 
 (defvar eww-data)

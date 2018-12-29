@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-12-29 13:03:29
+;; Last Update: 2018-12-29 13:34:22
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -144,11 +144,11 @@
  '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
  '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "goldenrod"))))
- '(rainbow-delimiters-depth-2-face ((t (:foreground "pink"))))
- '(rainbow-delimiters-depth-3-face ((t (:foreground "orange"))))
- '(rainbow-delimiters-depth-4-face ((t (:foreground "yellow"))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "Skyblue"))))
+ '(rainbow-delimiters-depth-3-face ((t (:foreground "magenta"))))
+ '(rainbow-delimiters-depth-4-face ((t (:foreground "cyan"))))
  '(rainbow-delimiters-depth-5-face ((t (:foreground "green"))))
- '(rainbow-delimiters-depth-6-face ((t (:foreground "cyan"))))
+ '(rainbow-delimiters-depth-6-face ((t (:foreground "orange"))))
  '(rainbow-delimiters-depth-7-face ((t (:foreground "purple"))))
  '(rainbow-delimiters-depth-8-face ((t (:foreground "gray"))))
  '(rainbow-delimiters-depth-9-face ((t (:foreground "white"))))

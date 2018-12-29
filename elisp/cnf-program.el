@@ -18,6 +18,11 @@
 ;; (setq edconf-exec-path "/opt/local/bin/editorconfig")
 
 ;; ------------------------------------------------------------------------
+;; eldoc-mode
+
+(add-hook 'eval-expression-minibuffer-setup-hook 'eldoc-mode)
+
+;; ------------------------------------------------------------------------
 ;; comment-tags
 
 (setq comment-tags-keymap-prefix (kbd "C-c t"))

@@ -197,6 +197,7 @@
 (defvar mode-line-cleaner-alist
   '( ;; For minor-mode, first char is 'space'
     (abbrev-mode . "")
+    (projectile-mode . "")
     (company-mode . " Comp")
     (editorconfig-mode . " EC")
     (elisp-slime-nav-mode . " EN")
@@ -774,7 +775,8 @@
 (setq sml/read-only-char "%%")
 (setq sml/modified-char "*")
 ;; hide Helm and auto-complete
-(setq sml/hidden-modes '(" Helm" " yas" " VHl" " WK" " Fly" " EC" " ARev" " Anzu"))
+(setq sml/hidden-modes '(" Helm" " yas" " VHl" " WK"
+                         " Fly" " EC" " ARev" " Anzu" " _+_"))
 ;; hack (privent overflow)
 (setq sml/extra-filler -10)
 ;; sml/replacer-regexp-list

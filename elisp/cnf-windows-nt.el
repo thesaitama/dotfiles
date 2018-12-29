@@ -9,6 +9,7 @@
 ;; ------------------------------------------------------------------------
 ;; path
 
+(add-to-list 'exec-path "~/bin")
 (add-to-list 'exec-path "C:/Program Files/Git/usr/bin")
 ;; (add-to-list 'exec-path "C:/Program Filee/PuTTY")
 ;; (add-to-list 'exec-path "C:/Program Files/Aspell/bin")

@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-12-29 08:39:55
+;; Last Update: 2018-12-29 09:06:16
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -83,7 +83,7 @@
  '(helm-grep-file ((t (:inherit font-lock-builtin-face :underline t :foreground "cyan"))))
  '(helm-grep-match ((t (:background "LightCyan" :foreground "black"))))
  '(helm-header ((t (:background "Gray40" :foreground "Gray80"))))
- '(helm-match ((t (:foreground "cyan"))))
+ '(helm-match ((t (:foreground "Skyblue"))))
  '(helm-selection ((t (:background "Gray30"))))
  '(helm-selection-line ((t (:background "Gray20"))))
  '(helm-source-header ((t (:background "DarkCyan" :foreground "white"))))

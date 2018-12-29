@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-12-29 09:06:16
+;; Last Update: 2018-12-29 13:03:29
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -143,6 +143,15 @@
  '(pulse-highlight-start-face ((t (:background "Gray35"))))
  '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
  '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "goldenrod"))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "pink"))))
+ '(rainbow-delimiters-depth-3-face ((t (:foreground "orange"))))
+ '(rainbow-delimiters-depth-4-face ((t (:foreground "yellow"))))
+ '(rainbow-delimiters-depth-5-face ((t (:foreground "green"))))
+ '(rainbow-delimiters-depth-6-face ((t (:foreground "cyan"))))
+ '(rainbow-delimiters-depth-7-face ((t (:foreground "purple"))))
+ '(rainbow-delimiters-depth-8-face ((t (:foreground "gray"))))
+ '(rainbow-delimiters-depth-9-face ((t (:foreground "white"))))
  '(region ((t (:background "Gray40"))))
  '(rst-level-1 ((t (:inherit outline-1))))
  '(rst-level-2 ((t (:inherit outline-2))))

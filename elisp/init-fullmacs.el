@@ -516,11 +516,6 @@
 (require 'multiple-cursors)
 
 ;; ------------------------------------------------------------------------
-;; imenu
-
-(setq imenu-auto-rescan t)
-
-;; ------------------------------------------------------------------------
 ;; imenu-list
 
 (setq imenu-list-position "below")

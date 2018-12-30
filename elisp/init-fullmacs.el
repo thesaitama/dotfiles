@@ -498,7 +498,6 @@
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (setq rainbow-delimiters-outermost-only-face-count 1)
 
-;; can not work
 (require 'color)
 (defun rainbow-delimiters-using-stronger-colors ()
     "Rainbow delimiter more vivid colors."
@@ -608,10 +607,6 @@
        (load-if-exist "~/dotfiles/elisp/cnf-browser.el")
        )
       )
-
-(load-if-exist "~/dotfiles/elisp/cnf-webservice.el")
-(load-if-exist "~/dotfiles/elisp/cnf-program.el")
-(load-if-exist "~/dotfiles/elisp/cnf-user.el")
 
 ;; ------------------------------------------------------------------------
 ;; shell-mode
@@ -784,9 +779,12 @@
 (sml/apply-theme 'dark)
 
 ;; ------------------------------------------------------------------------
-;; load calendar settings
+;; load other settings
 
 (load-if-exist "~/dotfiles/elisp/cnf-calendar.el")
+(load-if-exist "~/dotfiles/elisp/cnf-webservice.el")
+(load-if-exist "~/dotfiles/elisp/cnf-program.el")
+(load-if-exist "~/dotfiles/elisp/cnf-user.el")
 
 ;; ------------------------------------------------------------------------
 ;; show load time

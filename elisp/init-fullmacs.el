@@ -192,6 +192,13 @@
 (load-if-exist "~/dotfiles/elisp/cnf-basics.el")
 
 ;; ------------------------------------------------------------------------
+;; increase priority cp932
+
+(apply 'set-coding-system-priority
+       (subst 'japanese-cp932 'japanese-shift-jis
+              (coding-system-priority-list)))
+
+;; ------------------------------------------------------------------------
 ;; modeline encoding
 
 ;; https://qiita.com/kai2nenobu/items/ddf94c0e5a36919bc6db

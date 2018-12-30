@@ -198,6 +198,7 @@
 (setq eol-mnemonic-dos "(CRLF)")
 (setq eol-mnemonic-mac "(CR)")
 (setq eol-mnemonic-unix "(LF)")
+(setq eol-mnemonic-undecided "(?)")
 
 ;; display image file
 (auto-image-file-mode t)

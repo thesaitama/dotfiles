@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-12-30 10:25:13
+;; Last Update: 2018-12-30 18:03:12
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -120,6 +120,9 @@
  '(markdown-inline-code-face ((t (:inherit font-lock-constant-face))))
  '(markdown-pre-face ((t (:inherit font-lock-constant-face))))
  '(menu ((t (:background "Gray30"))))
+ '(mlc-mode-line-char-format ((t (:foreground "Gray90" :background "Gray40"))))
+ '(mlc-mode-line-char-format-code ((t (:foreground "Gray80"))))
+ '(minibuffer-prompt ((t (:foreground "cyan"))))
  '(minibuffer-prompt ((t (:foreground "cyan"))))
  '(nxml-attribute-local-name ((t (:foreground "LightBlue"))))
  '(nxml-attribute-value ((t (:foreground "Goldenrod"))))

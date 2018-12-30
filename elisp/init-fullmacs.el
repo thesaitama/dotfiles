@@ -756,6 +756,11 @@
 ;; (advice-add 'undo-tree-visualize :around #'undo-tree-split-side-by-side)
 
 ;; ------------------------------------------------------------------------
+;; modeline-char
+
+(when (require 'modeline-char nil t))
+
+;; ------------------------------------------------------------------------
 ;; smart-mode-line
 ;; basic modeline setting in cnf-basics.el
 

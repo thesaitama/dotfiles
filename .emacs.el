@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-12-29 14:00:00
+;; Last Update: 2018-12-30 10:25:13
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -75,6 +75,7 @@
  '(header-line ((t (:background "Gray40" :foreground "Gray85"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-buffer-process ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
+ '(helm-buffer-directory ((t (:background "DarkCyan" :foreground "white"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "orange"))))
  '(helm-ff-dotted-directory ((t (:background "Gray25" :foreground "white"))))
  '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "cyan"))))

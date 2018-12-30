@@ -11,8 +11,7 @@
 
 (add-to-list 'exec-path "~/bin")
 (add-to-list 'exec-path "C:/Program Files/Git/usr/bin")
-;; (add-to-list 'exec-path "C:/Program Filee/PuTTY")
-;; (add-to-list 'exec-path "C:/Program Files/Aspell/bin")
+;; (add-to-list 'exec-path "C:/Program File/PuTTY")
 
 ;; ------------------------------------------------------------------------
 ;; Windows configure
@@ -56,37 +55,53 @@
 ;; download: https://github.com/mhatta/emacs-26-x86_64-win-ime
 
 (defun enable-ime ()
-  (if (fboundp 'w32-ime-initialize)
-      '(lambda ()
-         ;; Windows IME
-         (setq default-input-method "W32-IME")
-         (setq-default w32-ime-mode-line-state-indicator "[--]")
-         (setq w32-ime-mode-line-state-indicator-list '("[--]" "[あ]" "[--]"))
-         (w32-ime-initialize)
-         ;; change cursor-color depend on IME status
-         (add-hook 'w32-ime-on-hook '(lambda () (set-cursor-color "Coral4")))
-         (add-hook 'w32-ime-off-hook '(lambda () (set-cursor-color "Black")))
-         (setq w32-ime-composition-window nil)
+  (when (locate-library "w32-ime")
+    (progn
 
-         ;; IME setting
-         (add-hook 'minibuffer-setup-hook 'deactivate-input-method)
-         (add-hook
-          'isearch-mode-hook '(lambda ()
-                             (deactivate-input-method)
-                             (setq w32-ime-composition-window (minibuffer-window))))
-         (add-hook
-          'isearch-mode-end-hook '(lambda ()
-                             (setq w32-ime-composition-window nil)))
-         (advice-add
-          'helm :around '(lambda (orig-fun &rest args)
-                           (let ((select-window-functions nil)
-                                 (w32-ime-composition-window (minibuffer-window)))
-                             (deactivate-input-method)
-                             (apply orig-fun args))))
-         )
-    nil)
+      ;; Windows IME
+      (setq default-input-method "W32-IME")
+      (setq-default w32-ime-mode-line-state-indicator "[--]")
+      (setq w32-ime-mode-line-state-indicator-list '("[--]" "[あ]" "[--]"))
+      (w32-ime-initialize)
+
+      ;; change cursor-color depend on IME status
+      (add-hook 'w32-ime-on-hook '(lambda () (set-cursor-color "Skyblue")))
+      (add-hook 'w32-ime-off-hook '(lambda () (set-cursor-color "white")))
+
+      ;; disable IME for minibuffer
+      (add-hook 'minibuffer-setup-hook 'deactivate-input-method)
+
+      ;; enable IME for isearch
+      (add-hook
+       'isearch-mode-hook
+       (lambda () (setq w32-ime-composition-window (minibuffer-window))))
+      (add-hook
+       'isearch-mode-end-hook
+       (lambda () (setq w32-ime-composition-window nil)))
+
+      ;; disable IME for isearch
+      ;; (setq w32-ime-composition-window t)
+      ;; (add-hook
+      ;;  'isearch-mode-hook
+      ;;  '(lambda ()
+      ;;     (deactivate-input-method)
+      ;;     (setq w32-ime-composition-window (minibuffer-window))))
+      ;; (add-hook
+      ;;  'isearch-mode-end-hook
+      ;;  '(lambda ()
+      ;;     (setq w32-ime-composition-window nil)))
+
+      ;; disable IME for helm
+      (advice-add
+       'helm :around
+       '(lambda (orig-fun &rest args)
+          (let ((select-window-functions nil)
+                (w32-ime-composition-window (minibuffer-window)))
+            (deactivate-input-method)
+            (apply orig-fun args))))
+      )
+    )
   )
-
 (enable-ime)
 
 ;; ------------------------------------------------------------------------

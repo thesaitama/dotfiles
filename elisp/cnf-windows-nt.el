@@ -18,6 +18,9 @@
 
 (setq default-directory "~/../../Desktop/")
 
+;; speed up tramp
+(setq tramp-default-method "pscp")
+
 ;; coding
 (set-file-name-coding-system 'cp932)    ;; file system
 (set-clipboard-coding-system 'utf-16le) ;; clipboard

@@ -95,7 +95,11 @@
 
 (global-set-key (kbd "C-x C-b") 'bs-show)
 
+;; for tmux compatibility
 (global-unset-key (kbd "C-t")) ;; important
+(global-set-key (kbd "C-t -") 'split-window-below)
+(global-set-key (kbd "C-t |") 'split-window-right)
+(global-set-key (kbd "C-t d") 'delete-window)
 (global-set-key (kbd "C-t l") 'windmove-right)
 (global-set-key (kbd "C-t h") 'windmove-letf)
 (global-set-key (kbd "C-t j") 'windmove-down)

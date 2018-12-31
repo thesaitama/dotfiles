@@ -82,6 +82,14 @@
        'isearch-mode-end-hook
        (lambda () (setq w32-ime-composition-window nil)))
 
+      ;; workaround for mini buffer
+      (setq w32-ime-buffer-switch-p t)
+      (advice-add
+       'helm
+       :around (lambda (orig-fun &rest args)
+                 (let ((select-window-functions nil))
+                   (apply orig-fun args)))
+
       ;; disable IME for isearch
       ;; (setq w32-ime-composition-window t)
       ;; (add-hook
@@ -95,13 +103,13 @@
       ;;     (setq w32-ime-composition-window nil)))
 
       ;; disable IME for helm
-      (advice-add
-       'helm :around
-       '(lambda (orig-fun &rest args)
-          (let ((select-window-functions nil)
-                (w32-ime-composition-window (minibuffer-window)))
-            (deactivate-input-method)
-            (apply orig-fun args))))
+      ;; (advice-add
+      ;;  'helm :around
+      ;;  '(lambda (orig-fun &rest args)
+      ;;     (let ((select-window-functions nil)
+      ;;           (w32-ime-composition-window (minibuffer-window)))
+      ;;       (deactivate-input-method)
+      ;;       (apply orig-fun args))))
       )
     )
   )

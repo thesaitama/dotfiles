@@ -87,8 +87,8 @@
 (scroll-bar-mode 0)
 
 ;; disable dialog-boxn
-;; (setq use-dialog-boxn nil)
-;; (defalias 'message-box 'message)
+(defalias 'message-box 'message)
+(setq use-dialog-box nil)
 
 ;; ------------------------------------------------------------------------
 ;; (GUI) key bind

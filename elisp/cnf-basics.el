@@ -218,6 +218,7 @@
 ;; which function
 (which-function-mode 1)
 
+;; show file size
 (size-indication-mode t)
 
 ;; ignore case
@@ -229,6 +230,9 @@
 
 ;; disable text-mode auto-fill
 (add-hook 'text-mode-hook 'turn-off-auto-fill)
+
+;; auto scroll when compile
+(setq compilation-scroll-output t)
 
 ;; ------------------------------------------------------------------------
 ;; isearch

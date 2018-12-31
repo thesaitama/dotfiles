@@ -71,8 +71,6 @@
 (set-face-foreground 'minibuffer-prompt "#69afde")
 (set-face-foreground 'fringe "#cccccc")
 (set-face-background 'fringe "#1a1a1a")
-(set-face-foreground 'mode-line "#777777")
-(set-face-background 'mode-line "#434944")
 
 ;; (set-face-background 'highlight-symbol-face "Gray30)"
 (set-face-background 'hl-line "#303030")

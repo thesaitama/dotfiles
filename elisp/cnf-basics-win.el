@@ -83,7 +83,7 @@
 (setq x-select-enable-clipboard t)
 
 ;; ------------------------------------------------------------------------
-;; UX
+;; (GUI) UX
 
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
@@ -92,7 +92,16 @@
 ;; (setq use-dialog-boxn nil)
 ;; (defalias 'message-box 'message)
 
+;; ------------------------------------------------------------------------
+;; (GUI) key bind
+
 (global-set-key (kbd "C-x C-b") 'bs-show)
+
+(global-unset-key (kbd "C-t")) ;; important
+(global-set-key (kbd "C-t l") 'windmove-right)
+(global-set-key (kbd "C-t h") 'windmove-letf)
+(global-set-key (kbd "C-t j") 'windmove-down)
+(global-set-key (kbd "C-t k") 'windmove-up)
 
 ;; ------------------------------------------------------------------------
 

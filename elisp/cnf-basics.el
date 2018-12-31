@@ -221,6 +221,10 @@
 ;; show file size
 (size-indication-mode t)
 
+;; can move across splitted frames with direction keys
+(windmove-default-keybindings)
+(setq windmove-wrap-around t)
+
 ;; ignore case
 (setq read-buffer-completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)

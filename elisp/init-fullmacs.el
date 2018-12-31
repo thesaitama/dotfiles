@@ -24,6 +24,9 @@
 (setq byte-compile-warnings '(free-vars bytecomp))
 (setq ad-redefinition-action 'accept)
 
+;; GC threshold
+(setq gc-cons-threshold (* 10 gc-cons-threshold))
+
 ;; ------------------------------------------------------------------------
 
 (setq initial-scratch-message ";; saitamacs\n")

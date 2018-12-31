@@ -88,7 +88,7 @@
        'helm
        :around (lambda (orig-fun &rest args)
                  (let ((select-window-functions nil))
-                   (apply orig-fun args)))
+                   (apply orig-fun args))))
 
       ;; disable IME for isearch
       ;; (setq w32-ime-composition-window t)

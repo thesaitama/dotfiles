@@ -115,26 +115,38 @@
 (add-hook 'c-mode-common-hook
  '(lambda ()
     (c-set-style "gnu")
+    (c-set-offset 'case-label 2)
     (setq c-tab-always-indent t)
-    (define-key c-mode-map "\C-cc" 'compile)
     (setq compilation-window-height 8)
     (define-key c-mode-map "\C-cd" 'gdb)
-    (c-set-offset 'case-label 2)
+    (define-key c-mode-map "\C-cc" 'compile)
     ))
 
 ;; ------------------------------------------------------------------------
-;; php-mode
+;; php-mode, ac-php + php-eldoc
 
 (autoload 'php-mode "php-mode")
 (add-to-list 'auto-mode-alist '("\\(\\.php\\|\\.tpl\\)$" . php-mode))
 (defvar php-mode-force-pear t)
-(add-hook 'php-mode-hook
-  '(lambda ()
-     (setq php-manual-path "/usr/local/share/php/doc/php-chunked-xhtml")
-     (setq php-search-url "http://www.phppro.jp/")
-     (setq php-manual-url "http://www.phppro.jp/phpmanual")
-   )
+(defvar php-manual-path "/usr/local/share/php/doc/php-chunked-xhtml")
+(defvar php-search-url "http://www.phppro.jp/")
+(defvar php-manual-url "http://www.phppro.jp/phpmanual")
+(defun setup-php-mode ()
+  "Setup php-mode."
+  (auto-complete-mode t)
+  (when (require 'ac-php nil t)
+    (setq ac-sources '(ac-source-php
+                       ac-source-filename
+                       ac-source-words-in-same-mode-buffers)))
+  (when (require 'php-eldoc nil t)
+    (php-eldoc-enable)
+    (cond
+     ((string-match-p "^/my-project-folder")
+      (php-eldoc-probe-load "http://my-project.com/probe.php?secret=sesame"))
+     ((string-match-p "^/other-project-folder")
+      (php-eldoc-probe-load "http://localhost/otherproject/probe.php?secret=sesame"))))
   )
+(add-hook 'php-mode-hook 'setup-php-mode)
 
 ;; manual install
 ;; > wget http://jp.php.net/get/php_manual_ja.tar.gz/from/this/mirror -O php_manual_ja.tar.gz
@@ -144,42 +156,15 @@
 ;; > rm -rf php-chunked-xhtml
 
 ;; ------------------------------------------------------------------------
-;; ac-php
-
-;; M-x install-elisp-from-emacswiki php-completion.el
-
-(add-hook 'php-mode-hook
-            '(lambda ()
-               (auto-complete-mode t)
-               (when (require 'ac-php nil t))
-               (setq ac-sources  '(ac-source-php
-                                   ac-source-php-completion
-                                   ac-source-filename))
-               )
-            )
-
-;; ------------------------------------------------------------------------
-;; php-eldoc
-
-(defun php-mode-options ()
-  (php-eldoc-enable)
-  (cond
-    ((string-match-p "^/my-project-folder")
-     (php-eldoc-probe-load "http://my-project.com/probe.php?secret=sesame"))
-    ((string-match-p "^/other-project-folder")
-     (php-eldoc-probe-load "http://localhost/otherproject/probe.php?secret=sesame"))))
-(add-hook 'php-mode-hook 'php-mode-options)
-
-;; ------------------------------------------------------------------------
 ;; cperl-mode
 
 (setq auto-mode-alist
-      (append '(("\\.\\([pP][Llm]\\|al\\)$" . cperl-mode))  auto-mode-alist ))
+      (append '(("\\.\\([pP][Llm]\\|al\\)$" . cperl-mode)) auto-mode-alist))
 (setq interpreter-mode-alist (append '(("perl" . cperl-mode))
                                      interpreter-mode-alist))
 
 ;; ------------------------------------------------------------------------
-;; web-mode + emmet-mode, ac-emmet
+;; web-mode, emmet-mode + ac-emmet
 
 ;; (when (require 'web-mode nil t))
 (autoload 'web-mode "web-mode" nil t)
@@ -194,34 +179,30 @@
          ("\\(\\.sass\\|\\.s?css\\)$" . web-mode)
          )
        auto-mode-alist))
-
-(defun web-mode-hook ()
+(setq-default web-mode-ac-sources-alist
+              '(("php" . (ac-source-yasnippet ac-source-php-auto-yasnippets))
+                ("css" . (ac-source-css-property ac-source-emmet-css-snippets))
+                ("html" . (ac-source-emmet-html-aliases
+                           ac-source-emmet-html-snippets
+                           ac-source-words-in-buffer
+                           ac-source-abbrev))))
+(defun web-mode-setup ()
   "Hooks for Web mode."
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-html-offset 2)
-  (setq web-mode-css-offset 2)
-  (setq web-mode-script-offset 2)
-  (setq web-mode-php-offset 2)
-  (setq web-mode-java-offset 2)
-  (setq web-mode-asp-offset 2)
+  (set-variable 'web-mode-markup-indent-offset 2)
+  (set-variable 'web-mode-code-indent-offset 2)
+  (set-variable 'web-mode-css-indent-offset 2)
+  (set-variable 'web-mode-auto-close-style 2)
+  (set-variable 'web-mode-enable-auto-pairing t)
+  (set-variable 'web-mode-enable-auto-closing t)
+  (set-variable 'web-mode-enable-current-element-highlight t)
+  (set-variable 'web-mode-enable-current-column-highlight t)
+  ;; (set-variable 'web-mode-enable-css-colorization t)
   (setq indent-tabs-mode nil)
   (setq tab-width 2)
   ;; (auto-complete-mode t)
   (emmet-mode)
   (ac-emmet-html-setup))
-(add-hook 'web-mode-hook 'web-mode-hook)
-(setq web-mode-auto-close-style 2)
-(setq web-mode-tag-auto-close-style t)
-(setq web-mode-enable-auto-pairing nil)
-(setq web-mode-enable-current-element-highlight t)
-(setq web-mode-enable-current-column-highlight t)
-;; (setq web-mode-enable-css-colorization t)
-
-(setq web-mode-ac-sources-alist
-      '(("php" . (ac-source-yasnippet ac-source-php-auto-yasnippets))
-        ("css" . (ac-source-css-property ac-source-emmet-css-snippets))
-        ("html" . (ac-source-emmet-html-aliases ac-source-emmet-html-snippets ac-source-words-in-buffer ac-source-abbrev))))
-
+(add-hook 'web-mode-hook 'web-mode-setup)
 (add-hook 'web-mode-before-auto-complete-hooks
           '(lambda ()
              (let ((web-mode-cur-language
@@ -299,6 +280,7 @@
 ;; typescript (tide + company-mode)
 
 (defun setup-tide-mode ()
+  "Setup tide-mode."
   (interactive)
   (tide-setup)
   (flycheck-mode t)
@@ -306,7 +288,6 @@
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
   (company-mode +1))
-(setq company-tooltip-align-annotations t)
 
 ;;(add-hook 'before-save-hook 'tide-format-before-save)
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
@@ -339,8 +320,7 @@
     (inf-ruby-minor-mode)
     (inf-ruby-switch-setup)
     (inf-ruby-keys)
-  )
-  )
+  ))
 
 (setq inf-ruby-default-implementation "pry")
 (setq inf-ruby-eval-binding "Pry.toplevel_binding")
@@ -373,36 +353,28 @@
 (autoload 'python-mode "python-mode" "Python editing mode." t)
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 (add-to-list 'interpreter-mode-alist '("python" . python-mode))
-
-;; for Ipython
 (setq python-shell-interpreter-args "--simple-prompt --pprint")
-
-;; -----------------------------------------------------------------------
-;; elpy (python-mode)
-
-(add-hook 'python-mode-hook
-          '(lambda ()
-             (package-initialize)
-             (elpy-enable)
-             (elpy-mode)
-             (setq elpy-modules (quote (elpy-module-eldoc elpy-module-yasnippet)))
-             ;; auto-complete
-             (setq ac-sources (delete 'ac-source-words-in-same-mode-buffers ac-sources))
-             (add-to-list 'ac-sources 'ac-source-jedi-direct)
-             ))
+(defun setup-python-mode ()
+  "Setup python mode."
+  (package-initialize)
+  (elpy-enable)
+  (elpy-mode)
+  (setq elpy-modules (quote (elpy-module-eldoc elpy-module-yasnippet)))
+  ;; auto-complete
+  (setq ac-sources (delete 'ac-source-words-in-same-mode-buffers ac-sources))
+  (add-to-list 'ac-sources 'ac-source-jedi-direct)
+  (jedi:setup)
+  )
+(add-hook 'python-mode-hook 'setup-python-mode)
 
 ;; M-x jedi:install-server
 (setq elpy-rpc-backend "jedi")
 (setq jedi:complete-on-dot t) ; optional
 
-(add-hook 'python-mode-hook 'jedi:setup)
-
 ;; see python special settings (cnf-osx.el)
 
-;; disable flymake
+;; disable elpy modules
 (remove-hook 'elpy-modules 'elpy-module-flymake)
-
-;; disable indent highlight
 (remove-hook 'elpy-modules 'highlight-indentation-mode)
 
 ;; > sudo port -f install py27-ipython py36-ipython
@@ -472,15 +444,17 @@
 ;; ------------------------------------------------------------------------
 ;; go-mode
 
-(add-hook 'go-mode-hook 'flycheck-mode)
-(add-hook 'go-mode-hook (lambda()
-                          (add-hook 'before-save-hook 'gofmt-before-save)
-                          (go-eldoc-setup)
-                          (local-set-key (kbd "M-.") 'godef-jump)
-                          (setq indent-tabs-mode nil)
-                          (setq c-basic-offset 4)
-                          (setq tab-width 4)))
-
+(defun setup-go-mode ()
+  "Setup go-mode."
+  (flycheck-mode)
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  (go-eldoc-setup)
+  (local-set-key (kbd "M-.") 'godef-jump)
+  (setq indent-tabs-mode nil)
+  (setq tab-width 4)
+  (defvar c-basic-offset 4)
+  )
+(add-hook 'go-mode-hook 'setup-go-mode)
 (eval-after-load 'go-mode
   '(progn
      (require 'go-autocomplete)))
@@ -506,16 +480,17 @@
 (add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
 (add-to-list 'auto-mode-alist '("\\.lhs$" . literate-haskell-mode))
 (add-to-list 'auto-mode-alist '("\\.cabal$" . haskell-cabal-mode))
-
-(add-hook 'haskell-mode-hook (lambda ()
-                               (turn-on-haskell-indentation)
-                               (turn-on-haskell-doc-mode)
-                               (font-lock-mode)
-                               (imenu-add-menubar-index)
-                               (setq haskell-program-name "/usr/bin/stack ghci") ;; stack
-                               (inf-haskell-mode)
-                               (ghc-init)
-                               (flycheck-mode)))
+(defun setup-haskell-mode ()
+  "Setup haskell-mode."
+  (turn-on-haskell-indentation)
+  (turn-on-haskell-doc-mode)
+  (font-lock-mode)
+  (imenu-add-menubar-index)
+  (setq haskell-program-name "/usr/bin/stack ghci") ;; stack
+  (inf-haskell-mode)
+  (ghc-init)
+  (flycheck-mode))
+(add-hook 'haskell-mode-hook 'setup-haskell-mode)
 
 ;; ------------------------------------------------------------------------
 ;; scheme
@@ -550,12 +525,12 @@
 (add-hook 'cider-repl-mode-hook (lambda ()
                                   (company-mode)
                                   (eldoc-mode)))
-(setq nrepl-log-messages t
-      cider-repl-display-in-current-window t
-      cider-repl-use-clojure-font-lock t
-      cider-prompt-save-file-on-load 'always-save
-      cider-font-lock-dynamically '(macro core function var)
-      cider-overlays-use-font-lock t)
+(defvar nrepl-log-messages t)
+(defvar cider-repl-display-in-current-window t)
+(defvar cider-repl-use-clojure-font-lock t)
+(defvar cider-prompt-save-file-on-load 'always-save)
+(defvar cider-font-lock-dynamically '(macro core function var))
+(defvar cider-overlays-use-font-lock t)
 ;; (cider-repl-toggle-pretty-printing)
 
 ;; > sudo port install clojure leiningen
@@ -609,22 +584,23 @@
 ;; ------------------------------------------------------------------------
 ;; visual-basic-mode
 
-;; (when (require 'visual-basic-mode nil t)
+;; (when (require 'visual-basic-mode nil t))
 (autoload 'visual-basic-mode "visual-basic-mode" nil t)
 (add-to-list
  'auto-mode-alist '("\\(\\.frm\\|\\.bas\\|\\.vb[as]\\|\\.cls\\)$" . visual-basic-mode))
 
-(add-hook 'visual-basic-mode-hook
-          '(lambda ()
-             (auto-complete-mode t)
-             (setq visual-basic-mode-indent 4)
-             (require 'vbasense)
-             ;; (add-to-list 'vbasense-tli-files "C:/Program Files/Common Files/System/ado/msado21.tlb")
-             ;; (add-to-list 'vbasense-tli-files "C:/Program Files/Common Files/Microsoft Shared/DAO/dao360.dll")
-             (vbasense-config-default)
-             )
-          )
-;; )
+(defun setup-visual-basic-mode ()
+  "Setup visual-basic-mode."
+  (auto-complete-mode t)
+  (set-variable visual-basic-mode-indent 4)
+  (when (require 'vbasense nil t)
+    ;; (add-to-list
+    ;;  'vbasense-tli-files "C:/Program Files/Common Files/System/ado/msado21.tlb")
+    ;; (add-to-list
+    ;;  'vbasense-tli-files "C:/Program Files/Common Files/Microsoft Shared/DAO/dao360.dll")
+    (vbasense-config-default))
+  )
+(add-hook 'visual-basic-mode-hook 'setup-visual-basic-mode)
 
 ;; ------------------------------------------------------------------------
 ;; helm-gtags
@@ -638,20 +614,17 @@
 (add-hook 'php-mode-hook 'helm-gtags-mode)
 (add-hook 'python-mode-hook 'helm-gtags-mode)
 (add-hook 'typescript-mode-hook 'helm-gtags-mode)
-
 (defvar helm-gtags-path-style 'root)
 (defvar helm-gtags-auto-update t)
-
-;; key bindings
-(add-hook 'helm-gtags-mode-hook
-          '(lambda ()
-              (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
-              (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
-              (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
-              (local-set-key (kbd "C-c <") 'helm-gtags-previous-history)
-              (local-set-key (kbd "C-c >") 'helm-gtags-next-history)
-              (local-set-key (kbd "C-x c g") 'helm-gtags-select)
-              ))
+(defun setup-helm-gtags-mode ()
+  "Setup helm-gtags-mode."
+  (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
+  (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
+  (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
+  (local-set-key (kbd "C-c <") 'helm-gtags-previous-history)
+  (local-set-key (kbd "C-c >") 'helm-gtags-next-history)
+  (local-set-key (kbd "C-x c g") 'helm-gtags-select))
+(add-hook 'helm-gtags-mode-hook 'setup-helm-gtags-mode)
 
 ;; > sudo port install ctags
 ;; > pip-2.7 install pygments
@@ -703,7 +676,7 @@
 ;; yasnippet
 
 (yas-global-mode 1)
-(setq yas-prompt-functions '(yas-ido-prompt))
+;; (setq yas-prompt-functions '(yas-ido-prompt))
 
 ;; (when (require 'helm-c-yasnippet nil t))
 (autoload 'helm-c-yasnippet "helm-c-yasnippet" nil t)

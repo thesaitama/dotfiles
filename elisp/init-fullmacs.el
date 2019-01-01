@@ -500,6 +500,7 @@
 (setq company-dabbrev-code-other-buffers (quote all))
 (setq company-dabbrev-other-buffers (quote all))
 (setq company-transformers '(company-sort-by-backend-importance))
+(setq company-tooltip-align-annotations t)
 
 (global-set-key (kbd "C-M-i") 'company-complete)
 (define-key company-active-map (kbd "C-n") 'company-select-next)

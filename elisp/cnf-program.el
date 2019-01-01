@@ -127,7 +127,7 @@
 
 (autoload 'php-mode "php-mode")
 (add-to-list 'auto-mode-alist '("\\(\\.php\\|\\.tpl\\)$" . php-mode))
-(setq php-mode-force-pear t)
+(defvar php-mode-force-pear t)
 (add-hook 'php-mode-hook
   '(lambda ()
      (setq php-manual-path "/usr/local/share/php/doc/php-chunked-xhtml")
@@ -259,20 +259,21 @@
             (ac-js2-mode)
             )
           )
-(setq ac-js2-evaluate-calls t)
+(defvar ac-js2-evaluate-calls t)
 
 ;; > sudo npm install -g eslint babel-eslint
 
 ;; ------------------------------------------------------------------------
 ;; tern
 
-(setq tern-command '("tern" "--no-port-file"))
+(defvar tern-command '("tern" "--no-port-file"))
 (add-hook 'js2-mode-hook (lambda ()(tern-mode t)))
 
 (eval-after-load 'tern
   '(progn
-     (require 'tern-auto-complete)
-     (tern-ac-setup)))
+     (when (require 'tern-auto-complete nil t)
+       (tern-ac-setup))
+     ))
 
 ;; > sudo npm install -g tern
 
@@ -346,7 +347,8 @@
 (setq inf-ruby-first-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)> *")
 (setq inf-ruby-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)[>*\"'] *")
 
-(eval-after-load 'auto-complete '(add-to-list 'ac-modes 'inf-ruby-mode))
+(eval-after-load 'auto-complete
+  '(add-to-list 'ac-modes 'inf-ruby-mode))
 (add-hook 'inf-ruby-mode-hook
           (lambda ()
             (ansi-color-for-comint-mode-on)
@@ -418,21 +420,20 @@
 (autoload 'R-mode "ess-site" "Emacs Speaks Statistics mode" t)
 (autoload 'R "ess-site" "start R" t)
 
-(setq ess-loaded-p nil)
-
+(defvar ess-loaded-p nil)
 (defun ess-load-hook (&optional from-iess-p)
-  (setq ess-indent-level 2)
-  (setq ess-arg-function-offset-new-line (list ess-indent-level))
+  "Load R environment."
+  (defvar ess-indent-level 2)
+  (defvar ess-arg-function-offset-new-line (list ess-indent-level))
   (make-variable-buffer-local 'comment-add)
   (setq comment-add 0)
 
   (when (not ess-loaded-p)
     (setq ess-use-auto-complete t)
-    ;; disable ido
-    (setq ess-use-ido nil)
-    (setq ess-eldoc-show-on-symbol t)
-    (setq ess-ask-for-ess-directory nil)
-    (setq ess-fancy-comments nil)
+    (set-variable 'ess-use-ido nil)
+    (set-variable 'ess-eldoc-show-on-symbol t)
+    (set-variable 'ess-ask-for-ess-directory nil)
+    (set-variable 'ess-fancy-comments nil)
     (setq ess-loaded-p t)
     (unless from-iess-p
       (when (one-window-p)
@@ -445,10 +446,10 @@
         (mapcar (lambda (el) (add-to-list 'ac-trigger-commands el))
                 '(ess-smart-comma smart-operator-comma skeleton-pair-insert-maybe))
         ;; auto-complete source
-        (setq ac-sources '(ac-source-acr
-                           ac-source-R
-                           ac-source-filename
-                           ac-source-yasnippet)))))
+        (defvar ac-sources '(ac-source-acr
+                             ac-source-R
+                             ac-source-filename
+                             ac-source-yasnippet)))))
 
   (if from-iess-p
       (if (> (length ess-process-name-list) 0)
@@ -480,7 +481,7 @@
                           (setq c-basic-offset 4)
                           (setq tab-width 4)))
 
-(eval-after-load "go-mode"
+(eval-after-load 'go-mode
   '(progn
      (require 'go-autocomplete)))
 
@@ -490,7 +491,7 @@
 ;; rust-mode
 
 (add-to-list 'exec-path (expand-file-name "~/.cargo/bin/"))
-(eval-after-load "rust-mode"
+(eval-after-load 'rust-mode
   '(setq-default rust-format-on-save t))
 (add-hook 'rust-mode-hook (lambda ()
                             (racer-mode)
@@ -562,23 +563,20 @@
 ;; ------------------------------------------------------------------------
 ;; omnisharp-mode
 
-(eval-after-load
-  'company
+(eval-after-load 'company
   '(add-to-list 'company-backends #'company-omnisharp))
 
 (defun my-csharp-mode-setup ()
+  "Enable ominisharp mode."
   (omnisharp-mode)
   (company-mode)
   (flycheck-mode)
-
+  (defvar c-basic-offset 4)
+  (defvar c-syntactic-indentation t)
   (setq indent-tabs-mode nil)
-  (setq c-syntactic-indentation t)
-  (c-set-style "ellemtel")
-  (setq c-basic-offset 4)
   (setq truncate-lines t)
   (setq tab-width 4)
-  (setq evil-shift-width 4)
-
+  (c-set-style "ellemtel")
   ;; csharp-mode README.md recommends this too
   ;; (electric-pair-mode 1)       ;; Emacs 24
   ;; (electric-pair-local-mode 1) ;; Emacs 25
@@ -681,9 +679,11 @@
 ;; (setq plantuml-output-type "svg")
 
 ;; flycheck-plantuml
-(with-eval-after-load 'flycheck
-  (require 'flycheck-plantuml)
-  (flycheck-plantuml-setup))
+(eval-after-load 'flycheck
+  '(progn
+     (when (require 'flycheck-plantuml nil t)
+       (flycheck-plantuml-setup))
+     ))
 
 ;; ------------------------------------------------------------------------
 ;; textile-mode

@@ -33,9 +33,10 @@
 
 (ido-mode t)
 (ido-everywhere t)
-(setq ido-enable-flex-matching t)
-(setq ido-use-faces t)
-(setq ido-confirm-unique-completion t)
+(set-variable 'ido-enable-flex-matching t)
+(set-variable 'ido-use-faces t)
+(set-variable 'ido-confirm-unique-completion t)
+(set-variable 'ido-show-dot-for-dired t)
 
 (global-set-key (kbd "C-x C-f") 'ido-find-file)
 

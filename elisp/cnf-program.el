@@ -10,8 +10,8 @@
 ;; editorconfig-mode
 
 (editorconfig-mode 1)
-(setq editorconfig-get-properties-function
-      'editorconfig-core-get-properties-hash)
+(set-variable 'editorconfig-get-properties-function
+              'editorconfig-core-get-properties-hash)
 
 ;; if you need editorconfig executable
 ;; > sudo port install editorconfig-core-c
@@ -25,37 +25,35 @@
 ;; ------------------------------------------------------------------------
 ;; comment-tags
 
-(setq comment-tags-keymap-prefix (kbd "C-c t"))
-(with-eval-after-load "comment-tags"
-  (setq comment-tags-keyword-faces
-        `(("TODO" . ,(list :weight 'bold :foreground "#28ABE3"))
-          ("FIXME" . ,(list :weight 'bold :foreground "#DB3340"))
-          ("BUG" . ,(list :weight 'bold :foreground "#DB3340"))
-          ("HACK" . ,(list :weight 'bold :foreground "#E8B71A"))
-          ("KLUDGE" . ,(list :weight 'bold :foreground "#E8B71A"))
-          ("XXX" . ,(list :weight 'bold :foreground "#F7EAC8"))
-          ("INFO" . ,(list :weight 'bold :foreground "#F7EAC8"))
-          ("DONE" . ,(list :weight 'bold :foreground "#1FDA9A"))))
-  (setq comment-tags-comment-start-only t
-        comment-tags-require-colon t
-        comment-tags-case-sensitive t
-        comment-tags-show-faces t
-        comment-tags-lighter nil))
-
+(set-variable 'comment-tags-keymap-prefix (kbd "C-c t"))
+(set-variable 'comment-tags-keyword-faces
+      `(("TODO" . ,(list :weight 'bold :foreground "#28ABE3"))
+        ("FIXME" . ,(list :weight 'bold :foreground "#DB3340"))
+        ("BUG" . ,(list :weight 'bold :foreground "#DB3340"))
+        ("HACK" . ,(list :weight 'bold :foreground "#E8B71A"))
+        ("KLUDGE" . ,(list :weight 'bold :foreground "#E8B71A"))
+        ("XXX" . ,(list :weight 'bold :foreground "#F7EAC8"))
+        ("INFO" . ,(list :weight 'bold :foreground "#F7EAC8"))
+        ("DONE" . ,(list :weight 'bold :foreground "#1FDA9A"))))
+(set-variable 'comment-tags-comment-start-only t)
+(set-variable 'comment-tags-require-colon t)
+(set-variable 'comment-tags-case-sensitive t)
+(set-variable 'comment-tags-show-faces t)
+(set-variable 'comment-tags-lighter nil)
 (add-hook 'prog-mode-hook 'comment-tags-mode)
 
 ;; ------------------------------------------------------------------------
 ;; projectile
 
-(setq projectile-keymap-prefix (kbd "C-c p"))
-(setq projectile-completion-system 'helm)
-(setq projectile-switch-project-action 'helm-projectile)
-(setq projectile-mode-line
-      '(:eval (if (projectile-project-p)
-                  (format " Pj" (projectile-project-name)) "")))
-(setq projectile-enable-caching t)
-(setq projectile-switch-project-action 'projectile-dired)
-(setq projectile-remember-window-configs t )
+(set-variable 'projectile-keymap-prefix (kbd "C-c p"))
+(set-variable 'projectile-completion-system 'helm)
+(set-variable 'projectile-switch-project-action 'helm-projectile)
+(set-variable 'projectile-enable-caching t)
+(set-variable 'projectile-switch-project-action 'projectile-dired)
+(defvar projectile-remember-window-configs t )
+;; (setq 'projectile-mode-line
+;;       '(:eval (if (projectile-project-p)
+;;                   (format " Pj" (projectile-project-name)) "")))
 
 (projectile-global-mode)
 
@@ -74,10 +72,10 @@
 ;; debugger
 
 (add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
-(setq gdb-many-windows t)
-(setq gdb-use-separate-io-buffer t)
-(setq gud-tooltip-echo-area nil)
-(setq gdb-command-name "ggdb")
+(defvar gdb-many-windows t)
+(defvar gdb-use-separate-io-buffer t)
+(defvar gud-tooltip-echo-area nil)
+(defvar gdb-command-name "ggdb")
 
 ;; install on macOS need codesign
 ;; > codesign -s gdb-cert /opt/local/bin/ggdb
@@ -91,13 +89,13 @@
 ;; ------------------------------------------------------------------------
 ;; imenu-list
 
-(setq imenu-list-position "below")
+(defvar imenu-list-position "below")
 
 ;; ------------------------------------------------------------------------
 ;; flycheck
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
-(setq flycheck-idle-change-delay 3)  ; important
+(set-variable 'flycheck-idle-change-delay 3)  ; important
 
 ;; ------------------------------------------------------------------------
 ;; cc-mode (built-in)
@@ -581,9 +579,9 @@
   (setq tab-width 4)
   (setq evil-shift-width 4)
 
-  ;csharp-mode README.md recommends this too
-  ;(electric-pair-mode 1)       ;; Emacs 24
-  ;(electric-pair-local-mode 1) ;; Emacs 25
+  ;; csharp-mode README.md recommends this too
+  ;; (electric-pair-mode 1)       ;; Emacs 24
+  ;; (electric-pair-local-mode 1) ;; Emacs 25
 
   (local-set-key (kbd "C-c r r") 'omnisharp-run-code-action-refactoring)
   (local-set-key (kbd "C-c C-c") 'recompile))
@@ -643,9 +641,8 @@
 (add-hook 'python-mode-hook 'helm-gtags-mode)
 (add-hook 'typescript-mode-hook 'helm-gtags-mode)
 
-(setq helm-gtags-path-style 'root)
-;; (setq helm-gtags-ignore-case t)
-(setq helm-gtags-auto-update t)
+(defvar helm-gtags-path-style 'root)
+(defvar helm-gtags-auto-update t)
 
 ;; key bindings
 (add-hook 'helm-gtags-mode-hook
@@ -678,10 +675,10 @@
 
 (setq auto-mode-alist
       (append '(("\\.\\(pu\\)$" . plantuml-mode))  auto-mode-alist ))
-;; (setq plantuml-jar-path "")  ;; depends on OS
-(setq plantuml-java-options "")
+;; (set-variable 'plantuml-jar-path "")  ;; depends on OS
+(set-variable 'plantuml-java-args "")
+(set-variable 'plantuml-jar-args "-charset UTF-8")
 ;; (setq plantuml-output-type "svg")
-(setq plantuml-options "-charset UTF-8")
 
 ;; flycheck-plantuml
 (with-eval-after-load 'flycheck
@@ -751,9 +748,9 @@
 ;; ------------------------------------------------------------------------
 ;; dumb-jump-mode
 
-(setq dumb-jump-mode t)
-(setq dumb-jump-default-project "") ; prevent search in home
-(setq dumb-jump-selector 'helm)
+(set-variable 'dumb-jump-mode t)
+(set-variable 'dumb-jump-default-project "") ; prevent search in home
+(set-variable 'dumb-jump-selector 'helm)
 
 ;; ------------------------------------------------------------------------
 ;; git-complete

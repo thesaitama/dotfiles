@@ -67,8 +67,8 @@
 ;; ------------------------------------------------------------------------
 ;; ediff
 
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
-(setq ediff-split-window-function 'split-window-horizontally)
+(defvar ediff-window-setup-function 'ediff-setup-windows-plain)
+(defvar ediff-split-window-function 'split-window-horizontally)
 
 ;; ------------------------------------------------------------------------
 ;; color set-face (basic)
@@ -184,7 +184,7 @@
 (if (fboundp 'global-linum-mode)
     (progn
       (global-linum-mode 0)
-      (setq linum-format "%4d ")
+      (set-variable 'linum-format "%4d ")
       )
   )
 
@@ -223,7 +223,7 @@
 
 ;; can move across splitted frames with direction keys
 (windmove-default-keybindings)
-(setq windmove-wrap-around t)
+(set-variable 'windmove-wrap-around t)
 
 ;; ignore case
 (setq read-buffer-completion-ignore-case t)
@@ -236,7 +236,7 @@
 (add-hook 'text-mode-hook 'turn-off-auto-fill)
 
 ;; auto scroll when compile
-(setq compilation-scroll-output t)
+(set-variable 'compilation-scroll-output t)
 
 ;; ------------------------------------------------------------------------
 ;; isearch
@@ -262,7 +262,7 @@
 ;; ------------------------------------------------------------------------
 ;; imenu
 
-(setq imenu-auto-rescan t)
+(set-variable 'imenu-auto-rescan t)
 
 ;; ------------------------------------------------------------------------
 ;; uniquify
@@ -287,7 +287,7 @@
 ;; show-paren
 
 (show-paren-mode t)
-(setq show-paren-style 'mixed)
+(set-variable 'show-paren-style 'mixed)
 
 ;; ------------------------------------------------------------------------
 ;; electric-pair
@@ -327,7 +327,7 @@
       (quietly-read-abbrev-file abbrev-file)))
 
 (setq save-abbrevs 'silently)
-(setq default-abbrev-mode t)
+(defvar default-abbrev-mode t)
 
 ;; ------------------------------------------------------------------------
 ;; dabbrev
@@ -371,9 +371,10 @@
 ;; ------------------------------------------------------------------------
 ;; dired + wdired + dired-x
 
-(setq dired-listing-switches (purecopy "-avhplGF"))
-(setq dired-dwim-target t)
-(setq dired-recursive-copies 'always)
+(set-variable 'dired-listing-switches "-avhplGF")
+(set-variable 'dired-auto-revert-buffer t)
+(set-variable 'dired-dwim-target t)
+(set-variable 'dired-recursive-copies 'always)
 (setq delete-by-moving-to-trash t)
 
 ;; zip
@@ -454,8 +455,8 @@
 ;; ------------------------------------------------------------------------
 ;; display-time-world
 
-(setq display-time-world-time-format "%Z\t %Y %b %d (%a) %R"
-      display-time-world-list
+(set-variable 'display-time-world-time-format "%Z\t %Y %b %d (%a) %R")
+(set-variable 'display-time-world-list
       '(("Asia/Tokyo" "Tokyo")
         ("America/Los_Angeles" "Los Angeles")
         ("America/New_York" "New York")
@@ -477,13 +478,13 @@
 ;; ------------------------------------------------------------------------
 ;; org-mode
 
-(setq org-log-done 'time)
+(set-variable 'org-log-done 'time)
 (add-hook 'org-mode-hook 'turn-on-font-lock)
 
 ;; ------------------------------------------------------------------------
 ;; eshell
 
-(setq eshell-command-aliases-list
+(defvar eshell-command-aliases-list
       (append
        (list
         (list "ls" "ls -a")
@@ -492,7 +493,7 @@
         (list "e" "find-file $1")
         (list "d" "dired .")
         )))
-(setq eshell-path-env (getenv "PATH"))
+(defvar eshell-path-env (getenv "PATH"))
 
 ;; ------------------------------------------------------------------------
 ;; eww

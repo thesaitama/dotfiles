@@ -146,7 +146,7 @@
      ((string-match-p "^/other-project-folder")
       (php-eldoc-probe-load "http://localhost/otherproject/probe.php?secret=sesame"))))
   )
-(add-hook 'php-mode-hook 'setup-php-mode)
+(add-hook 'php-mode-hook #'setup-php-mode)
 
 ;; manual install
 ;; > wget http://jp.php.net/get/php_manual_ja.tar.gz/from/this/mirror -O php_manual_ja.tar.gz
@@ -293,42 +293,31 @@
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
 ;; ------------------------------------------------------------------------
-;; ruby-mode
+;; ruby-mode, inf-ruby + ruby-electric-mode
 
 (autoload 'ruby-mode "ruby-mode"
   "Mode for editing ruby source files" t)
 (setq auto-mode-alist
       (append
-       '(
-         ("\\.rb$" . ruby-mode)
+       '(("\\.rb$" . ruby-mode)
          ("\\Capfile$" . ruby-mode)
          ("\\Gemfile$" . ruby-mode)
-         ("\\[Rr]akefile$" . ruby-mode)
-         )
+         ("\\[Rr]akefile$" . ruby-mode))
        auto-mode-alist))
-
 (setq interpreter-mode-alist (append '(("ruby" . ruby-mode))
                                      interpreter-mode-alist))
-
-;; ------------------------------------------------------------------------
-;; inf-ruby, ruby-electric-mode
-
 (autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
-(add-hook 'ruby-mode-hook
-  (lambda ()
-    (ruby-electric-mode t)
-    (inf-ruby-minor-mode)
-    (inf-ruby-switch-setup)
-    (inf-ruby-keys)
-  ))
-
-(setq inf-ruby-default-implementation "pry")
-(setq inf-ruby-eval-binding "Pry.toplevel_binding")
-(setq inf-ruby-first-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)> *")
-(setq inf-ruby-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)[>*\"'] *")
-
-(eval-after-load 'auto-complete
-  '(add-to-list 'ac-modes 'inf-ruby-mode))
+(defun setup-ruby-mode ()
+  "Setup 'ruby-mode'."
+  (set-variable 'inf-ruby-default-implementation "pry")
+  (setq inf-ruby-eval-binding "Pry.toplevel_binding")
+  (setq inf-ruby-first-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)> *")
+  (setq inf-ruby-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)[>*\"'] *")
+  (ruby-electric-mode t)
+  (inf-ruby-minor-mode)
+  )
+(add-hook 'ruby-mode-hook #'setup-ruby-mode)
+(eval-after-load 'auto-complete '(add-to-list 'ac-modes 'inf-ruby-mode))
 (add-hook 'inf-ruby-mode-hook
           (lambda ()
             (ansi-color-for-comint-mode-on)
@@ -365,7 +354,7 @@
   (add-to-list 'ac-sources 'ac-source-jedi-direct)
   (jedi:setup)
   )
-(add-hook 'python-mode-hook 'setup-python-mode)
+(add-hook 'python-mode-hook #'setup-python-mode)
 
 ;; M-x jedi:install-server
 (setq elpy-rpc-backend "jedi")
@@ -454,7 +443,7 @@
   (setq tab-width 4)
   (defvar c-basic-offset 4)
   )
-(add-hook 'go-mode-hook 'setup-go-mode)
+(add-hook 'go-mode-hook #'setup-go-mode)
 (eval-after-load 'go-mode
   '(progn
      (require 'go-autocomplete)))
@@ -490,7 +479,7 @@
   (inf-haskell-mode)
   (ghc-init)
   (flycheck-mode))
-(add-hook 'haskell-mode-hook 'setup-haskell-mode)
+(add-hook 'haskell-mode-hook #'setup-haskell-mode)
 
 ;; ------------------------------------------------------------------------
 ;; scheme
@@ -600,7 +589,7 @@
     ;;  'vbasense-tli-files "C:/Program Files/Common Files/Microsoft Shared/DAO/dao360.dll")
     (vbasense-config-default))
   )
-(add-hook 'visual-basic-mode-hook 'setup-visual-basic-mode)
+(add-hook 'visual-basic-mode-hook #'setup-visual-basic-mode)
 
 ;; ------------------------------------------------------------------------
 ;; helm-gtags
@@ -624,7 +613,7 @@
   (local-set-key (kbd "C-c <") 'helm-gtags-previous-history)
   (local-set-key (kbd "C-c >") 'helm-gtags-next-history)
   (local-set-key (kbd "C-x c g") 'helm-gtags-select))
-(add-hook 'helm-gtags-mode-hook 'setup-helm-gtags-mode)
+(add-hook 'helm-gtags-mode-hook #'setup-helm-gtags-mode)
 
 ;; > sudo port install ctags
 ;; > pip-2.7 install pygments

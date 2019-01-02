@@ -271,10 +271,10 @@
 (set-variable 'save-place-file "~/.emacs.d/saved-places")
 (if (>= emacs-major-version 25)
     (save-place-mode 1)
-  '(progn
-     (when (require 'saveplace nil t)
-       (setq-default save-place t)
-     ))
+  (progn
+    (when (require 'saveplace nil t)
+      (setq-default save-place t)
+      ))
   )
 
 ;; ------------------------------------------------------------------------

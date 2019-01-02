@@ -47,14 +47,9 @@
 
 (set-variable 'projectile-keymap-prefix (kbd "C-c p"))
 (set-variable 'projectile-completion-system 'helm)
-(set-variable 'projectile-switch-project-action 'helm-projectile)
-(set-variable 'projectile-enable-caching t)
 (set-variable 'projectile-switch-project-action 'projectile-dired)
-(defvar projectile-remember-window-configs t )
-;; (setq 'projectile-mode-line
-;;       '(:eval (if (projectile-project-p)
-;;                   (format " Pj" (projectile-project-name)) "")))
-
+;; (set-variable 'projectile-switch-project-action 'helm-projectile)
+(set-variable 'projectile-enable-caching t)
 (projectile-global-mode)
 
 ;; ------------------------------------------------------------------------
@@ -62,10 +57,10 @@
 
 (when (require 'helm-projectile nil t)
   (helm-projectile-on)
-  (custom-set-variables
-   '(helm-mini-default-sources '(helm-source-buffers-list
-                                 helm-source-recentf
-                                 helm-source-projectile-files-list))))
+  (set-variable
+   'helm-mini-default-sources '(helm-source-buffers-list
+                               helm-source-recentf
+                               helm-source-projectile-files-list)))
 (define-key global-map (kbd "C-c h") 'helm-mini)
 
 ;; ------------------------------------------------------------------------
@@ -170,8 +165,7 @@
 (autoload 'web-mode "web-mode" nil t)
 (setq auto-mode-alist
       (append
-       '(
-         ("\\.as[cp]x$" . web-mode)
+       '(("\\.as[cp]x$" . web-mode)
          ("\\.iht$" . web-mode)
          ("\\.[agj]sp$" . web-mode)
          ("\\.erb$" . web-mode)
@@ -304,14 +298,14 @@
          ("\\Gemfile$" . ruby-mode)
          ("\\[Rr]akefile$" . ruby-mode))
        auto-mode-alist))
-(setq interpreter-mode-alist (append '(("ruby" . ruby-mode))
-                                     interpreter-mode-alist))
+(setq interpreter-mode-alist
+      (append '(("ruby" . ruby-mode)) interpreter-mode-alist))
 (autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
 (defun setup-ruby-mode ()
   "Setup 'ruby-mode'."
   (set-variable 'inf-ruby-default-implementation "pry")
   (setq inf-ruby-eval-binding "Pry.toplevel_binding")
-  (setq inf-ruby-first-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)> *")
+  (setq inf-ruby-first-prompt-patternf "^\\[[0-9]+\\] pry\\((.*)\\)> *")
   (setq inf-ruby-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)[>*\"'] *")
   (ruby-electric-mode t)
   (inf-ruby-minor-mode)

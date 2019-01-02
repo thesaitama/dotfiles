@@ -164,9 +164,10 @@
 (defun run-powershell ()
   "Run PowerShell."
   (interactive)
-  (async-shell-command "c:/windows/system32/WindowsPowerShell/v1.0/powershell.exe -Command -"
-                       nil
-                       nil))
+  (async-shell-command
+   "c:/windows/system32/WindowsPowerShell/v1.0/powershell.exe -Command -"
+   nil
+   nil))
 
 (push '("cmdproxy\\.exe$" sjis-dos . sjis-dos) process-coding-system-alist)
 (defun run-cmdexe ()

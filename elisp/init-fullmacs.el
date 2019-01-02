@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ init-fullmacs.el
-;; light weight and legacy Emacs setting
+;; full spec Emacs setting
 ;;
 
 ;;; Code:
@@ -207,6 +207,7 @@
 ;; https://qiita.com/kai2nenobu/items/ddf94c0e5a36919bc6db
 
 (defun my-coding-system-name-mnemonic (coding-system)
+  "Detect coding system by CODING-SYSTEM."
   (let* ((base (coding-system-base coding-system))
          (name (symbol-name base)))
     (cond ((string-prefix-p "utf-8" name) "U8")
@@ -219,6 +220,7 @@
           )))
 
 (defun my-coding-system-bom-mnemonic (coding-system)
+  "Detect return char by CODING-SYSTEM."
   (let ((name (symbol-name coding-system)))
     (cond ((string-match "be-with-signature" name) "[BE]")
           ((string-match "le-with-signature" name) "[LE]")
@@ -585,35 +587,24 @@
 
 ;; only enable comment
 (mapc
- (lambda (hook)
-   (add-hook hook 'flyspell-prog-mode))
- '(
-   emacs-lisp-mode-hook
-   ))
+ (lambda (hook) (add-hook hook 'flyspell-prog-mode))
+ '(emacs-lisp-mode-hook))
 ;; enable all
 (mapc
-   (lambda (hook)
-     (add-hook hook
-               '(lambda () (flyspell-mode 1))))
-   '(
-     ;; markdown-mode-hook
-     text-mode-hook
-     ))
+ (lambda (hook) (add-hook hook '(lambda () (flyspell-mode 1))))
+ '(text-mode-hook))
 
 ;; (add-hook 'find-file-hook 'flyspell-mode)
 ;; (add-hook 'find-file-hook 'flyspell-buffer)
 
-;; > sudo port install aspell
-;; > sudo port install aspell-dict-en
+;; > sudo port install aspell aspell-dict-en
 
 ;; ------------------------------------------------------------------------
 ;; ac-ispell
 
 ;; Completion words longer than 4 characters
 
-(eval-after-load "auto-complete"
-  '(progn
-     (ac-ispell-setup)))
+(eval-after-load 'auto-complete '(progn (ac-ispell-setup)))
 
 (add-hook 'git-commit-mode-hook 'ac-ispell-ac-setup)
 (add-hook 'mail-mode-hook 'ac-ispell-ac-setup)
@@ -774,19 +765,14 @@
 ;; ------------------------------------------------------------------------
 ;; which-key
 
-(which-key-setup-side-window-bottom) ; mini buffer
-;; (which-key-setup-side-window-right)
-;; (which-key-setup-side-window-right-bottom)
-
+(which-key-setup-side-window-bottom) ; mini buffer (-right, -right-bottom)
 (which-key-mode 1)
 
 ;; ------------------------------------------------------------------------
 ;; centered-cursor-mode
 
-(add-hook 'isearch-mode-hook
-          #'(lambda () (centered-cursor-mode 1)))
-(add-hook 'isearch-mode-end-hook
-          #'(lambda () (centered-cursor-mode -1)))
+(add-hook 'isearch-mode-hook #'(lambda () (centered-cursor-mode 1)))
+(add-hook 'isearch-mode-end-hook #'(lambda () (centered-cursor-mode -1)))
 
 ;; ------------------------------------------------------------------------
 ;; undo-tree
@@ -795,13 +781,6 @@
 (global-undo-tree-mode t)
 (global-set-key (kbd "M-/") 'undo-tree-redo)
 
-;; (defun undo-tree-split-side-by-side (original-function &rest args)
-;;   "Split undo-tree side-by-side."
-;;   (let ((split-height-threshold nil)
-;;         (split-width-threshold 0))
-;;     (apply original-function args)))
-;; (advice-add 'undo-tree-visualize :around #'undo-tree-split-side-by-side)
-
 ;; ------------------------------------------------------------------------
 ;; modeline-char
 
@@ -809,7 +788,6 @@
 
 ;; ------------------------------------------------------------------------
 ;; smart-mode-line
-;; basic modeline setting in cnf-basics.el
 
 (require 'smart-mode-line)
 ;; bug hack
@@ -821,14 +799,10 @@
                          " Fly" " EC" " ARev" " Anzu" " _+_"))
 ;; hack (privent overflow)
 (setq sml/extra-filler -10)
-;; sml/replacer-regexp-list
 ;; (add-to-list 'sml/replacer-regexp-list '("^.+/junk/[0-9]+/" ":J:") t)
 (setq sml/no-confirm-load-theme t)
 (sml/setup)
-;; theme
-;; (sml/apply-theme 'respectful)
-;; (sml/apply-theme 'light)
-(sml/apply-theme 'dark)
+(sml/apply-theme 'dark) ; ; theme: respectful / light
 
 ;; ------------------------------------------------------------------------
 ;; load other settings
@@ -841,10 +815,11 @@
 ;; ------------------------------------------------------------------------
 ;; show load time
 
-(add-hook 'after-init-hook
-          (lambda ()
-            (message "init time: %.3f sec"
-                     (float-time (time-subtract after-init-time before-init-time)))))
+(add-hook
+ 'after-init-hook
+ (lambda ()
+   (message "init time: %.3f sec"
+            (float-time (time-subtract after-init-time before-init-time)))))
 
 ;; ------------------------------------------------------------------------
 

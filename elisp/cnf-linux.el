@@ -67,7 +67,7 @@
 ;; ------------------------------------------------------------------------
 ;; plantuml-mode
 
-(set-variable 'plantuml-jar-path "/usr/share/plantuml/plantuml.jar")  ;; depends on OS
+(set-variable 'plantuml-jar-path "/usr/share/plantuml/plantuml.jar") ;; depends on OS
 
 ;; ------------------------------------------------------------------------
 

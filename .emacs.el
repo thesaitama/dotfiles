@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2019-01-02 11:10:32
+;; Last Update: 2019-01-02 23:04:23
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -50,6 +50,10 @@
  ;; If there is more than one, they won't work right.
  '(bm-face ((t (:background "color-28"))))
  '(bm-fringe-face ((t (:background "color-28"))))
+ '(custom-face-tag ((t (:foreground "Skyblue"))))
+ '(custom-group-tag ((t (:foreground "orange"))))
+ '(custom-variable-tag ((t (:foreground "orange"))))
+ '(custom-state ((t (:foreground "Gray70"))))
  '(company-preview-common ((t (:background nil :foreground "LightGray" :underline t))))
  '(company-scrollbar-bg ((t (:background "Gray40"))))
  '(company-scrollbar-fg ((t (:background "orange"))))

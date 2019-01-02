@@ -266,6 +266,18 @@
 (set-variable 'imenu-auto-rescan t)
 
 ;; ------------------------------------------------------------------------
+;; save-place
+
+(set-variable 'save-place-file "~/.emacs.d/saved-places")
+(if (>= emacs-major-version 25)
+    (save-place-mode 1)
+  '(progn
+     (when (require 'saveplace nil t)
+       (setq-default save-place t)
+     ))
+  )
+
+;; ------------------------------------------------------------------------
 ;; uniquify
 
 (require 'uniquify)

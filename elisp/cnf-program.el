@@ -59,8 +59,8 @@
   (helm-projectile-on)
   (set-variable
    'helm-mini-default-sources '(helm-source-buffers-list
-                               helm-source-recentf
-                               helm-source-projectile-files-list)))
+                                helm-source-recentf
+                                helm-source-projectile-files-list)))
 (define-key global-map (kbd "C-c h") 'helm-mini)
 
 ;; ------------------------------------------------------------------------

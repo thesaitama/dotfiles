@@ -575,7 +575,7 @@
 (defun setup-visual-basic-mode ()
   "Setup visual-basic-mode."
   (auto-complete-mode t)
-  (set-variable visual-basic-mode-indent 4)
+  (set-variable 'visual-basic-mode-indent 4)
   (when (require 'vbasense nil t)
     ;; (add-to-list
     ;;  'vbasense-tli-files "C:/Program Files/Common Files/System/ado/msado21.tlb")

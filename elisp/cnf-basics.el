@@ -107,6 +107,7 @@
 (defvar my-face-u-2 'my-face-b-2)
 (defvar my-face-u-3 'my-face-b-3)
 (defadvice font-lock-mode (before my-font-lock-mode ())
+  "White space patch for font lock mode."
   (font-lock-add-keywords
    major-mode '(
                 ("　" 0 my-face-u-1 append)

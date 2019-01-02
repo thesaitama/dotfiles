@@ -352,7 +352,6 @@
 ;; recentf
 
 (require 'recentf)
-
 (defun recentf-save-list-inhibit-message:around (orig-func &rest args)
   (setq inhibit-message t)
   (apply orig-func args)
@@ -365,19 +364,10 @@
       (advice-add 'recentf-save-list :around 'recentf-save-list-inhibit-message:around)
       )
   )
-
-;; (defadvice recentf-cleanup
-;;   (around no-message activate)
-;;   "Suppress the output from `message` to minibuffer."
-;;   (cl-flet ((message (format-string &rest args)
-;;                      (eval `(format ,format-string ,@args))))
-;;     ad-do-it))
-
 (setq recentf-max-saved-items 2000)
 (setq recentf-exclude '(".recentf"))
-(setq recentf-auto-cleanup 10)
-(setq recentf-auto-save-timer
-      (run-with-idle-timer 30 t 'recentf-save-list))
+(setq recentf-auto-cleanup 60)
+(setq recentf-auto-save-timer (run-with-idle-timer 60 t 'recentf-save-list))
 (setq-default find-file-visit-truename t)
 (recentf-mode 1)
 

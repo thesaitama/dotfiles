@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2019-01-02 23:04:23
+;; Last Update: 2019-01-03 08:39:20
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -50,10 +50,6 @@
  ;; If there is more than one, they won't work right.
  '(bm-face ((t (:background "color-28"))))
  '(bm-fringe-face ((t (:background "color-28"))))
- '(custom-face-tag ((t (:foreground "Skyblue"))))
- '(custom-group-tag ((t (:foreground "orange"))))
- '(custom-variable-tag ((t (:foreground "orange"))))
- '(custom-state ((t (:foreground "Gray70"))))
  '(company-preview-common ((t (:background nil :foreground "LightGray" :underline t))))
  '(company-scrollbar-bg ((t (:background "Gray40"))))
  '(company-scrollbar-fg ((t (:background "orange"))))
@@ -61,6 +57,10 @@
  '(company-tooltip-common ((t (:foreground "black" :background "LightGray"))))
  '(company-tooltip-common-selection ((t (:foreground "white" :background "SteelBlue"))))
  '(company-tooltip-selection ((t (:foreground "black" :background "SteelBlue"))))
+ '(custom-face-tag ((t (:foreground "Skyblue"))))
+ '(custom-group-tag ((t (:foreground "orange"))))
+ '(custom-state ((t (:foreground "Gray70"))))
+ '(custom-variable-tag ((t (:foreground "orange"))))
  '(diff-added ((((type tty)) (:foreground "green"))))
  '(diff-refine-added ((t (:foreground "white" :background "LimeGreen"))))
  '(diff-refine-removed ((t (:foreground "white" :background "red"))))
@@ -77,9 +77,9 @@
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
  '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
  '(header-line ((t (:background "Gray40" :foreground "Gray85"))))
+ '(helm-buffer-directory ((t (:background "DarkCyan" :foreground "white"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
  '(helm-buffer-process ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
- '(helm-buffer-directory ((t (:background "DarkCyan" :foreground "white"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "orange"))))
  '(helm-ff-dotted-directory ((t (:background "Gray25" :foreground "white"))))
  '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "cyan"))))
@@ -124,10 +124,9 @@
  '(markdown-inline-code-face ((t (:inherit font-lock-constant-face))))
  '(markdown-pre-face ((t (:inherit font-lock-constant-face))))
  '(menu ((t (:background "Gray30"))))
+ '(minibuffer-prompt ((t (:foreground "cyan"))))
  '(mlc-mode-line-char-format ((t (:foreground "Gray90" :background "Gray40"))))
  '(mlc-mode-line-char-format-code ((t (:foreground "Gray80"))))
- '(minibuffer-prompt ((t (:foreground "cyan"))))
- '(minibuffer-prompt ((t (:foreground "cyan"))))
  '(nxml-attribute-local-name ((t (:foreground "LightBlue"))))
  '(nxml-attribute-value ((t (:foreground "Goldenrod"))))
  '(nxml-cdata-section-content ((t (:foreground "gray"))))
@@ -151,15 +150,6 @@
  '(pulse-highlight-start-face ((t (:background "Gray35"))))
  '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
  '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
- ;; '(rainbow-delimiters-depth-1-face ((t (:foreground "goldenrod"))))
- ;; '(rainbow-delimiters-depth-2-face ((t (:foreground "Skyblue"))))
- ;; '(rainbow-delimiters-depth-3-face ((t (:foreground "magenta"))))
- ;; '(rainbow-delimiters-depth-4-face ((t (:foreground "cyan"))))
- ;; '(rainbow-delimiters-depth-5-face ((t (:foreground "green"))))
- ;; '(rainbow-delimiters-depth-6-face ((t (:foreground "orange"))))
- ;; '(rainbow-delimiters-depth-7-face ((t (:foreground "purple"))))
- ;; '(rainbow-delimiters-depth-8-face ((t (:foreground "gray"))))
- ;; '(rainbow-delimiters-depth-9-face ((t (:foreground "white"))))
  '(region ((t (:background "Gray40"))))
  '(rst-level-1 ((t (:inherit outline-1))))
  '(rst-level-2 ((t (:inherit outline-2))))
@@ -208,7 +198,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (helm-google google-this dumb-jump textile-mode osx-clipboard pippel powershell flycheck-plantuml ssh plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc))))
+    (recentf-ext helm-google google-this dumb-jump textile-mode osx-clipboard pippel powershell flycheck-plantuml ssh plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc))))
 
 ;; ------------------------------------------------------------------------
 

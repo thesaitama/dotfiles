@@ -86,7 +86,13 @@
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 
-;; disable dialog-boxn
+;; disable blink cursor
+(blink-cursor-mode 0)
+
+;; show image in Emacs
+(auto-image-file-mode t)
+
+;; disable dialog-box
 (defalias 'message-box 'message)
 (setq use-dialog-box nil)
 

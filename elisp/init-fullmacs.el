@@ -16,6 +16,9 @@
 
 ;; ------------------------------------------------------------------------
 
+;; debugger if needed
+;; (setq debug-on-error t)
+
 ;; enable cl
 (eval-when-compile (require 'cl))
 (require 'cl-lib)

@@ -22,6 +22,7 @@
 (setq tramp-default-method "pscp")
 
 ;; coding
+(prefer-coding-system 'utf-8-dos)
 (set-file-name-coding-system 'cp932)    ;; file system
 (set-clipboard-coding-system 'utf-16le) ;; clipboard
 
@@ -58,6 +59,7 @@
 ;; download: https://github.com/mhatta/emacs-26-x86_64-win-ime
 
 (defun enable-ime ()
+  "Enable IME."
   (when (locate-library "w32-ime")
     (progn
 

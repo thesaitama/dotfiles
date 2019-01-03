@@ -475,8 +475,6 @@
 (setq ac-auto-start 2)
 (setq ac-auto-show-menu 0.2)
 (setq ac-quick-help-prefer-x t)
-(setq completion-ignore-case t)
-(setq read-file-name-completion-ignore-case t)
 
 (if (<= emacs-major-version 25)
     (setq-default ac-sources 'ac-source-filename ac-source-words-in-same-mode-buffers)

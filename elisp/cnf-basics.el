@@ -227,6 +227,7 @@
 (set-variable 'windmove-wrap-around t)
 
 ;; ignore case
+(setq completion-ignore-case t)
 (setq read-buffer-completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 

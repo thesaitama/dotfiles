@@ -240,6 +240,9 @@
 ;; auto scroll when compile
 (set-variable 'compilation-scroll-output t)
 
+;; enable temp buffer resize
+(temp-buffer-resize-mode 1)
+
 ;; ------------------------------------------------------------------------
 ;; isearch
 

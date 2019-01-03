@@ -376,6 +376,11 @@
 (recentf-mode 1)
 
 ;; ------------------------------------------------------------------------
+;; savehist-mode
+
+(savehist-mode 1)
+
+;; ------------------------------------------------------------------------
 ;; dired + wdired + dired-x
 
 (set-variable 'dired-listing-switches "-avhplGF")

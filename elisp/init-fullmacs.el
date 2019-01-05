@@ -163,6 +163,7 @@
     smart-mode-line
     dired-narrow
     dired-subtree
+    peep-dired
     japanese-holidays
     osx-trash
     vimrc-mode
@@ -541,6 +542,14 @@
 (define-key dired-mode-map (kbd "i") 'dired-subtree-insert)
 (define-key dired-mode-map (kbd "TAB") 'dired-subtree-remove)
 (define-key dired-mode-map (kbd "^") 'dired-subtree-up-dwim)
+
+;; ------------------------------------------------------------------------
+;; peep-dired
+
+(define-key dired-mode-map (kbd "P") 'peep-dired)
+(define-key dired-mode-map (kbd "<SPC>") 'peep-dired-scroll-page-down)
+(define-key dired-mode-map (kbd "S-<SPC>") 'peep-dired-scroll-page-up)
+(setq peep-dired-ignored-extensions '("mkv" "avi" "iso" "mp4" "mp4"))
 
 ;; ------------------------------------------------------------------------
 ;; rainbow-mode

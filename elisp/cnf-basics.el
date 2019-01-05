@@ -333,7 +333,8 @@
 ;; ------------------------------------------------------------------------
 ;; generic-x
 
-(require 'generic-x)
+;; (require 'generic-x)
+(autoload 'generic-x "generic-x" nil t)
 
 ;; ------------------------------------------------------------------------
 ;; abbrev
@@ -456,7 +457,8 @@
 ;; ------------------------------------------------------------------------
 ;; time-stamp
 
-(require 'time-stamp)
+;; (require 'time-stamp)
+(autoload 'time-stamp "time-stamp" nil t)
 (add-hook 'before-save-hook 'time-stamp)
 
 (setq time-stamp-start "Last Update:")
@@ -510,6 +512,7 @@
 ;; ------------------------------------------------------------------------
 ;; eww
 
+(autoload 'generic-x "generic-x" nil t)
 (when (require 'eww nil t)
   (defvar eww-disable-colorize t)
   (defun shr-colorize-region--disable (orig start end fg &optional bg &rest _)

@@ -27,8 +27,9 @@
 (setq byte-compile-warnings '(free-vars bytecomp))
 (setq ad-redefinition-action 'accept)
 
-;; GC threshold
-(setq gc-cons-threshold (* 10 gc-cons-threshold))
+;; GC
+(setq gc-cons-threshold (* 128 1024 1024))
+(setq garbage-collection-messages t)
 
 ;; ------------------------------------------------------------------------
 
@@ -384,14 +385,14 @@
 ;; ------------------------------------------------------------------------
 ;; expand-region
 
-(require 'expand-region)
+;; (require 'expand-region)
 (global-set-key (kbd "M-,") 'er/expand-region)
 (global-set-key (kbd "C-M-,") 'er/contract-region)
 
 ;; ------------------------------------------------------------------------
 ;; highlight-symbol
 
-(require 'highlight-symbol)
+;; (require 'highlight-symbol)
 (setq highlight-symbol-colors '("DarkOrange"
                                 "DeepPink1"
                                 "DodgerBlue1"
@@ -437,7 +438,7 @@
 ;; ------------------------------------------------------------------------
 ;; anzu
 
-(require 'anzu)
+;; (require 'anzu)
 (global-anzu-mode +1)
 ;; (setq anzu-use-migemo t)
 (setq anzu-search-threshold 1000)
@@ -497,10 +498,10 @@
 
 (require 'company)
 ;; (global-company-mode t)
-
-(if window-system (progn
-                    (company-quickhelp-mode t) ;; only support GUI
-                    ))
+(if window-system
+    (progn
+      (company-quickhelp-mode t) ;; only support GUI
+      ))
 
 (setq completion-ignore-case t)
 (setq company-idle-delay 0.1)
@@ -530,15 +531,12 @@
 ;; ------------------------------------------------------------------------
 ;; dired-subtree
 
-(require 'dired-subtree)
-
+;; (require 'dired-subtree)
 (defun dired-subtree-up-dwim (&optional arg)
   "Traval parent directory."
   (interactive "p")
   (or (dired-subtree-up arg)
       (dired-up-directory)))
-
-;; key-bind
 (define-key dired-mode-map (kbd "i") 'dired-subtree-insert)
 (define-key dired-mode-map (kbd "TAB") 'dired-subtree-remove)
 (define-key dired-mode-map (kbd "^") 'dired-subtree-up-dwim)
@@ -685,7 +683,6 @@
 ;; multi-term
 
 (setq multi-term-program shell-file-name)
-
 (add-hook 'term-mode-hook '(lambda ()
   (define-key term-raw-map "\C-y" 'term-paste)
   (define-key term-raw-map "\C-q" 'move-beginning-of-line)

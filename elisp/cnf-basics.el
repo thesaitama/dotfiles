@@ -391,12 +391,10 @@
 (setq delete-by-moving-to-trash t)
 
 ;; zip
-(eval-after-load "dired"
-  '(define-key dired-mode-map "z" 'dired-zip-files))
+(eval-after-load 'dired '(define-key dired-mode-map "z" 'dired-zip-files))
 (defun dired-zip-files (zip-file)
   "Create an archive containing the marked ZIP-FILEs."
   (interactive "Enter name of ZIP-FILE: ")
-
   ;; create the zip file
   (let ((zip-file (if (string-match ".zip$" zip-file) zip-file (concat zip-file ".zip"))))
     (shell-command
@@ -408,22 +406,20 @@
                #'(lambda (filename)
                   (file-name-nondirectory filename))
                (dired-get-marked-files))))))
-
   (revert-buffer)
-
   ;; remove the mark on all the files  "*" to " "
   ;; (dired-change-marks 42 ?\040)
   ;; mark zip file
   ;; (dired-mark-files-regexp (filename-to-regexp zip-file))
   )
-
 (defun concat-string-list (list)
    "Return a string which is a concatenation of all elements of the LIST separated by spaces."
    (mapconcat #'(lambda (obj) (format "%s" obj)) list " "))
 
-(require 'wdired)
+;; (require 'wdired)
+(autoload 'wdired "wdired" nil t)
 (define-key dired-mode-map "e" 'wdired-change-to-wdired-mode)
-(setq wdired-allow-to-change-permissions t)
+(set-variable 'wdired-allow-to-change-permissions t)
 
 (add-hook 'dired-load-hook (lambda () (load "dired-x")))
 

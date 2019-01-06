@@ -26,7 +26,7 @@
 ;; ------------------------------------------------------------------------
 ;; load lisp for legacy Emacs
 
-(setq load-path (append '("~/dotfiles/elisp/legacy") load-path))
+(setq load-path (append '("~/dotfiles/elisp/legacy/") load-path))
 
 ;; ------------------------------------------------------------------------
 ;; ido

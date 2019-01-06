@@ -9,8 +9,8 @@
 ;; ------------------------------------------------------------------------
 ;; add load-path
 
-(setq load-path (append '("~/dotfiles/elisp"
-                          "~/dotfiles/elisp/ext"
+(setq load-path (append '("~/dotfiles/elisp/"
+                          "~/dotfiles/elisp/ext/"
                           ) load-path))
 
 ;; ------------------------------------------------------------------------

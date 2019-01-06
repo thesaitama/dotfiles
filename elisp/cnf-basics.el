@@ -476,14 +476,13 @@
 ;; ------------------------------------------------------------------------
 ;; nxml-mode (built-in)
 
-(add-hook 'nxml-mode-hook
-          (lambda ()
-            (setq nxml-slash-auto-complete-flag t)
-            (setq nxml-child-indent 1)
-            (setq indent-tabs-mode nil)
-            (setq tab-width 2)
-            )
-          )
+(defun setup-nxml-mode ()
+  "Setup `nxml-mode'."
+  (set-variable 'nxml-slash-auto-complete-flag t)
+  (set-variable 'nxml-child-indent 2)
+  (setq tab-width 2)
+  )
+(add-hook 'nxml-mode-hook #'setup-nxml-mode)
 
 ;; ------------------------------------------------------------------------
 ;; org-mode
@@ -508,7 +507,8 @@
 ;; ------------------------------------------------------------------------
 ;; eww
 
-(autoload 'generic-x "generic-x" nil t)
+;; (require 'eww)
+(autoload 'eww "eww" nil t)
 (when (require 'eww nil t)
   (defvar eww-disable-colorize t)
   (defun shr-colorize-region--disable (orig start end fg &optional bg &rest _)

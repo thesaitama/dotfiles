@@ -262,6 +262,7 @@
     (font-lock-mode . "")
     (ace-isearch-mode . "")
     (undo-tree-mode . "")
+    (highlight-symbol-mode . "")
     (volatile-highlights-mode . "")
     (smooth-scroll-mode . "")
     (emmet-mode . " Em")

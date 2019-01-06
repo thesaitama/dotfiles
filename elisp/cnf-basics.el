@@ -323,12 +323,20 @@
   )
 
 ;; ------------------------------------------------------------------------
+;; hide show
+
+(add-hook 'prog-mode-hook #'hs-minor-mode)
+(define-key global-map (kbd "C-c C-f") 'hs-toggle-hiding)
+
+;; ------------------------------------------------------------------------
 ;; indent-tabs
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(add-hook 'sh-mode-hook '(lambda () (setq tab-width 2)(setq sh-basic-offset 2)
-        (setq sh-indentation 2)))
+(add-hook 'sh-mode-hook '(lambda ()
+                           (setq tab-width 2)
+                           (setq sh-basic-offset 2)
+                           (setq sh-indentation 2)))
 
 ;; ------------------------------------------------------------------------
 ;; generic-x
@@ -456,9 +464,8 @@
 ;; (require 'time-stamp)
 (autoload 'time-stamp "time-stamp" nil t)
 (add-hook 'before-save-hook 'time-stamp)
-
+(set-variable 'time-stamp-format " %04y-%02m-%02d %02H:%02M:%02S")
 (setq time-stamp-start "Last Update:")
-(setq time-stamp-format " %04y-%02m-%02d %02H:%02M:%02S")
 (setq time-stamp-end "$")
 (setq time-stamp-line-limit 15) ; def=8
 
@@ -467,20 +474,20 @@
 
 (set-variable 'display-time-world-time-format "%Z\t %Y %b %d (%a) %R")
 (set-variable 'display-time-world-list
-      '(("Asia/Tokyo" "Tokyo")
-        ("America/Los_Angeles" "Los Angeles")
-        ("America/New_York" "New York")
-        ("Europe/London" "London")
-        ("Europe/Paris" "Paris")))
+              '(("Asia/Tokyo" "Tokyo")
+                ("America/Los_Angeles" "Los Angeles")
+                ("America/New_York" "New York")
+                ("Europe/London" "London")
+                ("Europe/Paris" "Paris")))
 
 ;; ------------------------------------------------------------------------
 ;; nxml-mode (built-in)
 
 (defun setup-nxml-mode ()
   "Setup `nxml-mode'."
+  (setq tab-width 2)
   (set-variable 'nxml-slash-auto-complete-flag t)
   (set-variable 'nxml-child-indent 2)
-  (setq tab-width 2)
   )
 (add-hook 'nxml-mode-hook #'setup-nxml-mode)
 

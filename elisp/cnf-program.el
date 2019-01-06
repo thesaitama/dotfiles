@@ -182,6 +182,7 @@
                            ac-source-abbrev))))
 (defun web-mode-setup ()
   "Hooks for Web mode."
+  (hs-minor-mode -1)
   (set-variable 'web-mode-markup-indent-offset 2)
   (set-variable 'web-mode-code-indent-offset 2)
   (set-variable 'web-mode-css-indent-offset 2)

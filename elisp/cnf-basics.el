@@ -292,10 +292,10 @@
 ;; ------------------------------------------------------------------------
 ;; mouse
 
-(require 'mouse)
+;; (require 'mouse)
 (xterm-mouse-mode t)
 
-(require 'mwheel)
+(require 'mwheel) ; important
 (mouse-wheel-mode t)
 (global-set-key [mouse-4] '(lambda () (interactive) (scroll-down 3)))
 (global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 3)))
@@ -507,30 +507,29 @@
 ;; ------------------------------------------------------------------------
 ;; eww
 
-;; (require 'eww)
-(autoload 'eww "eww" nil t)
-(when (require 'eww nil t)
-  (defvar eww-disable-colorize t)
-  (defun shr-colorize-region--disable (orig start end fg &optional bg &rest _)
-    (unless eww-disable-colorize
-      (funcall orig start end fg))
-    )
-  (advice-add 'shr-colorize-region :around 'shr-colorize-region--disable)
-  (advice-add 'eww-colorize-region :around 'shr-colorize-region--disable)
-
-  (defun eww-disable-color ()
-    "When eww disable flip colorize."
-    (interactive)
-    (setq-local eww-disable-colorize t)
-    (eww-reload)
-    )
-  (defun eww-enable-color ()
-    "When eww enaboe color rize."
-    (interactive)
-    (setq-local eww-disable-colorize nil)
-    (eww-reload)
-    )
-  )
+(if (version< emacs-version "24.4")
+    (message "skip: eww configure")
+  (progn
+    (defvar eww-disable-colorize t)
+    (defun shr-colorize-region--disable (orig start end fg &optional bg &rest _)
+      (unless eww-disable-colorize
+        (funcall orig start end fg))
+      )
+    (advice-add 'shr-colorize-region :around 'shr-colorize-region--disable)
+    (advice-add 'eww-colorize-region :around 'shr-colorize-region--disable)
+    (defun eww-disable-color ()
+      "When eww disable flip colorize."
+      (interactive)
+      (setq-local eww-disable-colorize t)
+      (eww-reload)
+      )
+    (defun eww-enable-color ()
+      "When eww enable colorize."
+      (interactive)
+      (setq-local eww-disable-colorize nil)
+      (eww-reload)
+      )
+    ))
 
 ;; ------------------------------------------------------------------------
 ;; describe-face-at-point

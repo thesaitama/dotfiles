@@ -74,7 +74,7 @@
 ;; color set-face (basic)
 
 (global-font-lock-mode t)
-(set-face-foreground 'font-lock-builtin-face "magenta")
+(set-face-foreground 'font-lock-builtin-face "MediumPurple2")
 (set-face-foreground 'font-lock-comment-delimiter-face "DarkGreen")
 (set-face-foreground 'font-lock-comment-face "green")
 (set-face-foreground 'font-lock-constant-face "orange")

@@ -72,7 +72,7 @@
 (set-face-foreground 'fringe "#cccccc")
 (set-face-background 'fringe "#1a1a1a")
 
-;; (set-face-background 'highlight-symbol-face "Gray30)"
+;; (set-face-background 'highlight-symbol-face "Gray19)"
 (set-face-background 'hl-line "#303030")
 
 ;; ------------------------------------------------------------------------

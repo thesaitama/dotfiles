@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2019-01-06 10:27:49
+;; Last Update: 2019-01-06 16:36:30
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -172,6 +172,9 @@
  '(tty-menu-disabled-face ((t (:background "Gray45" :foreground "Gray10"))))
  '(tty-menu-enabled-face ((t (:background "Gray45" :foreground "White"))))
  '(tty-menu-selected-face ((t (:background "SteelBlue" :foreground "White"))))
+ '(w3m-header-line-location-title ((t (:background "Gray30"))))
+ '(w3m-header-line-location-content ((t (:background "Gray40"))))
+ '(w3m-tab-background ((t (:background "Gray20"))))
  '(web-mode-comment-face ((t (:inherit font-lock-comment-face))))
  '(web-mode-css-at-rule-face ((t (:foreground "color-99"))))
  '(web-mode-css-pseudo-class ((t (:foreground "DodgerBlue"))))

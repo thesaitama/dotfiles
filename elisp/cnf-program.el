@@ -385,6 +385,8 @@
   (setq comment-add 0)
 
   (when (not ess-loaded-p)
+    ;; auto-complete-acr
+    (when (require 'auto-complete-acr nil t))
     (setq ess-use-auto-complete t)
     (set-variable 'ess-use-ido nil)
     (set-variable 'ess-eldoc-show-on-symbol t)
@@ -418,12 +420,6 @@
 
 ;; > sudo port install R
 ;; > sudo port install ess
-
-;; ------------------------------------------------------------------------
-;; auto-complete-acr
-
-(when (require 'auto-complete-acr nil t))
-;; (autoload 'auto-complete-acr "auto-complete-acr" nil t)
 
 ;; ------------------------------------------------------------------------
 ;; go-mode

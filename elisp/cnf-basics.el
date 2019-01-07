@@ -192,9 +192,6 @@
 (column-number-mode t)
 (line-number-mode t)
 
-;; highlight editing line
-(global-hl-line-mode t)
-
 ;; end of line code
 (setq eol-mnemonic-dos "(CRLF)")
 (setq eol-mnemonic-mac "(CR)")
@@ -242,6 +239,24 @@
 
 ;; enable temp buffer resize
 (temp-buffer-resize-mode 1)
+
+;; highlight editing line
+(global-hl-line-mode t)
+
+;; ------------------------------------------------------------------------
+;; hl-line-mode
+
+;; http://emacs.rubikitch.com/global-hl-line-mode-timer/
+
+(defvar global-hl-line-timer-exclude-modes '(todotxt-mode))
+(defun global-hl-line-timer-function ()
+  "Delay `hl-line-mode'."
+  (unless (memq major-mode global-hl-line-timer-exclude-modes)
+    (global-hl-line-unhighlight-all)
+    (let ((global-hl-line-mode t))
+      (global-hl-line-highlight))))
+(defvar global-hl-line-timer
+  (run-with-idle-timer 0.03 t 'global-hl-line-timer-function))
 
 ;; ------------------------------------------------------------------------
 ;; isearch

@@ -644,6 +644,19 @@
   )
 
 ;; ------------------------------------------------------------------------
+;; popup-select-window
+
+;; https://www.emacswiki.org/emacs/popup-select-window.el
+
+(when (require 'popup-select-window nil t)
+  (global-set-key (kbd "C-x o") 'popup-select-window)
+  (setq popup-select-window-popup-windows 2)
+  (setq popup-select-window-use-buffer-highlight nil)
+  (setq popup-select-window-active-modeline-bgcolor "Gray40")
+  ;; (setq popup-select-window-window-highlight-face '(:background "Gray20"))
+  )
+
+;; ------------------------------------------------------------------------
 ;; os switch
 
 (cond ((equal system-type 'gnu/linux)

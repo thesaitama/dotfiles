@@ -28,7 +28,7 @@
 (setq ad-redefinition-action 'accept)
 
 ;; GC
-(setq gc-cons-threshold (* 128 1024 1024))
+(setq gc-cons-threshold (* 256 1024 1024))
 (setq garbage-collection-messages t)
 
 ;; ------------------------------------------------------------------------

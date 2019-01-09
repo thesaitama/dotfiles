@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2019-01-08 22:45:24
+;; Last Update: 2019-01-09 22:49:53
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -61,6 +61,18 @@
  '(custom-group-tag ((t (:foreground "orange"))))
  '(custom-state ((t (:foreground "Gray70"))))
  '(custom-variable-tag ((t (:foreground "orange"))))
+ '(ediff-current-diff-Ancestor ((t (:foreground "black" :background "DarkCyan"))))
+ '(ediff-current-diff-A ((t (:foreground "black" :background "LimeGreen"))))
+ '(ediff-current-diff-B ((t (:foreground "black" :background "red"))))
+ '(ediff-current-diff-C ((t (:foreground "black" :background "orange"))))
+ '(ediff-odd-diff-Ancestor ((t (:foreground "white" :background "Gray25"))))
+ '(ediff-odd-diff-A ((t (:foreground "white" :background "Gray30"))))
+ '(ediff-odd-diff-B ((t (:foreground "white" :background "Gray35"))))
+ '(ediff-odd-diff-C ((t (:foreground "white" :background "Gray40"))))
+ '(ediff-fine-diff-Ancestor ((t (:foreground "white" :background "DarkCyan"))))
+ '(ediff-fine-diff-A ((t (:foreground "white" :background "LimeGreen"))))
+ '(ediff-fine-diff-B ((t (:foreground "white" :background "red"))))
+ '(ediff-fine-diff-C ((t (:foreground "white" :background "orange"))))
  '(diff-added ((((type tty)) (:foreground "green"))))
  '(diff-refine-added ((t (:foreground "white" :background "LimeGreen"))))
  '(diff-refine-removed ((t (:foreground "white" :background "red"))))

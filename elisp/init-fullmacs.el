@@ -342,38 +342,39 @@
 ;; ------------------------------------------------------------------------
 ;; elscreen
 
-(require 'elscreen)
+;; (require 'elscreen)
 (elscreen-start)
-(setq elscreen-prefix-key (kbd "C-z"))
-(setq elscreen-display-tab 20)
+(set-variable 'elscreen-prefix-key (kbd "C-z"))
+(set-variable 'elscreen-display-tab 20)
 (if (not window-system)
     (progn
-      (setq elscreen-display-tab nil)
+      (set-variable 'elscreen-display-tab nil)
       ;; (elscreen-create)
       )
   )
-(setq elscreen-tab-display-control nil)
-(setq elscreen-tab-display-kill-screen nil)
-(setq elscreen-buffer-to-nickname-alist
-      '(("^dired-mode$" .
-         (lambda ()
-           (format "Dired(%s)" dired-directory)))
-        ("^Info-mode$" .
-         (lambda ()
-           (format "Info(%s)" (file-name-nondirectory Info-current-file))))
-        ("^mew-draft-mode$" .
-         (lambda ()
-           (format "Mew(%s)" (buffer-name (current-buffer)))))
-        ("^mew-" . "Mew")
-        ("^irchat-" . "IRChat")
-        ("^liece-" . "Liece")
-        ("^lookup-" . "Lookup")))
-(setq elscreen-mode-to-nickname-alist
-      '(("[Ss]hell" . "shell")
-        ("compilation" . "compile")
-        ("-telnet" . "telnet")
-        ("dict" . "OnlineDict")
-        ("*WL:Message*" . "Wanderlust")))
+(set-variable 'elscreen-tab-display-control nil)
+(set-variable 'elscreen-tab-display-kill-screen nil)
+(set-variable
+ 'elscreen-buffer-to-nickname-alist
+ '(("^dired-mode$" .
+    (lambda ()
+      (format "Dired(%s)" dired-directory)))
+   ("^Info-mode$" .
+    (lambda ()
+      (format "Info(%s)" (file-name-nondirectory Info-current-file))))
+   ("^mew-draft-mode$" .
+    (lambda ()
+      (format "Mew(%s)" (buffer-name (current-buffer)))))
+   ("^mew-" . "Mew")
+   ("^irchat-" . "IRChat")
+   ("^lookup-" . "Lookup")))
+(set-variable
+ 'elscreen-mode-to-nickname-alist
+ '(("[Ss]hell" . "shell")
+   ("compilation" . "compile")
+   ("-telnet" . "telnet")
+   ("dict" . "OnlineDict")
+   ("*WL:Message*" . "Wanderlust")))
 
 ;; ------------------------------------------------------------------------
 ;; smooth-scroll
@@ -593,7 +594,9 @@
 ;; ------------------------------------------------------------------------
 ;; flyspell (spell check)
 
-(setq ispell-program-name "aspell")
+(setq ispell-program-Name "aspell")
+(setq ispell-personal-dictionary "~/.aspell.en.pws")
+(setq ispell-really-aspell t)
 (eval-after-load "ispell"
   '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
 

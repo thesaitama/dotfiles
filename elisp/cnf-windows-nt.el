@@ -18,8 +18,7 @@
 
 (setq default-directory "~/../../Desktop/")
 
-;; speed up tramp
-(setq tramp-default-method "pscp")
+(set-variable 'tramp-default-method "pscp")
 
 ;; coding
 (prefer-coding-system 'utf-8-dos)
@@ -42,7 +41,7 @@
 
 (setq default-process-coding-system '(undecided-dos . utf-8-unix))
 
-;; change sub-process parameter coding to cp932t
+;; change sub-process parameter coding to cp932
 (cl-loop
  for (func args-pos) in '((call-process        4)
                           (call-process-region 6)

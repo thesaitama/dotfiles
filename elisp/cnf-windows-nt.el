@@ -195,6 +195,7 @@
 (defun run-cmdexe ()
   "Set up an environment for cmd.exe, execute it, and swith to buffer *cmd*."
   (interactive)
+  (ad-deactivate 'font-lock-mode)
   (let ((process-environment (copy-sequence process-environment)))
     (setenv "PATH" (replace-regexp-in-string "[^;]+cygwin[^;]+;" "" (getenv "PATH")))
     (set-buffer (get-buffer-create "*cmd*"))

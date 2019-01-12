@@ -380,11 +380,11 @@
 (defvar ess-loaded-p nil)
 (defun ess-load-hook (&optional from-iess-p)
   "Load R environment."
+  (ad-deactivate 'font-lock-mode)
   (defvar ess-indent-level 2)
   (defvar ess-arg-function-offset-new-line (list ess-indent-level))
   (make-variable-buffer-local 'comment-add)
   (setq comment-add 0)
-
   (when (not ess-loaded-p)
     ;; auto-complete-acr
     (when (require 'auto-complete-acr nil t))

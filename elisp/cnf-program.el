@@ -703,10 +703,11 @@
 (add-hook 'c++-mode-hook #'electric-operator-mode)
 (add-hook 'go-mode-hook #'electric-operator-mode)
 (add-hook 'js2-mode-hook #'electric-operator-mode)
+(add-hook 'typescript-mode-hook #'electric-operator-mode)
 (add-hook 'php-mode-hook #'electric-operator-mode)
 (add-hook 'python-mode-hook #'electric-operator-mode)
 (add-hook 'ruby-mode-hook #'electric-operator-mode)
-(add-hook 'typescript-mode-hook #'electric-operator-mode)
+(add-hook 'R-mode-hook #'electric-operator-mode)
 
 ;; ------------------------------------------------------------------------
 ;; dumb-jump-mode

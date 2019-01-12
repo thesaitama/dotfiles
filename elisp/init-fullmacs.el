@@ -346,11 +346,9 @@
 (elscreen-start)
 (set-variable 'elscreen-prefix-key (kbd "C-z"))
 (set-variable 'elscreen-display-tab 20)
-(if (not window-system)
-    (progn
-      (set-variable 'elscreen-display-tab nil)
-      ;; (elscreen-create)
-      )
+(when (not window-system)
+  (set-variable 'elscreen-display-tab nil)
+  ;; (elscreen-create)
   )
 (set-variable 'elscreen-tab-display-control nil)
 (set-variable 'elscreen-tab-display-kill-screen nil)
@@ -497,10 +495,9 @@
 
 (require 'company)
 ;; (global-company-mode t)
-(if window-system
-    (progn
-      (company-quickhelp-mode t) ;; only support GUI
-      ))
+(when window-system
+  (company-quickhelp-mode t) ;; only support GUI
+  )
 
 (setq completion-ignore-case t)
 (setq company-idle-delay 0.1)

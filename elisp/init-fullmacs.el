@@ -415,7 +415,6 @@
 (require 'sequential-command-config)
 (global-set-key (kbd "C-a") 'seq-home)
 (global-set-key (kbd "C-e") 'seq-end)
-
 (when (require 'org nil t)
   (define-key org-mode-map (kbd "C-a") 'org-seq-home)
   (define-key org-mode-map (kbd "C-e") 'org-seq-end)

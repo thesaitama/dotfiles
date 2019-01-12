@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2019-01-09 22:49:53
+;; Last Update: 2019-01-10 20:57:43
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -61,18 +61,6 @@
  '(custom-group-tag ((t (:foreground "orange"))))
  '(custom-state ((t (:foreground "Gray70"))))
  '(custom-variable-tag ((t (:foreground "orange"))))
- '(ediff-current-diff-Ancestor ((t (:foreground "black" :background "DarkCyan"))))
- '(ediff-current-diff-A ((t (:foreground "black" :background "LimeGreen"))))
- '(ediff-current-diff-B ((t (:foreground "black" :background "red"))))
- '(ediff-current-diff-C ((t (:foreground "black" :background "orange"))))
- '(ediff-odd-diff-Ancestor ((t (:foreground "white" :background "Gray25"))))
- '(ediff-odd-diff-A ((t (:foreground "white" :background "Gray30"))))
- '(ediff-odd-diff-B ((t (:foreground "white" :background "Gray35"))))
- '(ediff-odd-diff-C ((t (:foreground "white" :background "Gray40"))))
- '(ediff-fine-diff-Ancestor ((t (:foreground "white" :background "DarkCyan"))))
- '(ediff-fine-diff-A ((t (:foreground "white" :background "LimeGreen"))))
- '(ediff-fine-diff-B ((t (:foreground "white" :background "red"))))
- '(ediff-fine-diff-C ((t (:foreground "white" :background "orange"))))
  '(diff-added ((((type tty)) (:foreground "green"))))
  '(diff-refine-added ((t (:foreground "white" :background "LimeGreen"))))
  '(diff-refine-removed ((t (:foreground "white" :background "red"))))
@@ -84,6 +72,18 @@
  '(dired-subtree-depth-4-face ((t (:background "Gray22"))))
  '(dired-subtree-depth-5-face ((t (:background "Gray23"))))
  '(dired-subtree-depth-6-face ((t (:background "Gray24"))))
+ '(ediff-current-diff-A ((t (:foreground "black" :background "LimeGreen"))))
+ '(ediff-current-diff-Ancestor ((t (:foreground "black" :background "DarkCyan"))))
+ '(ediff-current-diff-B ((t (:foreground "black" :background "red"))))
+ '(ediff-current-diff-C ((t (:foreground "black" :background "orange"))))
+ '(ediff-fine-diff-A ((t (:foreground "white" :background "LimeGreen"))))
+ '(ediff-fine-diff-Ancestor ((t (:foreground "white" :background "DarkCyan"))))
+ '(ediff-fine-diff-B ((t (:foreground "white" :background "red"))))
+ '(ediff-fine-diff-C ((t (:foreground "white" :background "orange"))))
+ '(ediff-odd-diff-A ((t (:foreground "white" :background "Gray30"))))
+ '(ediff-odd-diff-Ancestor ((t (:foreground "white" :background "Gray25"))))
+ '(ediff-odd-diff-B ((t (:foreground "white" :background "Gray35"))))
+ '(ediff-odd-diff-C ((t (:foreground "white" :background "Gray40"))))
  '(elscreen-tab-background-face ((t (:background "Gray10" :foreground "Gray90"))))
  '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
@@ -106,7 +106,7 @@
  '(helm-source-header ((t (:background "DarkCyan" :foreground "white"))))
  '(helm-visible-mark ((t (:background "Gray40"))))
  '(highlight-symbol-face ((t (:background "Gray25"))))
- '(hl-line ((t (:background "Gray19")))) ;; color-236
+ '(hl-line ((t (:background "Gray19"))))
  '(holiday ((t (:background "pink" :foreground "black"))))
  '(isearch ((t (:background "LightPink" :foreground "black"))))
  '(japanese-holiday-saturday ((t (:background "cyan" :foreground "black"))))
@@ -184,8 +184,8 @@
  '(tty-menu-disabled-face ((t (:background "Gray45" :foreground "Gray10"))))
  '(tty-menu-enabled-face ((t (:background "Gray45" :foreground "White"))))
  '(tty-menu-selected-face ((t (:background "SteelBlue" :foreground "White"))))
- '(w3m-header-line-location-title ((t (:background "Gray30"))))
  '(w3m-header-line-location-content ((t (:background "Gray40"))))
+ '(w3m-header-line-location-title ((t (:background "Gray30"))))
  '(w3m-tab-background ((t (:background "Gray20"))))
  '(web-mode-comment-face ((t (:inherit font-lock-comment-face))))
  '(web-mode-css-at-rule-face ((t (:foreground "color-99"))))

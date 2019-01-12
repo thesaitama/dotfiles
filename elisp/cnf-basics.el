@@ -243,6 +243,9 @@
 ;; highlight editing line
 (global-hl-line-mode t)
 
+;; redo and undo window structure
+(winner-mode)
+
 ;; ------------------------------------------------------------------------
 ;; hl-line-mode
 

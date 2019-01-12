@@ -665,6 +665,12 @@
 (global-set-key (kbd "C-c y") 'helm-yas-complete)
 
 ;; ------------------------------------------------------------------------
+;; disable vc
+
+(set-variable 'vc-handled-backends '(Git))
+(eval-after-load 'vc '(remove-hook 'find-file-hooks 'vc-find-file-hook))
+
+;; ------------------------------------------------------------------------
 ;; magit
 
 (global-set-key (kbd "C-x g") 'magit-status)

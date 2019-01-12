@@ -9,9 +9,9 @@
 ;; ------------------------------------------------------------------------
 ;; path
 
-(add-to-list 'exec-path "~/bin")
-(add-to-list 'exec-path "C:/Program Files/Git/usr/bin")
-(add-to-list 'exec-path "C:/Program Files/PuTTY")
+(add-to-list 'exec-path "~/bin/")
+(add-to-list 'exec-path "C:/Program Files/Git/usr/bin/")
+(add-to-list 'exec-path "C:/Program Files/PuTTY/")
 
 ;; ------------------------------------------------------------------------
 ;; Windows configure
@@ -36,11 +36,33 @@
 (setq w32-get-true-file-attributes nil)
 
 ;; ------------------------------------------------------------------------
+;; sub process
+
+;; https://www49.atwiki.jp/ntemacs/pages/16.html
+
+(setq default-process-coding-system '(undecided-dos . utf-8-unix))
+
+;; change sub-process parameter coding to cp932t
+(cl-loop
+ for (func args-pos) in '((call-process        4)
+                          (call-process-region 6)
+                          (start-process       3))
+ do (eval `(advice-add ',func
+                       :around (lambda (orig-fun &rest args)
+                                 (setf (nthcdr ,args-pos args)
+                                       (mapcar (lambda (arg)
+                                                 (if (multibyte-string-p arg)
+                                                     (encode-coding-string arg 'cp932)
+                                                   arg))
+                                               (nthcdr ,args-pos args)))
+                                 (apply orig-fun args))
+                       '((depth . 99)))))
+
+;; ------------------------------------------------------------------------
 ;; GUI
 
 (if window-system
     (progn
-
       ;; font
       (set-face-attribute 'default nil :family "Consolas" :height 100)
       ;; (set-face-attribute 'default nil :family "Inconsolata" :height 120)
@@ -49,7 +71,6 @@
       (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "MS Gothic"))
       (setq use-default-font-for-symbols nil)
       (setq-default line-spacing 0.1)
-
       )
   )
 

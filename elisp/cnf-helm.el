@@ -61,6 +61,7 @@
 
 (setq helm-split-window-inside-p t)
 (setq helm-ff-auto-update-initial-value nil) ; disable auto update
+(setq helm-candidate-number-limit 500)
 
 ;; auto resize
 (setq helm-autoresize-max-height 0)

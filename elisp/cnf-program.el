@@ -27,14 +27,14 @@
 
 (set-variable 'comment-tags-keymap-prefix (kbd "C-c t"))
 (set-variable 'comment-tags-keyword-faces
-      `(("TODO" . ,(list :weight 'bold :foreground "#28ABE3"))
-        ("FIXME" . ,(list :weight 'bold :foreground "#DB3340"))
-        ("BUG" . ,(list :weight 'bold :foreground "#DB3340"))
-        ("HACK" . ,(list :weight 'bold :foreground "#E8B71A"))
-        ("KLUDGE" . ,(list :weight 'bold :foreground "#E8B71A"))
-        ("XXX" . ,(list :weight 'bold :foreground "#F7EAC8"))
-        ("INFO" . ,(list :weight 'bold :foreground "#F7EAC8"))
-        ("DONE" . ,(list :weight 'bold :foreground "#1FDA9A"))))
+              `(("TODO" . ,(list :weight 'bold :foreground "#28ABE3"))
+                ("FIXME" . ,(list :weight 'bold :foreground "#DB3340"))
+                ("BUG" . ,(list :weight 'bold :foreground "#DB3340"))
+                ("HACK" . ,(list :weight 'bold :foreground "#E8B71A"))
+                ("KLUDGE" . ,(list :weight 'bold :foreground "#E8B71A"))
+                ("XXX" . ,(list :weight 'bold :foreground "#F7EAC8"))
+                ("INFO" . ,(list :weight 'bold :foreground "#F7EAC8"))
+                ("DONE" . ,(list :weight 'bold :foreground "#1FDA9A"))))
 (set-variable 'comment-tags-comment-start-only t)
 (set-variable 'comment-tags-require-colon t)
 (set-variable 'comment-tags-case-sensitive t)
@@ -265,16 +265,12 @@
 (add-to-list 'auto-mode-alist '("\\.y[a]?ml$" . yaml-mode))
 
 ;; ------------------------------------------------------------------------
-;; typescript
+;; typescript (tide + company-mode)
 
 ;; > sudo npm install tslint typescript
 ;; > sudo npm install -g clausreinke/typescript-tools
 
-(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
-
-;; ------------------------------------------------------------------------
-;; typescript (tide + company-mode)
-
+(add-to-list 'auto-mode-alist '("\\.ts$'" . typescript-mode))
 (defun setup-tide-mode ()
   "Setup tide-mode."
   (interactive)
@@ -291,8 +287,7 @@
 ;; ------------------------------------------------------------------------
 ;; ruby-mode, inf-ruby + ruby-electric-mode
 
-(autoload 'ruby-mode "ruby-mode"
-  "Mode for editing ruby source files" t)
+(autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files" t)
 (setq auto-mode-alist
       (append
        '(("\\.rb$" . ruby-mode)
@@ -698,7 +693,15 @@
 ;; ------------------------------------------------------------------------
 ;; electric-operator
 
-;; (add-hook 'prog-mode-hook #'electric-operator-mode)
+(eval-after-load 'electric-operator
+  '(progn
+     (electric-operator-add-rules-for-mode 'ruby-mode
+                                           (cons "===" " === "))
+     (electric-operator-add-rules-for-mode 'ess-mode
+                                           (cons "%" nil)
+                                           (cons "<-" " <- "))
+     ))
+
 (add-hook 'c-mode-hook  #'electric-operator-mode)
 (add-hook 'c++-mode-hook #'electric-operator-mode)
 (add-hook 'go-mode-hook #'electric-operator-mode)

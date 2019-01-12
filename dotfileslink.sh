@@ -50,7 +50,9 @@ ln -s ~/dotfiles/.tern-config ~/.tern-config
 # tags
 ln -s ~/dotfiles/.globalrc ~/.globalrc
 
-# etc
+# aspell
 ln -s ~/dotfiles/.aspell.conf ~/.aspell.conf
+
+# etc
 ln -s ~/dotfiles/.fd2rc ~/.fd2rc
 

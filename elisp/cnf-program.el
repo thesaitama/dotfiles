@@ -91,6 +91,7 @@
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (set-variable 'flycheck-idle-change-delay 3)  ; important
+(set-variable 'flycheck-display-errors-delay 0.5)
 
 ;; ------------------------------------------------------------------------
 ;; cc-mode (built-in)
@@ -624,8 +625,7 @@
 ;; ------------------------------------------------------------------------
 ;; plantuml-mode
 
-(setq auto-mode-alist
-      (append '(("\\.\\(pu\\)$" . plantuml-mode))  auto-mode-alist ))
+(add-to-list 'auto-mode-alist '("\\(\\.rst\\|\\.rest\\)$" . plantuml-mode))
 ;; (set-variable 'plantuml-jar-path "")  ;; depends on OS
 (set-variable 'plantuml-java-args "")
 (set-variable 'plantuml-jar-args "-charset UTF-8")
@@ -643,7 +643,12 @@
 
 ;; (when (require 'textile-mode) nil t))
 (autoload 'textile-mode "textile-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
+(add-to-list 'auto-mode-alist '("\\(\\.textile\\)$" . textile-mode))
+
+;; ------------------------------------------------------------------------
+;; markdown-mode
+
+(set-variable 'markdown-italic-underscore nil)
 
 ;; ------------------------------------------------------------------------
 ;; rst-mode

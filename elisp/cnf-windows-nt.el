@@ -180,12 +180,14 @@
 (defun run-bash ()
   "Run bash."
   (interactive)
+  (ad-deactivate 'font-lock-mode)
   (let ((shell-file-name "C:/Program Files/Git/bin/bash.exe"))
     (shell "*bash*")))
 
 (defun run-powershell ()
   "Run PowerShell."
   (interactive)
+  (ad-deactivate 'font-lock-mode)
   (async-shell-command
    "c:/windows/system32/WindowsPowerShell/v1.0/powershell.exe -Command -"
    nil

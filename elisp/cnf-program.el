@@ -98,16 +98,13 @@
 
 (setq auto-mode-alist
       (append
-       '(
-         ("\\.c$" . c-mode)
+       '(("\\.c$" . c-mode)
          ("\\.h$" . c-mode)
          ("\\.c\\+\\+$" . c++-mode)
          ("\\.cpp$". c++-mode)
          ("\\.cc$" . c++-mode)
-         ("\\.hh$" . c++-mode)
-         )
+         ("\\.hh$" . c++-mode))
        auto-mode-alist))
-
 (add-hook 'c-mode-common-hook
  '(lambda ()
     (c-set-style "gnu")
@@ -154,10 +151,8 @@
 ;; ------------------------------------------------------------------------
 ;; cperl-mode
 
-(setq auto-mode-alist
-      (append '(("\\.\\([pP][Llm]\\|al\\)$" . cperl-mode)) auto-mode-alist))
-(setq interpreter-mode-alist (append '(("perl" . cperl-mode))
-                                     interpreter-mode-alist))
+(add-to-list 'auto-mode-alist '("\\.\\([pP][Llm]\\|al\\)$" . cperl-mode))
+(add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
 
 ;; ------------------------------------------------------------------------
 ;; web-mode, emmet-mode + ac-emmet
@@ -351,8 +346,6 @@
 (setq elpy-rpc-backend "jedi")
 (setq jedi:complete-on-dot t) ; optional
 
-;; see python special settings (cnf-osx.el)
-
 ;; disable elpy modules
 (remove-hook 'elpy-modules 'elpy-module-flymake)
 (remove-hook 'elpy-modules 'highlight-indentation-mode)
@@ -491,11 +484,9 @@
   (split-window-below (/ (frame-width) 2))
   (let ((buf-name (buffer-name (current-buffer))))
     (scheme-mode)
-    (switch-to-buffer-other-window
-     (get-buffer-create "*scheme*"))
+    (switch-to-buffer-other-window (get-buffer-create "*scheme*"))
     (run-scheme scheme-program-name)
-    (switch-to-buffer-other-window
-     (get-buffer-create buf-name))))
+    (switch-to-buffer-other-window (get-buffer-create buf-name))))
 
 ;; > sudo port install gauche
 
@@ -708,7 +699,6 @@
                                            (cons "%" nil)
                                            (cons "<-" " <- "))
      ))
-
 (add-hook 'c-mode-hook  #'electric-operator-mode)
 (add-hook 'c++-mode-hook #'electric-operator-mode)
 (add-hook 'go-mode-hook #'electric-operator-mode)

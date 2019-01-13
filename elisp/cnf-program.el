@@ -365,13 +365,11 @@
 
 ;; ------------------------------------------------------------------------
 ;; R
-;; see. https://y-mattu.hatenablog.com/entry/rstudio_emacs
 
-;; (when (require 'ess-site nil t))
+;; see. https://y-mattu.hatenablog.com/entry/rstudio_emacs
 
 (autoload 'R-mode "ess-site" "Emacs Speaks Statistics mode" t)
 (autoload 'R "ess-site" "start R" t)
-
 (defvar ess-loaded-p nil)
 (defun ess-load-hook (&optional from-iess-p)
   "Load R environment."
@@ -382,8 +380,22 @@
   (setq comment-add 0)
   (when (not ess-loaded-p)
     ;; auto-complete-acr
-    (when (require 'auto-complete-acr nil t))
-    (setq ess-use-auto-complete t)
+    (when (require 'auto-complete-acr nil t)
+      ;; auto-complete source
+      (set-variable 'ess-use-auto-complete t)
+      (defvar ac-sources '(ac-source-acr
+                           ac-source-R
+                           ac-source-filename
+                           ac-source-yasnippet))
+      )
+    (when (require 'helm-myR nil t)
+      (define-key ess-mode-map (kbd "C-c h") 'helm-for-R)
+      (define-key inferior-ess-mode-map (kbd "C-c h") 'helm-for-R)
+      (setq inlineR-re-funcname ".*plot.*\\|.*gg.*")
+      )
+    (when (require 'inlineR nil t)
+      (setq inlineR-re-funcname ".*plot.*\\|.*gg.*")
+      )
     (set-variable 'ess-use-ido nil)
     (set-variable 'ess-eldoc-show-on-symbol t)
     (set-variable 'ess-ask-for-ess-directory nil)
@@ -394,17 +406,12 @@
         (split-window-below)
         (let ((buf (current-buffer)))
           (ess-switch-to-ESS nil)
-          (switch-to-buffer-other-window buf)))
-      (when (and ess-use-auto-complete (require 'auto-complete nil t))
-        (add-to-list 'ac-modes 'ess-mode)
-        (mapcar (lambda (el) (add-to-list 'ac-trigger-commands el))
-                '(ess-smart-comma smart-operator-comma skeleton-pair-insert-maybe))
-        ;; auto-complete source
-        (defvar ac-sources '(ac-source-acr
-                             ac-source-R
-                             ac-source-filename
-                             ac-source-yasnippet)))))
-
+          (switch-to-buffer-other-window buf))
+        )
+      (mapcar (lambda (el) (add-to-list 'ac-trigger-commands el))
+              '(ess-smart-comma smart-operator-comma skeleton-pair-insert-maybe))
+      (add-to-list 'ac-modes 'ess-mode)
+      ))
   (if from-iess-p
       (if (> (length ess-process-name-list) 0)
           (when (one-window-p)

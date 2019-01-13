@@ -182,6 +182,7 @@
     yagist
     xclip
     osx-clipboard
+    uimage
     )
   "Packages to be installed.")
 

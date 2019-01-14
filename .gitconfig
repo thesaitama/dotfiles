@@ -11,7 +11,8 @@
 	excludesfile = ~/.gitignore_global
 	precomposeunicode = true
 	quotepath = false
-	autocrlf = input
+	autocrlf = false
+	safecrlf = true
 
 [color]
 	ui = true
@@ -39,6 +40,9 @@
 
 [interactive]
 	diffFilter = diff-highlight
+
+[alias]
+	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short --color=always
 
 # diff-highlight
 # MacPorts

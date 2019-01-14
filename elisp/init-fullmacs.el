@@ -32,6 +32,35 @@
 (setq garbage-collection-messages t)
 
 ;; ------------------------------------------------------------------------
+;; for compatibility
+
+(unless (fboundp 'with-eval-after-load)
+  (defmacro with-eval-after-load (file &rest body)
+    `(eval-after-load ,file
+       `(funcall (function ,(lambda () ,@body))))))
+
+(unless (fboundp 'define-symbol-prop)
+  (defun define-symbol-prop (symbol prop val)
+    "Define the property PROP of SYMBOL to be VAL.
+This is to `put' what `defalias' is to `fset'."
+    ;; Can't use `cl-pushnew' here (nor `push' on (cdr foo)).
+    ;; (cl-pushnew symbol (alist-get prop
+    ;;                               (alist-get 'define-symbol-props
+    ;;                                          current-load-list)))
+    (let ((sps (assq 'define-symbol-props current-load-list)))
+      (unless sps
+        (setq sps (list 'define-symbol-props))
+        (push sps current-load-list))
+      (let ((ps (assq prop sps)))
+        (unless ps
+          (setq ps (list prop))
+          (setcdr sps (cons ps (cdr sps))))
+        (unless (member symbol (cdr ps))
+          (setcdr ps (cons symbol (cdr ps))))))
+    (put symbol prop val))
+  )
+
+;; ------------------------------------------------------------------------
 
 (setq initial-scratch-message ";; saitamacs\n")
 

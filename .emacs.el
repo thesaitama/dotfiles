@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2019-01-13 14:17:05
+;; Last Update: 2019-01-14 14:30:39
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -23,8 +23,15 @@
 
 ;;; Code:
 
+;; (package-initialize)
+
 ;; ------------------------------------------------------------------------
 ;; utility function
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
 
 (defun load-if-exist (file-path)
   "Load file if FILE-PATH is exist."

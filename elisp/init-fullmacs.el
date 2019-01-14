@@ -479,11 +479,16 @@ This is to `put' what `defalias' is to `fset'."
 ;; foreign-regexp
 
 ;; avoid ref warnings
-(defvar foreign-regexp/regexp-type "")
-(defvar foreign-regexp/re-builder/targ-buf-state/.orig-pt "")
-(require 'foreign-regexp)
-(setq foreign-regexp/regexp-type 'perl)
-(setq reb-re-syntax 'foreign-regexp)
+(if (version< emacs-version "25.3")
+    (message "skip; foreign-regexp")
+  (progn
+    (defvar foreign-regexp/regexp-type "")
+    (defvar foreign-regexp/re-builder/targ-buf-state/.orig-pt "")
+    (require 'foreign-regexp)
+    (setq foreign-regexp/regexp-type 'perl)
+    (setq reb-re-syntax 'foreign-regexp)
+    )
+  )
 
 ;; ------------------------------------------------------------------------
 ;; auto-complete
@@ -611,7 +616,10 @@ This is to `put' what `defalias' is to `fset'."
 ;; ------------------------------------------------------------------------
 ;; load helm settings
 
-(load-if-exist "~/dotfiles/elisp/cnf-helm.el")
+(if (version< emacs-version "25.3")
+    (message "skip; cnf-helm")
+  (load-if-exist "~/dotfiles/elisp/cnf-helm.el")
+  )
 
 ;; ------------------------------------------------------------------------
 ;; load mew settings
@@ -787,7 +795,7 @@ This is to `put' what `defalias' is to `fset'."
 ;; ------------------------------------------------------------------------
 ;; emamux
 
-(setq emamux:completing-read-type (quote helm))
+(setq emamux:completing-read-type 'helm)
 
 ;; ------------------------------------------------------------------------
 ;; scratch-pop
@@ -865,7 +873,10 @@ This is to `put' what `defalias' is to `fset'."
 
 (load-if-exist "~/dotfiles/elisp/cnf-calendar.el")
 (load-if-exist "~/dotfiles/elisp/cnf-webservice.el")
-(load-if-exist "~/dotfiles/elisp/cnf-program.el")
+(if (version< emacs-version "25.3")
+    (message "skip; cnf-program")
+  (load-if-exist "~/dotfiles/elisp/cnf-program.el")
+  )
 (load-if-exist "~/dotfiles/elisp/cnf-user.el")
 
 ;; ------------------------------------------------------------------------

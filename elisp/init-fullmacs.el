@@ -479,16 +479,11 @@ This is to `put' what `defalias' is to `fset'."
 ;; foreign-regexp
 
 ;; avoid ref warnings
-(if (version< emacs-version "25.3")
-    (message "skip; foreign-regexp")
-  (progn
-    (defvar foreign-regexp/regexp-type "")
-    (defvar foreign-regexp/re-builder/targ-buf-state/.orig-pt "")
-    (require 'foreign-regexp)
-    (setq foreign-regexp/regexp-type 'perl)
-    (setq reb-re-syntax 'foreign-regexp)
-    )
-  )
+(defvar foreign-regexp/regexp-type "")
+(defvar foreign-regexp/re-builder/targ-buf-state/.orig-pt "")
+(require 'foreign-regexp)
+(setq foreign-regexp/regexp-type 'perl)
+(setq reb-re-syntax 'foreign-regexp)
 
 ;; ------------------------------------------------------------------------
 ;; auto-complete
@@ -616,10 +611,7 @@ This is to `put' what `defalias' is to `fset'."
 ;; ------------------------------------------------------------------------
 ;; load helm settings
 
-(if (version< emacs-version "25.3")
-    (message "skip; cnf-helm")
-  (load-if-exist "~/dotfiles/elisp/cnf-helm.el")
-  )
+(load-if-exist "~/dotfiles/elisp/cnf-helm.el")
 
 ;; ------------------------------------------------------------------------
 ;; load mew settings
@@ -873,10 +865,7 @@ This is to `put' what `defalias' is to `fset'."
 
 (load-if-exist "~/dotfiles/elisp/cnf-calendar.el")
 (load-if-exist "~/dotfiles/elisp/cnf-webservice.el")
-(if (version< emacs-version "25.3")
-    (message "skip; cnf-program")
-  (load-if-exist "~/dotfiles/elisp/cnf-program.el")
-  )
+(load-if-exist "~/dotfiles/elisp/cnf-program.el")
 (load-if-exist "~/dotfiles/elisp/cnf-user.el")
 
 ;; ------------------------------------------------------------------------

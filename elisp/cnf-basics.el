@@ -557,6 +557,14 @@
     ))
 
 ;; ------------------------------------------------------------------------
+;; ansi-color
+
+(require 'ansi-color)
+(add-hook 'compilation-filter-hook
+          '(lambda ()
+             (ansi-color-apply-on-region (point-min) (point-max))))
+
+;; ------------------------------------------------------------------------
 ;; describe-face-at-point
 
 ;; https://uwabami.github.io/cc-env/Emacs.html#orgb08f4b8

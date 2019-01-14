@@ -211,6 +211,7 @@ This is to `put' what `defalias' is to `fset'."
     yagist
     xclip
     osx-clipboard
+    xterm-color
     uimage
     )
   "Packages to be installed.")
@@ -721,6 +722,28 @@ This is to `put' what `defalias' is to `fset'."
 )
 
 ;; ------------------------------------------------------------------------
+;; ansi-term
+
+(setq ansi-term-color-vector
+      [term
+       term-color-black
+       term-color-red
+       term-color-green
+       term-color-yellow
+       term-color-blue
+       term-color-magenta
+       term-color-cyan
+       term-color-white
+       term-color-black
+       term-color-red
+       term-color-green
+       term-color-yellow
+       term-color-blue
+       term-color-magenta
+       term-color-cyan
+       term-color-white])
+
+;; ------------------------------------------------------------------------
 ;; multi-term
 
 (setq multi-term-program shell-file-name)
@@ -747,6 +770,16 @@ This is to `put' what `defalias' is to `fset'."
 ;; (with-eval-after-load "multi-term"
 ;;   (setenv "TERMINFO" "~/.terminfo")
 ;;   (setenv "HOSTTYPE" "intel-mac"))
+
+;; ------------------------------------------------------------------------
+;; xterm-color
+
+(setq comint-output-filter-functions
+      (remove 'ansi-color-process-output comint-output-filter-functions))
+
+(add-hook
+ 'shell-mode-hook
+ (lambda () (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter nil t)))
 
 ;; ------------------------------------------------------------------------
 ;; popwin

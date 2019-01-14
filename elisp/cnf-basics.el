@@ -67,8 +67,8 @@
 ;; ------------------------------------------------------------------------
 ;; ediff
 
-(defvar ediff-window-setup-function 'ediff-setup-windows-plain)
-(defvar ediff-split-window-function 'split-window-horizontally)
+(set-variable 'ediff-window-setup-function 'ediff-setup-windows-plain)
+(set-variable 'ediff-split-window-function 'split-window-horizontally)
 
 ;; ------------------------------------------------------------------------
 ;; color set-face (basic)

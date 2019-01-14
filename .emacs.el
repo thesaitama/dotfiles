@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2018-12-27 19:52:48
+;; Last Update: 2019-01-13 14:17:05
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -48,8 +48,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(bm-face ((t (:background "color-28"))))
- '(bm-fringe-face ((t (:background "color-28"))))
+ '(bm-face ((t (:background "SpringGreen4"))))
+ '(bm-fringe-face ((t (:background "SpringGreen4"))))
  '(company-preview-common ((t (:background nil :foreground "LightGray" :underline t))))
  '(company-scrollbar-bg ((t (:background "Gray40"))))
  '(company-scrollbar-fg ((t (:background "orange"))))
@@ -57,6 +57,10 @@
  '(company-tooltip-common ((t (:foreground "black" :background "LightGray"))))
  '(company-tooltip-common-selection ((t (:foreground "white" :background "SteelBlue"))))
  '(company-tooltip-selection ((t (:foreground "black" :background "SteelBlue"))))
+ '(custom-face-tag ((t (:foreground "Skyblue"))))
+ '(custom-group-tag ((t (:foreground "orange"))))
+ '(custom-state ((t (:foreground "Gray70"))))
+ '(custom-variable-tag ((t (:foreground "orange"))))
  '(diff-added ((((type tty)) (:foreground "green"))))
  '(diff-refine-added ((t (:foreground "white" :background "LimeGreen"))))
  '(diff-refine-removed ((t (:foreground "white" :background "red"))))
@@ -68,35 +72,48 @@
  '(dired-subtree-depth-4-face ((t (:background "Gray22"))))
  '(dired-subtree-depth-5-face ((t (:background "Gray23"))))
  '(dired-subtree-depth-6-face ((t (:background "Gray24"))))
+ '(ediff-current-diff-A ((t (:foreground "black" :background "LimeGreen"))))
+ '(ediff-current-diff-Ancestor ((t (:foreground "black" :background "DarkCyan"))))
+ '(ediff-current-diff-B ((t (:foreground "black" :background "red"))))
+ '(ediff-current-diff-C ((t (:foreground "black" :background "orange"))))
+ '(ediff-fine-diff-A ((t (:foreground "white" :background "LimeGreen"))))
+ '(ediff-fine-diff-Ancestor ((t (:foreground "white" :background "DarkCyan"))))
+ '(ediff-fine-diff-B ((t (:foreground "white" :background "red"))))
+ '(ediff-fine-diff-C ((t (:foreground "white" :background "orange"))))
+ '(ediff-odd-diff-A ((t (:foreground "white" :background "Gray30"))))
+ '(ediff-odd-diff-Ancestor ((t (:foreground "white" :background "Gray25"))))
+ '(ediff-odd-diff-B ((t (:foreground "white" :background "Gray35"))))
+ '(ediff-odd-diff-C ((t (:foreground "white" :background "Gray40"))))
  '(elscreen-tab-background-face ((t (:background "Gray10" :foreground "Gray90"))))
  '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
  '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
  '(header-line ((t (:background "Gray40" :foreground "Gray85"))))
+ '(helm-buffer-directory ((t (:background "DarkCyan" :foreground "white"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
- '(helm-buffer-process ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
+ '(helm-buffer-process ((t (:inherit font-lock-builtin-face :foreground "MediumPurple2"))))
  '(helm-ff-directory ((t (:background "Gray25" :foreground "orange"))))
  '(helm-ff-dotted-directory ((t (:background "Gray25" :foreground "white"))))
  '(helm-ff-executable ((t (:inherit font-lock-builtin-face :foreground "cyan"))))
  '(helm-ff-file ((t (:inherit font-lock-builtin-face :foreground "white"))))
- '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "magenta"))))
+ '(helm-ff-symlink ((t (:inherit font-lock-builtin-face :foreground "MediumPurple2"))))
  '(helm-grep-file ((t (:inherit font-lock-builtin-face :underline t :foreground "cyan"))))
  '(helm-grep-match ((t (:background "LightCyan" :foreground "black"))))
  '(helm-header ((t (:background "Gray40" :foreground "Gray80"))))
- '(helm-match ((t (:foreground "cyan"))))
+ '(helm-match ((t (:foreground "Skyblue"))))
  '(helm-selection ((t (:background "Gray30"))))
  '(helm-selection-line ((t (:background "Gray20"))))
  '(helm-source-header ((t (:background "DarkCyan" :foreground "white"))))
  '(helm-visible-mark ((t (:background "Gray40"))))
  '(highlight-symbol-face ((t (:background "Gray25"))))
- '(hl-line ((t (:background "color-236"))))
+ '(hl-line ((t (:background "Gray19"))))
  '(holiday ((t (:background "pink" :foreground "black"))))
  '(isearch ((t (:background "LightPink" :foreground "black"))))
  '(japanese-holiday-saturday ((t (:background "cyan" :foreground "black"))))
  '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))
  '(link ((t (:foreground "cyan"))))
  '(linum ((t (:inherit (shadow default) :background "Gray22"))))
- '(magit-branch-local ((t (:foreground "magenta"))))
+ '(magit-branch-local ((t (:foreground "MediumPurple2"))))
  '(magit-branch-remote ((t (:foreground "cyan"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
  '(magit-diff-added ((((type tty)) (:foreground "green"))))
@@ -105,7 +122,7 @@
  '(magit-diff-file-heading ((((type tty)) nil)))
  '(magit-diff-removed ((((type tty)) (:foreground "red"))))
  '(magit-diff-removed-highlight ((((type tty)) (:foreground "IndianRed"))))
- '(magit-log-author ((t (:foreground "magentap"))))
+ '(magit-log-author ((t (:foreground "MediumPurple2"))))
  '(magit-section-heading ((t (:foreground "cyan" :weight bold))))
  '(magit-section-highlight ((t (:background "Gray23"))))
  '(markdown-code-face ((t (:inherit default :background "Gray20"))))
@@ -120,6 +137,8 @@
  '(markdown-pre-face ((t (:inherit font-lock-constant-face))))
  '(menu ((t (:background "Gray30"))))
  '(minibuffer-prompt ((t (:foreground "cyan"))))
+ '(mlc-mode-line-char-format ((t (:foreground "Gray90" :background "Gray40"))))
+ '(mlc-mode-line-char-format-code ((t (:foreground "Gray80"))))
  '(nxml-attribute-local-name ((t (:foreground "LightBlue"))))
  '(nxml-attribute-value ((t (:foreground "Goldenrod"))))
  '(nxml-cdata-section-content ((t (:foreground "gray"))))
@@ -165,8 +184,11 @@
  '(tty-menu-disabled-face ((t (:background "Gray45" :foreground "Gray10"))))
  '(tty-menu-enabled-face ((t (:background "Gray45" :foreground "White"))))
  '(tty-menu-selected-face ((t (:background "SteelBlue" :foreground "White"))))
+ '(w3m-header-line-location-content ((t (:background "Gray40"))))
+ '(w3m-header-line-location-title ((t (:background "Gray30"))))
+ '(w3m-tab-background ((t (:background "Gray20"))))
  '(web-mode-comment-face ((t (:inherit font-lock-comment-face))))
- '(web-mode-css-at-rule-face ((t (:foreground "magenta"))))
+ '(web-mode-css-at-rule-face ((t (:foreground "color-99"))))
  '(web-mode-css-pseudo-class ((t (:foreground "DodgerBlue"))))
  '(web-mode-css-selector-face ((t (:foreground "DodgerBlue"))))
  '(web-mode-current-element-highlight-face ((t (:background "Gray25"))))
@@ -189,15 +211,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(helm-mini-default-sources
-   (quote
-    (helm-source-buffers-list helm-source-recentf helm-source-projectile-files-list)))
  '(package-selected-packages
    (quote
-    (textile-mode osx-clipboard pippel powershell flycheck-plantuml ssh plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc))))
+    (uimage esup peep-dired recentf-ext helm-google google-this dumb-jump textile-mode osx-clipboard pippel powershell flycheck-plantuml ssh plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc))))
 
 ;; ------------------------------------------------------------------------
 
 (provide '.emacs.el)
 ;;; .emacs.el ends here
-

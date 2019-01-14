@@ -9,8 +9,8 @@
 ;; ------------------------------------------------------------------------
 ;; add load-path
 
-(setq load-path (append '("~/dotfiles/elisp"
-                          "~/dotfiles/elisp/ext"
+(setq load-path (append '("~/dotfiles/elisp/"
+                          "~/dotfiles/elisp/ext/"
                           ) load-path))
 
 ;; ------------------------------------------------------------------------
@@ -67,14 +67,14 @@
 ;; ------------------------------------------------------------------------
 ;; ediff
 
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
-(setq ediff-split-window-function 'split-window-horizontally)
+(defvar ediff-window-setup-function 'ediff-setup-windows-plain)
+(defvar ediff-split-window-function 'split-window-horizontally)
 
 ;; ------------------------------------------------------------------------
 ;; color set-face (basic)
 
 (global-font-lock-mode t)
-(set-face-foreground 'font-lock-builtin-face "magenta")
+(set-face-foreground 'font-lock-builtin-face "MediumPurple2")
 (set-face-foreground 'font-lock-comment-delimiter-face "DarkGreen")
 (set-face-foreground 'font-lock-comment-face "green")
 (set-face-foreground 'font-lock-constant-face "orange")
@@ -107,6 +107,7 @@
 (defvar my-face-u-2 'my-face-b-2)
 (defvar my-face-u-3 'my-face-b-3)
 (defadvice font-lock-mode (before my-font-lock-mode ())
+  "White space patch for font lock mode."
   (font-lock-add-keywords
    major-mode '(
                 ("　" 0 my-face-u-1 append)
@@ -184,20 +185,18 @@
 (if (fboundp 'global-linum-mode)
     (progn
       (global-linum-mode 0)
-      (setq linum-format "%4d ")
+      (set-variable 'linum-format "%4d ")
       )
   )
 
 (column-number-mode t)
 (line-number-mode t)
 
-;; highlight editing line
-(global-hl-line-mode t)
-
 ;; end of line code
 (setq eol-mnemonic-dos "(CRLF)")
 (setq eol-mnemonic-mac "(CR)")
 (setq eol-mnemonic-unix "(LF)")
+(setq eol-mnemonic-undecided "(?)")
 
 ;; display image file
 (auto-image-file-mode t)
@@ -217,9 +216,15 @@
 ;; which function
 (which-function-mode 1)
 
+;; show file size
 (size-indication-mode t)
 
+;; can move across splitted frames with direction keys
+(windmove-default-keybindings)
+(set-variable 'windmove-wrap-around t)
+
 ;; ignore case
+(setq completion-ignore-case t)
 (setq read-buffer-completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 
@@ -228,6 +233,33 @@
 
 ;; disable text-mode auto-fill
 (add-hook 'text-mode-hook 'turn-off-auto-fill)
+
+;; auto scroll when compile
+(set-variable 'compilation-scroll-output t)
+
+;; enable temp buffer resize
+(temp-buffer-resize-mode 1)
+
+;; highlight editing line
+(global-hl-line-mode t)
+
+;; redo and undo window structure
+(winner-mode)
+
+;; ------------------------------------------------------------------------
+;; hl-line-mode
+
+;; http://emacs.rubikitch.com/global-hl-line-mode-timer/
+
+(defvar global-hl-line-timer-exclude-modes '(todotxt-mode))
+(defun global-hl-line-timer-function ()
+  "Delay `hl-line-mode'."
+  (unless (memq major-mode global-hl-line-timer-exclude-modes)
+    (global-hl-line-unhighlight-all)
+    (let ((global-hl-line-mode t))
+      (global-hl-line-highlight))))
+(defvar global-hl-line-timer
+  (run-with-idle-timer 0.03 t 'global-hl-line-timer-function))
 
 ;; ------------------------------------------------------------------------
 ;; isearch
@@ -251,6 +283,23 @@
     ad-do-it))
 
 ;; ------------------------------------------------------------------------
+;; imenu
+
+(set-variable 'imenu-auto-rescan t)
+
+;; ------------------------------------------------------------------------
+;; save-place
+
+(set-variable 'save-place-file "~/.emacs.d/saved-places")
+(if (>= emacs-major-version 25)
+    (save-place-mode 1)
+  (progn
+    (when (require 'saveplace nil t)
+      (setq-default save-place t)
+      ))
+  )
+
+;; ------------------------------------------------------------------------
 ;; uniquify
 
 (require 'uniquify)
@@ -261,10 +310,10 @@
 ;; ------------------------------------------------------------------------
 ;; mouse
 
-(require 'mouse)
+;; (require 'mouse)
 (xterm-mouse-mode t)
 
-(require 'mwheel)
+(require 'mwheel) ; important
 (mouse-wheel-mode t)
 (global-set-key [mouse-4] '(lambda () (interactive) (scroll-down 3)))
 (global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 3)))
@@ -273,7 +322,7 @@
 ;; show-paren
 
 (show-paren-mode t)
-(setq show-paren-style 'mixed)
+(set-variable 'show-paren-style 'mixed)
 
 ;; ------------------------------------------------------------------------
 ;; electric-pair
@@ -292,17 +341,26 @@
   )
 
 ;; ------------------------------------------------------------------------
+;; hide show
+
+(add-hook 'prog-mode-hook #'hs-minor-mode)
+(define-key global-map (kbd "C-c C-f") 'hs-toggle-hiding)
+
+;; ------------------------------------------------------------------------
 ;; indent-tabs
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(add-hook 'sh-mode-hook '(lambda () (setq tab-width 2)(setq sh-basic-offset 2)
-        (setq sh-indentation 2)))
+(add-hook 'sh-mode-hook '(lambda ()
+                           (setq tab-width 2)
+                           (setq sh-basic-offset 2)
+                           (setq sh-indentation 2)))
 
 ;; ------------------------------------------------------------------------
 ;; generic-x
 
-(require 'generic-x)
+;; (require 'generic-x)
+(autoload 'generic-x "generic-x" nil t)
 
 ;; ------------------------------------------------------------------------
 ;; abbrev
@@ -313,7 +371,7 @@
       (quietly-read-abbrev-file abbrev-file)))
 
 (setq save-abbrevs 'silently)
-(setq default-abbrev-mode t)
+(defvar default-abbrev-mode t)
 
 ;; ------------------------------------------------------------------------
 ;; dabbrev
@@ -325,7 +383,6 @@
 ;; recentf
 
 (require 'recentf)
-
 (defun recentf-save-list-inhibit-message:around (orig-func &rest args)
   (setq inhibit-message t)
   (apply orig-func args)
@@ -338,37 +395,32 @@
       (advice-add 'recentf-save-list :around 'recentf-save-list-inhibit-message:around)
       )
   )
-
-;; (defadvice recentf-cleanup
-;;   (around no-message activate)
-;;   "Suppress the output from `message` to minibuffer."
-;;   (cl-flet ((message (format-string &rest args)
-;;                      (eval `(format ,format-string ,@args))))
-;;     ad-do-it))
-
 (setq recentf-max-saved-items 2000)
 (setq recentf-exclude '(".recentf"))
-(setq recentf-auto-cleanup 10)
-(setq recentf-auto-save-timer
-      (run-with-idle-timer 30 t 'recentf-save-list))
+(setq recentf-auto-cleanup 60)
+(setq recentf-auto-save-timer (run-with-idle-timer 60 t 'recentf-save-list))
 (setq-default find-file-visit-truename t)
 (recentf-mode 1)
 
 ;; ------------------------------------------------------------------------
+;; savehist-mode
+
+(savehist-mode 1)
+
+;; ------------------------------------------------------------------------
 ;; dired + wdired + dired-x
 
-(setq dired-listing-switches (purecopy "-avhplGF"))
-(setq dired-dwim-target t)
-(setq dired-recursive-copies 'always)
+(set-variable 'dired-listing-switches "-avhplGF")
+(set-variable 'dired-auto-revert-buffer t)
+(set-variable 'dired-dwim-target t)
+(set-variable 'dired-recursive-copies 'always)
 (setq delete-by-moving-to-trash t)
 
 ;; zip
-(eval-after-load "dired"
-  '(define-key dired-mode-map "z" 'dired-zip-files))
+(eval-after-load 'dired '(define-key dired-mode-map "z" 'dired-zip-files))
 (defun dired-zip-files (zip-file)
   "Create an archive containing the marked ZIP-FILEs."
   (interactive "Enter name of ZIP-FILE: ")
-
   ;; create the zip file
   (let ((zip-file (if (string-match ".zip$" zip-file) zip-file (concat zip-file ".zip"))))
     (shell-command
@@ -380,22 +432,20 @@
                #'(lambda (filename)
                   (file-name-nondirectory filename))
                (dired-get-marked-files))))))
-
   (revert-buffer)
-
   ;; remove the mark on all the files  "*" to " "
   ;; (dired-change-marks 42 ?\040)
   ;; mark zip file
   ;; (dired-mark-files-regexp (filename-to-regexp zip-file))
   )
-
 (defun concat-string-list (list)
    "Return a string which is a concatenation of all elements of the LIST separated by spaces."
    (mapconcat #'(lambda (obj) (format "%s" obj)) list " "))
 
-(require 'wdired)
+;; (require 'wdired)
+(autoload 'wdired "wdired" nil t)
 (define-key dired-mode-map "e" 'wdired-change-to-wdired-mode)
-(setq wdired-allow-to-change-permissions t)
+(set-variable 'wdired-allow-to-change-permissions t)
 
 (add-hook 'dired-load-hook (lambda () (load "dired-x")))
 
@@ -429,47 +479,46 @@
 ;; ------------------------------------------------------------------------
 ;; time-stamp
 
-(require 'time-stamp)
+;; (require 'time-stamp)
+(autoload 'time-stamp "time-stamp" nil t)
 (add-hook 'before-save-hook 'time-stamp)
-
+(set-variable 'time-stamp-format " %04y-%02m-%02d %02H:%02M:%02S")
 (setq time-stamp-start "Last Update:")
-(setq time-stamp-format " %04y-%02m-%02d %02H:%02M:%02S")
 (setq time-stamp-end "$")
 (setq time-stamp-line-limit 15) ; def=8
 
 ;; ------------------------------------------------------------------------
 ;; display-time-world
 
-(setq display-time-world-time-format "%Z\t %Y %b %d (%a) %R"
-      display-time-world-list
-      '(("Asia/Tokyo" "Tokyo")
-        ("America/Los_Angeles" "Los Angeles")
-        ("America/New_York" "New York")
-        ("Europe/London" "London")
-        ("Europe/Paris" "Paris")))
+(set-variable 'display-time-world-time-format "%Z\t %Y %b %d (%a) %R")
+(set-variable 'display-time-world-list
+              '(("Asia/Tokyo" "Tokyo")
+                ("America/Los_Angeles" "Los Angeles")
+                ("America/New_York" "New York")
+                ("Europe/London" "London")
+                ("Europe/Paris" "Paris")))
 
 ;; ------------------------------------------------------------------------
 ;; nxml-mode (built-in)
 
-(add-hook 'nxml-mode-hook
-          (lambda ()
-            (setq nxml-slash-auto-complete-flag t)
-            (setq nxml-child-indent 1)
-            (setq indent-tabs-mode nil)
-            (setq tab-width 2)
-            )
-          )
+(defun setup-nxml-mode ()
+  "Setup `nxml-mode'."
+  (setq tab-width 2)
+  (set-variable 'nxml-slash-auto-complete-flag t)
+  (set-variable 'nxml-child-indent 2)
+  )
+(add-hook 'nxml-mode-hook #'setup-nxml-mode)
 
 ;; ------------------------------------------------------------------------
 ;; org-mode
 
-(setq org-log-done 'time)
+(set-variable 'org-log-done 'time)
 (add-hook 'org-mode-hook 'turn-on-font-lock)
 
 ;; ------------------------------------------------------------------------
 ;; eshell
 
-(setq eshell-command-aliases-list
+(defvar eshell-command-aliases-list
       (append
        (list
         (list "ls" "ls -a")
@@ -478,33 +527,34 @@
         (list "e" "find-file $1")
         (list "d" "dired .")
         )))
-(setq eshell-path-env (getenv "PATH"))
+(defvar eshell-path-env (getenv "PATH"))
 
 ;; ------------------------------------------------------------------------
 ;; eww
 
-(when (require 'eww nil t)
-  (defvar eww-disable-colorize t)
-  (defun shr-colorize-region--disable (orig start end fg &optional bg &rest _)
-    (unless eww-disable-colorize
-      (funcall orig start end fg))
-    )
-  (advice-add 'shr-colorize-region :around 'shr-colorize-region--disable)
-  (advice-add 'eww-colorize-region :around 'shr-colorize-region--disable)
-
-  (defun eww-disable-color ()
-    "When eww disable flip colorize."
-    (interactive)
-    (setq-local eww-disable-colorize t)
-    (eww-reload)
-    )
-  (defun eww-enable-color ()
-    "When eww enaboe color rize."
-    (interactive)
-    (setq-local eww-disable-colorize nil)
-    (eww-reload)
-    )
-  )
+(if (version< emacs-version "24.4")
+    (message "skip: eww configure")
+  (progn
+    (defvar eww-disable-colorize t)
+    (defun shr-colorize-region--disable (orig start end fg &optional bg &rest _)
+      (unless eww-disable-colorize
+        (funcall orig start end fg))
+      )
+    (advice-add 'shr-colorize-region :around 'shr-colorize-region--disable)
+    (advice-add 'eww-colorize-region :around 'shr-colorize-region--disable)
+    (defun eww-disable-color ()
+      "When eww disable flip colorize."
+      (interactive)
+      (setq-local eww-disable-colorize t)
+      (eww-reload)
+      )
+    (defun eww-enable-color ()
+      "When eww enable colorize."
+      (interactive)
+      (setq-local eww-disable-colorize nil)
+      (eww-reload)
+      )
+    ))
 
 ;; ------------------------------------------------------------------------
 ;; describe-face-at-point

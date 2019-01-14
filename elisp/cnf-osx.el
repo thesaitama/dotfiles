@@ -100,7 +100,7 @@
 ;; osx-trash
 
 (with-eval-after-load "dired"
-  (setq dired-use-ls-dired nil)
+  (set-variable 'dired-use-ls-dired nil)
   (when (require 'osx-trash nil t)
     (setq delete-by-moving-to-trash t)
     (osx-trash-setup)))
@@ -245,7 +245,7 @@
 ;; ------------------------------------------------------------------------
 ;; plantuml-mode
 
-(setq plantuml-jar-path "/opt/local/share/java/plantuml.jar")  ;; depends on OS
+(set-variable 'plantuml-jar-path "/opt/local/share/java/plantuml.jar")  ;; depends on OS
 
 ;; ------------------------------------------------------------------------
 

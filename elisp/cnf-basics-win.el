@@ -71,10 +71,8 @@
 (set-face-foreground 'minibuffer-prompt "#69afde")
 (set-face-foreground 'fringe "#cccccc")
 (set-face-background 'fringe "#1a1a1a")
-(set-face-foreground 'mode-line "#777777")
-(set-face-background 'mode-line "#434944")
 
-;; (set-face-background 'highlight-symbol-face "Gray30)"
+;; (set-face-background 'highlight-symbol-face "Gray19)"
 (set-face-background 'hl-line "#303030")
 
 ;; ------------------------------------------------------------------------
@@ -83,16 +81,35 @@
 (setq x-select-enable-clipboard t)
 
 ;; ------------------------------------------------------------------------
-;; UX
+;; (GUI) UX
 
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 
-;; disable dialog-boxn
-;; (setq use-dialog-boxn nil)
-;; (defalias 'message-box 'message)
+;; disable blink cursor
+(blink-cursor-mode 0)
+
+;; show image in Emacs
+(auto-image-file-mode t)
+
+;; disable dialog-box
+(defalias 'message-box 'message)
+(setq use-dialog-box nil)
+
+;; ------------------------------------------------------------------------
+;; (GUI) key bind
 
 (global-set-key (kbd "C-x C-b") 'bs-show)
+
+;; for tmux compatibility
+(global-unset-key (kbd "C-t")) ;; important
+(global-set-key (kbd "C-t -") 'split-window-below)
+(global-set-key (kbd "C-t |") 'split-window-right)
+(global-set-key (kbd "C-t d") 'delete-window)
+(global-set-key (kbd "C-t l") 'windmove-right)
+(global-set-key (kbd "C-t h") 'windmove-letf)
+(global-set-key (kbd "C-t j") 'windmove-down)
+(global-set-key (kbd "C-t k") 'windmove-up)
 
 ;; ------------------------------------------------------------------------
 

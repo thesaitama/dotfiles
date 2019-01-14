@@ -12,21 +12,19 @@
 (eval-after-load 'calendar
   '(progn
      (add-hook 'calendar-today-visible-hook 'calendar-mark-today)
-
+     (defvar mark-holidays-in-calendar t)
      (when (require 'japanese-holidays nil t)
-       (setq calendar-holidays
-             (append japanese-holidays
-                     holiday-local-holidays holiday-other-holidays))
-       (setq calendar-mark-holidays-flag t)
-       (setq mark-holidays-in-calendar t)
-       (setq japanese-holiday-weekend-marker
+       (set-variable 'calendar-holidays
+                     (append japanese-holidays
+                             holiday-local-holidays holiday-other-holidays))
+       (set-variable 'calendar-mark-holidays-flag t)
+       (set-variable 'japanese-holiday-weekend-marker
              '(holiday nil nil nil nil nil japanese-holiday-saturday))
-       (setq japanese-holiday-weekend '(0 6))
+       (set-variable 'japanese-holiday-weekend '(0 6))
        (add-hook 'calendar-today-visible-hook 'japanese-holiday-mark-weekend)
        (add-hook 'calendar-today-visible-hook 'calendar-mark-today)
        (add-hook 'calendar-today-invisible-hook 'japanese-holiday-mark-weekend)
-       )
-     )
+       ))
   )
 
 ;; ------------------------------------------------------------------------

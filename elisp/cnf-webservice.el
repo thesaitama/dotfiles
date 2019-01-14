@@ -12,7 +12,7 @@
 (setq xah-lookup-browser-function 'eww)
 
 ;; ------------------------------------------------------------------------
-;; google-translate
+;; [google] google-translate
 
 (when (require 'google-translate nil t)
   (setq google-translate-default-source-language "ja")
@@ -50,6 +50,24 @@
        string)))
   (global-set-key (kbd "M-g t") 'google-translate-enja-or-jaen)
   )
+
+;; ------------------------------------------------------------------------
+;; [google] helm-google
+
+(global-set-key (kbd "M-g s") 'helm-google)
+(global-set-key (kbd "M-g a") 'helm-google-suggest)
+
+;; ------------------------------------------------------------------------
+;; [google] google-this
+
+(global-set-key (kbd "M-g o") 'google-this)
+(setq google-this-location-suffix "co.jp")
+
+(defun google-this-url ()
+  "URL for google search."
+  ;; search within 5 years
+  (concat google-this-base-url google-this-location-suffix
+          "/search?q=%s&as_qdr=y5&lr=lang_ja"))
 
 ;; ------------------------------------------------------------------------
 ;; web dictionary
@@ -99,12 +117,6 @@
                 (region-or-read-string "Wikipedia: ")))
   (eww-browse-url (format "https://ja.wikipedia.org/wiki/%s"
                       (upcase (url-hexify-string str)))))
-
-;; ------------------------------------------------------------------------
-;; helm (google)
-
-(global-set-key (kbd "M-g s") 'helm-google)
-(global-set-key (kbd "M-g a") 'helm-google-suggest)
 
 ;; ------------------------------------------------------------------------
 ;; howdoi

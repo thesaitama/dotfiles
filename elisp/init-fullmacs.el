@@ -9,12 +9,15 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ init-fullmacs.el
-;; light weight and legacy Emacs setting
+;; full spec Emacs setting
 ;;
 
 ;;; Code:
 
 ;; ------------------------------------------------------------------------
+
+;; debugger if needed
+;; (setq debug-on-error t)
 
 ;; enable cl
 (eval-when-compile (require 'cl))
@@ -23,6 +26,10 @@
 ;; inhibit warnings
 (setq byte-compile-warnings '(free-vars bytecomp))
 (setq ad-redefinition-action 'accept)
+
+;; GC
+(setq gc-cons-threshold (* 256 1024 1024))
+(setq garbage-collection-messages t)
 
 ;; ------------------------------------------------------------------------
 
@@ -39,6 +46,7 @@
     package-utils
     0xc
     smooth-scroll
+    recentf-ext
     elscreen
     popwin
     import-popwin
@@ -116,6 +124,7 @@
     emacsql-sqlite
     flycheck
     flycheck-popup-tip
+    dumb-jump
     imenus
     imenu-anywhere
     imenu-list
@@ -155,6 +164,7 @@
     smart-mode-line
     dired-narrow
     dired-subtree
+    peep-dired
     japanese-holidays
     osx-trash
     vimrc-mode
@@ -163,13 +173,16 @@
     mew
     docker
     ac-ispell
+    google-this
     google-translate
+    helm-google
     xah-lookup
     howdoi
     qiita
     yagist
     xclip
     osx-clipboard
+    uimage
     )
   "Packages to be installed.")
 
@@ -189,11 +202,57 @@
 (load-if-exist "~/dotfiles/elisp/cnf-basics.el")
 
 ;; ------------------------------------------------------------------------
+;; increase priority cp932
+
+(apply 'set-coding-system-priority
+       (subst 'japanese-cp932 'japanese-shift-jis
+              (coding-system-priority-list)))
+
+;; ------------------------------------------------------------------------
+;; modeline encoding
+
+;; https://qiita.com/kai2nenobu/items/ddf94c0e5a36919bc6db
+
+(defun my-coding-system-name-mnemonic (coding-system)
+  "Detect coding system by CODING-SYSTEM."
+  (let* ((base (coding-system-base coding-system))
+         (name (symbol-name base)))
+    (cond ((string-prefix-p "utf-8" name) "U8")
+          ((string-prefix-p "utf-16" name) "U16")
+          ((string-prefix-p "utf-7" name) "U7")
+          ((string-prefix-p "japanese-shift-jis" name) "SJIS")
+          ((string-match "cp\\([0-9]+\\)" name) (match-string 1 name))
+          ((string-match "japanese-iso-8bit" name) "EUC")
+          (t "???")
+          )))
+
+(defun my-coding-system-bom-mnemonic (coding-system)
+  "Detect return char by CODING-SYSTEM."
+  (let ((name (symbol-name coding-system)))
+    (cond ((string-match "be-with-signature" name) "[BE]")
+          ((string-match "le-with-signature" name) "[LE]")
+          ((string-match "-with-signature" name) "[BOM]")
+          (t ""))))
+
+(defun my-buffer-coding-system-mnemonic ()
+  "Return a mnemonic for `buffer-file-coding-system`."
+  (let* ((code buffer-file-coding-system)
+         (name (my-coding-system-name-mnemonic code))
+         (bom (my-coding-system-bom-mnemonic code)))
+    (format "%s%s" name bom)))
+
+;; replace mode-line-mule-info encoding strings
+(setq-default mode-line-mule-info
+              (cl-substitute '(:eval (my-buffer-coding-system-mnemonic))
+                             "%z" mode-line-mule-info :test 'equal))
+
+;; ------------------------------------------------------------------------
 ;; modeline cleaner
 
 (defvar mode-line-cleaner-alist
   '( ;; For minor-mode, first char is 'space'
     (abbrev-mode . "")
+    (projectile-mode . "")
     (company-mode . " Comp")
     (editorconfig-mode . " EC")
     (elisp-slime-nav-mode . " EN")
@@ -204,6 +263,7 @@
     (font-lock-mode . "")
     (ace-isearch-mode . "")
     (undo-tree-mode . "")
+    (highlight-symbol-mode . "")
     (volatile-highlights-mode . "")
     (smooth-scroll-mode . "")
     (emmet-mode . " Em")
@@ -276,40 +336,44 @@
     lisp))
 
 ;; ------------------------------------------------------------------------
+;; recnetf-ext
+
+(autoload 'recentf-ext "recentf-ext" nil t)
+
+;; ------------------------------------------------------------------------
 ;; elscreen
 
-(require 'elscreen)
+;; (require 'elscreen)
 (elscreen-start)
-(setq elscreen-prefix-key (kbd "C-z"))
-(setq elscreen-display-tab 20)
-(if (not window-system)
-    (progn
-      (setq elscreen-display-tab nil)
-      ;; (elscreen-create)
-      )
+(set-variable 'elscreen-prefix-key (kbd "C-z"))
+(set-variable 'elscreen-display-tab 20)
+(when (not window-system)
+  (set-variable 'elscreen-display-tab nil)
+  ;; (elscreen-create)
   )
-(setq elscreen-tab-display-control nil)
-(setq elscreen-tab-display-kill-screen nil)
-(setq elscreen-buffer-to-nickname-alist
-      '(("^dired-mode$" .
-         (lambda ()
-           (format "Dired(%s)" dired-directory)))
-        ("^Info-mode$" .
-         (lambda ()
-           (format "Info(%s)" (file-name-nondirectory Info-current-file))))
-        ("^mew-draft-mode$" .
-         (lambda ()
-           (format "Mew(%s)" (buffer-name (current-buffer)))))
-        ("^mew-" . "Mew")
-        ("^irchat-" . "IRChat")
-        ("^liece-" . "Liece")
-        ("^lookup-" . "Lookup")))
-(setq elscreen-mode-to-nickname-alist
-      '(("[Ss]hell" . "shell")
-        ("compilation" . "compile")
-        ("-telnet" . "telnet")
-        ("dict" . "OnlineDict")
-        ("*WL:Message*" . "Wanderlust")))
+(set-variable 'elscreen-tab-display-control nil)
+(set-variable 'elscreen-tab-display-kill-screen nil)
+(set-variable
+ 'elscreen-buffer-to-nickname-alist
+ '(("^dired-mode$" .
+    (lambda ()
+      (format "Dired(%s)" dired-directory)))
+   ("^Info-mode$" .
+    (lambda ()
+      (format "Info(%s)" (file-name-nondirectory Info-current-file))))
+   ("^mew-draft-mode$" .
+    (lambda ()
+      (format "Mew(%s)" (buffer-name (current-buffer)))))
+   ("^mew-" . "Mew")
+   ("^irchat-" . "IRChat")
+   ("^lookup-" . "Lookup")))
+(set-variable
+ 'elscreen-mode-to-nickname-alist
+ '(("[Ss]hell" . "shell")
+   ("compilation" . "compile")
+   ("-telnet" . "telnet")
+   ("dict" . "OnlineDict")
+   ("*WL:Message*" . "Wanderlust")))
 
 ;; ------------------------------------------------------------------------
 ;; smooth-scroll
@@ -322,14 +386,14 @@
 ;; ------------------------------------------------------------------------
 ;; expand-region
 
-(require 'expand-region)
+;; (require 'expand-region)
 (global-set-key (kbd "M-,") 'er/expand-region)
 (global-set-key (kbd "C-M-,") 'er/contract-region)
 
 ;; ------------------------------------------------------------------------
 ;; highlight-symbol
 
-(require 'highlight-symbol)
+;; (require 'highlight-symbol)
 (setq highlight-symbol-colors '("DarkOrange"
                                 "DeepPink1"
                                 "DodgerBlue1"
@@ -351,7 +415,6 @@
 (require 'sequential-command-config)
 (global-set-key (kbd "C-a") 'seq-home)
 (global-set-key (kbd "C-e") 'seq-end)
-
 (when (require 'org nil t)
   (define-key org-mode-map (kbd "C-a") 'org-seq-home)
   (define-key org-mode-map (kbd "C-e") 'org-seq-end)
@@ -375,7 +438,7 @@
 ;; ------------------------------------------------------------------------
 ;; anzu
 
-(require 'anzu)
+;; (require 'anzu)
 (global-anzu-mode +1)
 ;; (setq anzu-use-migemo t)
 (setq anzu-search-threshold 1000)
@@ -414,8 +477,6 @@
 (setq ac-auto-start 2)
 (setq ac-auto-show-menu 0.2)
 (setq ac-quick-help-prefer-x t)
-(setq completion-ignore-case t)
-(setq read-file-name-completion-ignore-case t)
 
 (if (<= emacs-major-version 25)
     (setq-default ac-sources 'ac-source-filename ac-source-words-in-same-mode-buffers)
@@ -428,19 +489,16 @@
 ;; ------------------------------------------------------------------------
 ;; org-ac
 
-(when (require 'org-ac nil t)
-  (org-ac/config-default)
-  )
+(org-ac/config-default)
 
 ;; ------------------------------------------------------------------------
 ;; company
 
 (require 'company)
 ;; (global-company-mode t)
-
-(if window-system (progn
-                    (company-quickhelp-mode t) ;; only support GUI
-                    ))
+(when window-system
+  (company-quickhelp-mode t) ;; only support GUI
+  )
 
 (setq completion-ignore-case t)
 (setq company-idle-delay 0.1)
@@ -450,6 +508,7 @@
 (setq company-dabbrev-code-other-buffers (quote all))
 (setq company-dabbrev-other-buffers (quote all))
 (setq company-transformers '(company-sort-by-backend-importance))
+(setq company-tooltip-align-annotations t)
 
 (global-set-key (kbd "C-M-i") 'company-complete)
 (define-key company-active-map (kbd "C-n") 'company-select-next)
@@ -469,18 +528,23 @@
 ;; ------------------------------------------------------------------------
 ;; dired-subtree
 
-(require 'dired-subtree)
-
+;; (require 'dired-subtree)
 (defun dired-subtree-up-dwim (&optional arg)
   "Traval parent directory."
   (interactive "p")
   (or (dired-subtree-up arg)
       (dired-up-directory)))
-
-;; key-bind
 (define-key dired-mode-map (kbd "i") 'dired-subtree-insert)
 (define-key dired-mode-map (kbd "TAB") 'dired-subtree-remove)
 (define-key dired-mode-map (kbd "^") 'dired-subtree-up-dwim)
+
+;; ------------------------------------------------------------------------
+;; peep-dired
+
+(define-key dired-mode-map (kbd "P") 'peep-dired)
+(define-key dired-mode-map (kbd "<SPC>") 'peep-dired-scroll-page-down)
+(define-key dired-mode-map (kbd "S-<SPC>") 'peep-dired-scroll-page-up)
+(setq peep-dired-ignored-extensions '("mkv" "avi" "iso" "mp4" "mp4"))
 
 ;; ------------------------------------------------------------------------
 ;; rainbow-mode
@@ -492,6 +556,8 @@
 ;; rainbow-delimiters
 
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+(setq rainbow-delimiters-outermost-only-face-count 1)
+
 (require 'color)
 (defun rainbow-delimiters-using-stronger-colors ()
   "Rainbow delimiter more vivid colors."
@@ -501,17 +567,12 @@
    do
    (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
     (cl-callf color-saturate-name (face-foreground face) 30))))
-(add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
+;; (add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
 
 ;; ------------------------------------------------------------------------
 ;; multiple-cursors
 
 (require 'multiple-cursors)
-
-;; ------------------------------------------------------------------------
-;; imenu
-
-(setq imenu-auto-rescan t)
 
 ;; ------------------------------------------------------------------------
 ;; imenu-list
@@ -531,41 +592,32 @@
 ;; ------------------------------------------------------------------------
 ;; flyspell (spell check)
 
-(setq ispell-program-name "aspell")
+(setq ispell-program-Name "aspell")
+(setq ispell-personal-dictionary "~/.aspell.en.pws")
+(setq ispell-really-aspell t)
 (eval-after-load "ispell"
   '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
 
 ;; only enable comment
 (mapc
- (lambda (hook)
-   (add-hook hook 'flyspell-prog-mode))
- '(
-   emacs-lisp-mode-hook
-   ))
+ (lambda (hook) (add-hook hook 'flyspell-prog-mode))
+ '(emacs-lisp-mode-hook))
 ;; enable all
 (mapc
-   (lambda (hook)
-     (add-hook hook
-               '(lambda () (flyspell-mode 1))))
-   '(
-     ;; markdown-mode-hook
-     text-mode-hook
-     ))
+ (lambda (hook) (add-hook hook '(lambda () (flyspell-mode 1))))
+ '(text-mode-hook))
 
 ;; (add-hook 'find-file-hook 'flyspell-mode)
 ;; (add-hook 'find-file-hook 'flyspell-buffer)
 
-;; > sudo port install aspell
-;; > sudo port install aspell-dict-en
+;; > sudo port install aspell aspell-dict-en
 
 ;; ------------------------------------------------------------------------
 ;; ac-ispell
 
 ;; Completion words longer than 4 characters
 
-(eval-after-load "auto-complete"
-  '(progn
-     (ac-ispell-setup)))
+(eval-after-load 'auto-complete '(progn (ac-ispell-setup)))
 
 (add-hook 'git-commit-mode-hook 'ac-ispell-ac-setup)
 (add-hook 'mail-mode-hook 'ac-ispell-ac-setup)
@@ -592,6 +644,19 @@
   )
 
 ;; ------------------------------------------------------------------------
+;; popup-select-window
+
+;; https://www.emacswiki.org/emacs/popup-select-window.el
+
+(when (require 'popup-select-window nil t)
+  (global-set-key (kbd "C-x o") 'popup-select-window)
+  (setq popup-select-window-popup-windows 3)
+  (setq popup-select-window-use-buffer-highlight nil)
+  (setq popup-select-window-active-modeline-bgcolor "Gray40")
+  ;; (setq popup-select-window-window-highlight-face '(:background "Gray20"))
+  )
+
+;; ------------------------------------------------------------------------
 ;; os switch
 
 (cond ((equal system-type 'gnu/linux)
@@ -606,10 +671,6 @@
        (load-if-exist "~/dotfiles/elisp/cnf-browser.el")
        )
       )
-
-(load-if-exist "~/dotfiles/elisp/cnf-webservice.el")
-(load-if-exist "~/dotfiles/elisp/cnf-program.el")
-(load-if-exist "~/dotfiles/elisp/cnf-user.el")
 
 ;; ------------------------------------------------------------------------
 ;; shell-mode
@@ -634,22 +695,23 @@
 ;; multi-term
 
 (setq multi-term-program shell-file-name)
-
-(add-hook 'term-mode-hook '(lambda ()
-  (define-key term-raw-map "\C-y" 'term-paste)
-  (define-key term-raw-map "\C-q" 'move-beginning-of-line)
-  (define-key term-raw-map "\C-f" 'forward-char)
-  (define-key term-raw-map "\C-b" 'backward-char)
-  (define-key term-raw-map "\C-t" 'set-mark-command)
-  (define-key term-raw-map "\C-p" 'term-send-up)
-  (define-key term-raw-map "\C-n" 'term-send-down)
-  (define-key term-raw-map "\C-h" 'term-send-backspace)
-  (define-key term-raw-map (kbd "ESC") 'term-send-raw)
-  (define-key term-raw-map [delete] 'term-send-raw)
-  (define-key term-raw-map [mouse-4] 'term-send-up)
-  (define-key term-raw-map [mouse-5] 'term-send-down)
-  (define-key term-raw-map "\C-z"
-    (lookup-key (current-global-map) "\C-z"))))
+(add-hook
+ 'term-mode-hook
+ '(lambda ()
+    (define-key term-raw-map "\C-y" 'term-paste)
+    (define-key term-raw-map "\C-q" 'move-beginning-of-line)
+    (define-key term-raw-map "\C-f" 'forward-char)
+    (define-key term-raw-map "\C-b" 'backward-char)
+    (define-key term-raw-map "\C-t" 'set-mark-command)
+    (define-key term-raw-map "\C-p" 'term-send-up)
+    (define-key term-raw-map "\C-n" 'term-send-down)
+    (define-key term-raw-map "\C-h" 'term-send-backspace)
+    (define-key term-raw-map (kbd "ESC") 'term-send-raw)
+    (define-key term-raw-map [delete] 'term-send-raw)
+    (define-key term-raw-map [mouse-4] 'term-send-up)
+    (define-key term-raw-map [mouse-5] 'term-send-down)
+    (define-key term-raw-map "\C-z"
+      (lookup-key (current-global-map) "\C-z"))))
 (global-set-key (kbd "C-c n") 'multi-term-next)
 (global-set-key (kbd "C-c p") 'multi-term-prev)
 
@@ -730,19 +792,14 @@
 ;; ------------------------------------------------------------------------
 ;; which-key
 
-(which-key-setup-side-window-bottom) ; mini buffer
-;; (which-key-setup-side-window-right)
-;; (which-key-setup-side-window-right-bottom)
-
+(which-key-setup-side-window-bottom) ; mini buffer (-right, -right-bottom)
 (which-key-mode 1)
 
 ;; ------------------------------------------------------------------------
 ;; centered-cursor-mode
 
-(add-hook 'isearch-mode-hook
-          #'(lambda () (centered-cursor-mode 1)))
-(add-hook 'isearch-mode-end-hook
-          #'(lambda () (centered-cursor-mode -1)))
+(add-hook 'isearch-mode-hook #'(lambda () (centered-cursor-mode 1)))
+(add-hook 'isearch-mode-end-hook #'(lambda () (centered-cursor-mode -1)))
 
 ;; ------------------------------------------------------------------------
 ;; undo-tree
@@ -751,16 +808,13 @@
 (global-undo-tree-mode t)
 (global-set-key (kbd "M-/") 'undo-tree-redo)
 
-;; (defun undo-tree-split-side-by-side (original-function &rest args)
-;;   "Split undo-tree side-by-side."
-;;   (let ((split-height-threshold nil)
-;;         (split-width-threshold 0))
-;;     (apply original-function args)))
-;; (advice-add 'undo-tree-visualize :around #'undo-tree-split-side-by-side)
+;; ------------------------------------------------------------------------
+;; modeline-char
+
+(when (require 'modeline-char nil t))
 
 ;; ------------------------------------------------------------------------
 ;; smart-mode-line
-;; basic modeline setting in cnf-basics.el
 
 (require 'smart-mode-line)
 ;; bug hack
@@ -768,30 +822,31 @@
 (setq sml/read-only-char "%%")
 (setq sml/modified-char "*")
 ;; hide Helm and auto-complete
-(setq sml/hidden-modes '(" Helm" " yas" " VHl" " WK" " Fly" " EC" " ARev" " Anzu"))
+(setq sml/hidden-modes '(" Helm" " yas" " VHl" " WK"
+                         " Fly" " EC" " ARev" " Anzu" " _+_"))
 ;; hack (privent overflow)
 (setq sml/extra-filler -10)
-;; sml/replacer-regexp-list
 ;; (add-to-list 'sml/replacer-regexp-list '("^.+/junk/[0-9]+/" ":J:") t)
 (setq sml/no-confirm-load-theme t)
 (sml/setup)
-;; theme
-;; (sml/apply-theme 'respectful)
-;; (sml/apply-theme 'light)
-(sml/apply-theme 'dark)
+(sml/apply-theme 'dark) ; ; theme: respectful / light
 
 ;; ------------------------------------------------------------------------
-;; load calendar settings
+;; load other settings
 
 (load-if-exist "~/dotfiles/elisp/cnf-calendar.el")
+(load-if-exist "~/dotfiles/elisp/cnf-webservice.el")
+(load-if-exist "~/dotfiles/elisp/cnf-program.el")
+(load-if-exist "~/dotfiles/elisp/cnf-user.el")
 
 ;; ------------------------------------------------------------------------
 ;; show load time
 
-(add-hook 'after-init-hook
-          (lambda ()
-            (message "init time: %.3f sec"
-                     (float-time (time-subtract after-init-time before-init-time)))))
+(add-hook
+ 'after-init-hook
+ (lambda ()
+   (message "init time: %.3f sec"
+            (float-time (time-subtract after-init-time before-init-time)))))
 
 ;; ------------------------------------------------------------------------
 

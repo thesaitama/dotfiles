@@ -9,16 +9,19 @@
 ;; ------------------------------------------------------------------------
 ;; path
 
-(add-to-list 'exec-path "C:/Program Files/Git/usr/bin")
-;; (add-to-list 'exec-path "C:/Program Filee/PuTTY")
-;; (add-to-list 'exec-path "C:/Program Files/Aspell/bin")
+(add-to-list 'exec-path "~/bin/")
+(add-to-list 'exec-path "C:/Program Files/Git/usr/bin/")
+(add-to-list 'exec-path "C:/Program Files/PuTTY/")
 
 ;; ------------------------------------------------------------------------
 ;; Windows configure
 
 (setq default-directory "~/../../Desktop/")
 
+(set-variable 'tramp-default-method "pscp")
+
 ;; coding
+(prefer-coding-system 'utf-8-dos)
 (set-file-name-coding-system 'cp932)    ;; file system
 (set-clipboard-coding-system 'utf-16le) ;; clipboard
 
@@ -32,11 +35,33 @@
 (setq w32-get-true-file-attributes nil)
 
 ;; ------------------------------------------------------------------------
+;; sub process
+
+;; https://www49.atwiki.jp/ntemacs/pages/16.html
+
+(setq default-process-coding-system '(undecided-dos . utf-8-unix))
+
+;; change sub-process parameter coding to cp932
+(cl-loop
+ for (func args-pos) in '((call-process        4)
+                          (call-process-region 6)
+                          (start-process       3))
+ do (eval `(advice-add ',func
+                       :around (lambda (orig-fun &rest args)
+                                 (setf (nthcdr ,args-pos args)
+                                       (mapcar (lambda (arg)
+                                                 (if (multibyte-string-p arg)
+                                                     (encode-coding-string arg 'cp932)
+                                                   arg))
+                                               (nthcdr ,args-pos args)))
+                                 (apply orig-fun args))
+                       '((depth . 99)))))
+
+;; ------------------------------------------------------------------------
 ;; GUI
 
 (if window-system
     (progn
-
       ;; font
       (set-face-attribute 'default nil :family "Consolas" :height 100)
       ;; (set-face-attribute 'default nil :family "Inconsolata" :height 120)
@@ -45,7 +70,6 @@
       (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "MS Gothic"))
       (setq use-default-font-for-symbols nil)
       (setq-default line-spacing 0.1)
-
       )
   )
 
@@ -55,37 +79,62 @@
 ;; download: https://github.com/mhatta/emacs-26-x86_64-win-ime
 
 (defun enable-ime ()
-  (if (fboundp 'w32-ime-initialize)
-      '(lambda ()
-         ;; Windows IME
-         (setq default-input-method "W32-IME")
-         (setq-default w32-ime-mode-line-state-indicator "[--]")
-         (setq w32-ime-mode-line-state-indicator-list '("[--]" "[あ]" "[--]"))
-         (w32-ime-initialize)
-         ;; change cursor-color depend on IME status
-         (add-hook 'w32-ime-on-hook '(lambda () (set-cursor-color "Coral4")))
-         (add-hook 'w32-ime-off-hook '(lambda () (set-cursor-color "Black")))
-         (setq w32-ime-composition-window nil)
+  "Enable IME."
+  (when (locate-library "w32-ime")
+    (progn
 
-         ;; IME setting
-         (add-hook 'minibuffer-setup-hook 'deactivate-input-method)
-         (add-hook
-          'isearch-mode-hook '(lambda ()
-                             (deactivate-input-method)
-                             (setq w32-ime-composition-window (minibuffer-window))))
-         (add-hook
-          'isearch-mode-end-hook '(lambda ()
-                             (setq w32-ime-composition-window nil)))
-         (advice-add
-          'helm :around '(lambda (orig-fun &rest args)
-                           (let ((select-window-functions nil)
-                                 (w32-ime-composition-window (minibuffer-window)))
-                             (deactivate-input-method)
-                             (apply orig-fun args))))
-         )
-    nil)
+      ;; Windows IME
+      (setq default-input-method "W32-IME")
+      (setq-default w32-ime-mode-line-state-indicator "[--]")
+      (setq w32-ime-mode-line-state-indicator-list '("[--]" "[あ]" "[--]"))
+      (w32-ime-initialize)
+
+      ;; change cursor-color depend on IME status
+      (add-hook 'w32-ime-on-hook '(lambda () (set-cursor-color "Skyblue")))
+      (add-hook 'w32-ime-off-hook '(lambda () (set-cursor-color "white")))
+
+      ;; disable IME for minibuffer
+      (add-hook 'minibuffer-setup-hook 'deactivate-input-method)
+
+      ;; enable IME for isearch
+      (add-hook
+       'isearch-mode-hook
+       (lambda () (setq w32-ime-composition-window (minibuffer-window))))
+      (add-hook
+       'isearch-mode-end-hook
+       (lambda () (setq w32-ime-composition-window nil)))
+
+      ;; workaround for mini buffer
+      (setq w32-ime-buffer-switch-p t)
+      (advice-add
+       'helm
+       :around (lambda (orig-fun &rest args)
+                 (let ((select-window-functions nil))
+                   (apply orig-fun args))))
+
+      ;; disable IME for isearch
+      ;; (setq w32-ime-composition-window t)
+      ;; (add-hook
+      ;;  'isearch-mode-hook
+      ;;  '(lambda ()
+      ;;     (deactivate-input-method)
+      ;;     (setq w32-ime-composition-window (minibuffer-window))))
+      ;; (add-hook
+      ;;  'isearch-mode-end-hook
+      ;;  '(lambda ()
+      ;;     (setq w32-ime-composition-window nil)))
+
+      ;; disable IME for helm
+      ;; (advice-add
+      ;;  'helm :around
+      ;;  '(lambda (orig-fun &rest args)
+      ;;     (let ((select-window-functions nil)
+      ;;           (w32-ime-composition-window (minibuffer-window)))
+      ;;       (deactivate-input-method)
+      ;;       (apply orig-fun args))))
+      )
+    )
   )
-
 (enable-ime)
 
 ;; ------------------------------------------------------------------------
@@ -131,20 +180,24 @@
 (defun run-bash ()
   "Run bash."
   (interactive)
+  (ad-deactivate 'font-lock-mode)
   (let ((shell-file-name "C:/Program Files/Git/bin/bash.exe"))
     (shell "*bash*")))
 
 (defun run-powershell ()
   "Run PowerShell."
   (interactive)
-  (async-shell-command "c:/windows/system32/WindowsPowerShell/v1.0/powershell.exe -Command -"
-                       nil
-                       nil))
+  (ad-deactivate 'font-lock-mode)
+  (async-shell-command
+   "c:/windows/system32/WindowsPowerShell/v1.0/powershell.exe -Command -"
+   nil
+   nil))
 
 (push '("cmdproxy\\.exe$" sjis-dos . sjis-dos) process-coding-system-alist)
 (defun run-cmdexe ()
   "Set up an environment for cmd.exe, execute it, and swith to buffer *cmd*."
   (interactive)
+  (ad-deactivate 'font-lock-mode)
   (let ((process-environment (copy-sequence process-environment)))
     (setenv "PATH" (replace-regexp-in-string "[^;]+cygwin[^;]+;" "" (getenv "PATH")))
     (set-buffer (get-buffer-create "*cmd*"))

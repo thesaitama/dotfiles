@@ -15,7 +15,8 @@
 
 (define-key global-map (kbd "M-x") 'helm-M-x)
 (define-key global-map (kbd "C-c h") 'helm-mini)
-(define-key global-map (kbd "C-c i") 'helm-imenu)
+;; (define-key global-map (kbd "C-c i") 'helm-imenu)
+(define-key global-map (kbd "C-c i") 'helm-semantic-or-imenu)
 (define-key global-map (kbd "C-x C-f") 'helm-find-files)
 (define-key global-map (kbd "C-x C-r") 'helm-recentf)
 (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
@@ -28,10 +29,10 @@
 (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
 
-;; Emulate `kill-line' in helm minibuffer
+;; Emulate `kill-line' in helm mini-buffer
 (setq helm-delete-minibuffer-contents-from-point t)
 (defadvice helm-delete-minibuffer-contents (before helm-emulate-kill-line activate)
-  "Emulate `kill-line' in helm minibuffer."
+  "Emulate `kill-line' in helm mini-buffer."
   (kill-new (buffer-substring (point) (field-end))))
 (defadvice helm-ff-kill-or-find-buffer-fname (around execute-only-if-exist activate)
   "Execute command only if CANDIDATE exists."
@@ -59,11 +60,48 @@
 (setq helm-lisp-fuzzy-completion t)
 
 (setq helm-split-window-inside-p t)
+(setq helm-ff-auto-update-initial-value nil) ; disable auto update
+(setq helm-candidate-number-limit 500)
 
 ;; auto resize
 (setq helm-autoresize-max-height 0)
 (setq helm-autoresize-min-height 40)
 (helm-autoresize-mode 1)
+
+;; ------------------------------------------------------------------------
+;; windows only
+
+(when (eq system-type 'windows-nt)
+
+  ;; workaround for mini buffer
+  (setq w32-ime-buffer-switch-p t)
+  (advice-add
+   'helm
+   :around (lambda (orig-fun &rest args)
+             (let ((select-window-functions nil))
+               (apply orig-fun args))))
+
+  ;; helm-reduce-filename: workaround for path of UNC or Tramp
+  (advice-add
+   'helm-reduce-file-name
+   :override (lambda (&rest args)
+               (let ((fname (nth 0 args))
+                     (level (nth 1 args)))
+                 (while (> level 0)
+                   (setq fname (expand-file-name (concat fname "/../")))
+                   (setq level (1- level)))
+                 fname)))
+
+  ;; find-file-at-point: workaround for UNC at cursor with ffap
+  (advice-add
+   'helm-completing-read-default-1
+   :around (lambda (orig-fun &rest args)
+             (when (listp (nth 4 args))
+               (setf (nth 4 args) (car (nth 4 args))))
+             (cl-letf (((symbol-function 'regexp-quote)
+                        (symbol-function 'identity)))
+               (apply orig-fun args))))
+  )
 
 ;; ------------------------------------------------------------------------
 ;; helm-smex
@@ -94,6 +132,7 @@
 (require 'helm-files)
 (require 'helm-ag)
 (setq helm-ag-base-command "ag --nogroup --ignore-case --hidden")
+(setq helm-ag-insert-at-point 'symbol)
 (global-set-key (kbd "M-g .") 'helm-ag)
 (global-set-key (kbd "M-g ,") 'helm-ag-pop-stack)
 (global-set-key (kbd "C-M-s") 'helm-ag-this-file)

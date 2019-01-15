@@ -624,8 +624,7 @@ This is to `put' what `defalias' is to `fset'."
 ;; flyspell (spell check)
 
 (setq ispell-program-Name "aspell")
-(setq ispell-personal-dictionary "~/.aspell.en.pws")
-(setq ispell-really-aspell t)
+;; (setq ispell-really-aspell t)
 (eval-after-load "ispell"
   '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
 

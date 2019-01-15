@@ -153,6 +153,7 @@ This is to `put' what `defalias' is to `fset'."
     emacsql-sqlite
     flycheck
     flycheck-popup-tip
+    flyspell-popup
     dumb-jump
     imenus
     imenu-anywhere
@@ -641,6 +642,11 @@ This is to `put' what `defalias' is to `fset'."
 ;; (add-hook 'find-file-hook 'flyspell-buffer)
 
 ;; > sudo port install aspell aspell-dict-en
+
+;; ------------------------------------------------------------------------
+;; flyspell-popup (spell check)
+
+(add-hook 'flyspell-mode-hook #'flyspell-popup-auto-correct-mode)
 
 ;; ------------------------------------------------------------------------
 ;; ac-ispell

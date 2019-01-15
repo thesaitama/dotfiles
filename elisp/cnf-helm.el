@@ -107,7 +107,7 @@
 ;; helm-smex
 
 ;; (require 'helm-smex)
-(autoload 'helm-smex "ihelm-smex" nil t)
+(autoload 'helm-smex "helm-smex" nil t)
 (global-set-key [remap execute-extended-command] #'helm-smex)
 (global-set-key (kbd "M-X") #'helm-smex-major-mode-commands)
 

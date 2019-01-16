@@ -295,6 +295,7 @@ This is to `put' what `defalias' is to `fset'."
     (ace-isearch-mode . "")
     (undo-tree-mode . "")
     (highlight-symbol-mode . "")
+    (hs-minor-mode . "")
     (volatile-highlights-mode . "")
     (smooth-scroll-mode . "")
     (emmet-mode . " Em")

@@ -513,6 +513,26 @@
 ;; org-mode
 
 (set-variable 'org-log-done 'time)
+(set-variable 'org-directory "~/org")
+(set-variable 'org-default-notes-file "notes.org")
+(set-variable 'org-agenda-files '("~/org/notes.org"
+                                  "~/org/todo.org"))
+(set-variable 'org-archive-location
+              (concat "%s_archive_" (format-time-string "%Y" (current-time))))
+(define-key global-map (kbd "C-c a") 'org-agenda)
+(define-key global-map (kbd "C-c o") 'org-capture)
+
+(defun show-org-buffer (file)
+  "Show an org-file FILE on the current buffer."
+  (interactive)
+  (if (get-buffer file)
+      (let ((buffer (get-buffer file)))
+        (switch-to-buffer buffer)
+        (message "%s" file))
+    (find-file (concat "~/org/" file))))
+(global-set-key (kbd "C-M-^") '(lambda () (interactive)
+                                 (show-org-buffer "notes.org")))
+
 (add-hook 'org-mode-hook 'turn-on-font-lock)
 
 ;; ------------------------------------------------------------------------

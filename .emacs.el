@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2019-01-15 22:23:57
+;; Last Update: 2019-01-16 22:50:39
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -163,6 +163,18 @@
  '(outline-5 ((t (:foreground "goldenrod" :weight bold))))
  '(outline-6 ((t (:foreground "orange"))))
  '(outline-7 ((t (:foreground "goldenrod"))))
+ '(org-agenda-date ((t (:foreground "white"))))
+ '(org-agenda-date-today ((t (:foreground "goldenrod" :weight bold))))
+ '(org-agenda-date-weekend ((t (:foreground "bisque" :background "Gray23"))))
+ '(org-agenda-structure ((t (:background "DarkCyan" :foreground "white"))))
+ '(org-date ((t (:foreground "LightBlue"))))
+ '(org-done ((t (:foreground "LightGreen" :weight bold))))
+ '(org-scheduled ((t (:foreground "green"))))
+ '(org-scheduled-today ((t (:foreground "SteelBlue1"))))
+ '(org-special-keyword ((t (:foreground "green"))))
+ '(org-todo ((t (:foreground "LightSkyBlue" :weight bold))))
+ '(org-upcoming-deadline ((t (:foreground "HotPink" :weight bold))))
+ '(org-warning ((t (:foreground "pink"))))
  '(package ((t (:foreground "DodgerBlue"))))
  '(package-name ((t (:foreground "DodgerBlue"))))
  '(pulse-highlight-face ((t (:background "Gray35"))))

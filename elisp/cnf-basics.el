@@ -514,7 +514,7 @@
 
 (set-variable 'org-log-done 'time)
 (set-variable 'org-directory "~/org")
-(set-variable 'org-default-notes-file "notes.org")
+(set-variable 'org-default-notes-file "~/org/notes.org")
 (set-variable 'org-agenda-files '("~/org/notes.org"
                                   "~/org/todo.org"))
 (set-variable 'org-archive-location

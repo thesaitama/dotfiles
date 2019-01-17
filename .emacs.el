@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2019-01-16 22:50:39
+;; Last Update: 2019-01-17 22:43:35
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -64,7 +64,7 @@
  '(company-tooltip-common ((t (:foreground "black" :background "LightGray"))))
  '(company-tooltip-common-selection ((t (:foreground "white" :background "SteelBlue"))))
  '(company-tooltip-selection ((t (:foreground "black" :background "SteelBlue"))))
- '(custom-face-tag ((t (:foreground "Skyblue"))))
+ '(custom-face-tag ((t (:foreground "SkyBlue"))))
  '(custom-group-tag ((t (:foreground "orange"))))
  '(custom-state ((t (:foreground "Gray70"))))
  '(custom-variable-tag ((t (:foreground "orange"))))
@@ -107,7 +107,7 @@
  '(helm-grep-file ((t (:inherit font-lock-builtin-face :underline t :foreground "cyan"))))
  '(helm-grep-match ((t (:background "LightCyan" :foreground "black"))))
  '(helm-header ((t (:background "Gray40" :foreground "Gray80"))))
- '(helm-match ((t (:foreground "Skyblue"))))
+ '(helm-match ((t (:foreground "SkyBlue"))))
  '(helm-selection ((t (:background "Gray30"))))
  '(helm-selection-line ((t (:background "Gray20"))))
  '(helm-source-header ((t (:background "DarkCyan" :foreground "white"))))
@@ -156,22 +156,24 @@
  '(nxml-entity-ref-name ((t (:foreground "red"))))
  '(nxml-name-face ((t (:foreground "cyan"))))
  '(nxml-tag-delimiter ((t (:foreground "LightBlue"))))
- '(outline-1 ((t (:foreground "LightBlue" :weight bold :underline t))))
- '(outline-2 ((t (:foreground "LightBlue" :weight bold))))
- '(outline-3 ((t (:foreground "cyan" :weight bold))))
- '(outline-4 ((t (:foreground "orange" :weight bold))))
- '(outline-5 ((t (:foreground "goldenrod" :weight bold))))
- '(outline-6 ((t (:foreground "orange"))))
- '(outline-7 ((t (:foreground "goldenrod"))))
+ '(outline-1 ((t (:foreground "orange" :weight bold :underline t))))
+ '(outline-2 ((t (:foreground "beige" :weight bold))))
+ '(outline-3 ((t (:foreground "PaleTurquoise" :weight bold))))
+ '(outline-4 ((t (:foreground "LightSkyBlue" :weight bold))))
+ '(outline-5 ((t (:foreground "DeepSkyBlue" :weight bold))))
+ '(outline-6 ((t (:foreground "SkyBlue"))))
+ '(outline-7 ((t (:foreground "LightBlue"))))
  '(org-agenda-date ((t (:foreground "white"))))
- '(org-agenda-date-today ((t (:foreground "goldenrod" :weight bold))))
+ '(org-agenda-date-today ((t (:foreground "orange" :weight bold))))
  '(org-agenda-date-weekend ((t (:foreground "bisque" :background "Gray23"))))
+ '(org-agenda-current-time ((t (:foreground "SkyBlue"))))
  '(org-agenda-structure ((t (:background "DarkCyan" :foreground "white"))))
  '(org-date ((t (:foreground "LightBlue"))))
  '(org-done ((t (:foreground "LightGreen" :weight bold))))
  '(org-scheduled ((t (:foreground "green"))))
  '(org-scheduled-today ((t (:foreground "SteelBlue1"))))
  '(org-special-keyword ((t (:foreground "green"))))
+ '(org-time-grid ((t (:foreground "Gray70"))))
  '(org-todo ((t (:foreground "LightSkyBlue" :weight bold))))
  '(org-upcoming-deadline ((t (:foreground "HotPink" :weight bold))))
  '(org-warning ((t (:foreground "pink"))))
@@ -196,7 +198,7 @@
  '(sml/folder ((t (:foreground "White"))))
  '(sml/git ((t (:foreground "LightBlue"))))
  '(sml/minor-modes ((t (:foreground "Gray75"))))
- '(sml/mule-info ((t (:foreground "Skyblue"))))
+ '(sml/mule-info ((t (:foreground "SkyBlue"))))
  '(sml/prefix ((t (:foreground "orange"))))
  '(term-color-black ((t (:foreground "#444945"))))
  '(term-color-blue ((t (:foreground "#5cabdc"))))

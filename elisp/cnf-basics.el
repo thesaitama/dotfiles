@@ -517,8 +517,18 @@
 (set-variable 'org-default-notes-file "~/org/notes.org")
 (set-variable 'org-agenda-files '("~/org/notes.org"
                                   "~/org/todo.org"))
+(set-variable 'org-todo-keywords
+              '((sequence "TODO(t)" "SOMEDAY(s)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c@)")))
 (set-variable 'org-archive-location
               (concat "%s_archive_" (format-time-string "%Y" (current-time))))
+(set-variable 'org-capture-templates
+              '(("t" "Todo" entry (file+headline "~/org/todo.org" "Todo")
+                 "* TODO %?\n    %i\n   %a\n    %T")
+                ("n" "Note" entry (file+headline "~/org/notes.org" "Note")
+                 "* %?\n   %a\n    %T")
+                ("m" "Memo" entry (file  "~/org/memo.org")
+                 "* %?\n   %a\n    %T")))
+
 (define-key global-map (kbd "C-c a") 'org-agenda)
 (define-key global-map (kbd "C-c o") 'org-capture)
 

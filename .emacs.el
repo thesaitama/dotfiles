@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2019-01-20 21:01:50
+;; Last Update: 2019-01-20 22:00:56
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -55,6 +55,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(anzu-mode-line ((t (:foreground "SkyBlue"))))
  '(bm-face ((t (:background "SpringGreen4"))))
  '(bm-fringe-face ((t (:background "SpringGreen4"))))
  '(company-preview-common ((t (:background nil :foreground "LightGray" :underline t))))

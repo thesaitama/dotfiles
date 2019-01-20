@@ -201,6 +201,7 @@ This is to `put' what `defalias' is to `fset'."
     x509-mode
     w3m
     mew
+    wanderlust
     docker
     ac-ispell
     google-this
@@ -620,6 +621,12 @@ This is to `put' what `defalias' is to `fset'."
 ;; load mew settings
 
 (load-if-exist "~/cnf-mew.el")
+
+;; ------------------------------------------------------------------------
+;; wanderlust
+
+(autoload 'wl "wl" "Wanderlust" t)
+(autoload 'wl-draft "wl" "Write draft with Wanderlust." t)
 
 ;; ------------------------------------------------------------------------
 ;; flyspell (spell check)

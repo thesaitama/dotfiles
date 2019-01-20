@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2019-01-20 16:43:57
+;; Last Update: 2019-01-20 19:48:40
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -159,17 +159,10 @@
  '(nxml-entity-ref-name ((t (:foreground "red"))))
  '(nxml-name-face ((t (:foreground "cyan"))))
  '(nxml-tag-delimiter ((t (:foreground "LightBlue"))))
- '(outline-1 ((t (:foreground "orange" :weight bold :underline t))))
- '(outline-2 ((t (:foreground "beige" :weight bold))))
- '(outline-3 ((t (:foreground "PaleTurquoise" :weight bold))))
- '(outline-4 ((t (:foreground "LightSkyBlue" :weight bold))))
- '(outline-5 ((t (:foreground "DeepSkyBlue" :weight bold))))
- '(outline-6 ((t (:foreground "SkyBlue"))))
- '(outline-7 ((t (:foreground "LightBlue"))))
+ '(org-agenda-current-time ((t (:foreground "SkyBlue"))))
  '(org-agenda-date ((t (:foreground "white"))))
  '(org-agenda-date-today ((t (:foreground "orange" :weight bold))))
  '(org-agenda-date-weekend ((t (:foreground "bisque" :background "Gray23"))))
- '(org-agenda-current-time ((t (:foreground "SkyBlue"))))
  '(org-agenda-structure ((t (:background "DarkCyan" :foreground "white"))))
  '(org-date ((t (:foreground "LightBlue"))))
  '(org-done ((t (:foreground "LightGreen" :weight bold))))
@@ -180,6 +173,13 @@
  '(org-todo ((t (:foreground "LightSkyBlue" :weight bold))))
  '(org-upcoming-deadline ((t (:foreground "HotPink" :weight bold))))
  '(org-warning ((t (:foreground "pink"))))
+ '(outline-1 ((t (:foreground "orange" :weight bold :underline t))))
+ '(outline-2 ((t (:foreground "beige" :weight bold))))
+ '(outline-3 ((t (:foreground "PaleTurquoise" :weight bold))))
+ '(outline-4 ((t (:foreground "LightSkyBlue" :weight bold))))
+ '(outline-5 ((t (:foreground "DeepSkyBlue" :weight bold))))
+ '(outline-6 ((t (:foreground "SkyBlue"))))
+ '(outline-7 ((t (:foreground "LightBlue"))))
  '(package ((t (:foreground "DodgerBlue"))))
  '(package-name ((t (:foreground "DodgerBlue"))))
  '(pulse-highlight-face ((t (:background "Gray35"))))
@@ -247,7 +247,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (flyspell-popup xterm-color uimage esup peep-dired recentf-ext helm-google google-this dumb-jump textile-mode osx-clipboard pippel powershell flycheck-plantuml ssh plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc))))
+    (wanderlust flyspell-popup xterm-color uimage esup peep-dired recentf-ext helm-google google-this dumb-jump textile-mode osx-clipboard pippel powershell flycheck-plantuml ssh plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc))))
 
 ;; ------------------------------------------------------------------------
 

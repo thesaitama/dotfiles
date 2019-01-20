@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2019-01-20 20:10:42
+;; Last Update: 2019-01-20 21:01:50
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -147,6 +147,10 @@
  '(minibuffer-prompt ((t (:foreground "cyan"))))
  '(mlc-mode-line-char-format ((t (:foreground "Gray90" :background "Gray40"))))
  '(mlc-mode-line-char-format-code ((t (:foreground "Gray80"))))
+ '(newsticker-treeview-face ((((type tty)) (:foreground "Gray80"))))
+ '(newsticker-treeview-new-face ((((type tty)) (:foreground "white" :weight bold))))
+ '(newsticker-treeview-selection-face ((((type tty)) (:background "Gray25"))))
+ '(newsticker-enclosure-face ((((type tty)) (:background "oragne" :foreground "white"))))
  '(nxml-attribute-local-name ((t (:foreground "LightBlue"))))
  '(nxml-attribute-value ((t (:foreground "Goldenrod"))))
  '(nxml-cdata-section-content ((t (:foreground "gray"))))

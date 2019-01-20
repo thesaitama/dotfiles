@@ -29,8 +29,6 @@
 ;; ------------------------------------------------------------------------
 ;; color scheme
 
-(load-theme 'wombat t)
-
 (setq initial-frame-alist
       (append (list
                '(border-color . "#353535")
@@ -45,6 +43,8 @@
                '(cursor-color . "#f9f8f0")
                )
               default-frame-alist))
+
+;; (load-theme 'wombat t)
 
 ;; window transparency
 (set-frame-parameter nil 'alpha 95)
@@ -72,7 +72,7 @@
 (set-face-foreground 'fringe "#cccccc")
 (set-face-background 'fringe "#1a1a1a")
 
-;; (set-face-background 'highlight-symbol-face "Gray19)"
+;; (set-face-background 'highlight-symbol-face "Gray19")
 (set-face-background 'hl-line "#303030")
 
 ;; ------------------------------------------------------------------------

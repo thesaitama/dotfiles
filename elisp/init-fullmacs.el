@@ -28,8 +28,8 @@
 (setq ad-redefinition-action 'accept)
 
 ;; GC
-(setq gc-cons-threshold (* 256 1024 1024))
-(setq garbage-collection-messages t)
+(setq gc-cons-threshold (* 64 1024 1024))
+(setq garbage-collection-messages nil)
 
 ;; ------------------------------------------------------------------------
 ;; for compatibility
@@ -506,9 +506,9 @@ This is to `put' what `defalias' is to `fset'."
 (setq ac-menu-height 15)
 (setq ac-max-width 35)
 (setq ac-ignore-case t)
-(setq ac-delay 0.1)
+(setq ac-delay 0.5)
 (setq ac-auto-start 2)
-(setq ac-auto-show-menu 0.2)
+(setq ac-auto-show-menu 0.5)
 (setq ac-quick-help-prefer-x t)
 
 (if (<= emacs-major-version 25)

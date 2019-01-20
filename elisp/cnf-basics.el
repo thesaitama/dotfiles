@@ -54,7 +54,7 @@
 
 ;; http://d.hatena.ne.jp/mooz/20100119/p1
 
-(defun window-resizer ()
+(defun my-window-resizer ()
   "Control window size and position."
   (interactive)
   (let ((window-obj (selected-window))
@@ -89,7 +89,18 @@
                (message "Quit")
                (throw 'end-flag t)))))))
 
-(global-set-key (kbd "C-x ^") 'window-resizer)
+(global-set-key (kbd "C-x ^") 'my-window-resizer)
+
+;; ------------------------------------------------------------------------
+;; describe-face-at-point
+
+;; https://uwabami.github.io/cc-env/Emacs.html#orgb08f4b8
+
+(defun my-describe-face-at-point ()
+  "Describe face at point."
+  (interactive)
+  (message "%s" (get-char-property (point) 'face))
+  )
 
 ;; ------------------------------------------------------------------------
 ;; key bind
@@ -635,17 +646,6 @@
 (add-hook 'compilation-filter-hook
           '(lambda ()
              (ansi-color-apply-on-region (point-min) (point-max))))
-
-;; ------------------------------------------------------------------------
-;; describe-face-at-point
-
-;; https://uwabami.github.io/cc-env/Emacs.html#orgb08f4b8
-
-(defun my:describe-face-at-point ()
-  "Describe face at point."
-  (interactive)
-  (message "%s" (get-char-property (point) 'face))
-  )
 
 ;; ------------------------------------------------------------------------
 ;; newsticker

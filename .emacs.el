@@ -123,6 +123,7 @@
  '(magit-branch-local ((t (:foreground "MediumPurple2"))))
  '(magit-branch-remote ((t (:foreground "cyan"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
+ '(smerge-markers ((t (:background "Gray40"))))
  '(magit-diff-added ((((type tty)) (:foreground "green"))))
  '(magit-diff-added-highlight ((((type tty)) (:foreground "LimeGreen"))))
  '(magit-diff-context-highlight ((t (:background "Gray23"))))

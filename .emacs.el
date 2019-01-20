@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2019-01-20 22:00:56
+;; Last Update: 2019-01-20 22:14:47
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -124,7 +124,6 @@
  '(magit-branch-local ((t (:foreground "MediumPurple2"))))
  '(magit-branch-remote ((t (:foreground "cyan"))))
  '(magit-context-highlight ((t (:background "Gray23"))))
- '(smerge-markers ((t (:background "Gray40"))))
  '(magit-diff-added ((((type tty)) (:foreground "green"))))
  '(magit-diff-added-highlight ((((type tty)) (:foreground "LimeGreen"))))
  '(magit-diff-context-highlight ((t (:background "Gray23"))))
@@ -148,10 +147,10 @@
  '(minibuffer-prompt ((t (:foreground "cyan"))))
  '(mlc-mode-line-char-format ((t (:foreground "Gray90" :background "Gray40"))))
  '(mlc-mode-line-char-format-code ((t (:foreground "Gray80"))))
+ '(newsticker-enclosure-face ((((type tty)) (:background "oragne" :foreground "white"))))
  '(newsticker-treeview-face ((((type tty)) (:foreground "Gray80"))))
  '(newsticker-treeview-new-face ((((type tty)) (:foreground "white" :weight bold))))
  '(newsticker-treeview-selection-face ((((type tty)) (:background "Gray25"))))
- '(newsticker-enclosure-face ((((type tty)) (:background "oragne" :foreground "white"))))
  '(nxml-attribute-local-name ((t (:foreground "LightBlue"))))
  '(nxml-attribute-value ((t (:foreground "Goldenrod"))))
  '(nxml-cdata-section-content ((t (:foreground "gray"))))
@@ -200,6 +199,7 @@
  '(show-paren-match-expression ((t (:background "Gray25"))))
  '(show-paren-match-face ((t (:background "black" :foreground "white"))))
  '(show-paren-mismatch ((t (:background "red"))))
+ '(smerge-markers ((t (:background "Gray40"))))
  '(sml/col-number ((t (:foreground "Gray75"))))
  '(sml/folder ((t (:foreground "White"))))
  '(sml/git ((t (:foreground "LightBlue"))))
@@ -250,7 +250,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (wanderlust flyspell-popup xterm-color uimage esup peep-dired recentf-ext helm-google google-this dumb-jump textile-mode osx-clipboard pippel powershell flycheck-plantuml ssh plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc))))
+    (gitignore-mode gitconfig-mode wanderlust flyspell-popup xterm-color uimage esup peep-dired recentf-ext helm-google google-this dumb-jump textile-mode osx-clipboard pippel powershell flycheck-plantuml ssh plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc))))
 
 ;; ------------------------------------------------------------------------
 

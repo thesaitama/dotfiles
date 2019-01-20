@@ -197,6 +197,8 @@ This is to `put' what `defalias' is to `fset'."
     peep-dired
     japanese-holidays
     osx-trash
+    gitconfig-mode
+    gitignore-mode
     vimrc-mode
     x509-mode
     w3m

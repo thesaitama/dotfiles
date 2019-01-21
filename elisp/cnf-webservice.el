@@ -103,20 +103,28 @@
     (add-hook 'eww-after-render-hook 'eww-render--after)
   (advice-add 'eww-render :after 'eww-render--after)) ; 24.4
 
-;;; weblio
+;; Weblio
 (defun weblio (str)
-  "Search with Weblio by STR."
+  "Search with Weblio with STR."
   (interactive (list
                 (region-or-read-string "Weblio: ")))
   (eww-browse-url (format "https://www.weblio.jp/content/%s"
                       (upcase (url-hexify-string str)))))
-;;; wikipedia
+;; Wikipedia
 (defun wikipedia (str)
-  "Search with Wikipedia by STR."
+  "Search with Wikipedia with STR."
   (interactive (list
                 (region-or-read-string "Wikipedia: ")))
   (eww-browse-url (format "https://ja.wikipedia.org/wiki/%s"
-                      (upcase (url-hexify-string str)))))
+                          (url-hexify-string str))))
+
+;; Wiktionary
+(defun wiktionary (str)
+  "Search with Wiktionary with STR."
+  (interactive (list
+                (region-or-read-string "Wiktionary: ")))
+  (eww-browse-url (format "https://en.wiktionary.org/wiki/%s"
+                      (url-hexify-string str))))
 
 ;; ------------------------------------------------------------------------
 ;; howdoi

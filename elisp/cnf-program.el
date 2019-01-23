@@ -577,6 +577,22 @@
 (add-hook 'visual-basic-mode-hook #'setup-visual-basic-mode)
 
 ;; ------------------------------------------------------------------------
+;; abap-mode
+
+;; https://github.com/qianmarv
+
+;; (when (require 'abap-mode nil t))
+(autoload 'abap-mode "abap-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\(\\.abap\\)$" . abap-mode))
+(defun setup-abap-mode ()
+  "Setup abap-mode."
+  (hs-minor-mode -1)
+  (when (require 'abap nil t))
+  (when (require 'abap-flycheck nil t))
+  )
+(add-hook 'abap-mode-hook #'setup-abap-mode)
+
+;; ------------------------------------------------------------------------
 ;; helm-gtags
 
 ;; (when (require 'helm-gtags nil t))
@@ -618,7 +634,7 @@
 ;; ------------------------------------------------------------------------
 ;; plantuml-mode
 
-(add-to-list 'auto-mode-alist '("\\(\\.rst\\|\\.rest\\)$" . plantuml-mode))
+(add-to-list 'auto-mode-alist '("\\(\\.pu\\|\\.uml\\|\\.plantuml\\)$" . plantuml-mode))
 ;; (set-variable 'plantuml-jar-path "")  ;; depends on OS
 (set-variable 'plantuml-java-args "")
 (set-variable 'plantuml-jar-args "-charset UTF-8")

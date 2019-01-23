@@ -699,6 +699,11 @@
 (autoload 'magit-find-file "magit-find-file" nil t)
 
 ;; ------------------------------------------------------------------------
+;; git-gutter
+
+(global-git-gutter-mode t)
+
+;; ------------------------------------------------------------------------
 ;; quickrun
 
 (autoload 'quickrun "quickrun" nil t)

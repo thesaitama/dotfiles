@@ -177,6 +177,7 @@ This is to `put' what `defalias' is to `fset'."
     helm-projectile
     magit
     magit-find-file
+    git-gutter-fringe
     markdown-mode
     textile-mode
     restclient

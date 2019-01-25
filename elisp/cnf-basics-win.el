@@ -97,6 +97,11 @@
 (setq use-dialog-box nil)
 
 ;; ------------------------------------------------------------------------
+;; (GUI) fringe-hide-show
+
+(when (require 'modeline-char nil t))
+
+;; ------------------------------------------------------------------------
 ;; (GUI) key bind
 
 (global-set-key (kbd "C-x C-b") 'bs-show)

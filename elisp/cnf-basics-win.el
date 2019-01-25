@@ -97,9 +97,9 @@
 (setq use-dialog-box nil)
 
 ;; ------------------------------------------------------------------------
-;; (GUI) fringe-hide-show
+;; (GUI) hideshow-fringe
 
-(when (require 'modeline-char nil t))
+(when (require 'hideshow-fringe nil t))
 
 ;; ------------------------------------------------------------------------
 ;; (GUI) key bind

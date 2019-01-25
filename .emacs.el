@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2019-01-23 23:28:52
+;; Last Update: 2019-01-25 18:12:47
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -84,6 +84,10 @@
  '(ediff-current-diff-Ancestor ((t (:foreground "black" :background "DarkCyan"))))
  '(ediff-current-diff-B ((t (:foreground "black" :background "red"))))
  '(ediff-current-diff-C ((t (:foreground "black" :background "orange"))))
+ '(ediff-even-diff-A ((t (:foreground "white" :background "Gray30"))))
+ '(ediff-even-diff-Ancestor ((t (:foreground "white" :background "Gray25"))))
+ '(ediff-even-diff-B ((t (:foreground "white" :background "Gray35"))))
+ '(ediff-even-diff-C ((t (:foreground "white" :background "Gray40"))))
  '(ediff-fine-diff-A ((t (:foreground "white" :background "LimeGreen"))))
  '(ediff-fine-diff-Ancestor ((t (:foreground "white" :background "DarkCyan"))))
  '(ediff-fine-diff-B ((t (:foreground "white" :background "red"))))

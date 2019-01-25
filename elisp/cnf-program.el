@@ -573,6 +573,8 @@
     ;; (add-to-list
     ;;  'vbasense-tli-files "C:/Program Files/Common Files/Microsoft Shared/DAO/dao360.dll")
     (vbasense-config-default))
+  (if (fboundp 'clean-mode-line)
+      (clean-mode-line))
   )
 (add-hook 'visual-basic-mode-hook #'setup-visual-basic-mode)
 
@@ -586,9 +588,11 @@
 (add-to-list 'auto-mode-alist '("\\(\\.abap\\)$" . abap-mode))
 (defun setup-abap-mode ()
   "Setup abap-mode."
-  (hs-minor-mode -1)
+  (if (fboundp 'clean-mode-line)
+      (clean-mode-line))
   (when (require 'abap nil t))
   (when (require 'abap-flycheck nil t))
+  (hs-minor-mode -1)
   )
 (add-hook 'abap-mode-hook #'setup-abap-mode)
 

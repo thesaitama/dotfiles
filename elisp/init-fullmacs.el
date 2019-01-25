@@ -302,6 +302,7 @@ This is to `put' what `defalias' is to `fset'."
     (hs-minor-mode . "")
     (volatile-highlights-mode . "")
     (smooth-scroll-mode . "")
+    (git-gutter-mode . "")
     (emmet-mode . " Em")
     ;; Major modes
     (fundamental-mode . "Fund")
@@ -318,6 +319,7 @@ This is to `put' what `defalias' is to `fset'."
     (typescript-mode . "TS")
     (R-mode . "R")
     (visual-basic-mode . "VB")
+    (abap-mode . "ABAP")
     ))
 
 (defun clean-mode-line ()

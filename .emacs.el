@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2019-01-25 18:12:47
+;; Last Update: 2019-01-25 18:28:00
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -100,6 +100,9 @@
  '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
  '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
+ '(git-gutter:added ((t (:foreground "LimeGreen"))))
+ '(git-gutter:delete ((t (:foreground "red"))))
+ '(git-gutter:modified ((t (:foreground "DeepSkyBlue"))))
  '(header-line ((t (:background "Gray40" :foreground "Gray85"))))
  '(helm-buffer-directory ((t (:background "DarkCyan" :foreground "white"))))
  '(helm-buffer-file ((t (:inherit font-lock-builtin-face :foreground "white"))))

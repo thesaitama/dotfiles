@@ -21,5 +21,3 @@
 
 (provide 'cnf-browser.el)
 ;;; cnf-browser.el ends here
-
-

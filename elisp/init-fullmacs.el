@@ -145,6 +145,7 @@ This is to `put' what `defalias' is to `fset'."
     ess-R-data-view
     haskell-mode
     company-ghc
+    tuareg
     powershell
     vbasense
     emacsql

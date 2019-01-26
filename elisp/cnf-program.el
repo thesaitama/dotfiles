@@ -120,25 +120,25 @@
 
 (autoload 'php-mode "php-mode")
 (add-to-list 'auto-mode-alist '("\\(\\.php\\|\\.tpl\\)$" . php-mode))
-(defvar php-mode-force-pear t)
-(defvar php-manual-path "/usr/local/share/php/doc/php-chunked-xhtml")
-(defvar php-search-url "http://www.phppro.jp/")
-(defvar php-manual-url "http://www.phppro.jp/phpmanual")
 (defun setup-php-mode ()
   "Setup php-mode."
+  (set-variable 'php-mode-force-pear t)
+  (set-variable 'php-manual-url 'ja)
+  (set-variable 'php-mode-coding-style 'psr2)
+  (set-variable 'php-template-compatibility nil)
+  (flycheck-mode t)
   (auto-complete-mode t)
+  (setq-local page-delimiter "\\_<\\(class\\|function\\|namespace\\)\\_>.+$")
   (when (require 'ac-php nil t)
     (setq ac-sources '(ac-source-php
                        ac-source-filename
                        ac-source-words-in-same-mode-buffers)))
   (when (require 'php-eldoc nil t)
-    (php-eldoc-enable)
-    (cond
-     ((string-match-p "^/my-project-folder")
-      (php-eldoc-probe-load "http://my-project.com/probe.php?secret=sesame"))
-     ((string-match-p "^/other-project-folder")
-      (php-eldoc-probe-load "http://localhost/otherproject/probe.php?secret=sesame"))))
+    (php-eldoc-enable))
+  (when (eq 0 (buffer-size))
+    (insert "<?php\n\n"))
   )
+
 (add-hook 'php-mode-hook #'setup-php-mode)
 
 ;; manual install

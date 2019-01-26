@@ -175,6 +175,24 @@
                                 (font-lock-mode t))))
 
 ;; ------------------------------------------------------------------------
+;; EOF
+
+;; https://beiznotes.org/200906031244034052-2/
+
+(defface my-eof-face '((t :background "Gray25" :foreground "Gray50"))
+  "Face for EOF" :group 'my-face)
+
+(defun set-buffer-end-mark()
+  "Set buff end of file mark."
+  (let ((overlay (make-overlay (point-max) (point-max))))
+    (overlay-put overlay 'before-string #("<EOF>" 0 5 (face my-eof-face)))
+    (overlay-put overlay 'insert-behind-hooks
+                 '((lambda (overlay after beg end &optional len)
+                     (when after
+                       (move-overlay overlay (point-max) (point-max))))))))
+(add-hook 'find-file-hooks 'set-buffer-end-mark)
+
+;; ------------------------------------------------------------------------
 ;; my-make-scratch
 
 ;; http://www.jaist.ac.jp/~n-yoshi/tips/elisp_tips.html#scratch

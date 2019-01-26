@@ -18,7 +18,7 @@ setw -g window-status-current-format "#[bg=colour064] #I:#P #W#F #[default]"
 # ------------------------------------------------------------------------
 # key bind
 
-bind-key o run-shell "xdg-open '#{pane_current_path}'"
+bind o run-shell "xdg-open '#{pane_current_path}'"
 
 # ------------------------------------------------------------------------
 # copy-mode
@@ -27,9 +27,9 @@ unbind -T copy-mode 'C-w'
 unbind -T copy-mode 'M-w'
 unbind -T copy-mode Enter
 
-bind-key -T copy-mode 'C-w' send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c "
-bind-key -T copy-mode 'M-w' send -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
-bind-key -T copy-mode Enter send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c "
+bind -T copy-mode 'C-w' send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c "
+bind -T copy-mode 'M-w' send -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
+bind -T copy-mode Enter send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c "
 
 # it seems needless
 # bind-key -n C-y run "xclip -o | tmux load-buffer - ; tmux paste-buffer"

@@ -183,6 +183,7 @@ This is to `put' what `defalias' is to `fset'."
     textile-mode
     restclient
     restclient-helm
+    request
     yasnippet
     yasnippet-snippets
     helm-c-yasnippet

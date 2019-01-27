@@ -14,7 +14,7 @@
               'editorconfig-core-get-properties-hash)
 
 ;; if you need editorconfig executable
-;; > sudo port install editorconfig-core-c
+;; > sudo port install readline editorconfig-core-c
 ;; (setq edconf-exec-path "/opt/local/bin/editorconfig")
 
 ;; ------------------------------------------------------------------------

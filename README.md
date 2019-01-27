@@ -6,7 +6,7 @@
 * bash 4.4
 * MacPorts
 
-Emacs configuration compatible with Windows
+Emacs configuration compatible with Windows 7-10
 
 ## How to install
 
@@ -15,6 +15,8 @@ git clone https://github.com/thesaitama/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 sh ./dotfileslink.sh
 ```
+
+* for Windows Emacs user: simply run `setup-emacs.bat`
 
 ## Note
 

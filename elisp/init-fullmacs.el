@@ -19,6 +19,8 @@
 ;; debugger if needed
 ;; (setq debug-on-error t)
 
+(setq eval-expression-print-length nil)
+
 ;; enable cl
 (eval-when-compile (require 'cl))
 (require 'cl-lib)

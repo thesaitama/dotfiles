@@ -11,7 +11,7 @@
 escape ^Ta
 
 altscreen on
-defscrollback 2000
+defscrollback 10000
 startup_message off
 vbell off
 

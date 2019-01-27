@@ -20,8 +20,6 @@ sh ./dotfileslink.sh
 
 ## Note
 
-I will give you updates this repository.
-
 * diff-hignight
 
 ```bash
@@ -29,8 +27,6 @@ cd /opt/local/share/git/contrib/diff-highlight/
 sudo make
 sudo ln -s /opt/local/share/git/contrib/diff-highlight/diff-highlight /usr/local/bin/diff-highlight
 ```
-
-* etc
 
 * ranger
 

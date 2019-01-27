@@ -673,6 +673,7 @@
 ;; markdown-mode
 
 (set-variable 'markdown-italic-underscore nil)
+(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
 ;; ------------------------------------------------------------------------
 ;; rst-mode

@@ -377,7 +377,7 @@ This is to `put' what `defalias' is to `fset'."
 ;; ------------------------------------------------------------------------
 ;; recnetf-ext
 
-(autoload 'recentf-ext "recentf-ext" nil t)
+(when (require 'recentf-ext nil t))
 
 ;; ------------------------------------------------------------------------
 ;; elscreen

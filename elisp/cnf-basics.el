@@ -137,11 +137,11 @@
 (set-face-foreground 'font-lock-preprocessor-face "yellow")
 (set-face-foreground 'font-lock-regexp-grouping-backslash "gray")
 (set-face-foreground 'font-lock-string-face "orange")
-(set-face-foreground 'font-lock-type-face "brightred")
+(set-face-foreground 'font-lock-type-face "SkyBlue")
 (set-face-foreground 'font-lock-variable-name-face "goldenrod")
 (set-face-foreground 'font-lock-warning-face "pink")
 
-(set-face-foreground 'mode-line "Skyblue")
+(set-face-foreground 'mode-line "SkyBlue")
 (set-face-background 'mode-line "Gray30")
 (set-face-foreground 'mode-line-buffer-id "orange")
 (set-face-foreground 'mode-line-inactive "Gray60")

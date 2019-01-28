@@ -150,22 +150,22 @@
 ;; ------------------------------------------------------------------------
 ;; color white spaces
 
-(defface my-face-b-1 '((t :background "Gray40"))
+(defface my-whitesapce-face-1 '((t :background "Gray40"))
   "Face for Double width space" :group 'my-face)
-(defface my-face-b-2 '((t :background "Gray23"))
+(defface my-whitesapce-face-2 '((t :background "Gray23"))
   "Face for Tab char" :group 'my-face)
-(defface my-face-b-3 '((t :background "Gray80"))
+(defface my-whitesapce-face-3 '((t :background "Gray80"))
   "Face for redundant spaces" :group 'my-face)
-(defvar my-face-u-1 'my-face-b-1)
-(defvar my-face-u-2 'my-face-b-2)
-(defvar my-face-u-3 'my-face-b-3)
+(defvar my-whitesapce-1 'my-whitesapce-face-1)
+(defvar my-whitesapce-2 'my-whitesapce-face-2)
+(defvar my-whitesapce-3 'my-whitesapce-face-3)
 (defadvice font-lock-mode (before my-font-lock-mode ())
   "White space patch for font lock mode."
   (font-lock-add-keywords
    major-mode '(
-                ("　" 0 my-face-u-1 append)
-                ("\t" 0 my-face-u-2 append)
-                ("[ 　\t]+$" 0 my-face-u-3 append)
+                ("　" 0 my-whitesapce-1 append)
+                ("\t" 0 my-whitesapce-2 append)
+                ("[ 　\t]+$" 0 my-whitesapce-3 append)
                 )))
 (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
 (ad-activate 'font-lock-mode)
@@ -181,7 +181,6 @@
 
 (defface my-eof-face '((t :background "Gray25" :foreground "Gray60"))
   "Face for EOF" :group 'my-face)
-
 (defun set-buffer-end-mark()
   "Set buff end of file mark."
   (let ((overlay (make-overlay (point-max) (point-max))))

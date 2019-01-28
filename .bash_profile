@@ -36,16 +36,6 @@ export EMACS_TRUE_COLOR_SEPARATOR=';'
 # ------------------------------------------------------------------------
 # Programing languages
 
-# Python
-pypath() {
-  if [[ $# = 0 ]]
-  then
-    export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packagen
-  else
-    export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/$1/lib/python$1/site-packagen
-  fi
-}
-
 export PYTHONIOENCODING=utf-8
 export PIP_CONFIG_FILE="${HOME}/pip.conf"
 
@@ -67,65 +57,13 @@ export RUST_SRC_PATH="$HOME/.rustup/toolchains/stable-x86_64-apple-darwin/lib/ru
 export PKGPATH=/usr/local/bin/
 
 # ------------------------------------------------------------------------
-# Homebrew
-# > /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-# > brew tap caskroom/cask
+# Windows
 
-export PATH=/usr/local/bin:$PATH
-export HOMEBREW_NO_EMOJI=1
-
-# ------------------------------------------------------------------------
-# MacOSX old Devloper Tools
-# > xcode-select --install
-
-test -d /Developer && export PATH=/Developer/Tools:$PATH
-
-# ------------------------------------------------------------------------
-# Fink
-
-test -d /sw && export PATH=/sw/bin:/sw/sbin:$PATH && export MANPATH=/sw/share/man:$MANPATH
-test -r /sw/bin/init.sh && . /sw/bin/init.sh
-
-# ------------------------------------------------------------------------
-# MacPorts
-
-test -d /opt/local && export PATH=/opt/local/bin:/opt/local/sbin:$PATH &&
-  export PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH &&
-  export MANPATH=/opt/local/share/man:/opt/local/man:$MANPATH &&
-  export NODE_PATH=/opt/local/lib/node_modules
-  export PKGPATH=/opt/local/bin/ &&
-  pypath
-
-# useful command
-# > sudo port uninstall inactive
-# > sudo port -u upgrade outdated
-
-# ------------------------------------------------------------------------
-# Mac special settings
-
-# Qt4
-test -d /usr/local/Qt4.8 && export QTDIR=/usr/local/Qt4.8 &&
-  export PATH=$QTDIR/bin:$PATH &&
-  export QMAKESPEC=$QTDIR/mkspecs/macx-xcode &&
-  export QMAKESPEC=$QTDIR/mkspecs/macx-g++
-
-# MySQL
-test -d /usr/local/mysql && export export PATH=/usr/local/mysql/bin:$PATH
-
-# iTerm shell integration
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-
-# ------------------------------------------------------------------------
-# NAOqi SDK
-
-# test -d /usr/local/bin/naoqi && export PYTHONPATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/python2.7/site-packages:$PYTHONPATH &&
-#   export DYLD_LIBRARY_PATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib:$DYLD_LIBRARY_PATH
-#
-# > ln -s /usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/* /usr/local/lib
-
-alias snao='dns-sd -B _naoqi._tcp'
-alias mdlk='dns-sd -q'
-# > dns-sd -B _nao._tcp
+function wincmd() {
+  CMD=$1
+  shift
+  $CMD $* 2>&1 | iconv -f cp932 -t utf-8
+}
 
 # ------------------------------------------------------------------------
 # opam configuration

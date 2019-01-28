@@ -6,7 +6,7 @@
 #  \__|_| |_|\___||___/\__,_|_|\__\__,_|_| |_| |_|\__,_|
 
 # thesaitama@ .bashrc
-# Last Update: 2019-01-27 12:54:43
+# Last Update: 2019-01-28 22:55:26
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -91,16 +91,7 @@ alias cleanupDS="find . -type f -name '*.DS_Store' -ls -delete"
 
 # macOS Only
 if [ "$PLATFORM" = "osx" ]; then
-  alias ls='ls -avhplGF'
-  # /Applications Alias (Mac OSX)
-  alias ee='open -a /Applications/Emacs.app $1'
-  alias syspref='open -a "System Preferences"'
-  alias reminders='open -a reminders'
-  alias chrome='open -a google\ chrome'
-  alias firefox='open -a firefox'
-  # macOS Finder
-  alias finderShowH='defaults write com.apple.finder ShowAllFiles TRUE'
-  alias finderHideH='defaults write com.apple.finder ShowAllFiles FALSE'
+  . ~/dotfiles/.bashrc_osx
 fi
 
 # Linux Only
@@ -189,15 +180,6 @@ else
 ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
 echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
 ${c_blue}\\\$${c_reset} "
-fi
-
-# ------------------------------------------------------------------------
-# git-completion
-
-if [ "$PLATFORM" = "osx" ]; then
-  if [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ]; then
-    source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
-  fi
 fi
 
 # ------------------------------------------------------------------------
@@ -321,16 +303,6 @@ colortest_256() {
 colortest_tc() {
   ~/dotfiles/terminfo/true_color_test.sh
 }
-
-# ------------------------------------------------------------------------
-# bash-completion
-# > sudo port install bash-completion
-# path: /opt/local/etc/bash_completion.d
-# add: '+bash_completion' >> /opt/local/etc/macports/variants.conf
-
-if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
-  . /opt/local/etc/profile.d/bash_completion.sh
-fi
 
 # ------------------------------------------------------------------------
 # fasd

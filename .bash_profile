@@ -56,6 +56,9 @@ export RUST_SRC_PATH="$HOME/.rustup/toolchains/stable-x86_64-apple-darwin/lib/ru
 
 export PKGPATH=/usr/local/bin/
 
+# opam configuration
+test -r ~/.opam/opam-init/init.sh && . ~/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+
 # ------------------------------------------------------------------------
 # Windows
 
@@ -64,11 +67,6 @@ function wincmd() {
   shift
   $CMD $* 2>&1 | iconv -f cp932 -t utf-8
 }
-
-# ------------------------------------------------------------------------
-# opam configuration
-
-test -r ~/.opam/opam-init/init.sh && . ~/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
 
 # ------------------------------------------------------------------------
 

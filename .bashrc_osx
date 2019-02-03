@@ -55,9 +55,14 @@ alias reminders='open -a reminders'
 alias chrome='open -a google\ chrome'
 alias firefox='open -a firefox'
 
-#macOS Finder
+# macOS Finder
 alias finderShowH='defaults write com.apple.finder ShowAllFiles TRUE'
 alias finderHideH='defaults write com.apple.finder ShowAllFiles FALSE'
+
+# git
+if [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ]; then
+  source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
+fi
 
 # Qt4
 test -d /usr/local/Qt4.8 && export QTDIR=/usr/local/Qt4.8 &&

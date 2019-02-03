@@ -7,7 +7,7 @@
 
 # thesaitama@ .bashrc
 
-# Last Update: 2019-02-03 09:44:24
+# Last Update: 2019-02-03 13:26:07
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -139,15 +139,6 @@ else
 ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
 echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
 ${c_blue}\\\$${c_reset} "
-fi
-
-# ------------------------------------------------------------------------
-# git-completion
-
-if [ "$PLATFORM" = "osx" ]; then
-  if [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ]; then
-    source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
-  fi
 fi
 
 # ------------------------------------------------------------------------

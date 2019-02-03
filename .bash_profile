@@ -109,7 +109,7 @@ if [ -f ~/.bashrc ]; then
 fi
 
 if [ "$PLATFORM" = "osx" ]; then
-  if [ -f ~/.bashrc_osx ]; then
+  if [ -f ~/dotfiles/.bashrc_osx ]; then
     . ~/dotfiles/.bashrc_osx
   fi
 fi

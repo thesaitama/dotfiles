@@ -761,6 +761,17 @@
 (global-set-key (kbd "M-g y") 'git-complete)
 
 ;; ------------------------------------------------------------------------
+;; org-babel
+
+(org-babel-do-load-languages 'org-babel-load-languages
+                             '((shell . t)
+                               (python . t)
+                               (ruby . t)
+                               (emacs-lisp . t)
+                               )
+                             )
+
+;; ------------------------------------------------------------------------
 
 (provide 'cnf-program.el)
 ;;; cnf-program.el ends here

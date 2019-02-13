@@ -764,13 +764,16 @@
 ;; ------------------------------------------------------------------------
 ;; org-babel
 
-(org-babel-do-load-languages 'org-babel-load-languages
-                             '((shell . t)
-                               (python . t)
-                               (ruby . t)
-                               (emacs-lisp . t)
-                               )
-                             )
+(defun org-babel-init ()
+  "init org-mode."
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               '((shell . t)
+                                 ;; (powershell . t)
+                                 (python . t)
+                                 (ruby . t)
+                                 (emacs-lisp . t)
+                                 )))
+(add-hook 'org-mode-hook 'org-babel-init)
 
 ;; ------------------------------------------------------------------------
 

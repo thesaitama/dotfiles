@@ -335,6 +335,7 @@
   (elpy-enable)
   (elpy-mode)
   (setq elpy-modules (quote (elpy-module-eldoc elpy-module-yasnippet)))
+  (set-variable 'py-use-font-lock-doc-face-p t)
   ;; auto-complete
   (setq ac-sources (delete 'ac-source-words-in-same-mode-buffers ac-sources))
   (add-to-list 'ac-sources 'ac-source-jedi-direct)

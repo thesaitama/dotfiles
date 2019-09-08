@@ -180,11 +180,13 @@ source ~/dotfiles/.vim/cnf-fzf.vim
 " ------------------------------------------------------------------------
 " colorscheme
 
-"autocmd ColorScheme * highlight Comment ctermfg=2
+" autocmd ColorScheme * highlight Comment ctermfg=2
 autocmd ColorScheme * highlight Normal ctermbg=none
 autocmd ColorScheme * highlight nonText ctermbg=none
 autocmd ColorScheme * highlight cursorline ctermbg=236
 set background=dark
+" if can not load kalisi please type
+" :call dein#recache_runtimepath()
 colorscheme kalisi
 syntax enable
 

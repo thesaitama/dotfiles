@@ -1,0 +1,26 @@
+
+#   ________  _____  ___  __
+#  /_  __/  |/  / / / / |/ /
+#   / / / /|_/ / / / /|   /
+#  / / / /  / / /_/ //   |
+# /_/ /_/  /_/\____//_/|_|
+
+# thesaitama@ .tmux.conf.ming
+
+# only Windows (MING)
+
+set -g status-interval 10 # performance problem
+
+# ------------------------------------------------------------------------
+# window-status (override)
+
+setw -g window-status-format "#[bg=colour242] #I:#P #W #[default]"
+setw -g window-status-current-format "#[bg=colour026] #I:#P #W#F #[default]"
+
+# ------------------------------------------------------------------------
+# copy-mode
+
+
+# ------------------------------------------------------------------------
+# status
+

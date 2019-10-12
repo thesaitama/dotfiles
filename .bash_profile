@@ -48,6 +48,7 @@ os_detect() {
     *'linux'*)  PLATFORM='linux'   ;;
     *'darwin'*) PLATFORM='osx'     ;;
     *'bsd'*)    PLATFORM='bsd'     ;;
+    *'ming'*)   PLATFORM='ming'     ;;
     *)          PLATFORM='unknown' ;;
   esac
   export PLATFORM
@@ -111,6 +112,12 @@ fi
 if [ "$PLATFORM" = "osx" ]; then
   if [ -f ~/dotfiles/.bashrc_osx ]; then
     . ~/dotfiles/.bashrc_osx
+  fi
+fi
+
+if [ "$PLATFORM" = "ming" ]; then
+  if [ -f ~/dotfiles/.bashrc_ming ]; then
+    . ~/dotfiles/.bashrc_ming
   fi
 fi
 

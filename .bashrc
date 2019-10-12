@@ -7,7 +7,7 @@
 
 # thesaitama@ .bashrc
 
-# Last Update: 2019-02-03 13:26:07
+# Last Update: 2019-10-12 20:11:10
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -292,21 +292,23 @@ fi
 # cd ~/.fzf
 # ./install
 
-if [ ~/.fzf.bash ]; then
-  source ~/.fzf.bash
-  export FZF_DEFAULT_OPTS='--height 40% --reverse'
-  export FZF_DEFAULT_COMMAND='ag -g ""'
-  export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
-  export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+if [ -f ~/.fzf.bash ]; then
+  if [ "$TERM" != 'emacs' ]; then
+    source ~/.fzf.bash
+    if [ "$PLATFORM" != "ming" ]; then
+      export FZF_DEFAULT_OPTS='--height 40% --reverse'
+    fi
+    export FZF_DEFAULT_COMMAND='ag -g ""'
+    export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+    export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+    # fzf extra commands
+    if [ -f ~/dotfiles/fzf-commands.sh ]; then
+      . ~/dotfiles/fzf-commands.sh
+    fi
+    # bash cd completion workaround
+    complete -o bashdefault -o default -F _fzf_dir_completion cd
+  fi
 fi
-
-# fzf extra commands
-if [ -f ~/dotfiles/fzf-commands.sh ]; then
-  . ~/dotfiles/fzf-commands.sh
-fi
-
-# bash cd completion workaround
-complete -o bashdefault -o default -F _fzf_dir_completion cd
 
 # ------------------------------------------------------------------------
 # enhancd

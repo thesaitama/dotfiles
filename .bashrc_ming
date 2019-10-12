@@ -10,6 +10,11 @@
 # .bashrc_ming
 
 # ------------------------------------------------------------------------
+# export
+
+# export TERM='cygwin'
+
+# ------------------------------------------------------------------------
 # wincmd
 
 function wincmd () {
@@ -17,4 +22,22 @@ function wincmd () {
   shift
   $CMND $* 2>&1 | iconv -f cp932 -t utf-8
 }
+
+function s () {
+  wincmd start $1
+}
+
+alias net='wincmd net'
+alias ipconfig='wincmd ipconfig'
+alias nslookup='wincmd nslookup'
+alias tracert='wincmd tracert'
+alias ping='wincmd ping'
+alias attrib='wincmd attrib'
+alias systeminfo='wincmd systeminfo'
+alias powershell='wincmd powershell'
+
+# ------------------------------------------------------------------------
+# winpty
+
+alias python='winpty python'
 

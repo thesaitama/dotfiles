@@ -20,6 +20,12 @@ setw -g window-status-current-format "#[bg=colour026] #I:#P #W#F #[default]"
 # ------------------------------------------------------------------------
 # copy-mode
 
+# could not work correctly
+bind -n -T copy-mode C-w send -X copy-pipe "win32yank.exe -i"
+bind -n -T copy-mode M-w send -X copy-pipe-and-cancel "win32yank.exe -i"
+bind -n -T copy-mode Enter send -X copy-pipe-and-cancel "win32yank.exe -i"
+bind -n -T copy-mode MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "win32yank.exe -i"
+bind y run "win32yank.exe -o | tmux load-buffer - && tmux paste-buffer"
 
 # ------------------------------------------------------------------------
 # status

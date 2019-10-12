@@ -7,7 +7,7 @@
 
 # thesaitama@ .bashrc
 
-# Last Update: 2019-10-12 21:23:01
+# Last Update: 2019-10-12 21:53:31
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -194,17 +194,19 @@ tnp() {
 }
 
 # rename window-name when ssh
-ssh() {
-  if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
-    local window_name=$(tmux display -p '#{window_name}')
-    tmux rename-window ${@: -1}
-    command ssh "$@"
-    tmux rename-window ${window_name}
-    tmux set-window-option automatic-rename "on" 1>/dev/null
-  else
-    command ssh "$@"
-  fi
-}
+if [ "$PLATFORM" != "ming" ]; then
+  ssh() {
+    if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
+      local window_name=$(tmux display -p '#{window_name}')
+      tmux rename-window ${@: -1}
+      command ssh "$@"
+      tmux rename-window ${window_name}
+      tmux set-window-option automatic-rename "on" 1>/dev/null
+    else
+      command ssh "$@"
+    fi
+  }
+fi
 
 # ------------------------------------------------------------------------
 # w3m for google, and wikitionary

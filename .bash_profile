@@ -48,7 +48,7 @@ os_detect() {
     *'linux'*)  PLATFORM='linux'   ;;
     *'darwin'*) PLATFORM='osx'     ;;
     *'bsd'*)    PLATFORM='bsd'     ;;
-    *'ming'*)   PLATFORM='ming'     ;;
+    *'ming'*)   PLATFORM='ming'    ;;
     *)          PLATFORM='unknown' ;;
   esac
   export PLATFORM

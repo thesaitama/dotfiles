@@ -9,6 +9,9 @@
 
 # only Windows (MING)
 
+# ------------------------------------------------------------------------
+# windows overwrite
+
 set -g status-interval 10 # performance problem
 
 # ------------------------------------------------------------------------
@@ -16,6 +19,11 @@ set -g status-interval 10 # performance problem
 
 setw -g window-status-format "#[bg=colour242] #I:#P #W #[default]"
 setw -g window-status-current-format "#[bg=colour026] #I:#P #W#F #[default]"
+
+# ------------------------------------------------------------------------
+# key bind
+
+bind o run-shell "start '#{pane_current_path}'"
 
 # ------------------------------------------------------------------------
 # copy-mode
@@ -29,4 +37,6 @@ bind y run "win32yank.exe -o | tmux load-buffer - && tmux paste-buffer"
 
 # ------------------------------------------------------------------------
 # status
+
+set -g status-right " #[bg=colour242,fg=white] %m/%d "
 

@@ -7,7 +7,7 @@
 
 # thesaitama@ .bashrc
 
-# Last Update: 2019-10-12 20:11:10
+# Last Update: 2019-10-12 21:23:01
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -289,15 +289,20 @@ fi
 # ------------------------------------------------------------------------
 # fzf
 # > git clone https://github.com/junegunn/fzf.git ~/.fzf
+# # for mingw64
+# # > pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-ncurses
+# # > git clone https://github.com/simnalamburt/fzf-mingw-w64.git ~/.fzf
 # cd ~/.fzf
 # ./install
 
 if [ -f ~/.fzf.bash ]; then
-  if [ "$TERM" != 'emacs' ]; then
-    source ~/.fzf.bash
-    if [ "$PLATFORM" != "ming" ]; then
-      export FZF_DEFAULT_OPTS='--height 40% --reverse'
+  if [ "$PLATFORM" == "ming" ]; then
+    if [ "$TERM" != 'emacs' ]; then
+      source ~/.fzf.bash
     fi
+  else
+    source ~/.fzf.bash
+    export FZF_DEFAULT_OPTS='--height 40% --reverse'
     export FZF_DEFAULT_COMMAND='ag -g ""'
     export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
     export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"

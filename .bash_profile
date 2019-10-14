@@ -54,16 +54,6 @@ os_detect() {
   export PLATFORM
 }
 
-# is_osx returns true if running OS is Macintosh
-is_osx() {
-  os_detect
-  if [ "$PLATFORM" = "osx" ]; then
-    return 0
-  else
-    return 1
-  fi
-}
-
 os_detect
 
 # ------------------------------------------------------------------------
@@ -121,7 +111,6 @@ if [ "$PLATFORM" = "ming" ]; then
   fi
 fi
 
-# Linux Only
 if [ "$PLATFORM" = "linux" ]; then
   eval `dircolors ~/.colorrc`
 fi

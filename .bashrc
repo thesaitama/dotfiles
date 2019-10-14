@@ -7,7 +7,7 @@
 
 # thesaitama@ .bashrc
 
-# Last Update: 2019-10-12 22:04:55
+# Last Update: 2019-10-14 17:12:13
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -140,114 +140,6 @@ ${c_yellow}\$(eval \"res=\$?\"; [[ \${res} -eq 0 ]] && \
 echo -en \"${c_reset}\${res}\" || echo -en \"${_pr_fg_red}\${res}\") \
 ${c_blue}\\\$${c_reset} "
 fi
-
-# ------------------------------------------------------------------------
-# tmux
-
-# lunch tmux
-tm() {
-  tmux ls > /dev/null
-  if [ $? -eq 1 -a -z "$TMUX" ]; then
-    tmux
-  elif [ -z "$TMUX" ]; then
-    target=$(tmux list-sessions |
-               fzf -0 --no-sort --tac +m --exit-0 |
-               perl -pe 's/^([0-9]+).+$/$1/g;')
-    if [ -n "$target" ]; then
-      tmux a -t ${target}
-    else
-      tmux new-session
-    fi
-  else
-    echo "prevent nested TMUX sessions. :-P"
-  fi
-}
-
-# kill tmux session
-tk() {
-  if [ -z $1 ]; then
-    target=$(tmux list-sessions |
-               fzf -1 -0 --no-sort --tac +m --exit-0 |
-               perl -pe 's/^([0-9]+).+$/$1/g;')
-    if [ -n "$target" ]; then
-      tmux kill-session -t ${target}
-    fi
-  else
-    tmux kill-session -t $1
-  fi
-}
-
-# tmux precmd
-precmd() {
-  if [ ! -z $TMUX ]; then
-    tmux refresh-client -S
-  fi
-}
-
-# run new pane
-tnp() {
-  if [ $# -eq 0 ]; then
-    cat > /tmp/tmux.tmp && tmux split-window -v "less /tmp/tmux.tmp"
-  else
-    tmux split-window -v "$*"
-  fi
-}
-
-# rename window-name when ssh
-if [ "$PLATFORM" != "ming" ]; then
-  ssh() {
-    if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
-      local window_name=$(tmux display -p '#{window_name}')
-      tmux rename-window ${@: -1}
-      command ssh "$@"
-      tmux rename-window ${window_name}
-      tmux set-window-option automatic-rename "on" 1>/dev/null
-    else
-      command ssh "$@"
-    fi
-  }
-fi
-
-# ------------------------------------------------------------------------
-# w3m for google, and wikitionary
-# > sudo port install w3m
-
-google() {
-  local str opt
-  if [ $# != 0 ]; then
-    for i in $*; do
-      str="$str+$i"
-    done
-    str=`echo $str | sed 's/^\+//'`
-    opt='search?num=50&hl=ja&lr=lang_ja'
-    opt="${opt}&q=${str}"
-  fi
-  w3m http://www.google.co.jp/$opt
-}
-
-wikitionary() {
-  local str opt
-  if [ $# != 0 ]; then
-    for i in $*; do
-      str="$str+$i"
-    done
-    str=`echo $str | sed 's/^\+//'`
-    opt="${str}"
-  fi
-  w3m https://en.wiktionary.org/wiki/$opt
-}
-
-weblio() {
-  local str opt
-  if [ $# != 0 ]; then
-    for i in $*; do
-      str="$str+$i"
-    done
-    str=`echo $str | sed 's/^\+//'`
-    opt="${str}"
-  fi
-  w3m https://ejje.weblio.jp/content/$opt
-}
 
 # ------------------------------------------------------------------------
 # color-test

@@ -60,15 +60,6 @@ os_detect
 # Programing languages
 
 # Python
-pypath() {
-  if [[ $# = 0 ]]
-  then
-    export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packagen
-  else
-    export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/$1/lib/python$1/site-packagen
-  fi
-}
-
 export PYTHONIOENCODING=utf-8
 export PIP_CONFIG_FILE="${HOME}/pip.conf"
 
@@ -114,6 +105,19 @@ fi
 if [ "$PLATFORM" = "linux" ]; then
   eval `dircolors ~/.colorrc`
 fi
+
+# ------------------------------------------------------------------------
+# other apps
+
+if [ -f ~/dotfiles/.bashrc_tmux ]; then
+  . ~/dotfiles/.bashrc_tmux
+fi
+
+if [ -f ~/dotfiles/.bashrc_w3m ]; then
+  . ~/dotfiles/.bashrc_w3m
+fi
+
+# ------------------------------------------------------------------------
 
 # load private settings
 if [ -f ~/.bash_private ]; then

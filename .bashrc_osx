@@ -32,6 +32,15 @@ test -r /sw/bin/init.sh && . /sw/bin/init.sh
 # ------------------------------------------------------------------------
 # MacPorts
 
+pypath() {
+  if [[ $# = 0 ]]
+  then
+    export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packagen
+  else
+    export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/$1/lib/python$1/site-packagen
+  fi
+}
+
 test -d /opt/local && export PATH=/opt/local/bin:/opt/local/sbin:$PATH &&
   export PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH &&
   export MANPATH=/opt/local/share/man:/opt/local/man:$MANPATH &&

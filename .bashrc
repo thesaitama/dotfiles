@@ -7,7 +7,7 @@
 
 # thesaitama@ .bashrc
 
-# Last Update: 2019-10-14 17:12:13
+# Last Update: 2019-10-14 20:49:33
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -183,30 +183,30 @@ fi
 # ------------------------------------------------------------------------
 # fzf
 # > git clone https://github.com/junegunn/fzf.git ~/.fzf
-# # for mingw64
-# # > pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-ncurses
-# # > git clone https://github.com/simnalamburt/fzf-mingw-w64.git ~/.fzf
-# cd ~/.fzf
-# ./install
+# > cd ~/.fzf
+# > ./install
 
 if [ -f ~/.fzf.bash ]; then
-  if [ "$PLATFORM" == "ming" ]; then
-    if [ "$TERM" != 'emacs' ]; then
-      source ~/.fzf.bash
-    fi
-  else
+
+  if [ "$PLATFORM" != "ming" ] && [ "$TERM" != 'emacs' ]; then
     source ~/.fzf.bash
+  fi
+
+  export FZF_DEFAULT_COMMAND='ag -g ""'
+  export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+  export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+
+  if [ "$PLATFORM" != "ming" ]; then
     export FZF_DEFAULT_OPTS='--height 40% --reverse'
-    export FZF_DEFAULT_COMMAND='ag -g ""'
-    export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
-    export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
-    # fzf extra commands
-    if [ -f ~/dotfiles/fzf-commands.sh ]; then
-      . ~/dotfiles/fzf-commands.sh
-    fi
     # bash cd completion workaround
     complete -o bashdefault -o default -F _fzf_dir_completion cd
   fi
+
+  # fzf extra commands
+  if [ -f ~/dotfiles/fzf-commands.sh ]; then
+    . ~/dotfiles/fzf-commands.sh
+  fi
+
 fi
 
 # ------------------------------------------------------------------------

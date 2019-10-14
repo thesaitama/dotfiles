@@ -40,4 +40,4 @@ alias powershell='wincmd powershell'
 # winpty
 
 alias python='winpty python'
-
+alias fzf='winpty fzf'

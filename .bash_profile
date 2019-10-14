@@ -78,6 +78,7 @@ test -d ~/.go && export GOPATH="${HOME}/.go" &&
 export PATH="$HOME/.cargo/bin:$PATH"
 export RUST_SRC_PATH="$HOME/.rustup/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src"
 
+# PHP
 export PKGPATH=/usr/local/bin/
 
 # opam configuration
@@ -87,18 +88,18 @@ test -r ~/.opam/opam-init/init.sh && . ~/.opam/opam-init/init.sh > /dev/null 2> 
 
 # load .bashrc
 if [ -f ~/.bashrc ]; then
-  . ~/.bashrc
+  source ~/.bashrc
 fi
 
 if [ "$PLATFORM" = "osx" ]; then
   if [ -f ~/dotfiles/.bashrc_osx ]; then
-    . ~/dotfiles/.bashrc_osx
+    source ~/dotfiles/.bashrc_osx
   fi
 fi
 
 if [ "$PLATFORM" = "ming" ]; then
   if [ -f ~/dotfiles/.bashrc_ming ]; then
-    . ~/dotfiles/.bashrc_ming
+    source ~/dotfiles/.bashrc_ming
   fi
 fi
 
@@ -109,19 +110,23 @@ fi
 # ------------------------------------------------------------------------
 # other apps
 
-if [ -f ~/dotfiles/.bashrc_tmux ]; then
-  . ~/dotfiles/.bashrc_tmux
+if which tmux >/dev/null 2>&1; then
+  if [ -f ~/dotfiles/.bashrc_tmux ]; then
+    source ~/dotfiles/.bashrc_tmux
+  fi
 fi
 
-if [ -f ~/dotfiles/.bashrc_w3m ]; then
-  . ~/dotfiles/.bashrc_w3m
+if which w3m >/dev/null 2>&1; then
+  if [ -f ~/dotfiles/.bashrc_w3m ]; then
+    source ~/dotfiles/.bashrc_w3m
+  fi
 fi
 
 # ------------------------------------------------------------------------
 
 # load private settings
 if [ -f ~/.bash_private ]; then
-  . ~/.bash_private
+  source ~/.bash_private
 fi
 
 # ------------------------------------------------------------------------

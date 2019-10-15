@@ -18,7 +18,8 @@ export LC_CTYPE=$LANG
 
 export LESSCHARSET=utf-8
 
-# dotfiles bin
+# user and dotfiles bin
+test -d ~/bin && export PATH=~/bin:$PATH
 export PATH=~/dotfiles/bin:$PATH
 
 # XDG Config

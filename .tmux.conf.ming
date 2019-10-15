@@ -28,11 +28,10 @@ bind o run-shell "start '#{pane_current_path}'"
 # ------------------------------------------------------------------------
 # copy-mode
 
-# could not work correctly
-bind -n -T copy-mode C-w send -X copy-pipe "win32yank.exe -i"
-bind -n -T copy-mode M-w send -X copy-pipe-and-cancel "win32yank.exe -i"
-bind -n -T copy-mode Enter send -X copy-pipe-and-cancel "win32yank.exe -i"
-bind -n -T copy-mode MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "win32yank.exe -i"
+bind -T copy-mode C-w send -X copy-pipe "clip.exe"
+bind -T copy-mode M-w send -X copy-pipe-and-cancel "clip.exe"
+bind -T copy-mode Enter send -X copy-pipe-and-cancel "clip.exe"
+bind -T copy-mode MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "clip.exe"
 bind y run "win32yank.exe -o | tmux load-buffer - && tmux paste-buffer"
 
 # ------------------------------------------------------------------------

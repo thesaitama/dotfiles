@@ -31,6 +31,7 @@ bind -T copy-mode 'C-w' send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c 
 bind -T copy-mode 'M-w' send -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
 bind -T copy-mode Enter send -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
 bind -T copy-mode MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
+bind y run 'tmux set-buffer -- \"$(xclip -o -selection clipboard)\"; tmux paste-buffer'";
 
 # it seems needless
 # bind-key -n C-y run "xclip -o | tmux load-buffer - ; tmux paste-buffer"

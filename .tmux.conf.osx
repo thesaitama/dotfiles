@@ -31,7 +31,8 @@ unbind -T copy-mode Enter
 # above 2.6
 bind -T copy-mode 'C-w' send -X copy-pipe "pbcopy"
 bind -T copy-mode 'M-w' send -X copy-pipe-and-cancel "pbcopy"
-bind -T copy-mode Enter send -X copy-pipe "pbcopy"
+bind -T copy-mode Enter send -X copy-pipe-and-cancel "pbcopy"
+bind -n -T copy-mode MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcopy"
 
 # ------------------------------------------------------------------------
 # status

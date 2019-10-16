@@ -21,12 +21,21 @@ set blob-view-line-number = yes
 set blame-view-line-number = yes
 
 # color
-color title-focus white blue
-color cursor white black
+color title-focus white black
+color cursor yellow black
+color diff-header black white
 color diff-chunk black white
 color diff-add-highlight green white standout
 color diff-del-highlight red white standout
 
-# Keybind
-bind generic F none
-bind generic F !git fetch
+# keybind
+bind generic F ?git fetch %(remote)
+bind main    F ?git fetch %(remote)
+bind generic U ?git pull %(remote)
+bind generic P ?git push -u %(remote) %(repo:head)
+bind generic S ?git stash save "%(prompt Enter stash comment: )"
+bind diff    Y ?git stash pop %(stash)
+bind stash   Y ?git stash pop %(stash)
+bind main    = ?git checkout %(branch)
+bind refs    = ?git checkout %(branch)
+bind main    <Esc>= ?git checkout %(commit)

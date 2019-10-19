@@ -182,6 +182,7 @@ This is to `put' what `defalias' is to `fset'."
     magit-find-file
     git-gutter-fringe
     markdown-mode
+    markdown-toc
     textile-mode
     restclient
     restclient-helm

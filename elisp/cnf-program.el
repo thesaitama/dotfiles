@@ -677,6 +677,13 @@
 (set-variable 'markdown-italic-underscore nil)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
+(defun setup-markdown-mode ()
+  "Setup markdown-mode."
+  (add-hook 'before-save-hook 'markdown-toc-refresh-toc)
+  )
+
+(add-hook 'markdown-mode-hook #'setup-markdown-mode)
+
 ;; ------------------------------------------------------------------------
 ;; rst-mode
 

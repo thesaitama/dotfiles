@@ -620,7 +620,8 @@ This is to `put' what `defalias' is to `fset'."
 ;; ------------------------------------------------------------------------
 ;; imenu-list
 
-(setq imenu-list-position "below")
+(set-variable 'imenu-list-position "below")
+(set-variable 'imenu-list-auto-resize t)
 
 ;; ------------------------------------------------------------------------
 ;; load helm settings

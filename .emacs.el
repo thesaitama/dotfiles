@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2019-10-19 21:52:17
+;; Last Update: 2019-10-22 14:04:05
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -197,6 +197,10 @@
  '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
  '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
  '(region ((t (:background "Gray40"))))
+ '(imenu-list-entry-face-0 ((t (:inherit outline-1))))
+ '(imenu-list-entry-face-1 ((t (:inherit outline-2))))
+ '(imenu-list-entry-face-2 ((t (:inherit outline-3))))
+ '(imenu-list-entry-face-3 ((t (:inherit outline-4))))
  '(rst-level-1 ((t (:inherit outline-1))))
  '(rst-level-2 ((t (:inherit outline-2))))
  '(rst-level-3 ((t (:inherit outline-3))))

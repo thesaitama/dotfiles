@@ -2,7 +2,7 @@
 
 ## System requirements
 
-* macOS 10.14 / Linux
+* macOS 10.15 / Linux
 * bash 4.4
 * MacPorts
 

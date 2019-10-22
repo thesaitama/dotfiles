@@ -682,7 +682,7 @@
   (add-hook 'before-save-hook 'markdown-toc-refresh-toc)
   (set-variable 'markdown-toc-header-toc-start "<!-- TOC -->")
   (set-variable 'markdown-toc-header-toc-end "<!-- /TOC -->")
-  (imenu-list-minor-mode)
+  ;; (imenu-list-minor-mode)
   )
 
 (add-hook 'markdown-mode-hook #'setup-markdown-mode)

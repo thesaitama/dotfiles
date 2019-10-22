@@ -680,8 +680,8 @@
 (defun setup-markdown-mode ()
   "Setup markdown-mode."
   (add-hook 'before-save-hook 'markdown-toc-refresh-toc)
-  (set-variable 'markdown-toc-header-toc-start "<!-- TOC -->\n")
-  (set-variable 'markdown-toc-header-toc-end "<!-- /TOC -->\n")
+  (set-variable 'markdown-toc-header-toc-start "<!-- TOC -->")
+  (set-variable 'markdown-toc-header-toc-end "<!-- /TOC -->")
   (imenu-list-minor-mode)
   )
 

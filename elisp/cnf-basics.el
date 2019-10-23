@@ -155,6 +155,11 @@
   (set-variable 'whitespace-space-regexp "\\(\u3000+\\)")
   (global-whitespace-mode 1)
   (global-set-key (kbd "C-x w") 'global-whitespace-mode)
+
+  ;; cannot apply custom-set-faces
+  (set-face-background 'whitespace-space "Gray40")
+  (set-face-background 'whitespace-tab "Gray23")
+  (set-face-background 'whitespace-trailing "Gray80")
   )
 
 ;; replaced by whitespace-mode

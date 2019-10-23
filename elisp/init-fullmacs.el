@@ -829,6 +829,7 @@ This is to `put' what `defalias' is to `fset'."
 (push '("\\*[Ii]?[Pp]ython.+" :regexp t :height 15) popwin:special-display-config)
 (push '("*SQL*" :height 15) popwin:special-display-config)
 (push '("*Ilist*" :height 15) popwin:special-display-config)
+(push '("*info*" :height 20) popwin:special-display-config)
 (push '("*eww*" :height 20 :noselect t) popwin:special-display-config)
 (push '("*wclock*" :height 7) popwin:special-display-config)
 (push '(" *undo-tree*" :width 0.2 :position right) popwin:special-display-config)

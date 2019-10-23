@@ -773,6 +773,11 @@
 (global-set-key (kbd "M-g y") 'git-complete)
 
 ;; ------------------------------------------------------------------------
+;; yasnippets
+
+(set-variable 'yas-snippet-dirs '("~/.emacs.d/snippets"))
+
+;; ------------------------------------------------------------------------
 ;; org-babel
 
 (defun org-babel-init ()

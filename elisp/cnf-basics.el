@@ -150,29 +150,37 @@
 ;; ------------------------------------------------------------------------
 ;; color white spaces
 
-(defface my-whitesapce-face-1 '((t :background "Gray40"))
-  "Face for Double width space" :group 'my-face)
-(defface my-whitesapce-face-2 '((t :background "Gray23"))
-  "Face for Tab char" :group 'my-face)
-(defface my-whitesapce-face-3 '((t :background "Gray80"))
-  "Face for redundant spaces" :group 'my-face)
-(defvar my-whitesapce-1 'my-whitesapce-face-1)
-(defvar my-whitesapce-2 'my-whitesapce-face-2)
-(defvar my-whitesapce-3 'my-whitesapce-face-3)
-(defadvice font-lock-mode (before my-font-lock-mode ())
-  "White space patch for font lock mode."
-  (font-lock-add-keywords
-   major-mode '(
-                ("　" 0 my-whitesapce-1 append)
-                ("\t" 0 my-whitesapce-2 append)
-                ("[ 　\t]+$" 0 my-whitesapce-3 append)
-                )))
-(ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
-(ad-activate 'font-lock-mode)
-(add-hook 'find-file-hooks '(lambda ()
-                              (if font-lock-mode
-                                  nil
-                                (font-lock-mode t))))
+(when (>= emacs-major-version 23)
+  (set-variable 'whitespace-style '(face trailing spaces tabs empty tab-mark))
+  (set-variable 'whitespace-space-regexp "\\(\u3000+\\)")
+  (global-whitespace-mode 1)
+  (global-set-key (kbd "C-x w") 'global-whitespace-mode)
+  )
+
+;; replaced by whitespace-mode
+;; (defface my-whitesapce-face-1 '((t :background "Gray40"))
+;;   "Face for Double width space" :group 'my-face)
+;; (defface my-whitesapce-face-2 '((t :background "Gray23"))
+;;   "Face for Tab char" :group 'my-face)
+;; (defface my-whitesapce-face-3 '((t :background "Gray80"))
+;;   "Face for redundant spaces" :group 'my-face)
+;; (defvar my-whitesapce-1 'my-whitesapce-face-1)
+;; (defvar my-whitesapce-2 'my-whitesapce-face-2)
+;; (defvar my-whitesapce-3 'my-whitesapce-face-3)
+;; (defadvice font-lock-mode (before my-font-lock-mode ())
+;;   "White space patch for font lock mode."
+;;   (font-lock-add-keywords
+;;    major-mode '(
+;;                 ("　" 0 my-whitesapce-1 append)
+;;                 ("\t" 0 my-whitesapce-2 append)
+;;                 ("[ 　\t]+$" 0 my-whitesapce-3 append)
+;;                 )))
+;; (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
+;; (ad-activate 'font-lock-mode)
+;; (add-hook 'find-file-hooks '(lambda ()
+;;                               (if font-lock-mode
+;;                                   nil
+;;                                 (font-lock-mode t))))
 
 ;; ------------------------------------------------------------------------
 ;; EOF

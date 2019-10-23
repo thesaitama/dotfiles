@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2019-10-22 14:04:05
+;; Last Update: 2019-10-23 21:56:10
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -249,6 +249,9 @@
  '(web-mode-html-tag-bracket-face ((t (:foreground "LightBlue"))))
  '(web-mode-html-tag-face ((t (:foreground "cyan"))))
  '(web-mode-server-comment-face ((t (:foreground "green"))))
+ '(whitespace-space ((t (:background "Gray40"))))
+ '(whitespace-tab ((t (:background "Gray23"))))
+ '(whitespace-trailing ((t (:background "Gray80"))))
  '(which-func ((t (:foreground "ivory"))))
  '(which-key-command-description-face ((t (:foreground "white")))))
 

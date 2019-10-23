@@ -13,6 +13,9 @@
 (add-to-list 'exec-path "C:/Program Files/Git/usr/bin/")
 (add-to-list 'exec-path "C:/Program Files/PuTTY/")
 
+;; avoid magit slow problem
+(set-variable 'magit-git-executable "C:/Program Files/Git/cmd/git.exe")
+
 ;; ------------------------------------------------------------------------
 ;; Windows configure
 

@@ -153,14 +153,34 @@
 (when (>= emacs-major-version 23)
   (set-variable 'whitespace-style '(face trailing spaces tabs empty tab-mark))
   (set-variable 'whitespace-space-regexp "\\(\u3000+\\)")
-  (global-whitespace-mode 1)
-  (global-set-key (kbd "C-x w") 'global-whitespace-mode)
+  (setq-default show-trailing-whitespace t)
+  (whitespace-mode 1)
+  (global-set-key (kbd "C-x w") 'whitespace-mode)
 
   ;; cannot apply custom-set-faces
   (set-face-background 'whitespace-empty "Gray23")
   (set-face-background 'whitespace-space "Gray40")
   (set-face-background 'whitespace-tab "Gray23")
   (set-face-background 'whitespace-trailing "Gray80")
+
+  ;; https://qiita.com/tadsan/items/df73c711f921708facdc
+
+  (defun my-disable-trailing-mode-hook ()
+    "Disable show tail whitespace."
+    (setq show-trailing-whitespace nil))
+
+  (defvar my-disable-trailing-modes
+    '(magit-log-mode
+      shell-mode
+      eshell-mode
+      eww-mode
+      term-mode
+      ))
+
+  (mapc (lambda (mode)
+          (add-hook (intern (concat (symbol-name mode) "-hook"))
+                    'my-disable-trailing-mode-hook))
+        my-disable-trailing-modes)
   )
 
 ;; replaced by whitespace-mode

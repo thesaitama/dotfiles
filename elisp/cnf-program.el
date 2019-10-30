@@ -713,9 +713,18 @@
 ;; magit
 
 (global-set-key (kbd "C-x g") 'magit-status)
-(setq magit-diff-refine-hunk t)
-(setq magit-merge-arguments '("--no-ff"))
-(setq smerge-refine-ignore-whitespace nil)
+(set-variable 'smerge-refine-ignore-whitespace nil)
+(set-variable 'magit-merge-arguments '("--no-ff"))
+(set-variable 'magit-diff-refine-hunk t)
+;; performance reason for Windows
+;; > git config --global core.preloadindex true   # default since v2.1
+;; > git config --global core.fscache true        # default since v2.8
+;; > git config --global gc.auto 256
+(when (eq system-type 'windows-nt)
+  (remove-hook 'server-switch-hook 'magit-commit-diff)
+  (set-variable 'magit-commit-show-diff nil)
+  (set-variable 'magit-revert-buffers 1)
+)
 
 ;; ------------------------------------------------------------------------
 ;; magit-find-file

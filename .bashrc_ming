@@ -27,6 +27,7 @@ function s () {
   wincmd start $1
 }
 
+alias cmd='wincmd cmd'
 alias net='wincmd net'
 alias ipconfig='wincmd ipconfig'
 alias nslookup='wincmd nslookup'

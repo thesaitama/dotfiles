@@ -9,6 +9,8 @@
 
 # .bashrc_osx
 
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 # ------------------------------------------------------------------------
 # Homebrew
 # > /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"

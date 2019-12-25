@@ -169,6 +169,11 @@
          ("\\(\\.sass\\|\\.s?css\\)$" . web-mode)
          )
        auto-mode-alist))
+(setq web-mode-engines-alist
+      '(("django" . "\\.html\\'")
+        ("php" . "\\.phtml\\'")
+        ("blade" . "\\.blade\\."))
+      )
 (setq-default web-mode-ac-sources-alist
               '(("php" . (ac-source-yasnippet ac-source-php-auto-yasnippets))
                 ("css" . (ac-source-css-property ac-source-emmet-css-snippets))

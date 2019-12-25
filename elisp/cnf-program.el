@@ -166,6 +166,7 @@
          ("\\.[agj]sp$" . web-mode)
          ("\\.erb$" . web-mode)
          ("\\.[xp]?html?$" . web-mode)
+         ("\\.vue\\'" . web-mode)
          ("\\(\\.sass\\|\\.s?css\\)$" . web-mode)
          )
        auto-mode-alist))

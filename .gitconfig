@@ -13,6 +13,8 @@
 	quotepath = false
 	autocrlf = false
 	safecrlf = true
+	ignorecase = false
+	whitespace = cr-at-eol
 
 [color]
 	ui = true
@@ -43,6 +45,9 @@
 
 [alias]
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short --color=always
+	st = status
+	ck = checkout
+	cp = cherry-pick
 
 # diff-highlight
 # MacPorts

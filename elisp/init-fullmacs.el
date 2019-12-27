@@ -79,6 +79,7 @@ This is to `put' what `defalias' is to `fset'."
     smooth-scroll
     recentf-ext
     elscreen
+    add-node-modules-path
     popwin
     import-popwin
     auto-complete

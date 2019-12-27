@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2019-10-24 05:09:32
+;; Last Update: 2019-12-27 09:43:32
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -124,6 +124,10 @@
  '(hl-line ((t (:background "Gray19"))))
  '(holiday ((t (:background "pink" :foreground "black"))))
  '(hs-face ((t (:background "Gray40"))))
+ '(imenu-list-entry-face-0 ((t (:inherit outline-1))))
+ '(imenu-list-entry-face-1 ((t (:inherit outline-2))))
+ '(imenu-list-entry-face-2 ((t (:inherit outline-3))))
+ '(imenu-list-entry-face-3 ((t (:inherit outline-4))))
  '(isearch ((t (:background "LightPink" :foreground "black"))))
  '(japanese-holiday-saturday ((t (:background "cyan" :foreground "black"))))
  '(lazy-highlight ((t (:background "LightCyan" :foreground "black"))))
@@ -197,10 +201,6 @@
  '(rainbow-delimiters-mismatched-face ((t (:background "red" :foreground "white"))))
  '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "white"))))
  '(region ((t (:background "Gray40"))))
- '(imenu-list-entry-face-0 ((t (:inherit outline-1))))
- '(imenu-list-entry-face-1 ((t (:inherit outline-2))))
- '(imenu-list-entry-face-2 ((t (:inherit outline-3))))
- '(imenu-list-entry-face-3 ((t (:inherit outline-4))))
  '(rst-level-1 ((t (:inherit outline-1))))
  '(rst-level-2 ((t (:inherit outline-2))))
  '(rst-level-3 ((t (:inherit outline-3))))
@@ -262,7 +262,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (markdown-toc request json-navigator tuareg vi-tilde-fringe gitignore-mode gitconfig-mode wanderlust flyspell-popup xterm-color uimage esup peep-dired recentf-ext helm-google google-this dumb-jump textile-mode osx-clipboard pippel powershell flycheck-plantuml ssh plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc))))
+    (add-node-modules-path markdown-toc request json-navigator tuareg vi-tilde-fringe gitignore-mode gitconfig-mode wanderlust flyspell-popup xterm-color uimage esup peep-dired recentf-ext helm-google google-this dumb-jump textile-mode osx-clipboard pippel powershell flycheck-plantuml ssh plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode yaml-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc))))
 
 ;; ------------------------------------------------------------------------
 

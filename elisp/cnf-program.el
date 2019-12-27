@@ -171,8 +171,8 @@
          )
        auto-mode-alist))
 (setq web-mode-engines-alist
-      '(("django" . "\\.html\\'")
-        ("php" . "\\.phtml\\'")
+      '(("php" . "\\.phtml\\'")
+        ;; ("django" . "\\.html\\'")
         ("blade" . "\\.blade\\."))
       )
 (setq-default web-mode-ac-sources-alist
@@ -197,6 +197,7 @@
   (setq indent-tabs-mode nil)
   (setq tab-width 2)
   ;; (auto-complete-mode t)
+  (add-node-modules-path)
   (emmet-mode)
   (ac-emmet-html-setup))
 (add-hook 'web-mode-hook 'web-mode-setup)
@@ -235,6 +236,7 @@
           (lambda ()
             (js2-refactor-mode)
             (ac-js2-mode)
+            (add-node-modules-path)
             )
           )
 (defvar ac-js2-evaluate-calls t)

@@ -41,6 +41,10 @@ alias powershell='wincmd powershell'
 # winpty
 
 alias python='winpty python'
+alias node='winpty node'
+alias npm='winpty npm.cmd'
+alias yarn='winpty yarn.cmd'
+alias vue='winpty vue.cmd'
 alias fzf='winpty fzf'
 
 # ------------------------------------------------------------------------

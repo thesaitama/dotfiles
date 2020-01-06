@@ -23,6 +23,12 @@
 (add-hook 'eval-expression-minibuffer-setup-hook 'eldoc-mode)
 
 ;; ------------------------------------------------------------------------
+;; docker-filemode
+
+(autoload 'dockerfile-mode "dockerfile-mode" nil t)
+(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+
+;; ------------------------------------------------------------------------
 ;; comment-tags
 
 (set-variable 'comment-tags-keymap-prefix (kbd "C-c t"))

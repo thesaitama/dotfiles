@@ -212,6 +212,7 @@ This is to `put' what `defalias' is to `fset'."
     mew
     wanderlust
     docker
+    dockerfile-mode
     ac-ispell
     google-this
     google-translate

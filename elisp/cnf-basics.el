@@ -175,6 +175,7 @@
       eshell-mode
       eww-mode
       term-mode
+      calendar-mode
       ))
 
   (mapc (lambda (mode)

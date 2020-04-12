@@ -183,7 +183,7 @@ if [ "$(uname)" == 'Darwin' ]; then
                  sed 's/\.app$//' |
                  fzf --query="$1" --prompt="App > " --exit-0)
     if [ -n "$app_path" ]; then
-      open -a "/Applications/$app_path.app/"
+      open -a "/Applications/$app_path.app"
       # in emacs terminal excute and exit
       [ $TERM == 'eterm-color' ] && exit
     fi
@@ -196,7 +196,7 @@ if [ "$(uname)" == 'Darwin' ]; then
                  sed 's/\.app$//' |
                  fzf --query="$1" --prompt="App > " --exit-0)
     if [ -n "$app_path" ]; then
-      open -a "/System/Applications/$app_path.app/"
+      open -a "/System/Applications/$app_path.app"
       # in emacs terminal excute and exit
       [ $TERM == 'eterm-color' ] && exit
     fi

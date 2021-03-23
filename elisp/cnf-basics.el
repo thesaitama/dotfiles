@@ -214,17 +214,17 @@
 
 ;; https://beiznotes.org/200906031244034052-2/
 
-(defface my-eof-face '((t :background "Gray25" :foreground "Gray60"))
-  "Face for EOF" :group 'my-face)
-(defun set-buffer-end-mark()
-  "Set buff end of file mark."
-  (let ((overlay (make-overlay (point-max) (point-max))))
-    (overlay-put overlay 'before-string #("[EOF]" 0 5 (face my-eof-face)))
-    (overlay-put overlay 'insert-behind-hooks
-                 '((lambda (overlay after beg end &optional len)
-                     (when after
-                       (move-overlay overlay (point-max) (point-max))))))))
-(add-hook 'find-file-hooks 'set-buffer-end-mark)
+;; (defface my-eof-face '((t :background "Gray25" :foreground "Gray60"))
+;;   "Face for EOF" :group 'my-face)
+;; (defun set-buffer-end-mark()
+;;   "Set buff end of file mark."
+;;   (let ((overlay (make-overlay (point-max) (point-max))))
+;;     (overlay-put overlay 'before-string #("[EOF]" 0 5 (face my-eof-face)))
+;;     (overlay-put overlay 'insert-behind-hooks
+;;                  '((lambda (overlay after beg end &optional len)
+;;                      (when after
+;;                        (move-overlay overlay (point-max) (point-max))))))))
+;; (add-hook 'find-file-hooks 'set-buffer-end-mark)
 
 ;; ------------------------------------------------------------------------
 ;; my-make-scratch

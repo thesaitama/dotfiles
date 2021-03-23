@@ -40,10 +40,10 @@
 (defadvice helm-buffers-sort-transformer (around ignore activate)
   (setq ad-return-value (ad-get-arg 0)))
 ;; hide directory ..
-(advice-add 'helm-ff-filter-candidate-one-by-one
-        :around (lambda (fcn file)
-                  (unless (string-match "\\(?:/\\|\\`\\)\\.\\{2\\}\\'" file)
-                    (funcall fcn file))))
+;; (advice-add 'helm-ff-filter-candidate-one-by-one
+;;         :around (lambda (fcn file)
+;;                   (unless (string-match "\\(?:/\\|\\`\\)\\.\\{2\\}\\'" file)
+;;                     (funcall fcn file))))
 
 (setq helm-mini-default-sources '(helm-source-buffers-list
                                   helm-source-recentf

@@ -7,7 +7,7 @@
 
 # thesaitama@ .bashrc
 
-# Last Update: 2019-10-14 20:49:33
+# Last Update: 2021-03-23 22:40:26
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -38,7 +38,7 @@ alias emacs='emacsclient -nw -a ""'
 alias minimacs='\emacs -q -l ~/dotfiles/elisp/init-minimacs.el'
 alias ekill='emacsclient -e "(kill-emacs)"'
 
-alias ls='ls -avhpl --color'
+alias ls='ls -avhpl'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 

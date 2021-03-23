@@ -132,7 +132,7 @@ This is to `put' what `defalias' is to `fset'."
     jedi
     elpy
     omnisharp
-    ensime
+    ;; ensime
     go-mode
     go-eldoc
     go-autocomplete
@@ -219,12 +219,13 @@ This is to `put' what `defalias' is to `fset'."
     helm-google
     xah-lookup
     howdoi
-    qiita
+    ;; qiita
     yagist
     xclip
     osx-clipboard
     xterm-color
     uimage
+    terraform-mode
     )
   "Packages to be installed.")
 

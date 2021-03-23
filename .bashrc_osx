@@ -19,6 +19,8 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 export PATH=/usr/local/bin:$PATH
 export HOMEBREW_NO_EMOJI=1
 
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+
 # ------------------------------------------------------------------------
 # MacOSX old Devloper Tools
 # > xcode-select --install

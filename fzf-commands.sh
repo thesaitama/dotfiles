@@ -175,8 +175,8 @@ z() {
 # Mac OSX Only
 
 if [ "$(uname)" == 'Darwin' ]; then
-  # app - osx appluncher
-  app() {
+  # app - osx appluncher (old)
+  uapp() {
     app_path=$(find /Applications -maxdepth 3 -type d |
                  grep '\.app$' |
                  sed 's/\/Applications\///' |
@@ -197,6 +197,30 @@ if [ "$(uname)" == 'Darwin' ]; then
                  fzf --query="$1" --prompt="App > " --exit-0)
     if [ -n "$app_path" ]; then
       open -a "/System/Applications/$app_path.app"
+      # in emacs terminal excute and exit
+      [ $TERM == 'eterm-color' ] && exit
+    fi
+  }
+  # app - osx appluncher (old)
+  app() {
+    sapp_path=$(find /System/Applications -maxdepth 3 -type d |
+                 grep '\.app$' |
+                 sed 's/\/System\/Applications\///' |
+                 sed 's/\.app$//' |
+                 sed 's/^/S::/')
+    uapp_path=$(find /Applications -maxdepth 3 -type d |
+                 grep '\.app$' |
+                 sed 's/\/Applications\///' |
+                 sed 's/\.app$//' |
+                 sed 's/^/U::/')
+    app_path=$(echo -e "$sapp_path\n$uapp_path" | fzf --query="$1" --prompt="App > " --exit-0)
+    if [ -n "$app_path" ]; then
+      open_path=$(echo "$app_path" |
+                     sed 's/S::/\/System\/Applications\//' |
+                     sed 's/U::/\/Applications\//'
+                )
+      # echo "$open_path"
+      open -a "$open_path.app"
       # in emacs terminal excute and exit
       [ $TERM == 'eterm-color' ] && exit
     fi

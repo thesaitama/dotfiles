@@ -691,12 +691,12 @@
 (set-variable 'markdown-italic-underscore nil)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
-(add-hook 'markdown-mode-hook
-          '(lambda ()
-             (add-hook 'before-save-hook 'markdown-toc-refresh-toc)
-             (set-variable 'markdown-toc-header-toc-start "<!-- TOC -->")
-             (set-variable 'markdown-toc-header-toc-end "<!-- /TOC -->")
-             (set (make-local-variable 'whitespace-action) nil)))
+;; (add-hook 'markdown-mode-hook
+;;           '(lambda ()
+;;              (add-hook 'before-save-hook 'markdown-toc-refresh-toc)
+;;              (set-variable 'markdown-toc-header-toc-start "<!-- TOC -->")
+;;              (set-variable 'markdown-toc-header-toc-end "<!-- /TOC -->")
+;;              (set (make-local-variable 'whitespace-action) nil)))
 
 ;; ------------------------------------------------------------------------
 ;; rst-mode

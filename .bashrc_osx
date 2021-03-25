@@ -77,12 +77,6 @@ if [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.ba
   source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
 fi
 
-# Qt4
-test -d /usr/local/Qt4.8 && export QTDIR=/usr/local/Qt4.8 &&
-  export PATH=$QTDIR/bin:$PATH &&
-  export QMAKESPEC=$QTDIR/mkspecs/macx-xcode &&
-  export QMAKESPEC=$QTDIR/mkspecs/macx-g++
-
 # MySQL
 test -d /usr/local/mysql && export export PATH=/usr/local/mysql/bin:$PATH
 

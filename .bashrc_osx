@@ -88,15 +88,3 @@ test -d /usr/local/mysql && export export PATH=/usr/local/mysql/bin:$PATH
 
 # iTerm shell integration
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-
-# ------------------------------------------------------------------------
-# NAOqi SDK
-
-# test -d /usr/local/bin/naoqi && export PYTHONPATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/python2.7/site-packages:$PYTHONPATH &&
-#   export DYLD_LIBRARY_PATH=/usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib:$DYLD_LIBRARY_PATH
-#
-# > ln -s /usr/local/bin/naoqi/pynaoqi-python2.7-2.5.5.5-mac64/lib/* /usr/local/lib
-
-alias snao='dns-sd -B _naoqi._tcp'
-alias mdlk='dns-sd -q'
-# > dns-sd -B _nao._tcp

@@ -226,6 +226,10 @@ This is to `put' what `defalias' is to `fset'."
     xterm-color
     uimage
     terraform-mode
+    websocket
+    web-server
+    uuidgen
+    markdown-preview-mode
     )
   "Packages to be installed.")
 

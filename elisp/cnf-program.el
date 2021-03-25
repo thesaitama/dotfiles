@@ -698,6 +698,8 @@
 ;;              (set-variable 'markdown-toc-header-toc-end "<!-- /TOC -->")
 ;;              (set (make-local-variable 'whitespace-action) nil)))
 
+(setq markdown-preview-stylesheets (list "github.css"))
+
 ;; ------------------------------------------------------------------------
 ;; rst-mode
 

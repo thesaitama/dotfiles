@@ -188,19 +188,6 @@ if [ "$(uname)" == 'Darwin' ]; then
       [ $TERM == 'eterm-color' ] && exit
     fi
   }
-  # for Catalina (add hoc)
-  sapp() {
-    app_path=$(find /System/Applications -maxdepth 3 -type d |
-                 grep '\.app$' |
-                 sed 's/\/System\/Applications\///' |
-                 sed 's/\.app$//' |
-                 fzf --query="$1" --prompt="App > " --exit-0)
-    if [ -n "$app_path" ]; then
-      open -a "/System/Applications/$app_path.app"
-      # in emacs terminal excute and exit
-      [ $TERM == 'eterm-color' ] && exit
-    fi
-  }
   # app - osx appluncher (old)
   app() {
     sapp_path=$(find /System/Applications -maxdepth 3 -type d |

@@ -21,3 +21,13 @@ export LDFLAGS="-L/usr/local/opt/tcl-tk/lib"
 export CPPFLAGS="-I/usr/local/opt/tcl-tk/include"
 export PKG_CONFIG_PATH="/usr/local/opt/tcl-tk/lib/pkgconfig"
 export PYTHON_CONFIGURE_OPTS="--with-tcltk-includes='-I/usr/local/opt/tcl-tk/include' --with-tcltk-libs='-L/usr/local/opt/tcl-tk/lib -ltcl8.6 -ltk8.6'"
+
+# qt5
+export PATH=/usr/local/opt/qt@5/bin:$PATH
+
+# For compilers to find qt@5 you may need to set:
+#   export LDFLAGS="-L/usr/local/opt/qt@5/lib"
+#   export CPPFLAGS="-I/usr/local/opt/qt@5/include"
+
+# For pkg-config to find qt@5 you may need to set:
+#   export PKG_CONFIG_PATH="/usr/local/opt/qt@5/lib/pkgconfig"

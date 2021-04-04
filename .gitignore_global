@@ -5,6 +5,8 @@
 
 .cache
 
+.markdown-preview.html
+
 # gtags
 GPATH
 GRTAGS

@@ -188,7 +188,7 @@ if [ "$(uname)" == 'Darwin' ]; then
       [ $TERM == 'eterm-color' ] && exit
     fi
   }
-  # app - osx appluncher (old)
+  # app - osx appluncher
   app() {
     sapp_path=$(find /System/Applications -maxdepth 3 -type d |
                  grep '\.app$' |
@@ -206,7 +206,6 @@ if [ "$(uname)" == 'Darwin' ]; then
                      sed 's/S::/\/System\/Applications\//' |
                      sed 's/U::/\/Applications\//'
                 )
-      # echo "$open_path"
       open -a "$open_path.app"
       # in emacs terminal excute and exit
       [ $TERM == 'eterm-color' ] && exit

@@ -267,11 +267,27 @@
 ;; json-mode
 
 (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
+(defun setup-json-mode ()
+  "Setup json-mode."
+  (flycheck-mode t)
+  (flyspell-prog-mode)
+  )
+(add-hook 'json-mode-hook #'setup-json-mode)
 
 ;; ------------------------------------------------------------------------
 ;; yaml-mode
 
 (add-to-list 'auto-mode-alist '("\\.y[a]?ml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.tmpl$" . yaml-mode))
+(defun setup-yaml-mode ()
+  "Setup yaml-mode."
+  (flycheck-mode t)
+  (flyspell-prog-mode)
+  (highlight-indentation-mode)
+  (highlight-indentation-current-column-mode)
+  (setq highlight-indentation-set-offset 2)
+  )
+(add-hook 'yaml-mode-hook #'setup-yaml-mode)
 
 ;; ------------------------------------------------------------------------
 ;; typescript (tide + company-mode)
@@ -691,14 +707,17 @@
 (set-variable 'markdown-italic-underscore nil)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
-;; (add-hook 'markdown-mode-hook
-;;           '(lambda ()
-;;              (add-hook 'before-save-hook 'markdown-toc-refresh-toc)
-;;              (set-variable 'markdown-toc-header-toc-start "<!-- TOC -->")
-;;              (set-variable 'markdown-toc-header-toc-end "<!-- /TOC -->")
-;;              (set (make-local-variable 'whitespace-action) nil)))
-
-(setq markdown-preview-stylesheets (list "github.css"))
+(defun setup-markdown-mode ()
+  "Setup markdown-mode."
+  ;; (add-hook 'before-save-hook 'markdown-toc-refresh-toc)
+  ;; (set-variable 'markdown-toc-header-toc-start "<!-- TOC -->")
+  ;; (set-variable 'markdown-toc-header-toc-end "<!-- /TOC -->")
+  (flycheck-mode t)
+  (flyspell-prog-mode)
+  (set (make-local-variable 'whitespace-action) nil)
+  (setq markdown-preview-stylesheets (list "github.css"))
+  )
+(add-hook 'markdown-mode-hook #'setup-markdown-mode)
 
 ;; ------------------------------------------------------------------------
 ;; rst-mode

@@ -62,10 +62,5 @@ alias firefox='open -a firefox'
 alias finderShowH='defaults write com.apple.finder ShowAllFiles TRUE'
 alias finderHideH='defaults write com.apple.finder ShowAllFiles FALSE'
 
-# git
-if [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ]; then
-  source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
-fi
-
 # iTerm shell integration
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"

@@ -12,6 +12,13 @@
 export PATH=/usr/local/bin:$PATH
 export HOMEBREW_NO_EMOJI=1
 
+# completion
+# > brew insall bash-completion
+## bash
+[ -f "/usr/local/etc/profile.d/bash_completion.sh" ] && . "/usr/local/etc/profile.d/bash_completion.sh"
+# docker option
+# curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/bash/docker-compose > /usr/local/etc/bash_completion.d/docker-compose
+
 # nodebrew
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 

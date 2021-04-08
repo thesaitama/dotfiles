@@ -121,6 +121,8 @@
  '(helm-source-header ((t (:background "DarkCyan" :foreground "white"))))
  '(helm-visible-mark ((t (:background "Gray40"))))
  '(highlight-symbol-face ((t (:background "Gray25"))))
+ '(highlight-indentation-face ((t (:background "Gray25"))))
+ '(highlight-indentation-current-column-face ((t (:background "Gray40"))))
  '(hl-line ((t (:background "Gray19"))))
  '(holiday ((t (:background "pink" :foreground "black"))))
  '(hs-face ((t (:background "Gray40"))))

@@ -144,7 +144,7 @@ ftpane() {
   target_pane=$(echo $target | awk 'BEGIN{FS=":|-"} {print$2}' | cut -c 1)
 
   if [[ $current_window -eq $target_window ]]; then
-    tmux select-pane -t ${target_window}.${target_pane}
+    tmux select-pane -t ${target_window}.${target_pane} 
   else
     tmux select-pane -t ${target_window}.${target_pane} &&
     tmux select-window -t $target_window
@@ -183,7 +183,7 @@ if [ "$(uname)" == 'Darwin' ]; then
                  sed 's/\.app$//' |
                  fzf --query="$1" --prompt="App > " --exit-0)
     if [ -n "$app_path" ]; then
-      open -a "/Applications/$app_path.app"
+      open -a "/Applications/$app_path.app" && exit
       # in emacs terminal excute and exit
       [ $TERM == 'eterm-color' ] && exit
     fi
@@ -206,7 +206,7 @@ if [ "$(uname)" == 'Darwin' ]; then
                      sed 's/S::/\/System\/Applications\//' |
                      sed 's/U::/\/Applications\//'
                 )
-      open -a "$open_path.app"
+      open -a "$open_path.app" && exit
       # in emacs terminal excute and exit
       [ $TERM == 'eterm-color' ] && exit
     fi

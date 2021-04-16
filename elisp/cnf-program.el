@@ -7,6 +7,16 @@
 ;;; Code:
 
 ;; ------------------------------------------------------------------------
+;; elisp-mode
+
+(defun setup-lisp-mode ()
+  "Setup lisp-mode."
+  (flyspell-prog-mode)
+  )
+(add-hook 'emacs-lisp-mode-hook #'setup-lisp-mode)
+(add-hook 'lisp-mode-hook #'setup-lisp-mode)
+
+;; ------------------------------------------------------------------------
 ;; editorconfig-mode
 
 (editorconfig-mode 1)
@@ -23,7 +33,7 @@
 (add-hook 'eval-expression-minibuffer-setup-hook 'eldoc-mode)
 
 ;; ------------------------------------------------------------------------
-;; docker-filemode
+;; dockerfile-mode
 
 (autoload 'dockerfile-mode "dockerfile-mode" nil t)
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))

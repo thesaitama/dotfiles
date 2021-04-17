@@ -32,7 +32,7 @@ fi
 # ------------------------------------------------------------------------
 # MacPorts
 
-if type "port" > /dev/null 2>&1; then
+if [ -f /opt/local/bin/port ]; then
   if [ -f ~/dotfiles/.bashrc_osx-mp ]; then
     source ~/dotfiles/.bashrc_osx-mp
   fi

@@ -30,5 +30,3 @@ test -d /opt/local && export PATH=/opt/local/bin:/opt/local/sbin:$PATH &&
 # > sudo port uninstall inactive
 # > sudo port -u upgrade outdated
 
-# MySQL
-test -d /usr/local/mysql && export export PATH=/usr/local/mysql/bin:$PATH

@@ -18,13 +18,18 @@ tm() {
   if [ $? -eq 1 -a -z "$TMUX" ]; then
     tmux
   elif [ -z "$TMUX" ]; then
-    target=$(tmux list-sessions |
-               fzf -0 --no-sort --tac +m --exit-0 |
-               perl -pe 's/^([0-9]+).+$/$1/g;')
-    if [ -n "$target" ]; then
-      tmux a -t ${target}
+    if which fzf >/dev/null 2>&1; then
+      target=$(tmux list-sessions |
+                 fzf -0 --no-sort --tac +m --exit-0 |
+                 perl -pe 's/^([0-9]+).+$/$1/g;')
+      if [ -n "$target" ]; then
+        tmux a -t ${target}
+      else
+        tmux new-session
+      fi
     else
-      tmux new-session
+      # if fzf is not installed
+      tmux a
     fi
   else
     echo "prevent nested TMUX sessions. :-P"

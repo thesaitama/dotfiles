@@ -28,6 +28,11 @@
 ;; (setq edconf-exec-path "/opt/local/bin/editorconfig")
 
 ;; ------------------------------------------------------------------------
+;; webservers
+
+(add-to-list 'auto-mode-alist '("/nginx/sites-\\(?:available\\|enabled\\)/" . nginx-mode))
+
+;; ------------------------------------------------------------------------
 ;; eldoc-mode
 
 (add-hook 'eval-expression-minibuffer-setup-hook 'eldoc-mode)

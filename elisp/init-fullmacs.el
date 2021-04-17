@@ -208,6 +208,8 @@ This is to `put' what `defalias' is to `fset'."
     gitignore-mode
     vimrc-mode
     x509-mode
+    apache-mode
+    nginx-mode
     w3m
     mew
     wanderlust

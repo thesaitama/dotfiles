@@ -730,7 +730,7 @@
   (flycheck-mode t)
   (flyspell-prog-mode)
   (set (make-local-variable 'whitespace-action) nil)
-  (setq markdown-preview-stylesheets (list "github.css"))
+  (set-variable 'markdown-preview-stylesheets (list "~/dotfiles/github.css"))
   )
 (add-hook 'markdown-mode-hook #'setup-markdown-mode)
 

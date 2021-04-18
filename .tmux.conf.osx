@@ -43,4 +43,7 @@ set -g status-right " #(tmux-status-git)#(tmux-status-load)#(tmux-status-mac)#(t
 # OSX App
 
 if-shell -b '[ "$(echo "$TMUX_VERSION >= 3.2" | bc)" = 1 ]' \
-    "bind A run 'tmux popup -w60% -h30% -E \"source ~/.bashrc; app\"'"
+    "bind A run 'tmux popup -w60% -h12 -E \"source ~/.bashrc; app\"'"
+
+if-shell -b '[ "$(echo "$TMUX_VERSION >= 3.2" | bc)" = 1 ]' \
+    "bind B run 'tmux popup -w60% -h12 -E \"source ~/.bashrc; b\"'"

@@ -16,6 +16,10 @@
 
 (when (require 'google-translate nil t)
 
+  ;; Quick fix 27.1
+  ;; https://github.com/atykhonov/google-translate/issues/52
+  (defun google-translate--search-tkk () "Search TKK." (list 430675 2721866130))
+
   ;; https://solist.work/blog/posts/google-translate/
   (defun chromium-translate ()
     "Open google translate with chromium."

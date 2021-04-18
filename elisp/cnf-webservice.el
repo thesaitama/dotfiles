@@ -15,10 +15,43 @@
 ;; [google] google-translate
 
 (when (require 'google-translate nil t)
-  (setq google-translate-default-source-language "ja")
-  (setq google-translate-default-target-language "en")
-  (setq google-translate-base-url "https://translate.google.com/translate_a/single")
-  (setq google-translate--tkk-url "https://translate.google.com/")
+
+  ;; https://solist.work/blog/posts/google-translate/
+  (defun chromium-translate ()
+    "Open google translate with chromium."
+    (interactive)
+    (if (use-region-p)
+        (let ((string (buffer-substring-no-properties (region-beginning) (region-end))))
+	      (deactivate-mark)
+	      (if (string-match (format "\\`[%s]+\\'" "[:ascii:]") string)
+	          (browse-url (concat "https://translate.google.com/?source=gtx#en/ja/"
+				                  (url-hexify-string string)))
+	        (browse-url (concat "https://translate.google.com/?source=gtx#ja/en/"
+			                    (url-hexify-string string)))))
+      (let ((string (read-string "Google Translate: ")))
+        (if (string-match
+	         (format "\\`[%s]+\\'" "[:ascii:]") string)
+	        (browse-url
+	         (concat "https://translate.google.com/?source=gtx#en/ja/" (url-hexify-string string)))
+	      (browse-url
+	       (concat "https://translate.google.com/?source=gtx#ja/en/" (url-hexify-string string))))))
+    )
+  (defvar toggle-translate-flg nil "Toggle Google Translate flag.")
+  (defun toggle-translate ()
+    "Toggle translate function."
+    (interactive)
+    (if toggle-translate-flg
+        (progn
+          (global-set-key (kbd "M-g t") 'google-translate-enja-or-jaen)
+	      (setq toggle-translate-flg nil))
+      (progn
+        (global-set-key (kbd "M-g t") 'chromium-translate)
+        (setq toggle-translate-flg t))))
+
+  (set-variable 'google-translate-default-source-language "ja")
+  (set-variable 'google-translate-default-target-language "en")
+  (set-variable 'google-translate-base-url "https://translate.google.com/translate_a/single")
+  (set-variable 'google-translate--tkk-url "https://translate.google.com/")
   ;; (setq google-translate--tkk-debug t)
 
   (defvar google-translate-english-chars "[:ascii:]’“”–"

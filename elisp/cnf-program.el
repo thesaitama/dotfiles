@@ -686,7 +686,6 @@
 ;; > sed -i -e "s/pygments-parser\.la/pygments-parser.so/g" ~/.globalrc
 
 ;; ------------------------------------------------------------------------
-;; auto-complete-nxml
 ;; nxml-mode
 
 (eval-after-load 'nxml-mode
@@ -695,6 +694,10 @@
      ))
 (add-to-list 'auto-mode-alist '("web.config$" . nxml-mode))
 
+;; ------------------------------------------------------------------------
+;; toml-mode
+
+(add-to-list 'auto-mode-alist '("Pipfile$" . toml-mode))
 
 ;; ------------------------------------------------------------------------
 ;; plantuml-mode

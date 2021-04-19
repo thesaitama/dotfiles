@@ -8,7 +8,7 @@
 
 # thesaitama@ .bashrc
 
-# Last Update: 2021-04-18 07:34:16
+# Last Update: 2021-04-19 21:00:30
 
 # ------------------------------------------------------------------------
 # Env (shell)
@@ -186,6 +186,7 @@ fi
 # > git clone https://github.com/junegunn/fzf.git ~/.fzf
 # > cd ~/.fzf
 # > ./install
+# brew > /usr/local/opt/fzf/install
 
 if [ -f ~/.fzf.bash ]; then
 

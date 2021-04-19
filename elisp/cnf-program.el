@@ -687,11 +687,14 @@
 
 ;; ------------------------------------------------------------------------
 ;; auto-complete-nxml
+;; nxml-mode
 
 (eval-after-load 'nxml-mode
   '(progn
      (when (require 'auto-complete-nxml nil t))
      ))
+(add-to-list 'auto-mode-alist '("web.config$" . nxml-mode))
+
 
 ;; ------------------------------------------------------------------------
 ;; plantuml-mode

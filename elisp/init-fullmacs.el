@@ -77,6 +77,7 @@ This is to `put' what `defalias' is to `fset'."
     package-utils
     0xc
     smooth-scroll
+    smooth-scrolling
     recentf-ext
     elscreen
     add-node-modules-path
@@ -430,10 +431,16 @@ This is to `put' what `defalias' is to `fset'."
 ;; ------------------------------------------------------------------------
 ;; smooth-scroll
 
-(require 'smooth-scroll)
-(smooth-scroll-mode t)
-(setq smooth-scroll/vscroll-step-size 5)
-(setq smooth-scroll/hscroll-step-size 5)
+;; (require 'smooth-scroll)
+;; (smooth-scroll-mode t)
+;; (setq smooth-scroll/vscroll-step-size 5)
+;; (setq smooth-scroll/hscroll-step-size 5)
+
+;; ------------------------------------------------------------------------
+;; smooth-scrolling
+
+(smooth-scrolling-mode 1)
+(set-variable 'smooth-scroll-margin 5)
 
 ;; ------------------------------------------------------------------------
 ;; expand-region

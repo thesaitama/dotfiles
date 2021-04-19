@@ -737,8 +737,8 @@
 ;; ------------------------------------------------------------------------
 ;; rst-mode
 
-;; (when (require 'rst-mode nil t))
-(autoload 'rst-mode "rst-mode" nil t)
+(when (require 'rst-mode nil t))
+;; (autoload 'rst-mode "rst-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\(\\.rst\\|\\.rest\\)$" . rst-mode))
 
 ;; ------------------------------------------------------------------------

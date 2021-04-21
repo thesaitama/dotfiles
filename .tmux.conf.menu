@@ -53,6 +53,7 @@ bind-key P display-menu \
   "Git Viewer (tig)" "" "run 'tmux popup -w80% -h80% -E \"cd #{pane_current_path} ; tig\"'" \
   "CPU Monitor (htop)" "" "run 'tmux popup -w80% -h80% -E \"htop\"'" \
   "Docker Monitor (ctop)" "" "run 'tmux popup -w80% -h80% -E \"ctop\"'" \
+  "LazyDocker" "" "run 'tmux popup -w80% -h80% -E \"lazydocker\"'" \
   "" \
   "Calc (bc)" "" "run 'tmux popup -w60% -h30% -E \"bc\"'" \
   Clock "" clock \

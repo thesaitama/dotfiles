@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2021-04-23 17:40:52
+;; Last Update: 2021-04-23 21:39:23
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -151,6 +151,7 @@
  '(magit-section-heading ((t (:foreground "cyan" :weight bold))))
  '(magit-section-highlight ((t (:background "Gray23"))))
  '(markdown-code-face ((t (:inherit default :background "Gray20"))))
+ '(markdown-markup-face ((t (:foreground "green"))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1))))
  '(markdown-header-face-2 ((t (:inherit outline-2))))

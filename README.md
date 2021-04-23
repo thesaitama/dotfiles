@@ -19,7 +19,7 @@
 
 ## How to install
 
-```bash
+``` bash
 git clone https://github.com/thesaitama/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 sh ./dotfileslink.sh

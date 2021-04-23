@@ -7,9 +7,22 @@
 ;;; Code:
 
 ;; ------------------------------------------------------------------------
+;; newsticker
+
+(setq-default newsticker-retrieval-interval 0)
+(setq-default newsticker-url-list
+              '(("Yahoo" "https://news.yahoo.co.jp/pickup/rss.xml")
+                ("NHK" "https://www3.nhk.or.jp/rss/news/cat0.xml")
+                ("Sankei" "https://www.sankeibiz.jp/rss/news/flash.xml")
+                ))
+;; (setq-default newsticker-url-list-defaults
+;;               '(("" "https://www.sankeibiz.jp/rss/news/flash.xml")))
+(set-variable 'newsticker-html-renderer #'shr-render-region)
+
+;; ------------------------------------------------------------------------
 ;; xah-lookup
 
-(setq xah-lookup-browser-function 'eww)
+(set-variable 'xah-lookup-browser-function 'eww)
 
 ;; ------------------------------------------------------------------------
 ;; [google] google-translate

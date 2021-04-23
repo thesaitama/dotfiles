@@ -373,15 +373,20 @@
 (autoload 'python-mode "python-mode" "Python editing mode." t)
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 (add-to-list 'interpreter-mode-alist '("python" . python-mode))
-(setq gud-pdb-command-name "python -m pdb")
-(setq python-shell-interpreter-args "--simple-prompt --pprint")
+(set-variable 'gud-pdb-command-name "python -m pdb")
+(set-variable 'python-shell-interpreter-args "--simple-prompt --pprint")
 (defun setup-python-mode ()
   "Setup python mode."
+  ;; disable elpy modules
+  (remove-hook 'elpy-modules 'elpy-module-flymake)
+  (remove-hook 'elpy-modules 'highlight-indentation-mode)
   (package-initialize)
   (elpy-enable)
   (elpy-mode)
-  (setq elpy-modules (quote (elpy-module-eldoc elpy-module-yasnippet)))
   (set-variable 'py-use-font-lock-doc-face-p t)
+  (set-variable 'elpy-modules (quote (elpy-module-eldoc elpy-module-yasnippet)))
+  (set-variable 'elpy-rpc-backend "jedi")
+  (set-variable 'jedi:complete-on-dot t) ; optional
   ;; auto-complete
   (setq ac-sources (delete 'ac-source-words-in-same-mode-buffers ac-sources))
   (add-to-list 'ac-sources 'ac-source-jedi-direct)
@@ -390,12 +395,6 @@
 (add-hook 'python-mode-hook #'setup-python-mode)
 
 ;; M-x jedi:install-server
-(setq elpy-rpc-backend "jedi")
-(setq jedi:complete-on-dot t) ; optional
-
-;; disable elpy modules
-(remove-hook 'elpy-modules 'elpy-module-flymake)
-(remove-hook 'elpy-modules 'highlight-indentation-mode)
 
 ;; > sudo port -f install py27-ipython py36-ipython
 ;; > sudo port select --set ipython3 py36-ipython

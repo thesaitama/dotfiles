@@ -734,6 +734,7 @@
   ;; (add-hook 'before-save-hook 'markdown-toc-refresh-toc)
   ;; (set-variable 'markdown-toc-header-toc-start "<!-- TOC -->")
   ;; (set-variable 'markdown-toc-header-toc-end "<!-- /TOC -->")
+  (set-variable 'markdown-fontify-code-blocks-natively t)
   (flycheck-mode t)
   (flyspell-prog-mode)
   (set (make-local-variable 'whitespace-action) nil)

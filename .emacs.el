@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2021-04-23 21:39:23
+;; Last Update: 2021-04-23 22:29:38
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -55,7 +55,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(escape-glyph ((t (:foreground "SkyBlue" :background "Gray25"))))
  '(anzu-mode-line ((t (:foreground "SkyBlue"))))
  '(bm-face ((t (:background "SpringGreen4"))))
  '(bm-fringe-face ((t (:background "SpringGreen4"))))
@@ -103,6 +102,7 @@
  '(elscreen-tab-control-face ((t (:background "Gray20" :foreground "Gray90"))))
  '(elscreen-tab-current-screen-face ((t (:background "Gray80" :foreground "Gray20"))))
  '(elscreen-tab-other-screen-face ((t (:background "Gray25" :foreground "Gray80"))))
+ '(escape-glyph ((t (:foreground "SkyBlue" :background "Gray25"))))
  '(git-gutter:added ((t (:foreground "LimeGreen"))))
  '(git-gutter:delete ((t (:foreground "red"))))
  '(git-gutter:modified ((t (:foreground "LightSkyBlue"))))
@@ -151,7 +151,6 @@
  '(magit-section-heading ((t (:foreground "cyan" :weight bold))))
  '(magit-section-highlight ((t (:background "Gray23"))))
  '(markdown-code-face ((t (:inherit default :background "Gray20"))))
- '(markdown-markup-face ((t (:foreground "green"))))
  '(markdown-header-delimiter-face ((t (:inherit org-mode-line-clock))))
  '(markdown-header-face-1 ((t (:inherit outline-1))))
  '(markdown-header-face-2 ((t (:inherit outline-2))))
@@ -160,7 +159,7 @@
  '(markdown-header-face-5 ((t (:inherit outline-5))))
  '(markdown-header-face-6 ((t (:inherit outline-6))))
  '(markdown-inline-code-face ((t (:inherit font-lock-constant-face))))
- '(markdown-pre-face ((t (:inherit font-lock-constant-face))))
+ '(markdown-markup-face ((t (:foreground "green"))))
  '(menu ((t (:background "Gray30"))))
  '(minibuffer-prompt ((t (:foreground "cyan"))))
  '(mlc-mode-line-char-format ((t (:foreground "Gray90" :background "Gray40"))))
@@ -268,7 +267,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(smooth-scrolling apache-mode nginx-mode add-node-modules-path markdown-toc request json-navigator tuareg vi-tilde-fringe gitignore-mode gitconfig-mode wanderlust flyspell-popup xterm-color uimage esup peep-dired recentf-ext helm-google google-this dumb-jump textile-mode osx-clipboard pippel powershell flycheck-plantuml ssh plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
+   '(edit-indirect smooth-scrolling apache-mode nginx-mode add-node-modules-path markdown-toc request json-navigator tuareg vi-tilde-fringe gitignore-mode gitconfig-mode wanderlust flyspell-popup xterm-color uimage esup peep-dired recentf-ext helm-google google-this dumb-jump textile-mode osx-clipboard pippel powershell flycheck-plantuml ssh plantuml-mode smooth-scroll tide helm-dash vimrc-mode helm-flyspell howdoi google-translate xah-lookup osx-trash japanese-holidays dired-subtree dired-narrow w3m smart-mode-line which-key scratch-pop shell-pop multi-term popwin elscreen emamux magit-find-file magit helm-projectile projectile yagist qiita helm-c-yasnippet yasnippet-snippets restclient-helm restclient helm-bm bm helm-descbinds helm-gtags helm-ag helm-smex imenu-list imenu-anywhere imenus flycheck-popup-tip flycheck elpy jedi python-mode typescript-mode json-mode js2-refactor php-eldoc web-mode rainbow-delimiters rainbow-mode comment-tags undo-tree foreign-regexp highlight-symbol expand-region anzu ac-helm ac-php ac-js2 ac-html quickrun editorconfig sequential-command fuzzy avy pos-tip auto-complete package-utils exec-path-from-shell 0xc)))
 
 ;; ------------------------------------------------------------------------
 

@@ -132,6 +132,7 @@ This is to `put' what `defalias' is to `fset'."
     python-mode
     jedi
     elpy
+    pip-requirements
     omnisharp
     ;; ensime
     go-mode

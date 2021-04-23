@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2021-04-23 10:50:36
+;; Last Update: 2021-04-23 17:40:52
 ;; tested with: Emacs 26.1 (or 22.1), macOS 10.14, Windows 10
 
 ;; install
@@ -55,6 +55,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(escape-glyph ((t (:foreground "SkyBlue" :background "Gray25"))))
  '(anzu-mode-line ((t (:foreground "SkyBlue"))))
  '(bm-face ((t (:background "SpringGreen4"))))
  '(bm-fringe-face ((t (:background "SpringGreen4"))))
@@ -184,9 +185,10 @@
  '(org-agenda-structure ((t (:background "DarkCyan" :foreground "white"))))
  '(org-date ((t (:foreground "LightBlue"))))
  '(org-done ((t (:foreground "LightGreen" :weight bold))))
+ '(org-drawer ((t (:foreground "SkyBlue"))))
  '(org-scheduled ((t (:foreground "green"))))
  '(org-scheduled-today ((t (:foreground "SteelBlue1"))))
- '(org-special-keyword ((t (:foreground "green"))))
+ '(org-special-keyword ((t (:foreground "yellow"))))
  '(org-time-grid ((t (:foreground "Gray70"))))
  '(org-todo ((t (:foreground "LightSkyBlue" :weight bold))))
  '(org-upcoming-deadline ((t (:foreground "HotPink" :weight bold))))

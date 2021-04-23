@@ -217,7 +217,7 @@ if [ "$(uname)" == 'Darwin' ]; then
                  sed 's/\/Applications\///' |
                  sed 's/\.app$//' |
                  sed 's/^/U::/')
-    app_path=$(echo -e "$sapp_path\n$uapp_path" | fzf --query="$1" --prompt="App > " --exit-0)
+    app_path=$(echo "$sapp_path\n$uapp_path" | fzf --query="$1" --prompt="App > " --exit-0)
     if [ -n "$app_path" ]; then
       open_path=$(echo "$app_path" |
                      sed 's/S::/\/System\/Applications\//' |

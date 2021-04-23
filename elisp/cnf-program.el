@@ -692,12 +692,13 @@
   '(progn
      (when (require 'auto-complete-nxml nil t))
      ))
-(add-to-list 'auto-mode-alist '("web.config$" . nxml-mode))
+(add-to-list 'auto-mode-alist '("web\\.config$" . nxml-mode))
 
 ;; ------------------------------------------------------------------------
 ;; toml-mode
 
 (add-to-list 'auto-mode-alist '("Pipfile$" . toml-mode))
+(add-to-list 'auto-mode-alist '("\\.flake8$" . toml-mode))
 
 ;; ------------------------------------------------------------------------
 ;; plantuml-mode

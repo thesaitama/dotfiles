@@ -2,11 +2,20 @@
 
 ## System requirements
 
-* macOS 10.15 / Linux
 * bash 4.4
-* MacPorts
 
-Emacs configuration compatible with Windows 7-10
+### Linux
+
+* Debian / LHE
+
+### Mac
+
+* macOS 10.15, 11
+* brew / MacPorts
+
+### Windows
+
+* Emacs configuration compatible with Windows 7-10
 
 ## How to install
 
@@ -17,21 +26,3 @@ sh ./dotfileslink.sh
 ```
 
 * for Windows Emacs user: simply run `setup-emacs.bat`
-
-## Note
-
-* diff-hignight
-
-```bash
-cd /opt/local/share/git/contrib/diff-highlight/
-sudo make
-sudo ln -s /opt/local/share/git/contrib/diff-highlight/diff-highlight /usr/local/bin/diff-highlight
-```
-
-* ranger
-
-```bash
-sudo port install ranger
-sudo port install mediainfo atool libcaca imlib2 highlight
-ranger --copy-config=all
-```

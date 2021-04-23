@@ -23,6 +23,9 @@ export HOMEBREW_NO_EMOJI=1
 # nodebrew
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 
+# Open JDK
+export PATH=/usr/local/opt/openjdk/bin:$PATH
+
 # tkinter
 export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/tcl-tk/lib"

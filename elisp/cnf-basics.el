@@ -588,6 +588,9 @@
 (autoload 'time-stamp "time-stamp" nil t)
 (add-hook 'before-save-hook 'time-stamp)
 (set-variable 'time-stamp-format " %04y-%02m-%02d %02H:%02M:%02S")
+(if (>= emacs-major-version 26)
+    (set-variable 'time-stamp-format " %Y-%02m-%02d %02H:%02M:%02S")
+)
 (setq time-stamp-start "Last Update:")
 (setq time-stamp-end "$")
 (setq time-stamp-line-limit 15) ; def=8

@@ -35,6 +35,8 @@ test -d /usr/X11R6 && export PATH=/usr/X11R6/bin:$PATH &&
 export EDITOR="vi"
 export EMACS_TRUE_COLOR_SEPARATOR=';'
 
+export PATH="${HOME}/.local/bin:${PATH}"
+
 # ------------------------------------------------------------------------
 # platform check
 # https://qiita.com/b4b4r07/items/09815eda8ef72e0b472e

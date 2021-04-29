@@ -2,10 +2,13 @@
 
 sudo -v
 
+# Show the ~/Library folder
+chflags nohidden ~/Library
+
 # menubar
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
 
-# Disable “natural” (Lion-style) scrolling
+# Disable "natural" (Lion-style) scrolling
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 # Screenshot
@@ -17,9 +20,6 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 2
 
 # Avoid creating .DS_Store files on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
-
-# Show the ~/Library folder
-chflags nohidden ~/Library
 
 # Set the icon size of Dock items to blow pixels
 defaults write com.apple.dock tilesize -int 48
@@ -36,6 +36,9 @@ defaults write com.apple.finder QLEnableTextSelection -bool true
 
 # Prevent Photos from opening automatically when devices are plugged in
 defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
+
+# Enable AptX codec
+defaults write com.apple.BluetoothAudioAgent "Enable AptX codec" -bool true
 
 # Debug Menu
 defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true

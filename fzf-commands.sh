@@ -200,7 +200,7 @@ if [ "$(uname)" == 'Darwin' ]; then
                  sed 's/\.app$//' |
                  fzf --query="$1" --prompt="App > " --exit-0)
     if [ -n "$app_path" ]; then
-      open -a "/Applications/$app_path.app" && exit
+      open -a "/Applications/$app_path.app"
       # in emacs terminal excute and exit
       [ $TERM == 'eterm-color' ] && exit
     fi
@@ -220,11 +220,11 @@ if [ "$(uname)" == 'Darwin' ]; then
     app_path=$(echo "$sapp_path\n$uapp_path" | fzf --query="$1" --prompt="App > " --exit-0)
     if [ -n "$app_path" ]; then
       open_path=$(echo "$app_path" |
-                     sed 's/S::/\/System\/Applications\//' |
-                     sed 's/U::/\/Applications\//'
-                )
-      open -a "$open_path.app" && exit
-      # in emacs terminal excute and exit
+                    sed 's/S::/\/System\/Applications\//' |
+                    sed 's/U::/\/Applications\//')
+      open -a "$open_path.app"
+      # in tmux, emacs terminal excute and exit
+      [ -n "$TMUX" ] && exit
       [ $TERM == 'eterm-color' ] && exit
     fi
   }

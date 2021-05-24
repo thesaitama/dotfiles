@@ -229,8 +229,10 @@ if [ "$(uname)" == 'Darwin' ]; then
                     sed 's/U::/\/Applications\//')
       open -a "$open_path.app"
       # in tmux, emacs terminal excute and exit
-      [ -n "$TMUX" ] && exit
-      [ $TERM == 'eterm-color' ] && exit
+      # [ -n "$TMUX" ] && exit
+      # [ $TERM == 'eterm-color' ] && exit
+      # preventing open command returns not 0
+      :
     fi
   }
 fi

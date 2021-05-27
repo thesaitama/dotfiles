@@ -207,26 +207,38 @@ if [ "$(uname)" == 'Darwin' ]; then
   }
   # app - osx appluncher
   app() {
-    sapp_path=$(find /System/Applications -maxdepth 3 -type d |
+    sapp_list=$(find /System/Applications -maxdepth 3 -type d |
                  grep '\.app$' |
                  sed 's/\/System\/Applications\///' |
                  sed 's/\.app$//' |
                  sed 's/^/S::/')
-    uapp_path=$(find /Applications -maxdepth 3 -type d |
+    aapp_list=$(find /Applications -maxdepth 3 -type d |
                  grep '\.app$' |
                  sed 's/\/Applications\///' |
                  sed 's/\.app$//' |
+                 sed 's/^/A::/')
+    uapp_dest="/Users/$(whoami)/Applications"
+    uapp_dest_sed="s/\/Users\/$(whoami)\/Applications\///"
+    # echo $uapp_dest_sed
+    uapp_list=$(find $uapp_dest -maxdepth 3 -type d |
+                 grep '\.app$' |
+                 sed $uapp_dest_sed |
+                 sed 's/\.app$//' |
                  sed 's/^/U::/')
+    # echo -e $uapp_list
     app_path=""
     if [ -n "$TMUX" ];then
-      app_path=$(echo "$sapp_path\n$uapp_path" | fzf --query="$1" --prompt="App > " --exit-0)
+      app_path=$(echo -e "$sapp_list\n$aapp_list\n$uapp_list" | fzf --query="$1" --prompt="App > " --exit-0)
     else
-      app_path=$(echo -e "$sapp_path\n$uapp_path" | fzf --query="$1" --prompt="App > " --exit-0)
+      app_path=$(echo "$sapp_list$aapp_list$uapp_list" | fzf --query="$1" --prompt="App > " --exit-0)
     fi
     if [ -n "$app_path" ]; then
+      open_path_u="s/U::/\/Users\/$(whoami)\/Applications\//"
       open_path=$(echo "$app_path" |
                     sed 's/S::/\/System\/Applications\//' |
-                    sed 's/U::/\/Applications\//')
+                    sed 's/A::/\/Applications\//' |
+                    sed $open_path_u)
+      # echo $open_path
       open -a "$open_path.app"
       # in tmux, emacs terminal excute and exit
       # [ -n "$TMUX" ] && exit

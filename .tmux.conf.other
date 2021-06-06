@@ -23,20 +23,8 @@ bind o run-shell "xdg-open '#{pane_current_path}'"
 # ------------------------------------------------------------------------
 # copy-mode
 
-unbind -T copy-mode 'C-w'
-unbind -T copy-mode 'M-w'
-unbind -T copy-mode Enter
-
-bind -T copy-mode 'C-w' send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c "
-bind -T copy-mode 'M-w' send -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
-bind -T copy-mode Enter send -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
-bind -T copy-mode MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
-bind y run "$(xclip -o -selection clipboard) | tmux load-buffer - && tmux paste-buffer"
-
-# it seems needless
-# bind-key -n C-y run "xclip -o | tmux load-buffer - ; tmux paste-buffer"
-
-# > sudo apt-get install xclip
+if-shell -b '[ "$(echo "$TMUX_VERSION >= 2.4" | bc)" = 1 ]' \
+    "source-file ~/dotfiles/.tmux.conf.other.cpm"
 
 # ------------------------------------------------------------------------
 # status

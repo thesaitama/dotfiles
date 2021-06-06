@@ -1,0 +1,29 @@
+
+#   ________  _____  ___  __
+#  /_  __/  |/  / / / / |/ /
+#   / / / /|_/ / / / /|   /
+#  / / / /  / / /_/ //   |
+# /_/ /_/  /_/\____//_/|_|
+
+# thesaitama@ .tmux.conf.other
+
+# other OS (copy mode 2.4)
+
+# ------------------------------------------------------------------------
+# copy-mode
+
+unbind -T copy-mode 'C-w'
+unbind -T copy-mode 'M-w'
+unbind -T copy-mode Enter
+
+bind -T copy-mode 'C-w' send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c "
+bind -T copy-mode 'M-w' send -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
+bind -T copy-mode Enter send -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
+bind -T copy-mode MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
+bind y run "$(xclip -o -selection clipboard) | tmux load-buffer - && tmux paste-buffer"
+
+# it seems needless
+# bind-key -n C-y run "xclip -o | tmux load-buffer - ; tmux paste-buffer"
+
+# > sudo apt-get install xclip
+

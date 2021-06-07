@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2021-06-06 23:26:48
+;; Last Update: 2021-06-07 22:46:48
 ;; tested with: Emacs 26.1-27.2 (or 22.1), macOS 11.3, Windows 10
 
 ;; install

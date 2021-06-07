@@ -149,7 +149,7 @@ This is to `put' what `defalias' is to `fset'."
     ess
     ess-R-data-view
     haskell-mode
-    company-ghc
+    company-ghci
     tuareg
     powershell
     vbasense

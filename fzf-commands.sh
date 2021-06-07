@@ -226,12 +226,7 @@ if [ "$(uname)" == 'Darwin' ]; then
                  sed 's/\.app$//' |
                  sed 's/^/U::/')
     # echo -e $uapp_list
-    app_path=""
-    if [ -n "$TMUX" ];then
-      app_path=$(echo -e "$sapp_list\n$aapp_list\n$uapp_list" | fzf --query="$1" --prompt="App > " --exit-0)
-    else
-      app_path=$(echo "$sapp_list$aapp_list$uapp_list" | fzf --query="$1" --prompt="App > " --exit-0)
-    fi
+    app_path=$(echo -e "$sapp_list\n$aapp_list\n$uapp_list" | fzf --query="$1" --prompt="App > " --exit-0)
     if [ -n "$app_path" ]; then
       open_path_u="s/U::/\/Users\/$(whoami)\/Applications\//"
       open_path=$(echo "$app_path" |

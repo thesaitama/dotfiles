@@ -171,8 +171,8 @@ This is to `put' what `defalias' is to `fset'."
     helm-gtags
     helm-descbinds
     helm-flyspell
-    helm-elscreen
     helm-dash
+    ;; helm-elscreen
     ac-helm
     auto-complete-nxml
     plantuml-mode

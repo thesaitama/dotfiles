@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2021-06-09 11:40:11
+;; Last Update: 2021-06-09 20:37:03
 ;; tested with: Emacs 26.1-27.2 (or 22.1), macOS 11.3, Windows 10
 
 ;; install
@@ -99,12 +99,12 @@
  '(ediff-odd-diff-Ancestor ((t (:foreground "white" :background "Gray25"))))
  '(ediff-odd-diff-B ((t (:foreground "white" :background "Gray35"))))
  '(ediff-odd-diff-C ((t (:foreground "white" :background "Gray40"))))
- '(smerge-upper ((t (:foreground "black" :background "LimeGreen"))))
- '(smerge-lower ((t (:foreground "black" :background "red"))))
- '(smerge-base((t (:foreground "black" :background "orange"))))
+ '(smerge-upper ((t (:background "Gray20"))))
+ '(smerge-lower ((t (:background "Gray25"))))
+ '(smerge-base((t (:background "Gray15"))))
  '(smerge-refined-added ((t (:foreground "white" :background "DarkCyan"))))
  '(smerge-refined-removed ((t (:foreground "white" :background "red"))))
- '(smerge-refined-changed ((t (:background "Gray24"))))
+ '(smerge-refined-changed ((t (:background "Gray30"))))
  '(smerge-markers ((t (:background "Gray40"))))
  '(ein:cell-input-area ((t (:background "Gray22"))))
  '(ein:cell-output-area ((t (:background "Gray10"))))

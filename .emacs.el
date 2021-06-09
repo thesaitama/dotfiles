@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2021-06-07 22:46:48
+;; Last Update: 2021-06-09 11:40:11
 ;; tested with: Emacs 26.1-27.2 (or 22.1), macOS 11.3, Windows 10
 
 ;; install
@@ -99,6 +99,13 @@
  '(ediff-odd-diff-Ancestor ((t (:foreground "white" :background "Gray25"))))
  '(ediff-odd-diff-B ((t (:foreground "white" :background "Gray35"))))
  '(ediff-odd-diff-C ((t (:foreground "white" :background "Gray40"))))
+ '(smerge-upper ((t (:foreground "black" :background "LimeGreen"))))
+ '(smerge-lower ((t (:foreground "black" :background "red"))))
+ '(smerge-base((t (:foreground "black" :background "orange"))))
+ '(smerge-refined-added ((t (:foreground "white" :background "DarkCyan"))))
+ '(smerge-refined-removed ((t (:foreground "white" :background "red"))))
+ '(smerge-refined-changed ((t (:background "Gray24"))))
+ '(smerge-markers ((t (:background "Gray40"))))
  '(ein:cell-input-area ((t (:background "Gray22"))))
  '(ein:cell-output-area ((t (:background "Gray10"))))
  '(elscreen-tab-background-face ((t (:background "Gray10" :foreground "Gray90"))))
@@ -220,7 +227,6 @@
  '(show-paren-match-expression ((t (:background "Gray25"))))
  '(show-paren-match-face ((t (:background "black" :foreground "white"))))
  '(show-paren-mismatch ((t (:background "red"))))
- '(smerge-markers ((t (:background "Gray40"))))
  '(sml/col-number ((t (:foreground "Gray75"))))
  '(sml/folder ((t (:foreground "White"))))
  '(sml/git ((t (:foreground "LightBlue"))))

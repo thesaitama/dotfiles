@@ -110,9 +110,12 @@
 ;; ------------------------------------------------------------------------
 ;; flycheck
 
+(require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (set-variable 'flycheck-idle-change-delay 3)  ; important
 (set-variable 'flycheck-display-errors-delay 0.5)
+(flycheck-add-mode 'javascript-eslint 'web-mode)
+;; (flycheck-add-mode 'html-tidy 'web-mode)
 
 ;; ------------------------------------------------------------------------
 ;; cc-mode (built-in)
@@ -220,7 +223,14 @@
   ;; (auto-complete-mode t)
   (add-node-modules-path)
   (emmet-mode)
-  (ac-emmet-html-setup))
+  (ac-emmet-html-setup)
+  (cond
+     ;; ((string= web-mode-content-type "html")
+     ;;  (when (executable-find "tidy") (flycheck-select-checker 'html-tidy)))
+     ((or (string= web-mode-content-type "javascript") (string= web-mode-content-type "jsx"))
+      (when (executable-find "eslint") (flycheck-select-checker 'javascript-eslint))
+      (prettier-js-mode)))
+  )
 (add-hook 'web-mode-hook 'web-mode-setup)
 (add-hook 'web-mode-before-auto-complete-hooks
           '(lambda ()

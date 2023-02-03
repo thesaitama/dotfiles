@@ -206,8 +206,8 @@ This is to `put' what `defalias' is to `fset'."
     peep-dired
     japanese-holidays
     osx-trash
-    gitconfig-mode
-    gitignore-mode
+    ;; gitconfig-mode
+    ;; gitignore-mode
     vimrc-mode
     x509-mode
     apache-mode
@@ -221,7 +221,7 @@ This is to `put' what `defalias' is to `fset'."
     google-this
     google-translate
     helm-google
-    xah-lookup
+    ;; xah-lookup
     howdoi
     ;; qiita
     yagist
@@ -730,18 +730,18 @@ This is to `put' what `defalias' is to `fset'."
 ;; ------------------------------------------------------------------------
 ;; os switch
 
-(cond ((equal system-type 'gnu/linux)
-       (load-if-exist "~/dotfiles/elisp/cnf-linux.el")
-       (load-if-exist "~/dotfiles/elisp/cnf-browser.el")
-       )
-      ((equal system-type 'windows-nt)
-       (load-if-exist "~/dotfiles/elisp/cnf-windows-nt.el")
-       )
-      ((equal system-type 'darwin)
-       (load-if-exist "~/dotfiles/elisp/cnf-osx.el")
-       (load-if-exist "~/dotfiles/elisp/cnf-browser.el")
-       )
-      )
+;; (cond ((equal system-type 'gnu/linux)
+;;        (load-if-exist "~/dotfiles/elisp/cnf-linux.el")
+;;       (load-if-exist "~/dotfiles/elisp/cnf-browser.el")
+;;        )
+;;       ((equal system-type 'windows-nt)
+;;        (load-if-exist "~/dotfiles/elisp/cnf-windows-nt.el")
+;;        )
+;;       ((equal system-type 'darwin)
+;;        (load-if-exist "~/dotfiles/elisp/cnf-osx.el")
+;;        (load-if-exist "~/dotfiles/elisp/cnf-browser.el")
+;;        )
+;;       )
 
 ;; ------------------------------------------------------------------------
 ;; shell-mode
@@ -864,34 +864,34 @@ This is to `put' what `defalias' is to `fset'."
 
 (setq emamux:completing-read-type 'helm)
 
-;; ------------------------------------------------------------------------
-;; scratch-pop
+;; ;; ------------------------------------------------------------------------
+;; ;; scratch-pop
 
-;; http://emacs.rubikitch.com/scratch-pop/
+;; ;; http://emacs.rubikitch.com/scratch-pop/
 
-(require 'scratch-pop)
-(global-set-key (kbd "C-c c") 'scratch-pop)
+;; (require 'scratch-pop)
+;; (global-set-key (kbd "C-c c") 'scratch-pop)
 
-(define-minor-mode scratch-ext-minor-mode
-  "minor mode for *scratch* buffer"
-  nil ""
-  '(("\C-c\C-c" . scratch-pop-kill-ring-save-exit)
-    ("\C-c\C-e" . erase-buffer)))
+;; (define-minor-mode scratch-ext-minor-mode
+;;   "minor mode for *scratch* buffer"
+;;   nil ""
+;;   '(("\C-c\C-c" . scratch-pop-kill-ring-save-exit)
+;;     ("\C-c\C-e" . erase-buffer)))
 
-(with-current-buffer (get-buffer-create "*scratch*")
-  (ignore-errors
-    (insert-file-contents auto-save-buffers-enhanced-file-related-with-scratch-buffer))
-  (setq header-line-format "scratch!!")
-  (scratch-ext-minor-mode 1))
+;; (with-current-buffer (get-buffer-create "*scratch*")
+;;   (ignore-errors
+;;     (insert-file-contents auto-save-buffers-enhanced-file-related-with-scratch-buffer))
+;;   (setq header-line-format "scratch!!")
+;;   (scratch-ext-minor-mode 1))
 
-(defun scratch-pop-kill-ring-save-exit ()
-  "When close *scratch* buffer save to `kill-ring`."
-  (interactive)
-  (kill-new (buffer-string))
-  (erase-buffer)
-  (funcall (if (fboundp 'popwin:close-popup-window)
-               'popwin:close-popup-window
-             'quit-window)))
+;; (defun scratch-pop-kill-ring-save-exit ()
+;;   "When close *scratch* buffer save to `kill-ring`."
+;;   (interactive)
+;;   (kill-new (buffer-string))
+;;   (erase-buffer)
+;;   (funcall (if (fboundp 'popwin:close-popup-window)
+;;                'popwin:close-popup-window
+;;              'quit-window)))
 
 ;; ------------------------------------------------------------------------
 ;; which-key
@@ -911,6 +911,7 @@ This is to `put' what `defalias' is to `fset'."
 (require 'undo-tree)
 (global-undo-tree-mode t)
 (global-set-key (kbd "M-/") 'undo-tree-redo)
+(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
 
 ;; ------------------------------------------------------------------------
 ;; modeline-char

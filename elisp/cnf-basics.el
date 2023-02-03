@@ -54,42 +54,42 @@
 
 ;; http://d.hatena.ne.jp/mooz/20100119/p1
 
-(defun my-window-resizer ()
-  "Control window size and position."
-  (interactive)
-  (let ((window-obj (selected-window))
-        (current-width (window-width))
-        (current-height (window-height))
-        (dx (if (= (nth 0 (window-edges)) 0) 1
-              -1))
-        (dy (if (= (nth 1 (window-edges)) 0) 1
-              -1))
-        action c)
-    (catch 'end-flag
-      (while t
-        (setq action
-              (read-key-sequence-vector (format "size[%dx%d]"
-                                                (window-width)
-                                                (window-height))))
-        (setq c (aref action 0))
-        (cond ((= c ?l)
-               (enlarge-window-horizontally dx))
-              ((= c ?h)
-               (shrink-window-horizontally dx))
-              ((= c ?j)
-               (enlarge-window dy))
-              ((= c ?k)
-               (shrink-window dy))
-              ;; otherwise
-              (t
-               (let ((last-command-char (aref action 0))
-                     (command (key-binding action)))
-                 (when command
-                   (call-interactively command)))
-               (message "Quit")
-               (throw 'end-flag t)))))))
+;; (defun my-window-resizer ()
+;;   "Control window size and position."
+;;   (interactive)
+;;   (let ((window-obj (selected-window))
+;;         (current-width (window-width))
+;;         (current-height (window-height))
+;;         (dx (if (= (nth 0 (window-edges)) 0) 1
+;;               -1))
+;;         (dy (if (= (nth 1 (window-edges)) 0) 1
+;;               -1))
+;;         action c)
+;;     (catch 'end-flag
+;;       (while t
+;;         (setq action
+;;               (read-key-sequence-vector (format "size[%dx%d]"
+;;                                                 (window-width)
+;;                                                 (window-height))))
+;;         (setq c (aref action 0))
+;;         (cond ((= c ?l)
+;;                (enlarge-window-horizontally dx))
+;;               ((= c ?h)
+;;                (shrink-window-horizontally dx))
+;;               ((= c ?j)
+;;                (enlarge-window dy))
+;;               ((= c ?k)
+;;                (shrink-window dy))
+;;               ;; otherwise
+;;               (t
+;;                (let ((last-command-char (aref action 0))
+;;                      (command (key-binding action)))
+;;                  (when command
+;;                    (call-interactively command)))
+;;                (message "Quit")
+;;                (throw 'end-flag t)))))))
 
-(global-set-key (kbd "C-x ^") 'my-window-resizer)
+;; (global-set-key (kbd "C-x ^") 'my-window-resizer)
 
 ;; ------------------------------------------------------------------------
 ;; describe-face-at-point
@@ -229,34 +229,34 @@
 ;; ------------------------------------------------------------------------
 ;; my-make-scratch
 
-;; http://www.jaist.ac.jp/~n-yoshi/tips/elisp_tips.html#scratch
+;; ;; http://www.jaist.ac.jp/~n-yoshi/tips/elisp_tips.html#scratch
 
-(defun my-make-scratch (&optional arg)
-  (interactive)
-  (progn
-    ;; create "*scratch*" buffer
-    (set-buffer (get-buffer-create "*scratch*"))
-    (funcall initial-major-mode)
-    (erase-buffer)
-    (when (and initial-scratch-message (not inhibit-startup-message))
-      (insert initial-scratch-message))
-    (or arg (progn (setq arg 0)
-                   (switch-to-buffer "*scratch*")))
-    (cond ((= arg 0) (message "*scratch* is cleared up."))
-          ((= arg 1) (message "another *scratch* is created")))))
+;; (defun my-make-scratch (&optional arg)
+;;   (interactive)
+;;   (progn
+;;     ;; create "*scratch*" buffer
+;;     (set-buffer (get-buffer-create "*scratch*"))
+;;     (funcall initial-major-mode)
+;;     (erase-buffer)
+;;     (when (and initial-scratch-message (not inhibit-startup-message))
+;;       (insert initial-scratch-message))
+;;     (or arg (progn (setq arg 0)
+;;                    (switch-to-buffer "*scratch*")))
+;;     (cond ((= arg 0) (message "*scratch* is cleared up."))
+;;           ((= arg 1) (message "another *scratch* is created")))))
 
-(add-hook 'kill-buffer-query-functions
-          ;; when kill *scratch* kill-buffer, just content delete
-          (lambda ()
-            (if (string= "*scratch*" (buffer-name))
-                (progn (my-make-scratch 0) nil)
-              t)))
+;; (add-hook 'kill-buffer-query-functions
+;;           ;; when kill *scratch* kill-buffer, just content delete
+;;           (lambda ()
+;;             (if (string= "*scratch*" (buffer-name))
+;;                 (progn (my-make-scratch 0) nil)
+;;               t)))
 
-(add-hook 'after-save-hook
-          ;; if user create *scratch* buffer and create new one
-          (lambda ()
-            (unless (member (get-buffer "*scratch*") (buffer-list))
-              (my-make-scratch 1))))
+;; (add-hook 'after-save-hook
+;;           ;; if user create *scratch* buffer and create new one
+;;           (lambda ()
+;;             (unless (member (get-buffer "*scratch*") (buffer-list))
+;;               (my-make-scratch 1))))
 
 ;; ------------------------------------------------------------------------
 ;; UI / UX

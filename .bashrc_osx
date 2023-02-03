@@ -24,6 +24,8 @@ test -d /Developer && export PATH=/Developer/Tools:$PATH
 # > /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 # > brew tap caskroom/cask
 
+export PATH="/opt/homebrew/bin:$PATH"
+
 if type "brew" > /dev/null 2>&1; then
   if [ -f ~/dotfiles/.bashrc_osx-brew ]; then
     source ~/dotfiles/.bashrc_osx-brew

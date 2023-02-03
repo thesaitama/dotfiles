@@ -10,7 +10,8 @@
 
 # .bashrc_osx-brew
 
-export PATH=/usr/local/bin:$PATH
+export PATH="/usr/local/bin:$PATH"
+
 export HOMEBREW_NO_EMOJI=1
 
 # completion

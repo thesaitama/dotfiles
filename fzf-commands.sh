@@ -217,14 +217,14 @@ if [ "$(uname)" == 'Darwin' ]; then
                  sed 's/\/Applications\///' |
                  sed 's/\.app$//' |
                  sed 's/^/A::/')
-    uapp_dest="/Users/$(whoami)/Applications"
-    uapp_dest_sed="s/\/Users\/$(whoami)\/Applications\///"
-    # echo $uapp_dest_sed
-    uapp_list=$(find $uapp_dest -maxdepth 3 -type d |
-                 grep '\.app$' |
-                 sed $uapp_dest_sed |
-                 sed 's/\.app$//' |
-                 sed 's/^/U::/')
+    # uapp_dest="/Users/$(whoami)/Applications"
+    # uapp_dest_sed="s/\/Users\/$(whoami)\/Applications\///"
+    # # echo $uapp_dest_sed
+    # uapp_list=$(find $uapp_dest -maxdepth 3 -type d |
+    #              grep '\.app$' |
+    #              sed $uapp_dest_sed |
+    #              sed 's/\.app$//' |
+    #              sed 's/^/U::/')
     # echo -e $uapp_list
     app_path=$(echo -e "$sapp_list\n$aapp_list\n$uapp_list" | fzf --query="$1" --prompt="App > " --exit-0)
     if [ -n "$app_path" ]; then

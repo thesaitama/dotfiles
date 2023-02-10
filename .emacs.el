@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2021-06-09 20:37:03
+;; Last Update: 2023-02-10 12:10:25
 ;; tested with: Emacs 26.1-27.2 (or 22.1), macOS 11.3, Windows 10
 
 ;; install
@@ -77,6 +77,7 @@
  '(diff-refine-removed ((t (:foreground "white" :background "red"))))
  '(diff-removed ((((type tty)) (:foreground "red"))))
  '(dired-header ((t (:background "DarkCyan" :foreground "white"))))
+ '(dired-flagged ((t (:foreground "IndianRed"))))
  '(dired-subtree-depth-1-face ((t (:background "Gray19"))))
  '(dired-subtree-depth-2-face ((t (:background "Gray20"))))
  '(dired-subtree-depth-3-face ((t (:background "Gray21"))))

@@ -87,7 +87,7 @@
 ;; ------------------------------------------------------------------------
 ;; debugger
 
-(add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
+(add-hook 'gdb-mode-hook #'(lambda () (gud-tooltip-mode t)))
 (defvar gdb-many-windows t)
 (defvar gdb-use-separate-io-buffer t)
 (defvar gud-tooltip-echo-area nil)
@@ -130,7 +130,7 @@
          ("\\.hh$" . c++-mode))
        auto-mode-alist))
 (add-hook 'c-mode-common-hook
- '(lambda ()
+ #'(lambda ()
     (c-set-style "gnu")
     (c-set-offset 'case-label 2)
     (setq c-tab-always-indent t)
@@ -233,7 +233,7 @@
   )
 (add-hook 'web-mode-hook 'web-mode-setup)
 (add-hook 'web-mode-before-auto-complete-hooks
-          '(lambda ()
+          #'(lambda ()
              (let ((web-mode-cur-language
                     (web-mode-language-at-pos)))
                (if (string= web-mode-cur-language "php")

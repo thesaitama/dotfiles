@@ -420,8 +420,8 @@
 
 (require 'mwheel) ; important
 (mouse-wheel-mode t)
-(global-set-key [mouse-4] '(lambda () (interactive) (scroll-down 3)))
-(global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 3)))
+(global-set-key [mouse-4] #'(lambda () (interactive) (scroll-down 3)))
+(global-set-key [mouse-5] #'(lambda () (interactive) (scroll-up 3)))
 
 ;; ------------------------------------------------------------------------
 ;; show-paren
@@ -456,7 +456,7 @@
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(add-hook 'sh-mode-hook '(lambda ()
+(add-hook 'sh-mode-hook #'(lambda ()
                            (setq tab-width 2)
                            (setq sh-basic-offset 2)
                            (setq sh-indentation 2)))
@@ -648,7 +648,7 @@
         (switch-to-buffer buffer)
         (message "%s" file))
     (find-file (concat "~/org/" file))))
-(global-set-key (kbd "C-M-^") '(lambda () (interactive)
+(global-set-key (kbd "C-M-^") #'(lambda () (interactive)
                                  (show-org-buffer "notes.org")))
 
 (add-hook 'org-mode-hook 'turn-on-font-lock)
@@ -699,7 +699,7 @@
 
 (require 'ansi-color)
 (add-hook 'compilation-filter-hook
-          '(lambda ()
+          #'(lambda ()
              (ansi-color-apply-on-region (point-min) (point-max))))
 
 ;; ------------------------------------------------------------------------

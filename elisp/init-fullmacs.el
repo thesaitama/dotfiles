@@ -670,7 +670,7 @@ This is to `put' what `defalias' is to `fset'."
  '(emacs-lisp-mode-hook))
 ;; enable all
 (mapc
- (lambda (hook) (add-hook hook '(lambda () (flyspell-mode 1))))
+ (lambda (hook) (add-hook hook #'(lambda () (flyspell-mode 1))))
  '(text-mode-hook))
 
 ;; (add-hook 'find-file-hook 'flyspell-mode)
@@ -790,7 +790,7 @@ This is to `put' what `defalias' is to `fset'."
 (setq multi-term-program shell-file-name)
 (add-hook
  'term-mode-hook
- '(lambda ()
+ #'(lambda ()
     (define-key term-raw-map "\C-y" 'term-paste)
     (define-key term-raw-map "\C-q" 'move-beginning-of-line)
     (define-key term-raw-map "\C-f" 'forward-char)

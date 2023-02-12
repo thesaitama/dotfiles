@@ -14,6 +14,9 @@
 
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
+OSX_VERSION=$(uname -r | cut -c -2)
+export OSX_VERSION
+
 # ------------------------------------------------------------------------
 # MacOSX old Devloper Tools
 
@@ -55,9 +58,13 @@ fi
 alias ls='ls -avhplGF'
 
 # /Applications Alias (Mac OSX)
+# Venture
+if [ "$(echo "$OSX_VERSION >= 22" | bc)" = 1 ]; then
+  alias syspref='open -a "System Settings"'
+else
+  alias syspref='open -a "System Preferences"'
+fi
 alias ee='open -a /Applications/Emacs.app $1'
-alias syspref='open -a "System Preferences"'
-alias reminders='open -a reminders'
 alias chrome='open -a google\ chrome'
 alias firefox='open -a firefox'
 

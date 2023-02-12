@@ -9,7 +9,7 @@
 ;;; Commentary:
 ;;
 ;; thesaitama@ .emacs.el
-;; Last Update: 2023-02-11 22:16:43
+;; Last Update: 2023-02-12 23:29:32
 ;; tested with: Emacs 26.1-27.2 (or 22.1), macOS 11.3, Windows 10
 
 ;; install
@@ -100,6 +100,7 @@
  '(ediff-odd-diff-Ancestor ((t (:foreground "white" :background "Gray25"))))
  '(ediff-odd-diff-B ((t (:foreground "white" :background "Gray35"))))
  '(ediff-odd-diff-C ((t (:foreground "white" :background "Gray40"))))
+ '(sh-quoted-exec ((t (:foreground "HotPink"))))
  '(smerge-upper ((t (:background "Gray20"))))
  '(smerge-lower ((t (:background "Gray25"))))
  '(smerge-base((t (:background "Gray15"))))

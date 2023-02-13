@@ -57,6 +57,8 @@ fi
 
 alias ls='ls -avhplGF'
 
+alias cpuname='sysctl machdep.cpu.brand_string'
+
 # /Applications Alias (Mac OSX)
 # Venture
 if [ "$(echo "$OSX_VERSION >= 22" | bc)" = 1 ]; then

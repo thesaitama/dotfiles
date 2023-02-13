@@ -660,9 +660,10 @@ This is to `put' what `defalias' is to `fset'."
 ;; flyspell (spell check)
 
 (setq ispell-program-name "aspell")
-;; (setq ispell-really-aspell t)
-(eval-after-load "ispell"
-  '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
+(with-eval-after-load "ispell"
+  ;; (setq ispell-really-aspell t)
+  (setq ispell-local-dictionary "en_US")
+  (add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
 
 ;; only enable comment
 (mapc

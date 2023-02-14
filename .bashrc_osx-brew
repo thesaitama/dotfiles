@@ -11,6 +11,7 @@
 # .bashrc_osx-brew
 
 export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
 export PATH="/opt/homebrew/sbin/:$PATH"
 
 export HOMEBREW_NO_EMOJI=1

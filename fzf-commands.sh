@@ -207,6 +207,7 @@ if [ "$(uname)" == 'Darwin' ]; then
   }
   # app - osx appluncher
   app() {
+    # System Application
     sapp_list=$(find /System/Applications -maxdepth 3 -type d |
                  grep '\.app$' |
                  sed 's/\/System\/Applications\///' |
@@ -217,15 +218,19 @@ if [ "$(uname)" == 'Darwin' ]; then
                  sed 's/\/Applications\///' |
                  sed 's/\.app$//' |
                  sed 's/^/A::/')
-    # uapp_dest="/Users/$(whoami)/Applications"
-    # uapp_dest_sed="s/\/Users\/$(whoami)\/Applications\///"
-    # # echo $uapp_dest_sed
-    # uapp_list=$(find $uapp_dest -maxdepth 3 -type d |
-    #              grep '\.app$' |
-    #              sed $uapp_dest_sed |
-    #              sed 's/\.app$//' |
-    #              sed 's/^/U::/')
-    # echo -e $uapp_list
+    # User Application
+    uapp_dest="/Users/$(whoami)/Applications"
+    if [  -d $uapp_dest ]; then
+      uapp_dest_sed="s/\/Users\/$(whoami)\/Applications\///"
+      # echo $uapp_dest_sed
+      uapp_list=$(find $uapp_dest -maxdepth 3 -type d |
+                    grep '\.app$' |
+                    sed $uapp_dest_sed |
+                    sed 's/\.app$//' |
+                    sed 's/^/U::/')
+      # echo -e $uapp_list
+    fi
+    # Normal Application
     app_path=$(echo -e "$sapp_list\n$aapp_list\n$uapp_list" | fzf --query="$1" --prompt="App > " --exit-0)
     if [ -n "$app_path" ]; then
       open_path_u="s/U::/\/Users\/$(whoami)\/Applications\//"
